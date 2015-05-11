@@ -42,7 +42,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testExpectedResultsWithBasicInputValues()
     {
-        $valuesExpected = array(
+        $valuesExpected = [
             'abc123'  => true,
             'abc 123' => false,
             'abcxyz'  => true,
@@ -52,7 +52,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
             ' '       => false,
             "\n"      => false,
             'foobar1' => true
-        );
+        ];
         foreach ($valuesExpected as $input => $result) {
             $this->assertEquals($result, $this->validator->isValid($input));
         }
@@ -65,7 +65,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testMessagesEmptyInitially()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -77,7 +77,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->setAllowWhiteSpace(true);
 
-        $valuesExpected = array(
+        $valuesExpected = [
             'abc123'  => true,
             'abc 123' => true,
             'abcxyz'  => true,
@@ -88,7 +88,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
             "\n"      => true,
             " \t "    => true,
             'foobar1' => true
-            );
+            ];
         foreach ($valuesExpected as $input => $result) {
             $this->assertEquals(
                 $result,
@@ -106,9 +106,9 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->validator->isValid(''));
 
         $messages = $this->validator->getMessages();
-        $arrayExpected = array(
+        $arrayExpected = [
             AlnumValidator::STRING_EMPTY => 'The input is an empty string'
-        );
+        ];
         $this->assertThat($messages, $this->identicalTo($arrayExpected));
     }
 
@@ -119,9 +119,9 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->validator->isValid('#'));
         $messages = $this->validator->getMessages();
-        $arrayExpected = array(
+        $arrayExpected = [
             AlnumValidator::NOT_ALNUM => 'The input contains characters which are non alphabetic and no digits'
-        );
+        ];
         $this->assertThat($messages, $this->identicalTo($arrayExpected));
     }
 
@@ -130,7 +130,7 @@ class AlnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testNonStringValidation()
     {
-        $this->assertFalse($this->validator->isValid(array(1 => 1)));
+        $this->assertFalse($this->validator->isValid([1 => 1]));
     }
 
     /**

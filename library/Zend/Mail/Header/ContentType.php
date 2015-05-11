@@ -21,7 +21,7 @@ class ContentType implements HeaderInterface
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     public static function fromString($headerLine)
     {
@@ -64,7 +64,7 @@ class ContentType implements HeaderInterface
             return $prepared;
         }
 
-        $values = array($prepared);
+        $values = [$prepared];
         foreach ($this->parameters as $attribute => $value) {
             $values[] = sprintf('%s="%s"', $attribute, $value);
         }

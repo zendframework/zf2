@@ -46,7 +46,7 @@ class Fault
      * Internal fault codes => messages
      * @var array
      */
-    protected $internal = array(
+    protected $internal = [
         404 => 'Unknown Error',
 
         // 610 - 619 reflection errors
@@ -78,7 +78,7 @@ class Fault
         651 => 'Failed to parse response',
         652 => 'Invalid response',
         653 => 'Invalid XMLRPC value in response',
-    );
+    ];
 
     /**
      * Constructor
@@ -271,10 +271,10 @@ class Fault
     public function saveXml()
     {
         // Create fault value
-        $faultStruct = array(
+        $faultStruct = [
             'faultCode'   => $this->getCode(),
             'faultString' => $this->getMessage()
-        );
+        ];
         $value = AbstractValue::getXmlRpcValue($faultStruct);
 
         $generator = AbstractValue::getGenerator();

@@ -43,11 +43,11 @@ class UpperCaseWordsTest extends \PHPUnit_Framework_TestCase
     public function testBasic()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             'string' => 'String',
             'aBc1@3' => 'Abc1@3',
             'A b C'  => 'A B C'
-        );
+        ];
 
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
@@ -63,11 +63,11 @@ class UpperCaseWordsTest extends \PHPUnit_Framework_TestCase
     public function testWithEncoding()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             '√º'      => '√º',
             '√±'      => '√±',
             '√º√±123' => '√º√±123'
-        );
+        ];
 
         try {
             $filter->setEncoding('UTF-8');
@@ -98,16 +98,16 @@ class UpperCaseWordsTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitiationWithEncoding()
     {
-        $valuesExpected = array(
+        $valuesExpected = [
             '√º'      => '√º',
             '√±'      => '√±',
             '√º√±123' => '√º√±123'
-        );
+        ];
 
         try {
-            $filter = new UpperCaseWordsFilter(array(
+            $filter = new UpperCaseWordsFilter([
                 'encoding' => 'UTF-8'
-            ));
+            ]);
             foreach ($valuesExpected as $input => $output) {
                 $this->assertEquals($output, $filter($input));
             }
@@ -122,11 +122,11 @@ class UpperCaseWordsTest extends \PHPUnit_Framework_TestCase
     public function testCaseInsensitiveEncoding()
     {
         $filter = $this->_filter;
-        $valuesExpected = array(
+        $valuesExpected = [
             '√º'      => '√º',
             '√±'      => '√±',
             '√º√±123' => '√º√±123'
-        );
+        ];
 
         try {
             $filter->setEncoding('UTF-8');
@@ -162,18 +162,18 @@ class UpperCaseWordsTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(123),
-            array(123.456),
-            array(
-                array(
+        return [
+            [null],
+            [new \stdClass()],
+            [123],
+            [123.456],
+            [
+                [
                     'Upper CASE and lowerCase Words WRITTEN',
                     'This Should Stay The Same'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**

@@ -16,7 +16,7 @@ use Zend\Config\Factory;
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-    protected $tmpFiles = array();
+    protected $tmpFiles = [];
     protected $originalIncludePath;
 
     protected function getTestAssetFileName($ext)
@@ -63,10 +63,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromIniFiles()
     {
-        $files = array(
+        $files = [
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Ini/include-base2.ini'
-        );
+        ];
         $config = Factory::fromFiles($files);
 
         $this->assertEquals('bar', $config['base']['foo']);
@@ -75,10 +75,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromXmlFiles()
     {
-        $files = array(
+        $files = [
             __DIR__ . '/TestAssets/Xml/include-base.xml',
             __DIR__ . '/TestAssets/Xml/include-base2.xml'
-        );
+        ];
         $config = Factory::fromFiles($files);
 
         $this->assertEquals('bar', $config['base']['foo']);
@@ -87,10 +87,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromPhpFiles()
     {
-        $files = array(
+        $files = [
             __DIR__ . '/TestAssets/Php/include-base.php',
             __DIR__ . '/TestAssets/Php/include-base2.php'
-        );
+        ];
         $config = Factory::fromFiles($files);
 
         $this->assertEquals('bar', $config['base']['foo']);
@@ -99,11 +99,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromIniAndXmlAndPhpFiles()
     {
-        $files = array(
+        $files = [
             __DIR__ . '/TestAssets/Ini/include-base.ini',
             __DIR__ . '/TestAssets/Xml/include-base2.xml',
             __DIR__ . '/TestAssets/Php/include-base3.php',
-        );
+        ];
         $config = Factory::fromFiles($files);
 
         $this->assertEquals('bar', $config['base']['foo']);
@@ -113,11 +113,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFromIniAndXmlAndPhpFilesFromIncludePath()
     {
-        $files = array(
+        $files = [
             'Ini/include-base.ini',
             'Xml/include-base2.xml',
             'Php/include-base3.php',
-        );
+        ];
         $config = Factory::fromFiles($files, false, true);
 
         $this->assertEquals('bar', $config['base']['foo']);
@@ -127,9 +127,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsConfigObjectIfRequestedAndArrayOtherwise()
     {
-        $files = array(
+        $files = [
             __DIR__ . '/TestAssets/Ini/include-base.ini',
-        );
+        ];
 
         $configArray = Factory::fromFile($files[0]);
         $this->assertInternalType('array', $configArray);
@@ -182,18 +182,18 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testFactoryToFileInvalidFileExtension()
     {
         $this->setExpectedException('RuntimeException');
-        $result = Factory::toFile(__DIR__.'/TestAssets/bad.ext', array());
+        $result = Factory::toFile(__DIR__.'/TestAssets/bad.ext', []);
     }
 
     public function testFactoryToFileNoDirInHere()
     {
         $this->setExpectedException('RuntimeException');
-        $result = Factory::toFile(__DIR__.'/TestAssets/NoDirInHere/nonExisiting/dummy.php', array());
+        $result = Factory::toFile(__DIR__.'/TestAssets/NoDirInHere/nonExisiting/dummy.php', []);
     }
 
     public function testFactoryWriteToFile()
     {
-        $config = array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo'));
+        $config = ['test' => 'foo', 'bar' => [0 => 'baz', 1 => 'foo']];
 
         $file = $this->getTestAssetFileName('php');
         $result = Factory::toFile($file, $config);
@@ -230,7 +230,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $file = $this->getTestAssetFileName('dum');
 
-        $res = Factory::toFile($file, array('one' => 1));
+        $res = Factory::toFile($file, ['one' => 1]);
 
         $this->assertEquals($res, true);
     }
@@ -244,7 +244,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $file = $this->getTestAssetFileName('dum');
 
-        $res = Factory::toFile($file, array('one' => 1));
+        $res = Factory::toFile($file, ['one' => 1]);
         $this->assertEquals($res, true);
     }
 }

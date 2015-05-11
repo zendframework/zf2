@@ -23,19 +23,19 @@ class SqlSrvIntegrationTest extends AbstractIntegrationTest
      */
     public function testCheckEnvironment()
     {
-        $sqlserver = new Sqlsrv(array());
+        $sqlserver = new Sqlsrv([]);
         $this->assertNull($sqlserver->checkEnvironment());
     }
 
     public function testCreateStatement()
     {
-        $driver = new Sqlsrv(array());
+        $driver = new Sqlsrv([]);
 
         $resource = sqlsrv_connect(
-            $this->variables['hostname'], array(
+            $this->variables['hostname'], [
                 'UID' => $this->variables['username'],
                 'PWD' => $this->variables['password']
-            )
+            ]
         );
 
         $driver->getConnection()->setResource($resource);

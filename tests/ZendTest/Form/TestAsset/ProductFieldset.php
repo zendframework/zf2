@@ -22,47 +22,47 @@ class ProductFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator())
              ->setObject(new Product());
 
-        $this->add(array(
+        $this->add([
             'name' => 'name',
-            'options' => array(
+            'options' => [
                 'label' => 'Name of the product'
-            ),
-            'attributes' => array(
+            ],
+            'attributes' => [
                 'required' => 'required'
-            )
-        ));
+            ]
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'price',
-            'options' => array(
+            'options' => [
                 'label' => 'Price of the product'
-            ),
-            'attributes' => array(
+            ],
+            'attributes' => [
                 'required' => 'required'
-            )
-        ));
+            ]
+        ]);
 
-        $this->add(array(
+        $this->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'categories',
-            'options' => array(
+            'options' => [
                 'label' => 'Please choose categories for this product',
                 'count' => 2,
-                'target_element' => array(
+                'target_element' => [
                     'type' => 'ZendTest\Form\TestAsset\CategoryFieldset'
-                )
-            )
-        ));
+                ]
+            ]
+        ]);
 
-        $this->add(array(
+        $this->add([
             'type' => 'ZendTest\Form\TestAsset\CountryFieldset',
             'name' => 'made_in_country',
             'object' => 'ZendTest\Form\TestAsset\Entity\Country',
             'hydrator' => 'Zend\Stdlib\Hydrator\ClassMethods',
-            'options' => array(
+            'options' => [
                 'label' => 'Please choose the country',
-            )
-        ));
+            ]
+        ]);
     }
 
     /**
@@ -73,21 +73,21 @@ class ProductFieldset extends Fieldset implements InputFilterProviderInterface
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'name' => array(
+        return [
+            'name' => [
                 'required' => true,
-            ),
-            'price' => array(
+            ],
+            'price' => [
                 'required' => true,
-                'validators' => array(
-                    array(
+                'validators' => [
+                    [
                         'name' => 'IsFloat'
-                    )
-                )
-            ),
-            'made_in_country' => array(
+                    ]
+                ]
+            ],
+            'made_in_country' => [
                 'required' => false,
-            ),
-        );
+            ],
+        ];
     }
 }

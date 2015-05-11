@@ -25,9 +25,9 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testCallbackShouldStoreMetadata()
     {
-        $handler = new CallbackHandler('rand', array('event' => 'foo'));
+        $handler = new CallbackHandler('rand', ['event' => 'foo']);
         $this->assertEquals('foo', $handler->getMetadatum('event'));
-        $this->assertEquals(array('event' => 'foo'), $handler->getMetadata());
+        $this->assertEquals(['event' => 'foo'], $handler->getMetadata());
     }
 
     public function testCallbackShouldBeStringIfNoHandlerPassedToConstructor()
@@ -38,14 +38,14 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testCallbackShouldBeArrayIfHandlerPassedToConstructor()
     {
-        $handler = new CallbackHandler(array('ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test'));
-        $this->assertSame(array('ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test'), $handler->getCallback());
+        $handler = new CallbackHandler(['ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test']);
+        $this->assertSame(['ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test'], $handler->getCallback());
     }
 
     public function testCallShouldInvokeCallbackWithSuppliedArguments()
     {
-        $handler = new CallbackHandler(array( $this, 'handleCall' ));
-        $args   = array('foo', 'bar', 'baz');
+        $handler = new CallbackHandler([ $this, 'handleCall' ]);
+        $args   = ['foo', 'bar', 'baz'];
         $handler->call($args);
         $this->assertSame($args, $this->args);
     }
@@ -58,12 +58,12 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testCallShouldReturnTheReturnValueOfTheCallback()
     {
-        $handler = new CallbackHandler(array('ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test'));
-        if (!is_callable(array('ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test'))) {
+        $handler = new CallbackHandler(['ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test']);
+        if (!is_callable(['ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback', 'test'])) {
             echo "\nClass exists? " . var_export(class_exists('ZendTest\\Stdlib\\SignalHandlers\\ObjectCallback'), 1) . "\n";
             echo "Include path: " . get_include_path() . "\n";
         }
-        $this->assertEquals('bar', $handler->call(array()));
+        $this->assertEquals('bar', $handler->call([]));
     }
 
     public function testStringCallbackResolvingToClassDefiningInvokeNameShouldRaiseException()
@@ -81,7 +81,7 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testCallbackConsistingOfStringContextWithNonStaticMethodShouldNotRaiseExceptionButWillRaiseEStrict()
     {
-        $handler = new CallbackHandler(array('ZendTest\\Stdlib\\SignalHandlers\\InstanceMethod', 'handler'));
+        $handler = new CallbackHandler(['ZendTest\\Stdlib\\SignalHandlers\\InstanceMethod', 'handler']);
         $error   = false;
         set_error_handler(function ($errno, $errstr) use (&$error) {
             $error = true;
@@ -137,7 +137,7 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
         set_error_handler(function ($errno, $errstr) use (&$error) {
             $error = true;
         }, E_STRICT);
-        $result = $handler->call(array(1, 2, 3, 4));
+        $result = $handler->call([1, 2, 3, 4]);
         restore_error_handler();
         $this->assertFalse($error);
         $this->assertSame('staticHandler', $result);
@@ -146,7 +146,7 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
     public function testCallbackToClassImplementingOverloadingButNotInvocableShouldRaiseException()
     {
         $this->setExpectedException('Zend\Stdlib\Exception\InvalidCallbackException');
-        $handler = new CallbackHandler('foo', array( 'ZendTest\\Stdlib\\SignalHandlers\\Overloadable', 'foo' ));
+        $handler = new CallbackHandler('foo', [ 'ZendTest\\Stdlib\\SignalHandlers\\Overloadable', 'foo' ]);
     }
 
     public function testClosureCallbackShouldBeInvokedByCall()
@@ -159,9 +159,9 @@ class CallbackHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandlerShouldBeInvocable()
     {
-        $handler = new CallbackHandler(array($this, 'handleCall'));
+        $handler = new CallbackHandler([$this, 'handleCall']);
         $handler('foo', 'bar');
-        $this->assertEquals(array('foo', 'bar'), $this->args);
+        $this->assertEquals(['foo', 'bar'], $this->args);
     }
 
     public function handleCall()

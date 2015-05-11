@@ -11,23 +11,23 @@ namespace Zend\Validator\Barcode;
 
 class Royalmail extends AbstractAdapter
 {
-    protected $rows = array(
+    protected $rows = [
         '0' => 1, '1' => 1, '2' => 1, '3' => 1, '4' => 1, '5' => 1,
         '6' => 2, '7' => 2, '8' => 2, '9' => 2, 'A' => 2, 'B' => 2,
         'C' => 3, 'D' => 3, 'E' => 3, 'F' => 3, 'G' => 3, 'H' => 3,
         'I' => 4, 'J' => 4, 'K' => 4, 'L' => 4, 'M' => 4, 'N' => 4,
         'O' => 5, 'P' => 5, 'Q' => 5, 'R' => 5, 'S' => 5, 'T' => 5,
         'U' => 0, 'V' => 0, 'W' => 0, 'X' => 0, 'Y' => 0, 'Z' => 0,
-     );
+     ];
 
-    protected $columns = array(
+    protected $columns = [
         '0' => 1, '1' => 2, '2' => 3, '3' => 4, '4' => 5, '5' => 0,
         '6' => 1, '7' => 2, '8' => 3, '9' => 4, 'A' => 5, 'B' => 0,
         'C' => 1, 'D' => 2, 'E' => 3, 'F' => 4, 'G' => 5, 'H' => 0,
         'I' => 1, 'J' => 2, 'K' => 3, 'L' => 4, 'M' => 5, 'N' => 0,
         'O' => 1, 'P' => 2, 'Q' => 3, 'R' => 4, 'S' => 5, 'T' => 0,
         'U' => 1, 'V' => 2, 'W' => 3, 'X' => 4, 'Y' => 5, 'Z' => 0,
-    );
+    ];
 
     /**
      * Constructor for this barcode adapter

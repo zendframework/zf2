@@ -104,13 +104,13 @@ class ApacheResolverTest extends \PHPUnit_Framework_TestCase
     public function providePasswordFiles()
     {
         $path = __DIR__ . '/TestAsset';
-        return array(
-            array( $path . '/htbasic.plaintext' ),
-            array( $path . '/htbasic.md5' ),
-            array( $path . '/htbasic.sha1' ),
-            array( $path . '/htbasic.crypt' ),
-            array( $path . '/htbasic.bcrypt' ),
-        );
+        return [
+            [ $path . '/htbasic.plaintext' ],
+            [ $path . '/htbasic.md5' ],
+            [ $path . '/htbasic.sha1' ],
+            [ $path . '/htbasic.crypt' ],
+            [ $path . '/htbasic.bcrypt' ],
+        ];
     }
 
     /**

@@ -19,9 +19,9 @@ class DropTable extends AbstractSql implements SqlInterface
     /**
      * @var array
      */
-    protected $specifications = array(
+    protected $specifications = [
         self::TABLE => 'DROP TABLE %1$s'
-    );
+    ];
 
     /**
      * @var string
@@ -38,6 +38,6 @@ class DropTable extends AbstractSql implements SqlInterface
 
     protected function processTable(PlatformInterface $adapterPlatform = null)
     {
-        return array($adapterPlatform->quoteIdentifier($this->table));
+        return [$adapterPlatform->quoteIdentifier($this->table)];
     }
 }

@@ -51,7 +51,7 @@ class AnnotationManagerTest extends TestCase
                     $this->assertEquals('first', $annotation->content);
                     break;
                 case __NAMESPACE__ . '\TestAsset\DoctrineAnnotation':
-                    $this->assertEquals(array('foo' => 'bar', 'bar' => 'baz'), $annotation->value);
+                    $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $annotation->value);
                     break;
                 default:
                     $this->fail('Received unexpected annotation "' . get_class($annotation) . '"');

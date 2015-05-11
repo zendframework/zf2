@@ -26,15 +26,15 @@ class RedirectTest extends TestCase
         $this->response = new Response();
 
         $router = new SimpleRouteStack;
-        $router->addRoute('home', LiteralRoute::factory(array(
+        $router->addRoute('home', LiteralRoute::factory([
             'route'    => '/',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-            ),
-        )));
+            ],
+        ]));
         $this->router = $router;
 
-        $routeMatch = new RouteMatch(array());
+        $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('home');
         $this->routeMatch = $routeMatch;
 
@@ -111,7 +111,7 @@ class RedirectTest extends TestCase
 
     public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
     {
-        $routeMatch = new RouteMatch(array());
+        $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('home');
         $this->controller->getEvent()->setRouteMatch($routeMatch);
         $response = $this->plugin->toRoute();
@@ -122,18 +122,18 @@ class RedirectTest extends TestCase
 
     public function testCanReuseMatchedParameters()
     {
-        $this->router->addRoute('replace', SegmentRoute::factory(array(
+        $this->router->addRoute('replace', SegmentRoute::factory([
             'route'    => '/:controller/:action',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-            ),
-        )));
-        $routeMatch = new RouteMatch(array(
+            ],
+        ]));
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('replace');
         $this->controller->getEvent()->setRouteMatch($routeMatch);
-        $response = $this->plugin->toRoute('replace', array('action' => 'bar'), array(), true);
+        $response = $this->plugin->toRoute('replace', ['action' => 'bar'], [], true);
         $headers = $response->getHeaders();
         $location = $headers->get('Location');
         $this->assertEquals('/foo/bar', $location->getFieldValue());
@@ -141,18 +141,18 @@ class RedirectTest extends TestCase
 
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
     {
-        $this->router->addRoute('replace', SegmentRoute::factory(array(
+        $this->router->addRoute('replace', SegmentRoute::factory([
             'route'    => '/:controller/:action',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-            ),
-        )));
-        $routeMatch = new RouteMatch(array(
+            ],
+        ]));
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('replace');
         $this->controller->getEvent()->setRouteMatch($routeMatch);
-        $response = $this->plugin->toRoute('replace', array('action' => 'bar'), true);
+        $response = $this->plugin->toRoute('replace', ['action' => 'bar'], true);
         $headers = $response->getHeaders();
         $location = $headers->get('Location');
         $this->assertEquals('/foo/bar', $location->getFieldValue());

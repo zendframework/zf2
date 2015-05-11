@@ -27,7 +27,7 @@ class ReflectionFunctionTest extends \PHPUnit_Framework_TestCase
         $r = new Reflection\ReflectionFunction($function, 'namespace');
         $this->assertEquals('namespace', $r->getNamespace());
 
-        $argv = array('string1', 'string2');
+        $argv = ['string1', 'string2'];
         $r = new Reflection\ReflectionFunction($function, 'namespace', $argv);
         $this->assertInternalType('array', $r->getInvokeArguments());
         $this->assertEquals($argv, $r->getInvokeArguments());
@@ -103,7 +103,7 @@ class ReflectionFunctionTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $args);
         $this->assertEquals(0, count($args));
 
-        $argv = array('string1', 'string2');
+        $argv = ['string1', 'string2'];
         $r = new Reflection\ReflectionFunction($function, null, $argv);
         $args = $r->getInvokeArguments();
         $this->assertEquals($argv, $args);

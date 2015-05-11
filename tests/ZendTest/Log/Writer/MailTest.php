@@ -33,12 +33,12 @@ class MailTest extends \PHPUnit_Framework_TestCase
     {
         $message = new MailMessage();
         $transport = new Transport\File();
-        $options   = new Transport\FileOptions(array(
+        $options   = new Transport\FileOptions([
             'path'      => __DIR__,
             'callback'  => function (Transport\File $transport) {
                 return MailTest::FILENAME;
             },
-        ));
+        ]);
         $transport->setOptions($options);
 
         $this->writer = new MailWriter($message, $transport);
@@ -86,22 +86,22 @@ class MailTest extends \PHPUnit_Framework_TestCase
     {
         $message   = new MailMessage();
         $transport = new Transport\File();
-        $options   = new Transport\FileOptions(array(
+        $options   = new Transport\FileOptions([
                 'path'      => __DIR__,
                 'callback'  => function (Transport\File $transport) {
                     return MailTest::FILENAME;
                 },
-        ));
+        ]);
         $transport->setOptions($options);
 
         $formatter = new \Zend\Log\Formatter\Simple();
         $filter    = new \Zend\Log\Filter\Mock();
-        $writer = new MailWriter(array(
+        $writer = new MailWriter([
                 'filters'   => $filter,
                 'formatter' => $formatter,
                 'mail'      => $message,
                 'transport' => $transport,
-        ));
+        ]);
 
         $this->assertAttributeEquals($message, 'mail', $writer);
         $this->assertAttributeEquals($transport, 'transport', $writer);
@@ -114,17 +114,17 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWithMailAsArrayOptions()
     {
-        $messageOptions = array(
+        $messageOptions = [
             'encoding'  => 'UTF-8',
             'from'      => 'matthew@example.com',
             'to'        => 'zf-devteam@example.com',
             'subject'   => 'subject',
             'body'      => 'body',
-        );
+        ];
 
-        $writer = new MailWriter(array(
+        $writer = new MailWriter([
             'mail' => $messageOptions,
-        ));
+        ]);
 
         $this->assertAttributeInstanceOf('Zend\Mail\Message', 'mail', $writer);
     }

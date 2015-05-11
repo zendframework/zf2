@@ -39,7 +39,7 @@ class DateFormat extends AbstractHelper
      *
      * @var array
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * @throws Exception\ExtensionNotLoadedException if ext/intl is not present

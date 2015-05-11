@@ -92,23 +92,23 @@ class SeparatorToCamelCaseTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new SeparatorToCamelCaseFilter();
 
-        $input = array(
+        $input = [
             'camel cased words',
             'something different'
-        );
+        ];
 
         $filtered = $filter($input);
 
         $this->assertNotEquals($input, $filtered);
-        $this->assertEquals(array('CamelCasedWords', 'SomethingDifferent'), $filtered);
+        $this->assertEquals(['CamelCasedWords', 'SomethingDifferent'], $filtered);
     }
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass())
-        );
+        return [
+            [null],
+            [new \stdClass()]
+        ];
     }
 
     /**

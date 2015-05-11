@@ -69,7 +69,7 @@ abstract class Scrypt
     protected static function scryptROMix($b, $n, $r)
     {
         $x = $b;
-        $v = array();
+        $v = [];
         for ($i = 0; $i < $n; $i++) {
             $v[$i] = $x;
             $x = self::scryptBlockMix($x, $r);
@@ -122,7 +122,7 @@ abstract class Scrypt
      */
     protected static function salsa208Core32($b)
     {
-        $b32 = array();
+        $b32 = [];
         for ($i = 0; $i < 16; $i++) {
             list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
         }
@@ -215,7 +215,7 @@ abstract class Scrypt
      */
     protected static function salsa208Core64($b)
     {
-        $b32 = array();
+        $b32 = [];
         for ($i = 0; $i < 16; $i++) {
             list(, $b32[$i]) = unpack("V", substr($b, $i * 4, 4));
         }

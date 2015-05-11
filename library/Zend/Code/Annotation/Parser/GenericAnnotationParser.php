@@ -26,17 +26,17 @@ class GenericAnnotationParser implements ParserInterface
     /**
      * @var array
      */
-    protected $aliases = array();
+    protected $aliases = [];
 
     /**
      * @var array
      */
-    protected $annotationNames = array();
+    protected $annotationNames = [];
 
     /**
      * @var AnnotationInterface[]
      */
-    protected $annotations = array();
+    protected $annotations = [];
 
     /**
      * Listen to onCreateAnnotation, and attempt to return an annotation object
@@ -190,7 +190,7 @@ class GenericAnnotationParser implements ParserInterface
      */
     protected function normalizeAlias($alias)
     {
-        return strtolower(str_replace(array('-', '_', ' ', '\\', '/'), '', $alias));
+        return strtolower(str_replace(['-', '_', ' ', '\\', '/'], '', $alias));
     }
 
     /**

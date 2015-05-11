@@ -26,12 +26,12 @@ class LocationTest extends \PHPUnit_Framework_TestCase
 
     public function locationFromStringCreatesValidLocationHeaderProvider()
     {
-        return array(
-            array('http://www.example.com'),
-            array('https://www.example.com'),
-            array('mailto://www.example.com'),
-            array('file://www.example.com'),
-        );
+        return [
+            ['http://www.example.com'],
+            ['https://www.example.com'],
+            ['mailto://www.example.com'],
+            ['file://www.example.com'],
+        ];
     }
 
     /**
@@ -72,12 +72,12 @@ class LocationTest extends \PHPUnit_Framework_TestCase
      */
     public function locationCanSetDifferentSchemeUrisProvider()
     {
-        return array(
-            array('http://www.example.com', '\Zend\Uri\Http'),
-            array('https://www.example.com', '\Zend\Uri\Http'),
-            array('mailto://www.example.com', '\Zend\Uri\Mailto'),
-            array('file://www.example.com', '\Zend\Uri\File'),
-        );
+        return [
+            ['http://www.example.com', '\Zend\Uri\Http'],
+            ['https://www.example.com', '\Zend\Uri\Http'],
+            ['mailto://www.example.com', '\Zend\Uri\Mailto'],
+            ['file://www.example.com', '\Zend\Uri\File'],
+        ];
     }
 
     public function testLocationGetFieldValueReturnsProperValue()

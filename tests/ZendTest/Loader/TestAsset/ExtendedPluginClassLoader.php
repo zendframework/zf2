@@ -16,9 +16,9 @@ use Zend\Loader\PluginClassLoader;
  */
 class ExtendedPluginClassLoader extends PluginClassLoader
 {
-    protected $plugins = array(
+    protected $plugins = [
         'loader' => 'Zend\Loader\PluginClassLoader',
-    );
+    ];
 
-    protected static $staticMap = array();
+    protected static $staticMap = [];
 }

@@ -29,25 +29,25 @@ class OnBootstrapListenerTest extends TestCase
         if (!is_array($this->loaders)) {
             // spl_autoload_functions does not return empty array when no
             // autoloaders registered...
-            $this->loaders = array();
+            $this->loaders = [];
         }
 
         // Store original include_path
         $this->includePath = get_include_path();
 
-        $autoloader = new ModuleAutoloader(array(
+        $autoloader = new ModuleAutoloader([
             dirname(__DIR__) . '/TestAsset',
-        ));
+        ]);
         $autoloader->register();
 
         $sharedEvents = new SharedEventManager();
-        $this->moduleManager = new ModuleManager(array());
+        $this->moduleManager = new ModuleManager([]);
         $this->moduleManager->getEventManager()->setSharedManager($sharedEvents);
         $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, new ModuleResolverListener, 1000);
         $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE, new OnBootstrapListener, 1000);
 
         $this->application = new MockApplication;
-        $events            = new EventManager(array('Zend\Mvc\Application', 'ZendTest\Module\TestAsset\MockApplication', 'application'));
+        $events            = new EventManager(['Zend\Mvc\Application', 'ZendTest\Module\TestAsset\MockApplication', 'application']);
         $events->setSharedManager($sharedEvents);
         $this->application->setEventManager($events);
     }
@@ -74,7 +74,7 @@ class OnBootstrapListenerTest extends TestCase
     public function testOnBootstrapMethodCalledByOnBootstrapListener()
     {
         $moduleManager = $this->moduleManager;
-        $moduleManager->setModules(array('ListenerTestModule'));
+        $moduleManager->setModules(['ListenerTestModule']);
         $moduleManager->loadModules();
         $this->application->bootstrap();
         $modules = $moduleManager->getLoadedModules();

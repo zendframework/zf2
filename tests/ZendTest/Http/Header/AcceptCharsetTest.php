@@ -53,13 +53,13 @@ class AcceptCharsetTest extends \PHPUnit_Framework_TestCase
     public function testPrioritizesValuesBasedOnQParameter()
     {
         $header   = AcceptCharset::fromString('Accept-Charset: iso-8859-5;q=0.8,unicode-1-1,*;q=0.4');
-        $expected = array(
+        $expected = [
             'unicode-1-1',
             'iso-8859-5',
             '*'
-        );
+        ];
 
-        $test = array();
+        $test = [];
         foreach ($header->getPrioritized() as $type) {
             $this->assertEquals(array_shift($expected), $type->getCharset());
         }

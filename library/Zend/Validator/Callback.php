@@ -26,20 +26,20 @@ class Callback extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID_VALUE    => "The input is not valid",
         self::INVALID_CALLBACK => "An exception has been raised within the callback",
-    );
+    ];
 
     /**
      * Default options to set for the validator
      *
      * @var mixed
      */
-    protected $options = array(
+    protected $options = [
         'callback'         => null,     // Callback in a call_user_func format, string || array
-        'callbackOptions'  => array(),  // Options for the callback
-    );
+        'callbackOptions'  => [],  // Options for the callback
+    ];
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ class Callback extends AbstractValidator
     public function __construct($options = null)
     {
         if (is_callable($options)) {
-            $options = array('callback' => $options);
+            $options = ['callback' => $options];
         }
 
         parent::__construct($options);
@@ -123,7 +123,7 @@ class Callback extends AbstractValidator
             throw new Exception\InvalidArgumentException('No callback given');
         }
 
-        $args = array($value);
+        $args = [$value];
         if (empty($options) && !empty($context)) {
             $args[] = $context;
         }

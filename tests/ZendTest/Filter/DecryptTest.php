@@ -34,12 +34,12 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Mcrypt extension not installed');
         }
 
-        $filter = new DecryptFilter(array('adapter' => 'BlockCipher'));
-        $valuesExpected = array(
+        $filter = new DecryptFilter(['adapter' => 'BlockCipher']);
+        $valuesExpected = [
             'STRING' => 'STRING',
             'ABC1@3' => 'ABC1@3',
             'A b C'  => 'A B C'
-        );
+        ];
 
         $enc = $filter->getEncryption();
         $filter->setKey('1234567890123456');
@@ -56,7 +56,7 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
         if (!extension_loaded('mcrypt')) {
             $this->markTestSkipped('Mcrypt extension not installed');
         }
-        $decrypt = new DecryptFilter(array('adapter' => 'BlockCipher', 'key' => 'testkey'));
+        $decrypt = new DecryptFilter(['adapter' => 'BlockCipher', 'key' => 'testkey']);
         $decrypt->setVector('1234567890123456890');
         $decrypted = $decrypt->filter('ec133eb7460682b0020b736ad6d2ef14c35de0f1e5976330ae1dd096ef3b4cb7MTIzNDU2Nzg5MDEyMzQ1NoZvxY1JkeL6TnQP3ug5F0k=');
         $this->assertEquals($decrypted, 'test');
@@ -73,7 +73,7 @@ class DecryptTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Openssl extension not installed');
         }
 
-        $filter = new DecryptFilter(array('adapter' => 'Openssl'));
+        $filter = new DecryptFilter(['adapter' => 'Openssl']);
         $filter->setPassphrase('zPUp9mCzIrM7xQOEnPJZiDkBwPBV9UlITY0Xd3v4bfIwzJ12yPQCAkcR5BsePGVw
 RK6GS5RwXSLrJu9Qj8+fk0wPj6IPY5HvA9Dgwh+dptPlXppeBm3JZJ+92l0DqR2M
 ccL43V3Z4JN9OXRAfGWXyrBJNmwURkq7a2EyFElBBWK03OLYVMevQyRJcMKY0ai+
@@ -84,7 +84,7 @@ bK22CwD/l7SMBOz4M9XH0Jb0OhNxLza4XMDu0ANMIpnkn1KOcmQ4gB8fmAbBt');
 
         $key = $filter->getPrivateKey();
         $this->assertEquals(
-            array(__DIR__ . '/_files/privatekey.pem' =>
+            [__DIR__ . '/_files/privatekey.pem' =>
                   '-----BEGIN RSA PRIVATE KEY-----
 MIICXgIBAAKBgQDKTIp7FntJt1BioBZ0lmWBE8CyzngeGCHNMcAC4JLbi1Y0LwT4
 CSaQarbvAqBRmc+joHX+rcURm89wOibRaThrrZcvgl2pomzu7shJc0ObiRZC8H7p
@@ -100,7 +100,7 @@ qxzHN7QGmjSn9g36hmH+/rhwKGK9MxfsGkt+/KOOqNi5X8kGIFkxBPGP5LtMisk8
 cAkcoMuBcgWhIn/46C1PAkEAzLK/ibrdMQLOdO4SuDgj/2nc53NZ3agl61ew8Os6
 d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
 -----END RSA PRIVATE KEY-----
-'),
+'],
             $key);
     }
 
@@ -142,14 +142,14 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 'ec133eb7460682b0020b736ad6d2ef14c35de0f1e5976330ae1dd096ef3b4cb7MTIzNDU2Nzg5MDEyMzQ1NoZvxY1JkeL6TnQP3ug5F0k=',
                 'decrypt me too, please'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**
@@ -162,7 +162,7 @@ d/fxzPfuO/bLpADozTAnYT9Hu3wPrQVLeAfCp0ojqH7DYg==
             $this->markTestSkipped('Mcrypt extension not installed');
         }
 
-        $decrypt = new DecryptFilter(array('adapter' => 'BlockCipher', 'key' => 'testkey'));
+        $decrypt = new DecryptFilter(['adapter' => 'BlockCipher', 'key' => 'testkey']);
         $decrypt->setVector('1234567890123456890');
 
         $decrypted = $decrypt->filter($input);

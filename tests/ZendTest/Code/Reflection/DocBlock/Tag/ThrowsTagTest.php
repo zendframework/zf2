@@ -21,14 +21,14 @@ class ThrowsTagTest extends \PHPUnit_Framework_TestCase
     {
         $tag = new ThrowsTag();
         $tag->initialize('\\Logic_2_Exception');
-        $this->assertEquals(array('\\Logic_2_Exception'), $tag->getTypes());
+        $this->assertEquals(['\\Logic_2_Exception'], $tag->getTypes());
     }
 
     public function testSingleTypeWithDescription()
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException The Exception');
-        $this->assertEquals(array('LogicException'), $tag->getTypes());
+        $this->assertEquals(['LogicException'], $tag->getTypes());
         $this->assertEquals('The Exception', $tag->getDescription());
     }
 
@@ -36,7 +36,7 @@ class ThrowsTagTest extends \PHPUnit_Framework_TestCase
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException');
-        $this->assertEquals(array('LogicException'), $tag->getTypes());
+        $this->assertEquals(['LogicException'], $tag->getTypes());
         $this->assertNull($tag->getDescription());
     }
 
@@ -44,7 +44,7 @@ class ThrowsTagTest extends \PHPUnit_Framework_TestCase
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException|RuntimeException');
-        $this->assertEquals(array('LogicException', 'RuntimeException'), $tag->getTypes());
+        $this->assertEquals(['LogicException', 'RuntimeException'], $tag->getTypes());
         $this->assertNull($tag->getDescription());
     }
 
@@ -52,7 +52,7 @@ class ThrowsTagTest extends \PHPUnit_Framework_TestCase
     {
         $tag = new ThrowsTag();
         $tag->initialize('LogicException|RuntimeException The Exception');
-        $this->assertEquals(array('LogicException', 'RuntimeException'), $tag->getTypes());
+        $this->assertEquals(['LogicException', 'RuntimeException'], $tag->getTypes());
         $this->assertEquals('The Exception', $tag->getDescription());
     }
 }

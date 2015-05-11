@@ -29,7 +29,7 @@ class GuardUtilsTest extends TestCase
 
     public function testGuardForArrayOrTraversableAllowsArray()
     {
-        $this->assertNull(GuardUtils::guardForArrayOrTraversable(array()));
+        $this->assertNull(GuardUtils::guardForArrayOrTraversable([]));
     }
 
     public function testGuardForArrayOrTraversableAllowsTraversable()

@@ -14,12 +14,12 @@ namespace Zend\Barcode\Object;
  */
 class Ean2 extends Ean5
 {
-    protected $parities = array(
-        0 => array('A','A'),
-        1 => array('A','B'),
-        2 => array('B','A'),
-        3 => array('B','B')
-    );
+    protected $parities = [
+        0 => ['A','A'],
+        1 => ['A','B'],
+        2 => ['B','A'],
+        3 => ['B','B']
+    ];
 
     /**
      * Default options for Ean2 barcode

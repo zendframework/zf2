@@ -16,12 +16,12 @@ class ElementWithStringToArrayFilter extends Element implements InputProviderInt
 {
     public function getInputSpecification()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'required' => true,
-            'filters' => array(
-                array('name' => 'ZendTest\Form\TestAsset\StringToArrayFilter'),
-            ),
-        );
+            'filters' => [
+                ['name' => 'ZendTest\Form\TestAsset\StringToArrayFilter'],
+            ],
+        ];
     }
 }

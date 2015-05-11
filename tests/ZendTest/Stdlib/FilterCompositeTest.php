@@ -84,7 +84,7 @@ class FilterCompositeTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorInjection()
     {
-        $andCondition = array(
+        $andCondition = [
             'servicelocator' => function ($property) {
                 if ($property === 'getServiceLocator') {
                     return false;
@@ -97,11 +97,11 @@ class FilterCompositeTest extends \PHPUnit_Framework_TestCase
                 }
                 return true;
             }
-        );
-        $orCondition = array(
+        ];
+        $orCondition = [
             'has' => new \Zend\Stdlib\Hydrator\Filter\HasFilter(),
             'get' => new \Zend\Stdlib\Hydrator\Filter\GetFilter()
-        );
+        ];
         $filterComposite = new FilterComposite($orCondition, $andCondition);
 
         $this->assertFalse($filterComposite->filter('getFooBar'));
@@ -169,8 +169,8 @@ class FilterCompositeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidParameterConstructorInjection()
     {
-        $andCondition = array('foo' => 'bar');
-        $orCondition = array('test' => 'blubb');
+        $andCondition = ['foo' => 'bar'];
+        $orCondition = ['test' => 'blubb'];
 
         new FilterComposite($orCondition, $andCondition);
     }

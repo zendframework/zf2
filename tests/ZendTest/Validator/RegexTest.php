@@ -29,10 +29,10 @@ class RegexTest extends \PHPUnit_Framework_TestCase
          *      - expected validation result
          *      - array of test input values
          */
-        $valuesExpected = array(
-            array('/[a-z]/', true, array('abc123', 'foo', 'a', 'z')),
-            array('/[a-z]/', false, array('123', 'A'))
-            );
+        $valuesExpected = [
+            ['/[a-z]/', true, ['abc123', 'foo', 'a', 'z']],
+            ['/[a-z]/', false, ['123', 'A']]
+            ];
         foreach ($valuesExpected as $element) {
             $validator = new Regex($element[0]);
             foreach ($element[2] as $input) {
@@ -49,7 +49,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
     public function testGetMessages()
     {
         $validator = new Regex('/./');
-        $this->assertEquals(array(), $validator->getMessages());
+        $this->assertEquals([], $validator->getMessages());
     }
 
     /**
@@ -80,7 +80,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
     public function testNonStringValidation()
     {
         $validator = new Regex('/./');
-        $this->assertFalse($validator->isValid(array(1 => 1)));
+        $this->assertFalse($validator->isValid([1 => 1]));
     }
 
     /**
@@ -101,15 +101,15 @@ class RegexTest extends \PHPUnit_Framework_TestCase
      */
     public function specialCharValidationProvider()
     {
-        return array(
-            array(true, 'test'),
-            array(true, 'òèùtestòò'),
-            array(true, 'testà'),
-            array(true, 'teààst'),
-            array(true, 'ààòòìùéé'),
-            array(true, 'èùòìiieeà'),
-            array(false, 'test99'),
-        );
+        return [
+            [true, 'test'],
+            [true, 'òèùtestòò'],
+            [true, 'testà'],
+            [true, 'teààst'],
+            [true, 'ààòòìùéé'],
+            [true, 'èùòìiieeà'],
+            [false, 'test99'],
+        ];
     }
 
     public function testEqualsMessageTemplates()

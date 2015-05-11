@@ -214,7 +214,7 @@ class ServerUrl extends AbstractHelper
 
         if (isset($_SERVER['SSL_HTTPS'])) {
             $sslHttps = strtolower($_SERVER['SSL_HTTPS']);
-            if (in_array($sslHttps, array('on', 1))) {
+            if (in_array($sslHttps, ['on', 1])) {
                 $this->setScheme('https');
                 return true;
             }

@@ -53,7 +53,7 @@ abstract class AbstractFilter
     public function addAnd($filter)
     {
         $fa   = func_get_args();
-        $args = array_merge(array($this), $fa);
+        $args = array_merge([$this], $fa);
         return new AndFilter($args);
     }
 
@@ -66,7 +66,7 @@ abstract class AbstractFilter
     public function addOr($filter)
     {
         $fa   = func_get_args();
-        $args = array_merge(array($this), $fa);
+        $args = array_merge([$this], $fa);
         return new OrFilter($args);
     }
 
@@ -83,14 +83,14 @@ abstract class AbstractFilter
      * @param  string|array $values Array of values to escape
      * @return array Array $values, but escaped
      */
-    public static function escapeValue($values = array())
+    public static function escapeValue($values = [])
     {
         if (!is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         foreach ($values as $key => $val) {
             // Escaping of filter meta characters
-            $val = str_replace(array('\\', '*', '(', ')'), array('\5c', '\2a', '\28', '\29'), $val);
+            $val = str_replace(['\\', '*', '(', ')'], ['\5c', '\2a', '\28', '\29'], $val);
             // ASCII < 32 escaping
             $val = Converter::ascToHex32($val);
             if (null === $val) {
@@ -112,10 +112,10 @@ abstract class AbstractFilter
      * @param  string|array $values Array of values to escape
      * @return array Array $values, but unescaped
      */
-    public static function unescapeValue($values = array())
+    public static function unescapeValue($values = [])
     {
         if (!is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         foreach ($values as $key => $value) {
             // Translate hex code into ascii

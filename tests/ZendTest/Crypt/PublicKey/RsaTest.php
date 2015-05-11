@@ -116,53 +116,53 @@ CERT;
 
         $this->userOpenSslConf = realpath(__DIR__ . '/../_files/openssl.cnf');
 
-        $rsaOptions = new RsaOptions(array(
+        $rsaOptions = new RsaOptions([
             'private_key'   => new Rsa\PrivateKey($this->testPemString),
-        ));
+        ]);
         $this->rsa = new Rsa($rsaOptions);
 
-        $rsaOptions = new RsaOptions(array(
+        $rsaOptions = new RsaOptions([
             'private_key'   => new Rsa\PrivateKey($this->testPemString),
             'binary_output' => false
-        ));
+        ]);
         $this->rsaBase64Out = new Rsa($rsaOptions);
     }
 
     public function testFacrotyCreatesInstance()
     {
-        $rsa = Rsa::factory(array(
+        $rsa = Rsa::factory([
             'hash_algorithm' => 'sha1',
             'binary_output'  => false,
             'private_key'    => $this->testPemString
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa', $rsa);
         $this->assertInstanceOf('Zend\Crypt\PublicKey\RsaOptions', $rsa->getOptions());
     }
 
     public function testFacrotyCreatesKeys()
     {
-        $rsa = Rsa::factory(array(
+        $rsa = Rsa::factory([
             'private_key'    => $this->testPemString,
             'public_key'     => $this->testCertificateString,
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
         $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
     }
 
     public function testFacrotyCreatesKeysFromFiles()
     {
-        $rsa = Rsa::factory(array(
+        $rsa = Rsa::factory([
             'private_key'    => $this->testPemFile,
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PrivateKey', $rsa->getOptions()->getPrivateKey());
         $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
     }
 
     public function testFacrotyCreatesJustPublicKey()
     {
-        $rsa = Rsa::factory(array(
+        $rsa = Rsa::factory([
             'public_key'     => $this->testCertificateString,
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Crypt\PublicKey\Rsa\PublicKey', $rsa->getOptions()->getPublicKey());
         $this->assertNull($rsa->getOptions()->getPrivateKey());
     }
@@ -208,10 +208,10 @@ CERT;
 
     public function testSignGeneratesExpectedBinarySignatureUsingExternalKey()
     {
-        $rsaOptions = new RsaOptions(array(
+        $rsaOptions = new RsaOptions([
             'public_key'    => new Rsa\PublicKey($this->testCertificateString),
             'binary_output' => true, // output as binary
-        ));
+        ]);
 
         $rsa        = new Rsa($rsaOptions);
         $privateKey = new Rsa\PrivateKey($this->testPemString);
@@ -241,10 +241,10 @@ CERT;
 
     public function testVerifyVerifiesBinarySignaturesUsingCertificate()
     {
-        $rsaOptions = new RsaOptions(array(
+        $rsaOptions = new RsaOptions([
             'public_key'   => new Rsa\PublicKey($this->testCertificateString),
             'binary_output' => true,
-        ));
+        ]);
 
         $rsa        = new Rsa($rsaOptions);
         $privateKey = new Rsa\PrivateKey($this->testPemString);
@@ -312,15 +312,15 @@ CERT;
 
     public function testBase64EncryptionUsingCertificatePublicKeyEncryption()
     {
-        $rsa1 = new Rsa(new RsaOptions(array(
+        $rsa1 = new Rsa(new RsaOptions([
             'public_key'    => new Rsa\PublicKey($this->testCertificateString),
             'binary_output' => false, // output as base 64
-        )));
+        ]));
 
-        $rsa2 = new Rsa(new RsaOptions(array(
+        $rsa2 = new Rsa(new RsaOptions([
             'private_key'   => new Rsa\PrivateKey($this->testPemString),
             'binary_output' => false, // output as base 64
-        )));
+        ]));
 
         $encrypted = $rsa1->encrypt('1234567890', $rsa1->getOptions()->getPublicKey());
 
@@ -365,10 +365,10 @@ CERT;
     public function testKeyGenerationWithUserOpensslConfig()
     {
         $rsaOptions  = new RsaOptions();
-        $rsaOptions->generateKeys(array(
+        $rsaOptions->generateKeys([
             'config'           => $this->userOpenSslConf,
             'private_key_bits' => 512,
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\Rsa\\PrivateKey', $rsaOptions->getPrivateKey());
         $this->assertInstanceOf('Zend\\Crypt\\PublicKey\\Rsa\\PublicKey', $rsaOptions->getPublicKey());
@@ -376,19 +376,19 @@ CERT;
 
     public function testKeyGenerationCreatesPassphrasedPrivateKey()
     {
-        $rsaOptions  = new RsaOptions(array(
+        $rsaOptions  = new RsaOptions([
             'pass_phrase' => '0987654321'
-        ));
-        $rsaOptions->generateKeys(array(
+        ]);
+        $rsaOptions->generateKeys([
             'config'           => $this->userOpenSslConf,
             'private_key_bits' => 512,
-        ));
+        ]);
 
         try {
-            $rsa = Rsa::factory(array(
+            $rsa = Rsa::factory([
                 'pass_phrase' => '1234567890',
                 'private_key' => $rsaOptions->getPrivateKey()->toString()
-            ));
+            ]);
             $this->fail('Expected passphrase mismatch exception not thrown');
         } catch (Exception\RuntimeException $e) {
         }
@@ -396,18 +396,18 @@ CERT;
 
     public function testRsaLoadsPassphrasedKeys()
     {
-        $rsaOptions  = new RsaOptions(array(
+        $rsaOptions  = new RsaOptions([
             'pass_phrase' => '0987654321'
-        ));
-        $rsaOptions->generateKeys(array(
+        ]);
+        $rsaOptions->generateKeys([
             'config'           => $this->userOpenSslConf,
             'private_key_bits' => 512,
-        ));
+        ]);
 
-        Rsa::factory(array(
+        Rsa::factory([
             'pass_phrase' => '0987654321',
             'private_key' => $rsaOptions->getPrivateKey()->toString(),
-        ));
+        ]);
     }
 
     public function testZf3492Base64DetectDecrypt()

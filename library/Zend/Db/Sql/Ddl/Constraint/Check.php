@@ -36,8 +36,8 @@ class Check extends AbstractConstraint
      */
     public function getExpressionData()
     {
-        $newSpecTypes = array(self::TYPE_LITERAL);
-        $values       = array($this->expression);
+        $newSpecTypes = [self::TYPE_LITERAL];
+        $values       = [$this->expression];
         $newSpec      = '';
 
         if ($this->name) {
@@ -47,10 +47,10 @@ class Check extends AbstractConstraint
             array_unshift($newSpecTypes, self::TYPE_IDENTIFIER);
         }
 
-        return array(array(
+        return [[
             $newSpec . $this->specification,
             $values,
             $newSpecTypes,
-        ));
+        ]];
     }
 }

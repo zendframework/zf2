@@ -20,7 +20,7 @@ abstract class AbstractIterator implements RecursiveIterator
     /**
      * @var array
      */
-    protected $children = array();
+    protected $children = [];
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>

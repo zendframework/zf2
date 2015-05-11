@@ -31,11 +31,11 @@ $function4 = function()
     return 'function4';
 };
 
-$list1 = array('closure' => function() { return 'function5'; });
+$list1 = ['closure' => function() { return 'function5'; }];
 
-$list2 = array(function() { return 'function6'; });
+$list2 = [function() { return 'function6'; }];
 
-$list3 = array(function() { return $c = function() { return 'function7'; }; return $c(); });
+$list3 = [function() { return $c = function() { return 'function7'; }; return $c(); }];
 
 $function8 = function() use ($list1) { return 'function 8'; };
 

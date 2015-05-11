@@ -24,7 +24,7 @@ class Address
     /**
      * @var array
      */
-    protected $phones = array();
+    protected $phones = [];
 
 
     /**

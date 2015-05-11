@@ -51,22 +51,22 @@ class ClassGenerator extends AbstractGenerator
     /**
      * @var array Array of string names
      */
-    protected $implementedInterfaces = array();
+    protected $implementedInterfaces = [];
 
     /**
      * @var PropertyGenerator[] Array of properties
      */
-    protected $properties = array();
+    protected $properties = [];
 
     /**
      * @var PropertyGenerator[] Array of constants
      */
-    protected $constants = array();
+    protected $constants = [];
 
     /**
      * @var MethodGenerator[] Array of methods
      */
-    protected $methods = array();
+    protected $methods = [];
 
     /**
      * @var TraitUsageGenerator Object to encapsulate trait usage logic
@@ -107,7 +107,7 @@ class ClassGenerator extends AbstractGenerator
             $interfaces = array_diff($interfaces, $parentClass->getInterfaces());
         }
 
-        $interfaceNames = array();
+        $interfaceNames = [];
         foreach ($interfaces as $interface) {
             /* @var \Zend\Code\Reflection\ClassReflection $interface */
             $interfaceNames[] = $interface->getName();
@@ -115,7 +115,7 @@ class ClassGenerator extends AbstractGenerator
 
         $cg->setImplementedInterfaces($interfaceNames);
 
-        $properties = array();
+        $properties = [];
 
         foreach ($classReflection->getProperties() as $reflectionProperty) {
             if ($reflectionProperty->getDeclaringClass()->getName() == $classReflection->getName()) {
@@ -125,18 +125,18 @@ class ClassGenerator extends AbstractGenerator
 
         $cg->addProperties($properties);
 
-        $constants = array();
+        $constants = [];
 
         foreach ($classReflection->getConstants() as $name => $value) {
-            $constants[] = array(
+            $constants[] = [
                 'name' => $name,
                 'value' => $value
-            );
+            ];
         }
 
         $cg->addConstants($constants);
 
-        $methods = array();
+        $methods = [];
 
         foreach ($classReflection->getMethods() as $reflectionMethod) {
             $className = ($cg->getNamespaceName()) ? $cg->getNamespaceName() . "\\" . $cg->getName() : $cg->getName();
@@ -179,7 +179,7 @@ class ClassGenerator extends AbstractGenerator
         $cg = new static($array['name']);
         foreach ($array as $name => $value) {
             // normalize key
-            switch (strtolower(str_replace(array('.', '-', '_'), '', $name))) {
+            switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'containingfile':
                     $cg->setContainingFileGenerator($value);
                     break;
@@ -226,9 +226,9 @@ class ClassGenerator extends AbstractGenerator
         $namespaceName = null,
         $flags = null,
         $extends = null,
-        $interfaces = array(),
-        $properties = array(),
-        $methods = array(),
+        $interfaces = [],
+        $properties = [],
+        $methods = [],
         $docBlock = null
     ) {
         $this->traitUsageGenerator = new TraitUsageGenerator($this);
@@ -242,7 +242,7 @@ class ClassGenerator extends AbstractGenerator
         if ($flags !== null) {
             $this->setFlags($flags);
         }
-        if ($properties !== array()) {
+        if ($properties !== []) {
             $this->addProperties($properties);
         }
         if ($extends !== null) {
@@ -251,7 +251,7 @@ class ClassGenerator extends AbstractGenerator
         if (is_array($interfaces)) {
             $this->setImplementedInterfaces($interfaces);
         }
-        if ($methods !== array()) {
+        if ($methods !== []) {
             $this->addMethods($methods);
         }
         if ($docBlock !== null) {
@@ -546,7 +546,7 @@ class ClassGenerator extends AbstractGenerator
                 $this->addPropertyFromGenerator($constant);
             } else {
                 if (is_array($constant)) {
-                    call_user_func_array(array($this, 'addConstant'), $constant);
+                    call_user_func_array([$this, 'addConstant'], $constant);
                 }
             }
         }
@@ -567,7 +567,7 @@ class ClassGenerator extends AbstractGenerator
                 if (is_string($property)) {
                     $this->addProperty($property);
                 } elseif (is_array($property)) {
-                    call_user_func_array(array($this, 'addProperty'), $property);
+                    call_user_func_array([$this, 'addProperty'], $property);
                 }
             }
         }
@@ -699,7 +699,7 @@ class ClassGenerator extends AbstractGenerator
                 if (is_string($method)) {
                     $this->addMethod($method);
                 } elseif (is_array($method)) {
-                    call_user_func_array(array($this, 'addMethod'), $method);
+                    call_user_func_array([$this, 'addMethod'], $method);
                 }
             }
         }
@@ -720,7 +720,7 @@ class ClassGenerator extends AbstractGenerator
      */
     public function addMethod(
         $name = null,
-        array $parameters = array(),
+        array $parameters = [],
         $flags = MethodGenerator::FLAG_PUBLIC,
         $body = null,
         $docBlock = null

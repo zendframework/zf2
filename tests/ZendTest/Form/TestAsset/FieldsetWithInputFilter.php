@@ -16,23 +16,23 @@ class FieldsetWithInputFilter extends Fieldset implements InputFilterProviderInt
 {
     public function getInputFilterSpecification()
     {
-        return array(
-            'foo' => array(
+        return [
+            'foo' => [
                 'required' => true,
-                'filters' => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-                'validators' => array(
-                    array('name' => 'Zend\Validator\NotEmpty'),
-                    array('name' => 'Zend\I18n\Validator\Alnum'),
-                ),
-            ),
-            'bar' => array(
+                'filters' => [
+                    ['name' => 'Zend\Filter\StringTrim'],
+                ],
+                'validators' => [
+                    ['name' => 'Zend\Validator\NotEmpty'],
+                    ['name' => 'Zend\I18n\Validator\Alnum'],
+                ],
+            ],
+            'bar' => [
                 'required' => false,
-                'filters' => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-            ),
-        );
+                'filters' => [
+                    ['name' => 'Zend\Filter\StringTrim'],
+                ],
+            ],
+        ];
     }
 }

@@ -24,47 +24,47 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     public function basicBehaviorDataProvider()
     {
         $testFile = __DIR__ . '/_files/picture.jpg';
-        $pictureTests = array(
+        $pictureTests = [
             //    Options, isValid Param, Expected value, Expected message
-            array(
+            [
                 'ed74c22109fe9f110579f77b053b8bc3',
                 $testFile, true, ''
-            ),
-            array(
+            ],
+            [
                 '4d74c22109fe9f110579f77b053b8bc3',
                 $testFile, false, 'fileMd5DoesNotMatch'
-            ),
-            array(
-                array('4d74c22109fe9f110579f77b053b8bc3', 'ed74c22109fe9f110579f77b053b8bc3'),
+            ],
+            [
+                ['4d74c22109fe9f110579f77b053b8bc3', 'ed74c22109fe9f110579f77b053b8bc3'],
                 $testFile, true, ''
-            ),
-            array(
-                array('4d74c22109fe9f110579f77b053b8bc3', '7d74c22109fe9f110579f77b053b8bc3'),
+            ],
+            [
+                ['4d74c22109fe9f110579f77b053b8bc3', '7d74c22109fe9f110579f77b053b8bc3'],
                 $testFile, false, 'fileMd5DoesNotMatch'
-            ),
-        );
+            ],
+        ];
 
         $testFile = __DIR__ . '/_files/nofile.mo';
-        $noFileTests = array(
+        $noFileTests = [
             //    Options, isValid Param, Expected value, message
-            array('ed74c22109fe9f110579f77b053b8bc3', $testFile, false, 'fileMd5NotFound'),
-        );
+            ['ed74c22109fe9f110579f77b053b8bc3', $testFile, false, 'fileMd5NotFound'],
+        ];
 
         $testFile = __DIR__ . '/_files/testsize.mo';
-        $sizeFileTests = array(
+        $sizeFileTests = [
             //    Options, isValid Param, Expected value, message
-            array('ec441f84a2944405baa22873cda22370', $testFile, true,  ''),
-            array('7d74c22109fe9f110579f77b053b8bc3', $testFile, false, 'fileMd5DoesNotMatch'),
-        );
+            ['ec441f84a2944405baa22873cda22370', $testFile, true,  ''],
+            ['7d74c22109fe9f110579f77b053b8bc3', $testFile, false, 'fileMd5DoesNotMatch'],
+        ];
 
         // Dupe data in File Upload format
         $testData = array_merge($pictureTests, $noFileTests, $sizeFileTests);
         foreach ($testData as $data) {
-            $fileUpload = array(
+            $fileUpload = [
                 'tmp_name' => $data[1], 'name' => basename($data[1]),
                 'size' => 200, 'error' => 0, 'type' => 'text'
-            );
-            $testData[] = array($data[0], $fileUpload, $data[2], $data[3]);
+            ];
+            $testData[] = [$data[0], $fileUpload, $data[2], $data[3]];
         }
         return $testData;
     }
@@ -109,10 +109,10 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     public function testgetMd5()
     {
         $validator = new File\Md5('12345');
-        $this->assertEquals(array('12345' => 'md5'), $validator->getMd5());
+        $this->assertEquals(['12345' => 'md5'], $validator->getMd5());
 
-        $validator = new File\Md5(array('12345', '12333', '12344'));
-        $this->assertEquals(array('12345' => 'md5', '12333' => 'md5', '12344' => 'md5'), $validator->getMd5());
+        $validator = new File\Md5(['12345', '12333', '12344']);
+        $this->assertEquals(['12345' => 'md5', '12333' => 'md5', '12344' => 'md5'], $validator->getMd5());
     }
 
     /**
@@ -123,10 +123,10 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     public function testgetHash()
     {
         $validator = new File\Md5('12345');
-        $this->assertEquals(array('12345' => 'md5'), $validator->getHash());
+        $this->assertEquals(['12345' => 'md5'], $validator->getHash());
 
-        $validator = new File\Md5(array('12345', '12333', '12344'));
-        $this->assertEquals(array('12345' => 'md5', '12333' => 'md5', '12344' => 'md5'), $validator->getHash());
+        $validator = new File\Md5(['12345', '12333', '12344']);
+        $this->assertEquals(['12345' => 'md5', '12333' => 'md5', '12344' => 'md5'], $validator->getHash());
     }
 
     /**
@@ -138,10 +138,10 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Md5('12345');
         $validator->setMd5('12333');
-        $this->assertEquals(array('12333' => 'md5'), $validator->getMd5());
+        $this->assertEquals(['12333' => 'md5'], $validator->getMd5());
 
-        $validator->setMd5(array('12321', '12121'));
-        $this->assertEquals(array('12321' => 'md5', '12121' => 'md5'), $validator->getMd5());
+        $validator->setMd5(['12321', '12121']);
+        $this->assertEquals(['12321' => 'md5', '12121' => 'md5'], $validator->getMd5());
     }
 
     /**
@@ -153,10 +153,10 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Md5('12345');
         $validator->setHash('12333');
-        $this->assertEquals(array('12333' => 'md5'), $validator->getMd5());
+        $this->assertEquals(['12333' => 'md5'], $validator->getMd5());
 
-        $validator->setHash(array('12321', '12121'));
-        $this->assertEquals(array('12321' => 'md5', '12121' => 'md5'), $validator->getMd5());
+        $validator->setHash(['12321', '12121']);
+        $this->assertEquals(['12321' => 'md5', '12121' => 'md5'], $validator->getMd5());
     }
 
     /**
@@ -168,10 +168,10 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Md5('12345');
         $validator->addMd5('12344');
-        $this->assertEquals(array('12345' => 'md5', '12344' => 'md5'), $validator->getMd5());
+        $this->assertEquals(['12345' => 'md5', '12344' => 'md5'], $validator->getMd5());
 
-        $validator->addMd5(array('12321', '12121'));
-        $this->assertEquals(array('12345' => 'md5', '12344' => 'md5', '12321' => 'md5', '12121' => 'md5'), $validator->getMd5());
+        $validator->addMd5(['12321', '12121']);
+        $this->assertEquals(['12345' => 'md5', '12344' => 'md5', '12321' => 'md5', '12121' => 'md5'], $validator->getMd5());
     }
 
     /**
@@ -183,10 +183,10 @@ class Md5Test extends \PHPUnit_Framework_TestCase
     {
         $validator = new File\Md5('12345');
         $validator->addHash('12344');
-        $this->assertEquals(array('12345' => 'md5', '12344' => 'md5'), $validator->getMd5());
+        $this->assertEquals(['12345' => 'md5', '12344' => 'md5'], $validator->getMd5());
 
-        $validator->addHash(array('12321', '12121'));
-        $this->assertEquals(array('12345' => 'md5', '12344' => 'md5', '12321' => 'md5', '12121' => 'md5'), $validator->getMd5());
+        $validator->addHash(['12321', '12121']);
+        $this->assertEquals(['12345' => 'md5', '12344' => 'md5', '12321' => 'md5', '12121' => 'md5'], $validator->getMd5());
     }
 
     /**
@@ -207,13 +207,13 @@ class Md5Test extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(File\Md5::NOT_FOUND, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\Md5::NOT_FOUND, $validator->getMessages());

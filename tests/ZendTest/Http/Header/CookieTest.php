@@ -37,10 +37,10 @@ class CookieTest extends \PHPUnit_Framework_TestCase
 
     public function testCookieFromSetCookieArrayProducesASingleCookie()
     {
-        $setCookies = array(
+        $setCookies = [
             new SetCookie('foo', 'bar'),
             new SetCookie('name', 'value')
-        );
+        ];
 
         $cookie = Cookie::fromSetCookieArray($setCookies);
         $this->assertEquals('Cookie: foo=bar; name=value', $cookie->toString());
@@ -86,16 +86,16 @@ class CookieTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerialization($value, $serialized)
     {
-        $header = new Cookie(array($value));
+        $header = new Cookie([$value]);
         $this->assertEquals('Cookie: ' . $serialized, $header->toString());
     }
 
     public function valuesProvider()
     {
-        return array(
+        return [
             // Description => [raw value, serialized]
-            'CRLF characters' => array("foo=bar\r\n\r\nevilContent", '0=foo%3Dbar%0D%0A%0D%0AevilContent'),
-        );
+            'CRLF characters' => ["foo=bar\r\n\r\nevilContent", '0=foo%3Dbar%0D%0A%0D%0AevilContent'],
+        ];
     }
 
 //    /**

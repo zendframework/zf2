@@ -15,17 +15,17 @@ abstract class TestProvider
 {
     public static function provideGenerators()
     {
-        return array(
-            array(new Generator\DomDocument()),
-            array(new Generator\XmlWriter()),
-        );
+        return [
+            [new Generator\DomDocument()],
+            [new Generator\XmlWriter()],
+        ];
     }
 
     public static function provideGeneratorsWithAlternateEncodings()
     {
-        return array(
-            array(new Generator\DomDocument('ISO-8859-1')),
-            array(new Generator\XmlWriter('ISO-8859-1')),
-        );
+        return [
+            [new Generator\DomDocument('ISO-8859-1')],
+            [new Generator\XmlWriter('ISO-8859-1')],
+        ];
     }
 }

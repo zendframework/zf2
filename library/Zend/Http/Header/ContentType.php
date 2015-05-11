@@ -25,7 +25,7 @@ class ContentType implements HeaderInterface
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameters = [];
 
     /**
      * @var string
@@ -55,7 +55,7 @@ class ContentType implements HeaderInterface
         $header = new static($value, trim($mediaType));
 
         if (count($parts) > 0) {
-            $parameters = array();
+            $parameters = [];
             foreach ($parts as $parameter) {
                 $parameter = trim($parameter);
                 if (!preg_match('/^(?P<key>[^\s\=]+)\="?(?P<value>[^\s\"]*)"?$/', $parameter, $matches)) {
@@ -243,7 +243,7 @@ class ContentType implements HeaderInterface
             return $mediaType;
         }
 
-        $parameters = array();
+        $parameters = [];
         foreach ($this->parameters as $key => $value) {
             $parameters[] = sprintf('%s=%s', $key, $value);
         }
@@ -306,11 +306,11 @@ class ContentType implements HeaderInterface
             $format  = array_shift($parts);
         }
 
-        $mediaType = (object) array(
+        $mediaType = (object) [
             'type'    => $type,
             'subtype' => $subtype,
             'format'  => $format,
-        );
+        ];
 
         return $mediaType;
     }

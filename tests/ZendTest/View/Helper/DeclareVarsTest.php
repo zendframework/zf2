@@ -37,10 +37,10 @@ class DeclareVarsTest extends \PHPUnit_Framework_TestCase
         $this->view->plugin('declareVars')->__invoke(
             'varName1',
             'varName2',
-            array(
+            [
                 'varName3' => 'defaultValue',
-                'varName4' => array()
-            )
+                'varName4' => []
+            ]
         );
     }
 
@@ -55,7 +55,7 @@ class DeclareVarsTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($vars->varName4));
 
         $this->assertEquals('defaultValue', $vars->varName3);
-        $this->assertEquals(array(), $vars->varName4);
+        $this->assertEquals([], $vars->varName4);
     }
 
     public function testDeclareDeclaredVars()

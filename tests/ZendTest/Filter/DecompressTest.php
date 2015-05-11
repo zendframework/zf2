@@ -106,14 +106,14 @@ class DecompressTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 'decompress me',
                 'decompress me too, please'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

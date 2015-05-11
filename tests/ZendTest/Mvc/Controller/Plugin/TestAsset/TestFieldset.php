@@ -14,39 +14,39 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 class TestFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct($name, $options);
-        $this->add(array(
+        $this->add([
             'name' => 'text',
             'type' => 'text',
-        ));
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'file',
             'type' => 'file',
-        ));
+        ]);
 
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'text' => array(
+        return [
+            'text' => [
                 'required' => true,
-            ),
-            'file' => array(
+            ],
+            'file' => [
                 'required' => true,
-                'filters' => array(
-                    array(
+                'filters' => [
+                    [
                         'name' => 'filerenameupload',
-                        'options' => array(
+                        'options' => [
                             'target'    => __DIR__ . '/testfile.jpg',
                             'overwrite' => true,
-                        )
-                    )
-                ),
-            ),
-        );
+                        ]
+                    ]
+                ],
+            ],
+        ];
     }
 }

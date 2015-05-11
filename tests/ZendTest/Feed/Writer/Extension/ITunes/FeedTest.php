@@ -45,15 +45,15 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testAddAuthors()
     {
         $feed = new Writer\Feed;
-        $feed->addItunesAuthors(array('joe', 'jane'));
-        $this->assertEquals(array('joe', 'jane'), $feed->getItunesAuthors());
+        $feed->addItunesAuthors(['joe', 'jane']);
+        $this->assertEquals(['joe', 'jane'], $feed->getItunesAuthors());
     }
 
     public function testAddAuthor()
     {
         $feed = new Writer\Feed;
         $feed->addItunesAuthor('joe');
-        $this->assertEquals(array('joe'), $feed->getItunesAuthors());
+        $this->assertEquals(['joe'], $feed->getItunesAuthors());
     }
 
     /**
@@ -68,10 +68,10 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testSetCategories()
     {
         $feed = new Writer\Feed;
-        $cats = array(
+        $cats = [
             'cat1',
-            'cat2' => array('cat2-1', 'cat2-a&b')
-        );
+            'cat2' => ['cat2-1', 'cat2-a&b']
+        ];
         $feed->setItunesCategories($cats);
         $this->assertEquals($cats, $feed->getItunesCategories());
     }
@@ -82,10 +82,10 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testSetCategoriesThrowsExceptionIfAnyCatNameGreaterThan255CharsLength()
     {
         $feed = new Writer\Feed;
-        $cats = array(
+        $cats = [
             'cat1',
-            'cat2' => array('cat2-1', str_repeat('a', 256))
-        );
+            'cat2' => ['cat2-1', str_repeat('a', 256)]
+        ];
         $feed->setItunesCategories($cats);
         $this->assertEquals($cats, $feed->getItunesAuthors());
     }
@@ -203,9 +203,9 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testSetKeywords()
     {
         $feed = new Writer\Feed;
-        $words = array(
+        $words = [
             'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'a12'
-        );
+        ];
         $feed->setItunesKeywords($words);
         $this->assertEquals($words, $feed->getItunesKeywords());
     }
@@ -216,9 +216,9 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testSetKeywordsThrowsExceptionIfMaxKeywordsExceeded()
     {
         $feed = new Writer\Feed;
-        $words = array(
+        $words = [
             'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'a12', 'a13'
-        );
+        ];
         $feed->setItunesKeywords($words);
     }
 
@@ -228,9 +228,9 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testSetKeywordsThrowsExceptionIfFormattedKeywordsExceeds255CharLength()
     {
         $feed = new Writer\Feed;
-        $words = array(
+        $words = [
             str_repeat('a', 253), str_repeat('b', 2)
-        );
+        ];
         $feed->setItunesKeywords($words);
     }
 
@@ -253,15 +253,15 @@ class FeedTest extends \PHPUnit_Framework_TestCase
     public function testAddOwner()
     {
         $feed = new Writer\Feed;
-        $feed->addItunesOwner(array('name'=>'joe', 'email'=>'joe@example.com'));
-        $this->assertEquals(array(array('name'=>'joe', 'email'=>'joe@example.com')), $feed->getItunesOwners());
+        $feed->addItunesOwner(['name'=>'joe', 'email'=>'joe@example.com']);
+        $this->assertEquals([['name'=>'joe', 'email'=>'joe@example.com']], $feed->getItunesOwners());
     }
 
     public function testAddOwners()
     {
         $feed = new Writer\Feed;
-        $feed->addItunesOwners(array(array('name'=>'joe', 'email'=>'joe@example.com')));
-        $this->assertEquals(array(array('name'=>'joe', 'email'=>'joe@example.com')), $feed->getItunesOwners());
+        $feed->addItunesOwners([['name'=>'joe', 'email'=>'joe@example.com']]);
+        $this->assertEquals([['name'=>'joe', 'email'=>'joe@example.com']], $feed->getItunesOwners());
     }
 
     public function testSetSubtitle()

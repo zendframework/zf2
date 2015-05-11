@@ -29,20 +29,20 @@ class Alpha extends Alnum
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID      => "Invalid type given. String expected",
         self::NOT_ALPHA    => "The input contains non alphabetic characters",
         self::STRING_EMPTY => "The input is an empty string"
-    );
+    ];
 
     /**
      * Options for this validator
      *
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'allowWhiteSpace' => false,  // Whether to allow white space characters; off by default
-    );
+    ];
 
     /**
      * Returns true if and only if $value contains only alphabetic characters

@@ -26,7 +26,7 @@ class DummyReader implements ReaderInterface
     public function fromString($string)
     {
         if (empty($string)) {
-            return array();
+            return [];
         }
 
         return unserialize($string);

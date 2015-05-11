@@ -49,7 +49,7 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      * @param  array        $options
      * @return RouteMatch|null
      */
-    public function match(Request $request, $pathOffset = null, array $options = array())
+    public function match(Request $request, $pathOffset = null, array $options = [])
     {
         if ($this->hasTranslator() && $this->isTranslatorEnabled() && !isset($options['translator'])) {
             $options['translator'] = $this->getTranslator();
@@ -72,7 +72,7 @@ class TranslatorAwareTreeRouteStack extends TreeRouteStack implements Translator
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         if ($this->hasTranslator() && $this->isTranslatorEnabled() && !isset($options['translator'])) {
             $options['translator'] = $this->getTranslator();

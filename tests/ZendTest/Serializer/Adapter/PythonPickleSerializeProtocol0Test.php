@@ -23,9 +23,9 @@ class PythonPickleSerializeProtocol0Test extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $options = new Serializer\Adapter\PythonPickleOptions(array(
+        $options = new Serializer\Adapter\PythonPickleOptions([
             'protocol' => 0
-        ));
+        ]);
         $this->adapter = new Serializer\Adapter\PythonPickle($options);
     }
 
@@ -104,7 +104,7 @@ class PythonPickleSerializeProtocol0Test extends \PHPUnit_Framework_TestCase
 
     public function testSerializeArrayList()
     {
-        $value      = array('1', '2', 'test');
+        $value      = ['1', '2', 'test'];
         $expected   = "(lp0\r\n"
                     . "S'1'\r\n"
                     . "p1\r\n"
@@ -140,7 +140,7 @@ class PythonPickleSerializeProtocol0Test extends \PHPUnit_Framework_TestCase
 
     public function testSerializeArrayDict()
     {
-        $value    = array('1', '2', 'three' => 'test');
+        $value    = ['1', '2', 'three' => 'test'];
         $expected = "(dp0\r\n"
                   . "I0\r\n"
                   . "S'1'\r\n"

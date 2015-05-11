@@ -15,7 +15,7 @@ class CustomCollection extends ArrayObject
 {
     public function toArray()
     {
-        $ret = array();
+        $ret = [];
 
         foreach ($this as $key => $obj) {
             $ret[$key] = $obj->toArray();

@@ -18,7 +18,7 @@ class Intelligentmail extends AbstractAdapter
      */
     public function __construct()
     {
-        $this->setLength(array(20, 25, 29, 31));
+        $this->setLength([20, 25, 29, 31]);
         $this->setCharacters('0123456789');
         $this->useChecksum(false);
     }

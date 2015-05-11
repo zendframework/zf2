@@ -59,7 +59,7 @@ class Http implements AdapterInterface
      *
      * @var array
      */
-    protected $supportedSchemes = array('basic', 'digest');
+    protected $supportedSchemes = ['basic', 'digest'];
 
     /**
      * List of schemes this class will accept from the client
@@ -102,7 +102,7 @@ class Http implements AdapterInterface
      *
      * @var array
      */
-    protected $supportedAlgos = array('MD5');
+    protected $supportedAlgos = ['MD5'];
 
     /**
      * The actual algorithm to use. Defaults to MD5
@@ -117,7 +117,7 @@ class Http implements AdapterInterface
      *
      * @var array
      */
-    protected $supportedQops = array('auth');
+    protected $supportedQops = ['auth'];
 
     /**
      * Whether or not to do Proxy Authentication instead of origin server
@@ -346,8 +346,8 @@ class Http implements AdapterInterface
             $this->response->setStatusCode(400);
             return new Authentication\Result(
                 Authentication\Result::FAILURE_UNCATEGORIZED,
-                array(),
-                array('Client requested an incorrect or unsupported authentication scheme')
+                [],
+                ['Client requested an incorrect or unsupported authentication scheme']
             );
         }
 
@@ -418,8 +418,8 @@ class Http implements AdapterInterface
         }
         return new Authentication\Result(
             Authentication\Result::FAILURE_CREDENTIAL_INVALID,
-            array(),
-            array('Invalid or absent credentials; challenging client')
+            [],
+            ['Invalid or absent credentials; challenging client']
         );
     }
 
@@ -503,7 +503,7 @@ class Http implements AdapterInterface
             && !is_array($result)
             && CryptUtils::compareStrings($result, $creds[1])
         ) {
-            $identity = array('username' => $creds[0], 'realm' => $this->realm);
+            $identity = ['username' => $creds[0], 'realm' => $this->realm];
             return new Authentication\Result(Authentication\Result::SUCCESS, $identity);
         } elseif (is_array($result)) {
             return new Authentication\Result(Authentication\Result::SUCCESS, $result);
@@ -533,8 +533,8 @@ class Http implements AdapterInterface
             $this->response->setStatusCode(400);
             return new Authentication\Result(
                 Authentication\Result::FAILURE_UNCATEGORIZED,
-                array(),
-                array('Invalid Authorization header format')
+                [],
+                ['Invalid Authorization header format']
             );
         }
 
@@ -594,7 +594,7 @@ class Http implements AdapterInterface
         // If our digest matches the client's let them in, otherwise return
         // a 401 code and exit to prevent access to the protected resource.
         if (CryptUtils::compareStrings($digest, $data['response'])) {
-            $identity = array('username' => $data['username'], 'realm' => $data['realm']);
+            $identity = ['username' => $data['username'], 'realm' => $data['realm']];
             return new Authentication\Result(Authentication\Result::SUCCESS, $identity);
         }
 
@@ -658,7 +658,7 @@ class Http implements AdapterInterface
     protected function _parseDigestAuth($header)
     {
         $temp = null;
-        $data = array();
+        $data = [];
 
         // See ZF-1052. Detect invalid usernames instead of just returning a
         // 400 code.

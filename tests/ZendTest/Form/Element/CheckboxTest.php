@@ -29,15 +29,15 @@ class CheckboxTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\InArray'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
             switch ($class) {
                 case 'Zend\Validator\InArray':
-                    $this->assertEquals(array($element->getCheckedValue(), $element->getUncheckedValue()), $validator->getHaystack());
+                    $this->assertEquals([$element->getCheckedValue(), $element->getUncheckedValue()], $validator->getHaystack());
                     break;
                 default:
                     break;
@@ -111,11 +111,11 @@ class CheckboxTest extends TestCase
     public function testSetOptions()
     {
         $element = new CheckboxElement();
-        $element->setOptions(array(
+        $element->setOptions([
                                   'use_hidden_element' => true,
                                   'unchecked_value' => 'foo',
                                   'checked_value' => 'bar',
-                             ));
+                             ]);
         $this->assertEquals(true, $element->getOption('use_hidden_element'));
         $this->assertEquals('foo', $element->getOption('unchecked_value'));
         $this->assertEquals('bar', $element->getOption('checked_value'));

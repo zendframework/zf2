@@ -60,7 +60,7 @@ class StaticFilter
      * @return mixed
      * @throws Exception\ExceptionInterface
      */
-    public static function execute($value, $classBaseName, array $args = array())
+    public static function execute($value, $classBaseName, array $args = [])
     {
         $plugins = static::getPluginManager();
 

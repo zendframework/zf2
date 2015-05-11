@@ -59,13 +59,13 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->_callback->setStorage($storage);
 
-        $this->_get = array(
+        $this->_get = [
             'hub_mode'          => 'subscribe',
             'hub_topic'         => 'http://www.example.com/topic',
             'hub_challenge'     => 'abc',
             'hub_verify_token'  => 'cba',
             'hub_lease_seconds' => '1234567'
-        );
+        ];
 
         $_SERVER['REQUEST_METHOD'] = 'get';
         $_SERVER['QUERY_STRING']   = 'xhub.subscription=verifytokenkey';
@@ -136,17 +136,17 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidatesValidHttpGetData()
     {
-        $mockReturnValue = $this->getMock('Result', array('getArrayCopy'));
+        $mockReturnValue = $this->getMock('Result', ['getArrayCopy']);
         $mockReturnValue->expects($this->any())
             ->method('getArrayCopy')
-            ->will($this->returnValue(array(
+            ->will($this->returnValue([
                                            'verify_token' => hash('sha256',
                                                                   'cba')
-                                      )));
+                                      ]));
 
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
         $this->_rowset->expects($this->any())
             ->method('current')
@@ -190,18 +190,18 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
     public function testReturnsTrueIfModeSetAsUnsubscribeFromHttpGetData()
     {
-        $mockReturnValue = $this->getMock('Result', array('getArrayCopy'));
+        $mockReturnValue = $this->getMock('Result', ['getArrayCopy']);
         $mockReturnValue->expects($this->any())
             ->method('getArrayCopy')
-            ->will($this->returnValue(array(
+            ->will($this->returnValue([
                                            'verify_token' => hash('sha256',
                                                                   'cba')
-                                      )));
+                                      ]));
 
         $this->_get['hub_mode'] = 'unsubscribe';
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
         $this->_rowset->expects($this->any())
             ->method('current')
@@ -254,16 +254,16 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $this->_get['hub_mode'] = 'unsubscribe';
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
 
         $t = clone $this->now;
-        $rowdata = array(
+        $rowdata = [
             'id'            => 'verifytokenkey',
             'verify_token'  => hash('sha256', 'cba'),
             'created_time'  => $t->getTimestamp(),
             'lease_seconds' => 10000
-        );
+        ];
 
         $row = new ArrayObject($rowdata, ArrayObject::ARRAY_AS_PROPS);
 
@@ -277,7 +277,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->_tableGateway->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue(true));
 
         $this->_callback->handle($this->_get);
@@ -288,16 +288,16 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     {
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
 
         $t = clone $this->now;
-        $rowdata = array(
+        $rowdata = [
             'id'            => 'verifytokenkey',
             'verify_token'  => hash('sha256', 'cba'),
             'created_time'  => $t->getTimestamp(),
             'lease_seconds' => 10000
-        );
+        ];
 
         $row = new ArrayObject($rowdata, ArrayObject::ARRAY_AS_PROPS);
 
@@ -312,14 +312,14 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $this->_tableGateway->expects($this->once())
             ->method('update')
             ->with(
-            $this->equalTo(array('id'                => 'verifytokenkey',
+            $this->equalTo(['id'                => 'verifytokenkey',
                                  'verify_token'      => hash('sha256', 'cba'),
                                  'created_time'      => $t->getTimestamp(),
                                  'lease_seconds'     => 1234567,
                                  'subscription_state'=> 'verified',
                                  'expiration_time'   => $t->add(new DateInterval('PT1234567S'))
-                                     ->format('Y-m-d H:i:s'))),
-            $this->equalTo(array('id' => 'verifytokenkey'))
+                                     ->format('Y-m-d H:i:s')]),
+            $this->equalTo(['id' => 'verifytokenkey'])
         );
 
         $this->_callback->handle($this->_get);
@@ -336,14 +336,14 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
 
-        $rowdata = array(
+        $rowdata = [
             'id'           => 'verifytokenkey',
             'verify_token' => hash('sha256', 'cba'),
             'created_time' => time()
-        );
+        ];
 
         $row = new ArrayObject($rowdata, ArrayObject::ARRAY_AS_PROPS);
 
@@ -355,7 +355,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
             ->method('count')
             ->will($this->returnValue(1));
 
-        $this->_callback->handle(array());
+        $this->_callback->handle([]);
         $this->assertEquals(200, $this->_callback->getHttpResponse()->getStatusCode());
     }
 
@@ -367,7 +367,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $feedXml                       = file_get_contents(__DIR__ . '/_files/atom10.xml');
         $GLOBALS['HTTP_RAW_POST_DATA'] = $feedXml;
 
-        $this->_callback->handle(array());
+        $this->_callback->handle([]);
         $this->assertEquals(404, $this->_callback->getHttpResponse()->getStatusCode());
     }
 
@@ -378,7 +378,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $_SERVER['CONTENT_TYPE']       = 'application/kml+xml';
         $feedXml                       = file_get_contents(__DIR__ . '/_files/atom10.xml');
         $GLOBALS['HTTP_RAW_POST_DATA'] = $feedXml;
-        $this->_callback->handle(array());
+        $this->_callback->handle([]);
         $this->assertEquals(404, $this->_callback->getHttpResponse()->getStatusCode());
     }
 
@@ -398,15 +398,15 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
 
-        $rowdata = array(
+        $rowdata = [
             'id'            => 'verifytokenkey',
             'verify_token'  => hash('sha256', 'cba'),
             'created_time'  => time(),
             'lease_seconds' => 10000
-        );
+        ];
 
         $row = new ArrayObject($rowdata, ArrayObject::ARRAY_AS_PROPS);
 
@@ -419,7 +419,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
             ->method('count')
             ->will($this->returnValue(1));
 
-        $this->_callback->handle(array());
+        $this->_callback->handle([]);
         $this->assertEquals(200, $this->_callback->getHttpResponse()->getStatusCode());
     }
 
@@ -433,15 +433,15 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
         $this->_tableGateway->expects($this->any())
             ->method('select')
-            ->with($this->equalTo(array('id' => 'verifytokenkey')))
+            ->with($this->equalTo(['id' => 'verifytokenkey']))
             ->will($this->returnValue($this->_rowset));
 
-        $rowdata = array(
+        $rowdata = [
             'id'            => 'verifytokenkey',
             'verify_token'  => hash('sha256', 'cba'),
             'created_time'  => time(),
             'lease_seconds' => 10000
-        );
+        ];
 
         $row = new ArrayObject($rowdata, ArrayObject::ARRAY_AS_PROPS);
 
@@ -454,7 +454,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
             ->method('count')
             ->will($this->returnValue(1));
 
-        $this->_callback->handle(array());
+        $this->_callback->handle([]);
         $this->assertEquals(1, $this->_callback->getHttpResponse()->getHeader('X-Hub-On-Behalf-Of'));
     }
 
@@ -462,7 +462,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     {
         $class       = new \ReflectionClass($className);
         $methods     = $class->getMethods();
-        $stubMethods = array();
+        $stubMethods = [];
         foreach ($methods as $method) {
             if ($method->isPublic() || ($method->isProtected()
                                         && $method->isAbstract())
@@ -473,7 +473,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
         $mocked = $this->getMock(
             $className,
             $stubMethods,
-            array(),
+            [],
             str_replace('\\', '_', ($className . '_PubsubSubscriberMock_' . uniqid())),
             false
         );

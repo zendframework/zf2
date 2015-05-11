@@ -61,9 +61,9 @@ class DelegatingHydratorTest extends \PHPUnit_Framework_TestCase
         $hydrator->expects($this->any())
             ->method('extract')
             ->with($this->object)
-            ->will($this->returnValue(array('foo' => 'bar')));
+            ->will($this->returnValue(['foo' => 'bar']));
 
-        $this->assertEquals(array('foo' => 'bar'), $hydrator->extract($this->object));
+        $this->assertEquals(['foo' => 'bar'], $hydrator->extract($this->object));
     }
 
     public function testHydrate()
@@ -82,8 +82,8 @@ class DelegatingHydratorTest extends \PHPUnit_Framework_TestCase
 
         $hydrator->expects($this->any())
             ->method('hydrate')
-            ->with(array('foo' => 'bar'), $this->object)
+            ->with(['foo' => 'bar'], $this->object)
             ->will($this->returnValue($this->object));
-        $this->assertEquals($this->object, $hydrator->hydrate(array('foo' => 'bar'), $this->object));
+        $this->assertEquals($this->object, $hydrator->hydrate(['foo' => 'bar'], $this->object));
     }
 }

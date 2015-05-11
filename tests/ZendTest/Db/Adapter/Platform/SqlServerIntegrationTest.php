@@ -17,7 +17,7 @@ use Zend\Db\Adapter\Platform\SqlServer;
  */
 class SqlServerIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-    public $adapters = array();
+    public $adapters = [];
 
     public function testQuoteValueWithSqlServer()
     {

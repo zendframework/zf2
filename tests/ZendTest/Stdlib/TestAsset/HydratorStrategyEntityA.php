@@ -21,7 +21,7 @@ class HydratorStrategyEntityA implements InputFilterAwareInterface
 
     public function __construct()
     {
-        $this->entities = array();
+        $this->entities = [];
     }
 
     public function addEntity(HydratorStrategyEntityB $entity)

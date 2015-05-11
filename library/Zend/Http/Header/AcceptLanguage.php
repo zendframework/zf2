@@ -93,7 +93,7 @@ class AcceptLanguage extends AbstractAccept
             $subtype = '*';
         }
 
-        $aggregated = array(
+        $aggregated = [
                 'typeString' => trim($fieldValuePart),
                 'type'       => $type,
                 'subtype'    => $subtype,
@@ -102,7 +102,7 @@ class AcceptLanguage extends AbstractAccept
                 'priority'   => isset($params['q']) ? $params['q'] : 1,
                 'params'     => $params,
                 'raw'        => trim($raw)
-        );
+        ];
 
         return new FieldValuePart\LanguageFieldValuePart((object) $aggregated);
     }

@@ -128,7 +128,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $entry = $feed->current();
         $stub = $this->getMockForAbstractClass(
             'Zend\Feed\Reader\Entry\AbstractEntry',
-            array($entry->getElement(), $entry->getId())
+            [$entry->getElement(), $entry->getId()]
         );
         $this->assertEquals($entry->getType(), $stub->getType());
     }
@@ -145,7 +145,7 @@ class CommonTest extends \PHPUnit_Framework_TestCase
         $domElement = new \DOMElement($entry->getElement()->tagName);
         $stub = $this->getMockForAbstractClass(
             'Zend\Feed\Reader\Entry\AbstractEntry',
-            array($domElement, $entry->getId())
+            [$domElement, $entry->getId()]
         );
         $this->assertEquals($stub->getType(), Reader\Reader::TYPE_ANY);
     }

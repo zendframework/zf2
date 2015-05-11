@@ -228,7 +228,7 @@ class FlashMessengerTest extends TestCase
                 ->setMessageOpenFormat('<div%s><p>')
                 ->setMessageSeparatorString('</p><p>')
                 ->setMessageCloseString('</p></div>')
-                ->render(PluginFlashMessenger::NAMESPACE_INFO, array('foo-baz', 'foo-bar'));
+                ->render(PluginFlashMessenger::NAMESPACE_INFO, ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
@@ -241,7 +241,7 @@ class FlashMessengerTest extends TestCase
                 ->setMessageOpenFormat('<div%s><p>')
                 ->setMessageSeparatorString('</p><p>')
                 ->setMessageCloseString('</p></div>')
-                ->renderCurrent(PluginFlashMessenger::NAMESPACE_INFO, array('foo-baz', 'foo-bar'));
+                ->renderCurrent(PluginFlashMessenger::NAMESPACE_INFO, ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
@@ -254,7 +254,7 @@ class FlashMessengerTest extends TestCase
                 ->setMessageOpenFormat('<div><p%s>')
                 ->setMessageSeparatorString('</p><p%s>')
                 ->setMessageCloseString('</p></div>')
-                ->render(PluginFlashMessenger::NAMESPACE_DEFAULT, array('foo-baz', 'foo-bar'));
+                ->render(PluginFlashMessenger::NAMESPACE_DEFAULT, ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
@@ -267,7 +267,7 @@ class FlashMessengerTest extends TestCase
                 ->setMessageOpenFormat('<div><p%s>')
                 ->setMessageSeparatorString('</p><p%s>')
                 ->setMessageCloseString('</p></div>')
-                ->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, array('foo-baz', 'foo-bar'));
+                ->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
@@ -275,27 +275,27 @@ class FlashMessengerTest extends TestCase
     {
         $this->seedMessages();
 
-        $config = array(
-            'view_helper_config' => array(
-                'flashmessenger' => array(
+        $config = [
+            'view_helper_config' => [
+                'flashmessenger' => [
                     'message_open_format' => '<div%s><ul><li>',
                     'message_separator_string' => '</li><li>',
                     'message_close_string' => '</li></ul></div>',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $sm = new ServiceManager();
         $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config(array(
-            'factories' => array(
+        $helperPluginManager = new HelperPluginManager(new Config([
+            'factories' => [
                 'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ),
-        )));
-        $controllerPluginManager = new PluginManager(new Config(array(
-            'invokables' => array(
+            ],
+        ]));
+        $controllerPluginManager = new PluginManager(new Config([
+            'invokables' => [
                 'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ),
-        )));
+            ],
+        ]));
         $helperPluginManager->setServiceLocator($sm);
         $controllerPluginManager->setServiceLocator($sm);
         $sm->setService('ControllerPluginManager', $controllerPluginManager);
@@ -309,27 +309,27 @@ class FlashMessengerTest extends TestCase
     public function testCanDisplayListOfCurrentMessagesCustomisedByConfig()
     {
         $this->seedCurrentMessages();
-        $config = array(
-            'view_helper_config' => array(
-                'flashmessenger' => array(
+        $config = [
+            'view_helper_config' => [
+                'flashmessenger' => [
                     'message_open_format' => '<div%s><ul><li>',
                     'message_separator_string' => '</li><li>',
                     'message_close_string' => '</li></ul></div>',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $sm = new ServiceManager();
         $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config(array(
-            'factories' => array(
+        $helperPluginManager = new HelperPluginManager(new Config([
+            'factories' => [
                 'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ),
-        )));
-        $controllerPluginManager = new PluginManager(new Config(array(
-            'invokables' => array(
+            ],
+        ]));
+        $controllerPluginManager = new PluginManager(new Config([
+            'invokables' => [
                 'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ),
-        )));
+            ],
+        ]));
         $helperPluginManager->setServiceLocator($sm);
         $controllerPluginManager->setServiceLocator($sm);
         $sm->setService('ControllerPluginManager', $controllerPluginManager);
@@ -344,34 +344,34 @@ class FlashMessengerTest extends TestCase
     {
         $this->seedMessages();
 
-        $config = array(
-            'view_helper_config' => array(
-                'flashmessenger' => array(
+        $config = [
+            'view_helper_config' => [
+                'flashmessenger' => [
                     'message_open_format' => '<div><ul><li%s>',
                     'message_separator_string' => '</li><li%s>',
                     'message_close_string' => '</li></ul></div>',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $sm = new ServiceManager();
         $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config(array(
-            'factories' => array(
+        $helperPluginManager = new HelperPluginManager(new Config([
+            'factories' => [
                 'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ),
-        )));
-        $controllerPluginManager = new PluginManager(new Config(array(
-            'invokables' => array(
+            ],
+        ]));
+        $controllerPluginManager = new PluginManager(new Config([
+            'invokables' => [
                 'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ),
-        )));
+            ],
+        ]));
         $helperPluginManager->setServiceLocator($sm);
         $controllerPluginManager->setServiceLocator($sm);
         $sm->setService('ControllerPluginManager', $controllerPluginManager);
         $helper = $helperPluginManager->get('flashmessenger');
 
         $displayInfoAssertion = '<div><ul><li class="foo-baz foo-bar">foo</li><li class="foo-baz foo-bar">bar</li></ul></div>';
-        $displayInfo = $helper->render(PluginFlashMessenger::NAMESPACE_DEFAULT, array('foo-baz', 'foo-bar'));
+        $displayInfo = $helper->render(PluginFlashMessenger::NAMESPACE_DEFAULT, ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
@@ -379,34 +379,34 @@ class FlashMessengerTest extends TestCase
     {
         $this->seedCurrentMessages();
 
-        $config = array(
-            'view_helper_config' => array(
-                'flashmessenger' => array(
+        $config = [
+            'view_helper_config' => [
+                'flashmessenger' => [
                     'message_open_format' => '<div><ul><li%s>',
                     'message_separator_string' => '</li><li%s>',
                     'message_close_string' => '</li></ul></div>',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $sm = new ServiceManager();
         $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config(array(
-            'factories' => array(
+        $helperPluginManager = new HelperPluginManager(new Config([
+            'factories' => [
                 'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ),
-        )));
-        $controllerPluginManager = new PluginManager(new Config(array(
-            'invokables' => array(
+            ],
+        ]));
+        $controllerPluginManager = new PluginManager(new Config([
+            'invokables' => [
                 'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ),
-        )));
+            ],
+        ]));
         $helperPluginManager->setServiceLocator($sm);
         $controllerPluginManager->setServiceLocator($sm);
         $sm->setService('ControllerPluginManager', $controllerPluginManager);
         $helper = $helperPluginManager->get('flashmessenger');
 
         $displayInfoAssertion = '<div><ul><li class="foo-baz foo-bar">foo</li><li class="foo-baz foo-bar">bar</li></ul></div>';
-        $displayInfo = $helper->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, array('foo-baz', 'foo-bar'));
+        $displayInfo = $helper->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
@@ -497,7 +497,7 @@ class FlashMessengerTest extends TestCase
         unset($helper);
 
         $displayAssertion = '<ul class="default"><li>Foo<br />bar</li></ul>';
-        $display = $this->helper->render(PluginFlashMessenger::NAMESPACE_DEFAULT, array(), false);
+        $display = $this->helper->render(PluginFlashMessenger::NAMESPACE_DEFAULT, [], false);
         $this->assertSame($displayAssertion, $display);
     }
 
@@ -558,7 +558,7 @@ class FlashMessengerTest extends TestCase
         $this->helper->addMessage('Foo<br />bar');
 
         $displayAssertion = '<ul class="default"><li>Foo<br />bar</li></ul>';
-        $display = $this->helper->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, array(), false);
+        $display = $this->helper->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, [], false);
         $this->assertSame($displayAssertion, $display);
     }
 

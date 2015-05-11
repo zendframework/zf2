@@ -51,11 +51,11 @@ class XCacheTest extends CommonAdapterTest
             }
         }
 
-        $this->_options = new Cache\Storage\Adapter\XCacheOptions(array(
+        $this->_options = new Cache\Storage\Adapter\XCacheOptions([
             'admin_auth' => defined('TESTS_ZEND_CACHE_XCACHE_ADMIN_AUTH') ? TESTS_ZEND_CACHE_XCACHE_ADMIN_AUTH : false,
             'admin_user' => defined('TESTS_ZEND_CACHE_XCACHE_ADMIN_USER') ? TESTS_ZEND_CACHE_XCACHE_ADMIN_USER : '',
             'admin_pass' => defined('TESTS_ZEND_CACHE_XCACHE_ADMIN_PASS') ? TESTS_ZEND_CACHE_XCACHE_ADMIN_PASS : '',
-        ));
+        ]);
         $this->_storage = new Cache\Storage\Adapter\XCache();
         $this->_storage->setOptions($this->_options);
 

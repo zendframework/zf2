@@ -29,13 +29,13 @@ class HttpTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $_FILES = array(
-            'txt' => array(
+        $_FILES = [
+            'txt' => [
                 'name' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'test.txt',
                 'type' => 'plain/text',
                 'size' => 8,
                 'tmp_name' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'test.txt',
-                'error' => 0));
+                'error' => 0]];
         $this->adapter = new HttpTestMockAdapter();
     }
 
@@ -57,10 +57,10 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
     public function testAutoSetUploadValidator()
     {
-        $validators = array(
+        $validators = [
             new FileValidator\Count(1),
             new FileValidator\Extension('jpg'),
-        );
+        ];
         $this->adapter->setValidators($validators);
         $test = $this->adapter->getValidator('Upload');
         $this->assertInstanceOf('Zend\Validator\File\Upload', $test);
@@ -111,69 +111,69 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
     public function testReceiveValidatedFile()
     {
-        $_FILES = array(
-            'txt' => array(
+        $_FILES = [
+            'txt' => [
                 'name' => 'unknown.txt',
                 'type' => 'plain/text',
                 'size' => 8,
                 'tmp_name' => 'unknown.txt',
-                'error' => 0));
+                'error' => 0]];
         $adapter = new HttpTestMockAdapter();
         $this->assertFalse($adapter->receive());
     }
 
     public function testReceiveIgnoredFile()
     {
-        $this->adapter->setOptions(array('ignoreNoFile' => true));
+        $this->adapter->setOptions(['ignoreNoFile' => true]);
         $this->assertTrue($this->adapter->receive());
     }
 
     public function testReceiveWithRenameFilter()
     {
-        $this->adapter->addFilter('Rename', array('target' => '/testdir'));
-        $this->adapter->setOptions(array('ignoreNoFile' => true));
+        $this->adapter->addFilter('Rename', ['target' => '/testdir']);
+        $this->adapter->setOptions(['ignoreNoFile' => true]);
         $this->assertTrue($this->adapter->receive());
     }
 
     public function testReceiveWithRenameFilterButWithoutDirectory()
     {
         $this->adapter->setDestination(__DIR__);
-        $this->adapter->addFilter('Rename', array('overwrite' => false));
-        $this->adapter->setOptions(array('ignoreNoFile' => true));
+        $this->adapter->addFilter('Rename', ['overwrite' => false]);
+        $this->adapter->setOptions(['ignoreNoFile' => true]);
         $this->assertTrue($this->adapter->receive());
     }
 
     public function testMultiFiles()
     {
-        $_FILES = array(
-            'txt' => array(
+        $_FILES = [
+            'txt' => [
                 'name' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'test.txt',
                 'type' => 'plain/text',
                 'size' => 8,
                 'tmp_name' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'test.txt',
-                'error' => 0),
-            'exe' => array(
-                'name' => array(
+                'error' => 0],
+            'exe' => [
+                'name' => [
                     0 => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file1.txt',
-                    1 => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file2.txt'),
-                'type' => array(
+                    1 => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file2.txt'],
+                'type' => [
                     0 => 'plain/text',
-                    1 => 'plain/text'),
-                'size' => array(
+                    1 => 'plain/text'],
+                'size' => [
                     0 => 8,
-                    1 => 8),
-                'tmp_name' => array(
+                    1 => 8],
+                'tmp_name' => [
                     0 => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file1.txt',
-                    1 => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file2.txt'),
-                'error' => array(
+                    1 => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file2.txt'],
+                'error' => [
                     0 => 0,
-                    1 => 0)));
+                    1 => 0]]];
         $adapter = new HttpTestMockAdapter();
-        $adapter->setOptions(array('ignoreNoFile' => true));
+        $adapter->setOptions(['ignoreNoFile' => true]);
         $this->assertTrue($adapter->receive('exe'));
         $this->assertEquals(
-            array('exe_0_' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file1.txt',
-                  'exe_1_' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file2.txt'),
+            ['exe_0_' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file1.txt',
+                  'exe_1_' => __DIR__ . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'file2.txt'],
             $adapter->getFileName('exe', false));
     }
 
@@ -195,18 +195,18 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
         $_GET['progress_key'] = 'mykey';
         $status = HttpTestMockAdapter::getProgress();
-        $this->assertEquals(array(
+        $this->assertEquals([
             'total'   => 100,
             'current' => 100,
             'rate'    => 10,
             'id'      => 'mykey',
             'done'    => false,
             'message' => '100B - 100B'
-            ), $status);
+            ], $status);
 
         $this->adapter->switchApcToUP();
         $status = HttpTestMockAdapter::getProgress($status);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'total'          => 100,
             'bytes_total'    => 100,
             'current'        => 100,
@@ -217,7 +217,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
             'message'        => 'The upload has been canceled',
             'done'           => true,
             'id'             => 'mykey'
-            ), $status);
+            ], $status);
     }
 
     public function testUploadProgressAdapter()
@@ -228,7 +228,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
         $_GET['progress_key'] = 'mykey';
         $adapter = new AdapterProgressBar\Console();
-        $status = array('progress' => $adapter, 'session' => 'upload');
+        $status = ['progress' => $adapter, 'session' => 'upload'];
         $status = HttpTestMockAdapter::getProgress($status);
         $this->assertArrayHasKey('total', $status);
         $this->assertArrayHasKey('current', $status);
@@ -253,7 +253,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
     {
         $_SERVER['CONTENT_LENGTH'] = 10;
 
-        $_FILES = array();
+        $_FILES = [];
         $adapter = new HttpTestMockAdapter();
         $this->assertFalse($adapter->isValidParent());
         $this->assertContains('exceeds the defined ini size', current($adapter->getMessages()));

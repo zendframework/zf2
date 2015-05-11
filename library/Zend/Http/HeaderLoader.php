@@ -19,7 +19,7 @@ class HeaderLoader extends PluginClassLoader
     /**
      * @var array Pre-aliased Header plugins
      */
-    protected $plugins = array(
+    protected $plugins = [
         'accept'             => 'Zend\Http\Header\Accept',
         'acceptcharset'      => 'Zend\Http\Header\AcceptCharset',
         'acceptencoding'     => 'Zend\Http\Header\AcceptEncoding',
@@ -75,5 +75,5 @@ class HeaderLoader extends PluginClassLoader
         'via'                => 'Zend\Http\Header\Via',
         'warning'            => 'Zend\Http\Header\Warning',
         'wwwauthenticate'    => 'Zend\Http\Header\WWWAuthenticate'
-    );
+    ];
 }

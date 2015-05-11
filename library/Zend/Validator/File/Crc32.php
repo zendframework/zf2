@@ -26,21 +26,21 @@ class Crc32 extends Hash
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::DOES_NOT_MATCH => "File does not match the given crc32 hashes",
         self::NOT_DETECTED   => "A crc32 hash could not be evaluated for the given file",
         self::NOT_FOUND      => "File is not readable or does not exist",
-    );
+    ];
 
     /**
      * Options for this validator
      *
      * @var string
      */
-    protected $options = array(
+    protected $options = [
         'algorithm' => 'crc32',
         'hash'      => null,
-    );
+    ];
 
     /**
      * Returns all set crc32 hashes

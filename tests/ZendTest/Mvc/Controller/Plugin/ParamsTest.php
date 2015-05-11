@@ -26,10 +26,10 @@ class ParamsTest extends TestCase
 
         $event->setRequest($this->request);
         $event->setResponse(new Response());
-        $event->setRouteMatch(new RouteMatch(array(
+        $event->setRouteMatch(new RouteMatch([
             'value' => 'rm:1234',
             'other' => '1234:rm',
-        )));
+        ]));
 
         $this->controller = new SampleController();
         $this->controller->setEvent($event);
@@ -64,7 +64,7 @@ class ParamsTest extends TestCase
     public function testFromRouteReturnsAllIfEmpty()
     {
         $value = $this->plugin->fromRoute();
-        $this->assertEquals($value, array('value' => 'rm:1234', 'other' => '1234:rm'));
+        $this->assertEquals($value, ['value' => 'rm:1234', 'other' => '1234:rm']);
     }
 
     public function testFromQueryReturnsDefaultIfSet()
@@ -96,7 +96,7 @@ class ParamsTest extends TestCase
         $this->setQuery();
 
         $value = $this->plugin->fromQuery();
-        $this->assertEquals($value, array('value' => 'query:1234', 'other' => '1234:other'));
+        $this->assertEquals($value, ['value' => 'query:1234', 'other' => '1234:other']);
     }
 
     public function testFromPostReturnsDefaultIfSet()
@@ -128,18 +128,18 @@ class ParamsTest extends TestCase
         $this->setPost();
 
         $value = $this->plugin->fromPost();
-        $this->assertEquals($value, array('value' => 'post:1234', 'other' => '2345:other'));
+        $this->assertEquals($value, ['value' => 'post:1234', 'other' => '2345:other']);
     }
 
     public function testFromFilesReturnsExpectedValue()
     {
-        $file = array(
+        $file = [
             'name'     => 'test.txt',
             'type'     => 'text/plain',
             'size'     => 0,
             'tmp_name' => '/tmp/' . uniqid(),
             'error'    => UPLOAD_ERR_OK,
-        );
+        ];
         $this->request->getFiles()->set('test', $file);
         $this->controller->dispatch($this->request);
 
@@ -149,27 +149,27 @@ class ParamsTest extends TestCase
 
     public function testFromFilesReturnsAllIfEmpty()
     {
-        $file = array(
+        $file = [
             'name'     => 'test.txt',
             'type'     => 'text/plain',
             'size'     => 0,
             'tmp_name' => '/tmp/' . uniqid(),
             'error'    => UPLOAD_ERR_OK,
-        );
+        ];
 
-        $file2 = array(
+        $file2 = [
             'name'     => 'file2.txt',
             'type'     => 'text/plain',
             'size'     => 1,
             'tmp_name' => '/tmp/' . uniqid(),
             'error'    => UPLOAD_ERR_OK,
-        );
+        ];
         $this->request->getFiles()->set('file', $file);
         $this->request->getFiles()->set('file2', $file2);
         $this->controller->dispatch($this->request);
 
         $value = $this->plugin->fromFiles();
-        $this->assertEquals($value, array('file' => $file, 'file2' => $file2));
+        $this->assertEquals($value, ['file' => $file, 'file2' => $file2]);
     }
 
     public function testFromHeaderReturnsExpectedValue()
@@ -193,7 +193,7 @@ class ParamsTest extends TestCase
         $this->controller->dispatch($this->request);
 
         $value = $this->plugin->fromHeader();
-        $this->assertSame($value, array('X-TEST' => 'test', 'OTHER-TEST' => 'value:12345'));
+        $this->assertSame($value, ['X-TEST' => 'test', 'OTHER-TEST' => 'value:12345']);
     }
 
     public function testInvokeWithNoArgumentsReturnsInstance()

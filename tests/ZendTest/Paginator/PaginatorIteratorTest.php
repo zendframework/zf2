@@ -18,7 +18,7 @@ class PaginatorIteratorTest extends \PHPUnit_Framework_TestCase
     public function testIteratorFlattensPaginator()
     {
         $paginator = new Paginator(
-            new ArrayAdapter(array('foo', 'bar', 'fiz'))
+            new ArrayAdapter(['foo', 'bar', 'fiz'])
         );
 
         $paginator->setItemCountPerPage(2);
@@ -44,7 +44,7 @@ class PaginatorIteratorTest extends \PHPUnit_Framework_TestCase
     public function testIteratorReturnsInvalidOnEmptyIterator()
     {
         $paginator = new Paginator(
-            new ArrayAdapter(array())
+            new ArrayAdapter([])
         );
 
         $iterator = new PaginatorIterator($paginator);

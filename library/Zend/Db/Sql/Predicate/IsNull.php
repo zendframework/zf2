@@ -87,10 +87,10 @@ class IsNull extends AbstractExpression implements PredicateInterface
     public function getExpressionData()
     {
         $identifier = $this->normalizeArgument($this->identifier, self::TYPE_IDENTIFIER);
-        return array(array(
+        return [[
             $this->getSpecification(),
-            array($identifier[0]),
-            array($identifier[1]),
-        ));
+            [$identifier[0]],
+            [$identifier[1]],
+        ]];
     }
 }

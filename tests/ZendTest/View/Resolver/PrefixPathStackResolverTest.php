@@ -43,10 +43,10 @@ class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
 
     public function testResolve()
     {
-        $resolver = new PrefixPathStackResolver(array(
+        $resolver = new PrefixPathStackResolver([
             'base1'  => $this->basePath,
             'base2' => $this->basePath . '/baz'
-        ));
+        ]);
 
         $this->assertEmpty($resolver->resolve('base1/foo'));
         $this->assertSame(realpath($this->basePath . '/bar.phtml'), $resolver->resolve('base1/bar'));
@@ -56,10 +56,10 @@ class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
 
     public function testResolveWithCongruentPrefix()
     {
-        $resolver = new PrefixPathStackResolver(array(
+        $resolver = new PrefixPathStackResolver([
             'foo'    => $this->basePath,
             'foobar' => $this->basePath . '/baz'
-        ));
+        ]);
 
         $this->assertSame(realpath($this->basePath . '/bar.phtml'), $resolver->resolve('foo/bar'));
         $this->assertSame(realpath($this->basePath . '/baz/taz.phtml'), $resolver->resolve('foobar/taz'));
@@ -69,9 +69,9 @@ class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
     {
         $mockResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
 
-        $resolver = new PrefixPathStackResolver(array(
+        $resolver = new PrefixPathStackResolver([
             'foo' => $mockResolver,
-        ));
+        ]);
 
         $mockResolver->expects($this->at(0))->method('resolve')->with('/bar')->will($this->returnValue('1111'));
         $mockResolver->expects($this->at(1))->method('resolve')->with('/baz')->will($this->returnValue('2222'));

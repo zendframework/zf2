@@ -30,10 +30,10 @@ class Update extends AbstractPreparableSql
     const VALUES_SET   = 'set';
     /**@#-**/
 
-    protected $specifications = array(
+    protected $specifications = [
         self::SPECIFICATION_UPDATE => 'UPDATE %1$s SET %2$s',
         self::SPECIFICATION_WHERE => 'WHERE %1$s'
-    );
+    ];
 
     /**
      * @var string|TableIdentifier
@@ -129,18 +129,18 @@ class Update extends AbstractPreparableSql
 
     public function getRawState($key = null)
     {
-        $rawState = array(
+        $rawState = [
             'emptyWhereProtection' => $this->emptyWhereProtection,
             'table' => $this->table,
             'set' => $this->set->toArray(),
             'where' => $this->where
-        );
+        ];
         return (isset($key) && array_key_exists($key, $rawState)) ? $rawState[$key] : $rawState;
     }
 
     protected function processUpdate(PlatformInterface $platform, DriverInterface $driver = null, ParameterContainer $parameterContainer = null)
     {
-        $setSql = array();
+        $setSql = [];
         foreach ($this->set as $column => $value) {
             $prefix = $platform->quoteIdentifier($column) . ' = ';
             if (is_scalar($value) && $parameterContainer) {

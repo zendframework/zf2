@@ -38,7 +38,7 @@ class ExceptionHandlerTest extends CommonPluginTest
         $this->_adapter->addPlugin($this->_plugin);
 
         // check attached callbacks
-        $expectedListeners = array(
+        $expectedListeners = [
             'getItem.exception'  => 'onException',
             'getItems.exception' => 'onException',
 
@@ -72,7 +72,7 @@ class ExceptionHandlerTest extends CommonPluginTest
             'decrementItems.exception' => 'onException',
 
             'clearExpired.exception' => 'onException',
-        );
+        ];
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->getEventManager()->getListeners($eventName);
 
@@ -108,10 +108,10 @@ class ExceptionHandlerTest extends CommonPluginTest
 
         // run onException
         $result = null;
-        $event = new ExceptionEvent('getItem.exception', $this->_adapter, new ArrayObject(array(
+        $event = new ExceptionEvent('getItem.exception', $this->_adapter, new ArrayObject([
             'key'     => 'key',
-            'options' => array()
-        )), $result, $expectedException);
+            'options' => []
+        ]), $result, $expectedException);
         $this->_plugin->onException($event);
 
         $this->assertTrue(
@@ -126,10 +126,10 @@ class ExceptionHandlerTest extends CommonPluginTest
 
         // run onException
         $result = 'test';
-        $event = new ExceptionEvent('getItem.exception', $this->_adapter, new ArrayObject(array(
+        $event = new ExceptionEvent('getItem.exception', $this->_adapter, new ArrayObject([
             'key'     => 'key',
-            'options' => array()
-        )), $result, new \Exception());
+            'options' => []
+        ]), $result, new \Exception());
         $this->_plugin->onException($event);
 
         $this->assertFalse($event->getThrowException());

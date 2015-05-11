@@ -80,28 +80,28 @@ class CollectionInputFilterTest extends TestCase
 
     public function getValidCollectionData()
     {
-        return array(
-            array(
+        return [
+            [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'foo' => ' batbaz ',
                 'bar' => '54321',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' batbaz ',
                     'bar' => '54321',
                     'baz' => '',
-                ),
-            )
-        );
+                ],
+            ]
+        ];
     }
 
     public function testSetInputFilter()
@@ -129,10 +129,10 @@ class CollectionInputFilterTest extends TestCase
 
     public function testGetCountUsesCountOfCollectionDataWhenNotSet()
     {
-        $collectionData = array(
-            array('foo' => 'bar'),
-            array('foo' => 'baz')
-        );
+        $collectionData = [
+            ['foo' => 'bar'],
+            ['foo' => 'baz']
+        ];
 
         $this->filter->setData($collectionData);
         $this->assertEquals(2, $this->filter->getCount());
@@ -140,10 +140,10 @@ class CollectionInputFilterTest extends TestCase
 
     public function testGetCountUsesSpecifiedCount()
     {
-        $collectionData = array(
-            array('foo' => 'bar'),
-            array('foo' => 'baz')
-        );
+        $collectionData = [
+            ['foo' => 'bar'],
+            ['foo' => 'baz']
+        ];
 
         $this->filter->setCount(3);
         $this->filter->setData($collectionData);
@@ -155,14 +155,14 @@ class CollectionInputFilterTest extends TestCase
      */
     public function testGetCountReturnsRightCountOnConsecutiveCallsWithDifferentData()
     {
-        $collectionData1 = array(
-            array('foo' => 'bar'),
-            array('foo' => 'baz')
-        );
+        $collectionData1 = [
+            ['foo' => 'bar'],
+            ['foo' => 'baz']
+        ];
 
-        $collectionData2 = array(
-            array('foo' => 'bar')
-        );
+        $collectionData2 = [
+            ['foo' => 'bar']
+        ];
 
         $this->filter->setData($collectionData1);
         $this->assertEquals(2, $this->filter->getCount());
@@ -201,18 +201,18 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $invalidCollectionData = array(
-            array(
+        $invalidCollectionData = [
+            [
                 'foo' => ' bazbatlong ',
                 'bar' => '12345',
                 'baz' => '',
-            ),
-            array(
+            ],
+            [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
                 'baz' => '',
-            )
-        );
+            ]
+        ];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($invalidCollectionData);
@@ -225,18 +225,18 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $invalidCollectionData = array(
-            array(
+        $invalidCollectionData = [
+            [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->filter->setCount(2);
         $this->filter->setInputFilter($this->getBaseInputFilter());
@@ -250,28 +250,28 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $expectedData = array(
-            array(
+        $expectedData = [
+            [
                 'foo' => 'bazbat',
                 'bar' => '12345',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => 'bazbat',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'foo' => 'batbaz',
                 'bar' => '54321',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => 'batbaz',
                     'bar' => '54321',
                     'baz' => '',
-                ),
-            )
-        );
+                ],
+            ]
+        ];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($this->getValidCollectionData());
@@ -291,28 +291,28 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $expectedData = array(
-            array(
+        $expectedData = [
+            [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'foo' => ' batbaz ',
                 'bar' => '54321',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' batbaz ',
                     'bar' => '54321',
                     'baz' => '',
-                ),
-            )
-        );
+                ],
+            ]
+        ];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($this->getValidCollectionData());
@@ -327,38 +327,38 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $invalidCollectionData = array(
-            array(
+        $invalidCollectionData = [
+            [
                 'foo' => ' bazbattoolong ',
                 'bar' => '12345',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'foo' => ' bazbat ',
                 'bar' => 'notstring',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-            array(
+                ],
+            ],
+            [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
                 'baz' => '',
-                'nest' => array(
+                'nest' => [
                     // missing 'foo' here
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($invalidCollectionData);
@@ -389,35 +389,35 @@ class CollectionInputFilterTest extends TestCase
         }
 
         // forms set an array of identical validation groups for each set of data
-        $formValidationGroup = array(
-            array(
+        $formValidationGroup = [
+            [
                 'foo',
                 'bar',
-            ),
-            array(
+            ],
+            [
                 'foo',
                 'bar',
-            ),
-            array(
+            ],
+            [
                 'foo',
                 'bar',
-            )
-        );
+            ]
+        ];
 
-        $data = array(
-            array(
+        $data = [
+            [
                 'foo' => ' bazbat ',
                 'bar' => '12345'
-            ),
-            array(
+            ],
+            [
                 'foo' => ' batbaz ',
                 'bar' => '54321'
-            ),
-            array(
+            ],
+            [
                 'foo' => ' batbaz ',
                 'bar' => '54321'
-            )
-        );
+            ]
+        ];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($data);
@@ -432,7 +432,7 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $data = array();
+        $data = [];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($data);
@@ -446,7 +446,7 @@ class CollectionInputFilterTest extends TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $data = array();
+        $data = [];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($data);
@@ -463,18 +463,18 @@ class CollectionInputFilterTest extends TestCase
 
     public function testNonRequiredFieldsAreValidated()
     {
-        $invalidCollectionData = array(
-            array(
+        $invalidCollectionData = [
+            [
                 'foo' => ' bazbattoolong ',
                 'bar' => '12345',
                 'baz' => 'baztoolong',
-                'nest' => array(
+                'nest' => [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => '',
-                ),
-            )
-        );
+                ],
+            ]
+        ];
 
         $this->filter->setInputFilter($this->getBaseInputFilter());
         $this->filter->setData($invalidCollectionData);
@@ -501,74 +501,74 @@ class CollectionInputFilterTest extends TestCase
         $inputFilter = new BaseInputFilter();
         $inputFilter->add($groups, 'groups');
 
-        $preFilterdata = array(
-            'groups' => array(
-                array(
+        $preFilterdata = [
+            'groups' => [
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 100,
                             'type' => 'item-1',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 200,
                             'type' => 'item-2',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 300,
                             'type' => 'item-3',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 400,
                             'type' => 'item-4',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'biz',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
-        $postFilterdata = array(
-            'groups' => array(
-                array(
+        $postFilterdata = [
+            'groups' => [
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 100,
                             'type' => 'item-1',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 200,
                             'type' => 'item-2',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 300,
                             'type' => 'item-3',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 400,
                             'type' => 'item-4',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'biz',
-                    'items' => array(),
-                ),
-            ),
-        );
+                    'items' => [],
+                ],
+            ],
+        ];
 
         $inputFilter->setData($preFilterdata);
         $inputFilter->isValid();
@@ -593,40 +593,40 @@ class CollectionInputFilterTest extends TestCase
         $inputFilter = new BaseInputFilter();
         $inputFilter->add($groups, 'groups');
 
-        $data = array(
-            'groups' => array(
-                array(
+        $data = [
+            'groups' => [
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 100,
                             'type' => 'item-1',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'biz',
-                    'items' => array(),
-                ),
-                array(
+                    'items' => [],
+                ],
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 200,
                             'type' => 'item-2',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 300,
                             'type' => 'item-3',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 400,
                             'type' => 'item-4',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $inputFilter->setData($data);
         $inputFilter->isValid();
@@ -654,44 +654,44 @@ class CollectionInputFilterTest extends TestCase
         $inputFilter = new BaseInputFilter();
         $inputFilter->add($groups, 'groups');
 
-        $data = array(
-            'groups' => array(
-                array(
+        $data = [
+            'groups' => [
+                [
                     'group_class' => 'bar',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 100,
                             'type' => 'item-100',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 101,
                             'type' => 'item-101',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 102,
                             'type' => 'item-102',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 103,
                             'type' => 'item-103',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'group_class' => 'foo',
-                    'items' => array(
-                        array(
+                    'items' => [
+                        [
                             'id' => 200,
                             'type' => 'item-200',
-                        ),
-                        array(
+                        ],
+                        [
                             'id' => 201,
                             'type' => 'item-201',
-                        ),
-                    ),
-                ),
-            ),
-        );
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $inputFilter->setData($data);
         $inputFilter->isValid();
@@ -701,24 +701,24 @@ class CollectionInputFilterTest extends TestCase
 
     public function dataNestingCollection()
     {
-        return array(
-            'count not specified' => array(
+        return [
+            'count not specified' => [
                 'count' => null,
                 'isValid' => true
-            ),
-            'count = 1' =>  array(
+            ],
+            'count = 1' =>  [
                 'count' => 1,
                 'isValid' => true
-            ),
-            'count = 2' => array(
+            ],
+            'count = 2' => [
                 'count' => 2,
                 'isValid' => false
-            ),
-            'count = 3' => array(
+            ],
+            'count = 3' => [
                 'count' => 3,
                 'isValid' => false
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -746,27 +746,27 @@ class CollectionInputFilterTest extends TestCase
         $mainInputFilter = new InputFilter();
         $mainInputFilter->add($firstCollection, 'first_collection');
 
-        $data = array(
-            'first_collection' => array(
-                array(
-                    'second_collection' => array(
-                        array(
+        $data = [
+            'first_collection' => [
+                [
+                    'second_collection' => [
+                        [
                             'input' => 'some value'
-                        ),
-                        array(
+                        ],
+                        [
                             'input' => 'some value'
-                        )
-                    )
-                ),
-                array(
-                    'second_collection' => array(
-                        array(
+                        ]
+                    ]
+                ],
+                [
+                    'second_collection' => [
+                        [
                             'input' => 'some value'
-                        ),
-                    )
-                )
-            )
-        );
+                        ],
+                    ]
+                ]
+            ]
+        ];
 
         $mainInputFilter->setData($data);
         $this->assertSame($expectedIsValid, $mainInputFilter->isValid());

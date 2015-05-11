@@ -39,7 +39,7 @@ class ServiceManagerTest extends TestCase
      */
     public function testConstructorConfig()
     {
-        $config = new Config(array('services' => array('foo' => 'bar')));
+        $config = new Config(['services' => ['foo' => 'bar']]);
         $serviceManager = new ServiceManager($config);
         $this->assertEquals('bar', $serviceManager->get('foo'));
     }
@@ -197,7 +197,7 @@ class ServiceManagerTest extends TestCase
      */
     public function testGetDoesNotThrowExceptionOnEmptyArray()
     {
-        $this->serviceManager->setService('foo', array());
+        $this->serviceManager->setService('foo', []);
         $this->serviceManager->get('foo');
     }
 
@@ -361,7 +361,7 @@ class ServiceManagerTest extends TestCase
 
     public function testCreateWithInitializerObject()
     {
-        $this->serviceManager->addInitializer(new TestAsset\FooInitializer(array('foo' => 'bar')));
+        $this->serviceManager->addInitializer(new TestAsset\FooInitializer(['foo' => 'bar']));
         $this->serviceManager->setFactory('foo', function () {
             return new \stdClass();
         });
@@ -378,7 +378,7 @@ class ServiceManagerTest extends TestCase
     public function testHasAcceptsArrays()
     {
         $this->serviceManager->setInvokableClass('foobar', 'foo');
-        $this->assertTrue($this->serviceManager->has(array('foobar', 'foo_bar')));
+        $this->assertTrue($this->serviceManager->has(['foobar', 'foo_bar']));
     }
 
     /**
@@ -491,11 +491,11 @@ class ServiceManagerTest extends TestCase
 
     public function testConfigureWithInvokableClass()
     {
-        $config = new Config(array(
-            'invokables' => array(
+        $config = new Config([
+            'invokables' => [
                 'foo' => 'ZendTest\ServiceManager\TestAsset\Foo',
-            ),
-        ));
+            ],
+        ]);
         $serviceManager = new ServiceManager($config);
         $foo = $serviceManager->get('foo');
         $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\Foo', $foo);
@@ -504,7 +504,7 @@ class ServiceManagerTest extends TestCase
     public function testPeeringService()
     {
         $di = new Di();
-        $di->instanceManager()->setParameters('ZendTest\ServiceManager\TestAsset\Bar', array('foo' => array('a')));
+        $di->instanceManager()->setParameters('ZendTest\ServiceManager\TestAsset\Bar', ['foo' => ['a']]);
         $this->serviceManager->addAbstractFactory(new DiAbstractServiceFactory($di));
         $sm = $this->serviceManager->createScopedServiceManager(ServiceManager::SCOPE_PARENT);
         $sm->setFactory('di', new DiFactory());
@@ -516,7 +516,7 @@ class ServiceManagerTest extends TestCase
     {
         $di = $this->getMock('Zend\Di\Di');
         $factory = new DiAbstractServiceFactory($di);
-        $factory->instanceManager()->setConfig('ZendTest\ServiceManager\TestAsset\Bar', array('parameters' => array('foo' => array('a'))));
+        $factory->instanceManager()->setConfig('ZendTest\ServiceManager\TestAsset\Bar', ['parameters' => ['foo' => ['a']]]);
         $this->serviceManager->addAbstractFactory($factory);
 
         $this->assertTrue($this->serviceManager->has('ZendTest\ServiceManager\TestAsset\Bar', true));
@@ -541,11 +541,11 @@ class ServiceManagerTest extends TestCase
      */
     public function testCannotUseUnknownServiceNameForAbstractFactory()
     {
-        $config = new Config(array(
-            'abstract_factories' => array(
+        $config = new Config([
+            'abstract_factories' => [
                 'ZendTest\ServiceManager\TestAsset\FooAbstractFactory',
-            ),
-        ));
+            ],
+        ]);
         $serviceManager = new ServiceManager($config);
         $serviceManager->setFactory('foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
         $foo = $serviceManager->get('unknownObject');
@@ -562,7 +562,7 @@ class ServiceManagerTest extends TestCase
         $serviceManager = new ServiceManager();
         $serviceManager->setFactory('ZendTest\ServiceManager\TestAsset\Bar', $factory);
         $di = new Di();
-        $di->instanceManager()->setParameters('ZendTest\ServiceManager\TestAsset\Bar', array('foo' => array('a')));
+        $di->instanceManager()->setParameters('ZendTest\ServiceManager\TestAsset\Bar', ['foo' => ['a']]);
         $serviceManager->addAbstractFactory(new DiAbstractServiceFactory($di));
         $bar = $serviceManager->get('ZendTest\ServiceManager\TestAsset\Bar');
     }
@@ -574,7 +574,7 @@ class ServiceManagerTest extends TestCase
     {
         $this->serviceManager->setFactory('foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
         $this->serviceManager->setFactory('bar', function ($sm) {
-                return new Bar(array('a'));
+                return new Bar(['a']);
             });
         $this->serviceManager->setAllowOverride(false);
         // should throw an exception because 'foo' already exists in the service manager
@@ -702,11 +702,11 @@ class ServiceManagerTest extends TestCase
 
     public function testGetGlobIteratorServiceWorksProperly()
     {
-        $config = new Config(array(
-            'invokables' => array(
+        $config = new Config([
+            'invokables' => [
                 'foo' => 'ZendTest\ServiceManager\TestAsset\GlobIteratorService',
-            ),
-        ));
+            ],
+        ]);
         $serviceManager = new ServiceManager($config);
         $foo = $serviceManager->get('foo');
         $this->assertInstanceOf('ZendTest\ServiceManager\TestAsset\GlobIteratorService', $foo);
@@ -716,28 +716,28 @@ class ServiceManagerTest extends TestCase
     {
         $self = $this;
 
-        return array(
-            array(
+        return [
+            [
                 'setFactory',
                 function ($services) use ($self) {
                     return $self;
                 },
                 $self,
                 'assertSame',
-            ),
-            array(
+            ],
+            [
                 'setInvokableClass',
                 'stdClass',
                 'stdClass',
                 'assertInstanceOf',
-            ),
-            array(
+            ],
+            [
                 'setService',
                 $self,
                 $self,
                 'assertSame',
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -956,11 +956,11 @@ class ServiceManagerTest extends TestCase
 
         // simulate an inconsistent state of $servicemanager->aliases as it could be
         // caused by derived classes
-        $cyclicAliases = array(
+        $cyclicAliases = [
             'fooalias' => 'bazalias',
             'baralias' => 'fooalias',
             'bazalias' => 'baralias'
-        );
+        ];
 
         $reflection = new \ReflectionObject($this->serviceManager);
         $propertyReflection = $reflection->getProperty('aliases');
@@ -1056,8 +1056,8 @@ class ServiceManagerTest extends TestCase
 
     public function testDelegatorFromCallback()
     {
-        $realService = $this->getMock('stdClass', array(), array(), 'RealService');
-        $delegator = $this->getMock('stdClass', array(), array(), 'Delegator');
+        $realService = $this->getMock('stdClass', [], [], 'RealService');
+        $delegator = $this->getMock('stdClass', [], [], 'Delegator');
 
         $delegatorFactoryCallback = function ($serviceManager, $cName, $rName, $callback) use ($delegator) {
             $delegator->real = call_user_func($callback);
@@ -1151,17 +1151,17 @@ class ServiceManagerTest extends TestCase
 
     public function getServiceOfVariousTypes()
     {
-        return array(
-            array(null),
-            array('string'),
-            array(1),
-            array(1.2),
-            array(array()),
-            array(function () {}),
-            array(false),
-            array(new \stdClass()),
-            array(tmpfile())
-        );
+        return [
+            [null],
+            ['string'],
+            [1],
+            [1.2],
+            [[]],
+            [function () {}],
+            [false],
+            [new \stdClass()],
+            [tmpfile()]
+        ];
     }
 
     /**

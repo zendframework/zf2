@@ -43,8 +43,8 @@ class DotNetTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->client = new DotNetClient(null, array('location' => 'http://unithost/test',
-                                                    'uri'      => 'http://unithost/test'));
+        $this->client = new DotNetClient(null, ['location' => 'http://unithost/test',
+                                                    'uri'      => 'http://unithost/test']);
     }
 
     /**
@@ -111,15 +111,15 @@ class DotNetTest extends PHPUnit_Framework_TestCase
                 return $result;
             },
             null,
-            array(
+            [
                 'location' => 'http://unit/test',
                 'uri'      => 'http://unit/test'
-            )
+            ]
         );
         $this->assertAttributeEquals(false, 'useNtlm', $this->client);
-        $this->client->setOptions(array('authentication' => 'ntlm',
+        $this->client->setOptions(['authentication' => 'ntlm',
             'login'          => 'username',
-            'password'       => 'testpass'));
+            'password'       => 'testpass']);
         $this->client->setSoapClient($soapClient);
         $this->assertInstanceOf('stdClass', $this->client->TestMethod());
     }
@@ -168,7 +168,7 @@ class DotNetTest extends PHPUnit_Framework_TestCase
     private function mockCurlClient()
     {
         $this->curlClient = $this->getMock('Zend\Http\Client\Adapter\Curl',
-                                           array('close', 'connect', 'read', 'write'));
+                                           ['close', 'connect', 'read', 'write']);
         $this->client->setCurlClient($this->curlClient);
     }
 
@@ -179,10 +179,10 @@ class DotNetTest extends PHPUnit_Framework_TestCase
      */
     private function mockNtlmRequest()
     {
-        $headers  = array('Content-Type' => 'text/xml; charset=utf-8',
+        $headers  = ['Content-Type' => 'text/xml; charset=utf-8',
                           'Method'       => 'POST',
                           'SOAPAction'   => '"http://unithost/test#TestMethod"',
-                          'User-Agent'   => 'PHP-SOAP-CURL');
+                          'User-Agent'   => 'PHP-SOAP-CURL'];
         $response = "HTTP/1.1 200 OK\n"
                   . "Cache-Control: private\n"
                   . "Content-Type: text/xml; charset=utf-8\n"
@@ -209,8 +209,8 @@ class DotNetTest extends PHPUnit_Framework_TestCase
                          ->method('write')
                          ->with('POST', $this->isInstanceOf('Zend\Uri\Http'), 1.1, $headers, $this->stringContains('<SOAP-ENV'));
 
-        $this->client->setOptions(array('authentication' => 'ntlm',
+        $this->client->setOptions(['authentication' => 'ntlm',
                                         'login'          => 'username',
-                                        'password'       => 'testpass'));
+                                        'password'       => 'testpass']);
     }
 }

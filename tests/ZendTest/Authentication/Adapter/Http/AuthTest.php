@@ -71,22 +71,22 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->_filesPath      = __DIR__ . '/TestAsset';
         $this->_basicResolver  = new Http\FileResolver("{$this->_filesPath}/htbasic.1");
         $this->_digestResolver = new Http\FileResolver("{$this->_filesPath}/htdigest.3");
-        $this->_basicConfig    = array(
+        $this->_basicConfig    = [
             'accept_schemes' => 'basic',
             'realm'          => 'Test Realm'
-        );
-        $this->_digestConfig   = array(
+        ];
+        $this->_digestConfig   = [
             'accept_schemes' => 'digest',
             'realm'          => 'Test Realm',
             'digest_domains' => '/ http://localhost/',
             'nonce_timeout'  => 300
-        );
-        $this->_bothConfig     = array(
+        ];
+        $this->_bothConfig     = [
             'accept_schemes' => 'basic digest',
             'realm'          => 'Test Realm',
             'digest_domains' => '/ http://localhost/',
             'nonce_timeout'  => 300
-        );
+        ];
     }
 
     public function testBasicChallenge()
@@ -96,10 +96,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         // false result.
 
         // The expected Basic Www-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_bothConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('', 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -171,10 +171,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         // a bad username or password.
 
         // The expected Basic Www-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_basicConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('Basic ' . base64_encode("Bad\tChars:In:Creds"), 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -186,10 +186,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         // password
 
         // The expected Basic Www-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_basicConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('Basic ' . base64_encode('Nobody:NotValid'), 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -201,10 +201,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         // password
 
         // The expected Basic Www-Authenticate header value
-        $basic = array(
+        $basic = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_basicConfig['realm'] . '"',
-        );
+        ];
 
         $data = $this->_doAuth('Basic ' . base64_encode('Bryce:Invalid'), 'basic');
         $this->_checkUnauthorized($data, $basic);
@@ -367,11 +367,11 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $a->setResponse($response);
         $result = $a->authenticate();
 
-        $return = array(
+        $return = [
             'result'  => $result,
             'status'  => $response->getStatusCode(),
             'headers' => $response->getHeaders(),
-        );
+        ];
         return $return;
     }
 
@@ -382,11 +382,11 @@ class AuthTest extends \PHPUnit_Framework_TestCase
      */
     protected function _digestChallenge()
     {
-        return array(
+        return [
             'type'   => 'Digest ',
             'realm'  => 'realm="' . $this->_digestConfig['realm'] . '"',
             'domain' => 'domain="' . $this->_bothConfig['digest_domains'] . '"',
-        );
+        ];
     }
 
     /**
@@ -508,10 +508,10 @@ class AuthTest extends \PHPUnit_Framework_TestCase
         $this->_basicResolver  = new TestAsset\BasicAuthObjectResolver();
         $data = $this->_doAuth('Basic ' . base64_encode('David:ThisIsNotMyPassword'), 'basic');
 
-        $expected = array(
+        $expected = [
             'type'   => 'Basic ',
             'realm'  => 'realm="' . $this->_bothConfig['realm'] . '"',
-        );
+        ];
 
         $this->_checkUnauthorized($data, $expected);
     }

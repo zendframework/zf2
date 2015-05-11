@@ -18,7 +18,7 @@ class NestedFieldset extends Fieldset implements \Zend\InputFilter\InputFilterPr
     {
         parent::__construct('nested_fieldset');
 
-        $field = new Element('anotherField', array('label' => 'Name'));
+        $field = new Element('anotherField', ['label' => 'Name']);
         $field->setAttribute('type', 'text');
 
         $this->add($field);
@@ -32,10 +32,10 @@ class NestedFieldset extends Fieldset implements \Zend\InputFilter\InputFilterPr
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'anotherField' => array(
+        return [
+            'anotherField' => [
                 'required' => true
-            )
-        );
+            ]
+        ];
     }
 }

@@ -39,7 +39,7 @@ class Callback
     /**
      * @var array Valid callback types
      */
-    protected $types = array('function', 'static', 'instance');
+    protected $types = ['function', 'static', 'instance'];
 
     /**
      * Constructor
@@ -174,9 +174,9 @@ class Callback
     public function toArray()
     {
         $type = $this->getType();
-        $array = array(
+        $array = [
             'type' => $type,
-        );
+        ];
         if ('function' == $type) {
             $array['function'] = $this->getFunction();
         } else {

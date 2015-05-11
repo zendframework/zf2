@@ -107,10 +107,10 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersHasAndGetWorkProperly()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array(
+        $headers->addHeaders([
             $f = new Header\GenericHeader('Foo', 'bar'),
             new Header\GenericHeader('Baz', 'baz'),
-        ));
+        ]);
         $this->assertFalse($headers->has('foobar'));
         $this->assertTrue($headers->has('foo'));
         $this->assertTrue($headers->has('Foo'));
@@ -155,35 +155,35 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersAggregatesHeadersThroughAddHeaders()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array(new Header\GenericHeader('Foo', 'bar'), new Header\GenericHeader('Baz', 'baz')));
+        $headers->addHeaders([new Header\GenericHeader('Foo', 'bar'), new Header\GenericHeader('Baz', 'baz')]);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Mail\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo: bar', 'Baz: baz'));
+        $headers->addHeaders(['Foo: bar', 'Baz: baz']);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Mail\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Mail\Headers();
-        $headers->addHeaders(array(array('Foo' => 'bar'), array('Baz' => 'baz')));
+        $headers->addHeaders([['Foo' => 'bar'], ['Baz' => 'baz']]);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Mail\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Mail\Headers();
-        $headers->addHeaders(array(array('Foo', 'bar'), array('Baz', 'baz')));
+        $headers->addHeaders([['Foo', 'bar'], ['Baz', 'baz']]);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Mail\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
         $this->assertEquals('baz', $headers->get('baz')->getFieldValue());
 
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals(2, $headers->count());
         $this->assertInstanceOf('Zend\Mail\Header\GenericHeader', $headers->get('Foo'));
         $this->assertEquals('bar', $headers->get('foo')->getFieldValue());
@@ -200,7 +200,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanRemoveHeader()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals(2, $headers->count());
         $headers->removeHeader('foo');
         $this->assertEquals(1, $headers->count());
@@ -211,7 +211,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testRemoveHeaderWithFieldNameWillRemoveAllInstances()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array(array('Foo' => 'foo'), array('Foo' => 'bar'), 'Baz' => 'baz'));
+        $headers->addHeaders([['Foo' => 'foo'], ['Foo' => 'bar'], 'Baz' => 'baz']);
         $this->assertEquals(3, $headers->count());
         $headers->removeHeader('foo');
         $this->assertEquals(1, $headers->count());
@@ -222,7 +222,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testRemoveHeaderWithInstanceWillRemoveThatInstance()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array(array('Foo' => 'foo'), array('Foo' => 'bar'), 'Baz' => 'baz'));
+        $headers->addHeaders([['Foo' => 'foo'], ['Foo' => 'bar'], 'Baz' => 'baz']);
         $header = $headers->get('foo')->current();
         $this->assertEquals(3, $headers->count());
         $headers->removeHeader($header);
@@ -234,7 +234,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanClearAllHeaders()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals(2, $headers->count());
         $headers->clearHeaders();
         $this->assertEquals(0, $headers->count());
@@ -243,7 +243,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanBeIterated()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $iterations = 0;
         foreach ($headers as $index => $header) {
             $iterations++;
@@ -265,15 +265,15 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     public function testHeadersCanBeCastToString()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
         $this->assertEquals('Foo: bar' . "\r\n" . 'Baz: baz' . "\r\n", $headers->toString());
     }
 
     public function testHeadersCanBeCastToArray()
     {
         $headers = new Mail\Headers();
-        $headers->addHeaders(array('Foo' => 'bar', 'Baz' => 'baz'));
-        $this->assertEquals(array('Foo' => 'bar', 'Baz' => 'baz'), $headers->toArray());
+        $headers->addHeaders(['Foo' => 'bar', 'Baz' => 'baz']);
+        $this->assertEquals(['Foo' => 'bar', 'Baz' => 'baz'], $headers->toArray());
     }
 
     public function testCastingToArrayReturnsMultiHeadersAsArrays()
@@ -284,12 +284,12 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $headers->addHeader($received1);
         $headers->addHeader($received2);
         $array   = $headers->toArray();
-        $expected = array(
-            'Received' => array(
+        $expected = [
+            'Received' => [
                 $received1->getFieldValue(),
                 $received2->getFieldValue(),
-            ),
-        );
+            ],
+        ];
         $this->assertEquals($expected, $array);
     }
 
@@ -301,35 +301,35 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
         $headers->addHeader($received1);
         $headers->addHeader($received2);
         $string  = $headers->toString();
-        $expected = array(
+        $expected = [
             'Received: ' . $received1->getFieldValue(),
             'Received: ' . $received2->getFieldValue(),
-        );
+        ];
         $expected = implode("\r\n", $expected) . "\r\n";
         $this->assertEquals($expected, $string);
     }
 
     public static function expectedHeaders()
     {
-        return array(
-            array('bcc', 'Zend\Mail\Header\Bcc'),
-            array('cc', 'Zend\Mail\Header\Cc'),
-            array('contenttype', 'Zend\Mail\Header\ContentType'),
-            array('content_type', 'Zend\Mail\Header\ContentType'),
-            array('content-type', 'Zend\Mail\Header\ContentType'),
-            array('date', 'Zend\Mail\Header\Date'),
-            array('from', 'Zend\Mail\Header\From'),
-            array('mimeversion', 'Zend\Mail\Header\MimeVersion'),
-            array('mime_version', 'Zend\Mail\Header\MimeVersion'),
-            array('mime-version', 'Zend\Mail\Header\MimeVersion'),
-            array('received', 'Zend\Mail\Header\Received'),
-            array('replyto', 'Zend\Mail\Header\ReplyTo'),
-            array('reply_to', 'Zend\Mail\Header\ReplyTo'),
-            array('reply-to', 'Zend\Mail\Header\ReplyTo'),
-            array('sender', 'Zend\Mail\Header\Sender'),
-            array('subject', 'Zend\Mail\Header\Subject'),
-            array('to', 'Zend\Mail\Header\To'),
-        );
+        return [
+            ['bcc', 'Zend\Mail\Header\Bcc'],
+            ['cc', 'Zend\Mail\Header\Cc'],
+            ['contenttype', 'Zend\Mail\Header\ContentType'],
+            ['content_type', 'Zend\Mail\Header\ContentType'],
+            ['content-type', 'Zend\Mail\Header\ContentType'],
+            ['date', 'Zend\Mail\Header\Date'],
+            ['from', 'Zend\Mail\Header\From'],
+            ['mimeversion', 'Zend\Mail\Header\MimeVersion'],
+            ['mime_version', 'Zend\Mail\Header\MimeVersion'],
+            ['mime-version', 'Zend\Mail\Header\MimeVersion'],
+            ['received', 'Zend\Mail\Header\Received'],
+            ['replyto', 'Zend\Mail\Header\ReplyTo'],
+            ['reply_to', 'Zend\Mail\Header\ReplyTo'],
+            ['reply-to', 'Zend\Mail\Header\ReplyTo'],
+            ['sender', 'Zend\Mail\Header\Sender'],
+            ['subject', 'Zend\Mail\Header\Subject'],
+            ['to', 'Zend\Mail\Header\To'],
+        ];
     }
 
     /**
@@ -390,7 +390,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     {
         $headers = new Mail\Headers();
         $this->setExpectedException('Zend\Mail\Header\Exception\InvalidArgumentException');
-        $headers->addHeaderLine('Fake', array("foo-bar\r\n\r\nevilContent"));
+        $headers->addHeaderLine('Fake', ["foo-bar\r\n\r\nevilContent"]);
         $headers->forceLoading();
     }
 
@@ -401,7 +401,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     {
         $headers = new Mail\Headers();
         $this->setExpectedException('Zend\Mail\Header\Exception\InvalidArgumentException');
-        $headers->addHeaders(array("Fake: foo-bar\r\n\r\nevilContent"));
+        $headers->addHeaders(["Fake: foo-bar\r\n\r\nevilContent"]);
     }
 
     /**
@@ -411,7 +411,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     {
         $headers = new Mail\Headers();
         $this->setExpectedException('Zend\Mail\Header\Exception\InvalidArgumentException');
-        $headers->addHeaders(array('Fake' => "foo-bar\r\n\r\nevilContent"));
+        $headers->addHeaders(['Fake' => "foo-bar\r\n\r\nevilContent"]);
     }
 
     /**
@@ -421,7 +421,7 @@ class HeadersTest extends \PHPUnit_Framework_TestCase
     {
         $headers = new Mail\Headers();
         $this->setExpectedException('Zend\Mail\Header\Exception\InvalidArgumentException');
-        $headers->addHeaders(array('Fake' => array("foo-bar\r\n\r\nevilContent")));
+        $headers->addHeaders(['Fake' => ["foo-bar\r\n\r\nevilContent"]]);
         $headers->forceLoading();
     }
 }

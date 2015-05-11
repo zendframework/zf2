@@ -26,13 +26,13 @@ class PluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'clearexpiredbyfactor' => 'Zend\Cache\Storage\Plugin\ClearExpiredByFactor',
         'exceptionhandler'     => 'Zend\Cache\Storage\Plugin\ExceptionHandler',
         'ignoreuserabort'      => 'Zend\Cache\Storage\Plugin\IgnoreUserAbort',
         'optimizebyfactor'     => 'Zend\Cache\Storage\Plugin\OptimizeByFactor',
         'serializer'           => 'Zend\Cache\Storage\Plugin\Serializer',
-    );
+    ];
 
     /**
      * Do not share by default

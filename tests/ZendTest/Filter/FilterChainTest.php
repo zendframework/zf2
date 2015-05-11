@@ -63,7 +63,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
         $chain = new FilterChain();
         $chain->attachByName('string_trim', null, 100)
               ->attachByName('strip_tags')
-              ->attachByName('string_to_lower', array('encoding' => 'utf-8'), 900);
+              ->attachByName('string_to_lower', ['encoding' => 'utf-8'], 900);
         $value = '<a name="foo"> ABC </a>';
         $valueExpected = 'abc';
         $this->assertEquals($valueExpected, $chain->filter($value));
@@ -100,28 +100,28 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRetrieveFilterWithUndefinedConstructor()
     {
-        $chain = new FilterChain(array(
-            'filters' => array(
-                array('name' => 'int'),
-            ),
-        ));
+        $chain = new FilterChain([
+            'filters' => [
+                ['name' => 'int'],
+            ],
+        ]);
         $filtered = $chain->filter('127.1');
         $this->assertEquals(127, $filtered);
     }
 
     protected function getChainConfig()
     {
-        return array(
-            'callbacks' => array(
-                array('callback' => __CLASS__ . '::staticUcaseFilter'),
-                array('priority' => 10000, 'callback' => function ($value) {
+        return [
+            'callbacks' => [
+                ['callback' => __CLASS__ . '::staticUcaseFilter'],
+                ['priority' => 10000, 'callback' => function ($value) {
                     return trim($value);
-                }),
-            ),
-            'filters' => array(
-                array('name' => 'strip_tags', 'options' => array('allowTags' => 'img', 'allowAttribs' => 'id'), 'priority' => 10100),
-            ),
-        );
+                }],
+            ],
+            'filters' => [
+                ['name' => 'strip_tags', 'options' => ['allowTags' => 'img', 'allowAttribs' => 'id'], 'priority' => 10100],
+            ],
+        ];
     }
 
     public static function staticUcaseFilter($value)
@@ -135,14 +135,14 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase
     public function testCanAttachMultipleFiltersOfTheSameTypeAsDiscreteInstances()
     {
         $chain = new FilterChain();
-        $chain->attachByName('PregReplace', array(
+        $chain->attachByName('PregReplace', [
             'pattern'     => '/Foo/',
             'replacement' => 'Bar',
-        ));
-        $chain->attachByName('PregReplace', array(
+        ]);
+        $chain->attachByName('PregReplace', [
             'pattern'     => '/Bar/',
             'replacement' => 'PARTY',
-        ));
+        ]);
 
         $this->assertEquals(2, count($chain));
         $filters = $chain->getFilters();

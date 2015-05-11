@@ -40,28 +40,28 @@ class Translator implements TranslatorInterface
      *
      * @var array
      */
-    protected $messages = array();
+    protected $messages = [];
 
     /**
      * Files used for loading messages.
      *
      * @var array
      */
-    protected $files = array();
+    protected $files = [];
 
     /**
      * Patterns used for loading messages.
      *
      * @var array
      */
-    protected $patterns = array();
+    protected $patterns = [];
 
     /**
      * Remote locations for loading messages.
      *
      * @var array
      */
-    protected $remote = array();
+    protected $remote = [];
 
     /**
      * Default locale.
@@ -143,7 +143,7 @@ class Translator implements TranslatorInterface
                 );
             }
 
-            $requiredKeys = array('type', 'base_dir', 'pattern');
+            $requiredKeys = ['type', 'base_dir', 'pattern'];
             foreach ($options['translation_file_patterns'] as $pattern) {
                 foreach ($requiredKeys as $key) {
                     if (!isset($pattern[$key])) {
@@ -170,7 +170,7 @@ class Translator implements TranslatorInterface
                 );
             }
 
-            $requiredKeys = array('type', 'filename');
+            $requiredKeys = ['type', 'filename'];
             foreach ($options['translation_files'] as $file) {
                 foreach ($requiredKeys as $key) {
                     if (!isset($file[$key])) {
@@ -197,7 +197,7 @@ class Translator implements TranslatorInterface
                 );
             }
 
-            $requiredKeys = array('type');
+            $requiredKeys = ['type'];
             foreach ($options['remote_translation'] as $remote) {
                 foreach ($requiredKeys as $key) {
                     if (!isset($remote[$key])) {
@@ -402,7 +402,7 @@ class Translator implements TranslatorInterface
 
             return ($number == 1 ? $singular : $plural);
         } elseif (is_string($translation)) {
-            $translation = array($translation);
+            $translation = [$translation];
         }
 
         $index = $this->messages[$textDomain][$locale]
@@ -448,11 +448,11 @@ class Translator implements TranslatorInterface
             $results = $this->getEventManager()->trigger(
                 self::EVENT_MISSING_TRANSLATION,
                 $this,
-                array(
+                [
                     'message'     => $message,
                     'locale'      => $locale,
                     'text_domain' => $textDomain,
-                ),
+                ],
                 function ($r) {
                     return is_string($r);
                 }
@@ -484,13 +484,13 @@ class Translator implements TranslatorInterface
         $locale = $locale ?: '*';
 
         if (!isset($this->files[$textDomain])) {
-            $this->files[$textDomain] = array();
+            $this->files[$textDomain] = [];
         }
 
-        $this->files[$textDomain][$locale][] = array(
+        $this->files[$textDomain][$locale][] = [
             'type' => $type,
             'filename' => $filename,
-        );
+        ];
 
         return $this;
     }
@@ -511,14 +511,14 @@ class Translator implements TranslatorInterface
         $textDomain = 'default'
     ) {
         if (!isset($this->patterns[$textDomain])) {
-            $this->patterns[$textDomain] = array();
+            $this->patterns[$textDomain] = [];
         }
 
-        $this->patterns[$textDomain][] = array(
+        $this->patterns[$textDomain][] = [
             'type'    => $type,
             'baseDir' => rtrim($baseDir, '/'),
             'pattern' => $pattern,
-        );
+        ];
 
         return $this;
     }
@@ -533,7 +533,7 @@ class Translator implements TranslatorInterface
     public function addRemoteTranslations($type, $textDomain = 'default')
     {
         if (!isset($this->remote[$textDomain])) {
-            $this->remote[$textDomain] = array();
+            $this->remote[$textDomain] = [];
         }
 
         $this->remote[$textDomain][] = $type;
@@ -553,7 +553,7 @@ class Translator implements TranslatorInterface
     protected function loadMessages($textDomain, $locale)
     {
         if (!isset($this->messages[$textDomain])) {
-            $this->messages[$textDomain] = array();
+            $this->messages[$textDomain] = [];
         }
 
         if (null !== ($cache = $this->getCache())) {
@@ -577,10 +577,10 @@ class Translator implements TranslatorInterface
                 $results = $this->getEventManager()->trigger(
                     self::EVENT_NO_MESSAGES_LOADED,
                     $this,
-                    array(
+                    [
                         'locale'      => $locale,
                         'text_domain' => $textDomain,
-                    ),
+                    ],
                     function ($r) {
                         return ($r instanceof TextDomain);
                     }
@@ -682,7 +682,7 @@ class Translator implements TranslatorInterface
     {
         $messagesLoaded = false;
 
-        foreach (array($locale, '*') as $currentLocale) {
+        foreach ([$locale, '*'] as $currentLocale) {
             if (!isset($this->files[$textDomain][$currentLocale])) {
                 continue;
             }
@@ -731,11 +731,11 @@ class Translator implements TranslatorInterface
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        $events->setIdentifiers(array(
+        $events->setIdentifiers([
             __CLASS__,
             get_class($this),
             'translator',
-        ));
+        ]);
         $this->events = $events;
         return $this;
     }

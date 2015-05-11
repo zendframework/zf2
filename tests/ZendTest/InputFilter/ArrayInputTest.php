@@ -38,29 +38,29 @@ class ArrayInputTest extends InputTest
 
     public function testValueMayBeInjected()
     {
-        $this->input->setValue(array('bar'));
-        $this->assertEquals(array('bar'), $this->input->getValue());
+        $this->input->setValue(['bar']);
+        $this->assertEquals(['bar'], $this->input->getValue());
     }
 
     public function testRetrievingValueFiltersTheValue()
     {
-        $this->input->setValue(array('bar'));
+        $this->input->setValue(['bar']);
         $filter = new Filter\StringToUpper();
         $this->input->getFilterChain()->attach($filter);
-        $this->assertEquals(array('BAR'), $this->input->getValue());
+        $this->assertEquals(['BAR'], $this->input->getValue());
     }
 
     public function testCanRetrieveRawValue()
     {
-        $this->input->setValue(array('bar'));
+        $this->input->setValue(['bar']);
         $filter = new Filter\StringToUpper();
         $this->input->getFilterChain()->attach($filter);
-        $this->assertEquals(array('bar'), $this->input->getRawValue());
+        $this->assertEquals(['bar'], $this->input->getRawValue());
     }
 
     public function testIsValidReturnsFalseIfValidationChainFails()
     {
-        $this->input->setValue(array('123', 'bar'));
+        $this->input->setValue(['123', 'bar']);
         $validator = new Validator\Digits();
         $this->input->getValidatorChain()->attach($validator);
         $this->assertFalse($this->input->isValid());
@@ -68,7 +68,7 @@ class ArrayInputTest extends InputTest
 
     public function testIsValidReturnsTrueIfValidationChainSucceeds()
     {
-        $this->input->setValue(array('123', '123'));
+        $this->input->setValue(['123', '123']);
         $validator = new Validator\Digits();
         $this->input->getValidatorChain()->attach($validator);
         $this->assertTrue($this->input->isValid());
@@ -76,7 +76,7 @@ class ArrayInputTest extends InputTest
 
     public function testValidationOperatesOnFilteredValue()
     {
-        $this->input->setValue(array(' 123 ', '  123'));
+        $this->input->setValue([' 123 ', '  123']);
         $filter = new Filter\StringTrim();
         $this->input->getFilterChain()->attach($filter);
         $validator = new Validator\Digits();
@@ -86,7 +86,7 @@ class ArrayInputTest extends InputTest
 
     public function testGetMessagesReturnsValidationMessages()
     {
-        $this->input->setValue(array('bar'));
+        $this->input->setValue(['bar']);
         $validator = new Validator\Digits();
         $this->input->getValidatorChain()->attach($validator);
         $this->assertFalse($this->input->isValid());
@@ -96,7 +96,7 @@ class ArrayInputTest extends InputTest
 
     public function testSpecifyingMessagesToInputReturnsThoseOnFailedValidation()
     {
-        $this->input->setValue(array('bar'));
+        $this->input->setValue(['bar']);
         $validator = new Validator\Digits();
         $this->input->getValidatorChain()->attach($validator);
         $this->input->setErrorMessage('Please enter only digits');
@@ -109,7 +109,7 @@ class ArrayInputTest extends InputTest
     public function testNotEmptyValidatorAddedWhenIsValidIsCalled()
     {
         $this->assertTrue($this->input->isRequired());
-        $this->input->setValue(array('bar', ''));
+        $this->input->setValue(['bar', '']);
         $validatorChain = $this->input->getValidatorChain();
         $this->assertEquals(0, count($validatorChain->getValidators()));
 
@@ -126,9 +126,9 @@ class ArrayInputTest extends InputTest
     public function testRequiredNotEmptyValidatorNotAddedWhenOneExists()
     {
         $this->assertTrue($this->input->isRequired());
-        $this->input->setValue(array('bar', ''));
+        $this->input->setValue(['bar', '']);
 
-        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', array('isValid'));
+        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', ['isValid']);
         $notEmptyMock->expects($this->exactly(1))
             ->method('isValid')
             ->will($this->returnValue(false));
@@ -145,7 +145,7 @@ class ArrayInputTest extends InputTest
     public function testMerge()
     {
         $input = new ArrayInput('foo');
-        $input->setValue(array(' 123 '));
+        $input->setValue([' 123 ']);
         $filter = new Filter\StringTrim();
         $input->getFilterChain()->attach($filter);
         $validator = new Validator\Digits();
@@ -156,7 +156,7 @@ class ArrayInputTest extends InputTest
         $validatorChain = $input->getValidatorChain();
         $filterChain    = $input->getFilterChain();
 
-        $this->assertEquals(array(' 123 '), $input2->getRawValue());
+        $this->assertEquals([' 123 '], $input2->getRawValue());
         $this->assertEquals(1, $validatorChain->count());
         $this->assertEquals(1, $filterChain->count());
 
@@ -170,9 +170,9 @@ class ArrayInputTest extends InputTest
     public function testDoNotInjectNotEmptyValidatorIfAnywhereInChain()
     {
         $this->assertTrue($this->input->isRequired());
-        $this->input->setValue(array('bar', ''));
+        $this->input->setValue(['bar', '']);
 
-        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', array('isValid'));
+        $notEmptyMock = $this->getMock('Zend\Validator\NotEmpty', ['isValid']);
         $notEmptyMock->expects($this->exactly(1))
             ->method('isValid')
             ->will($this->returnValue(false));
@@ -189,20 +189,20 @@ class ArrayInputTest extends InputTest
 
     public function dataFallbackValue()
     {
-        return array(
-            array(
-                'fallbackValue' => array()
-            ),
-            array(
-                'fallbackValue' => array(''),
-            ),
-            array(
-                'fallbackValue' => array(null),
-            ),
-            array(
-                'fallbackValue' => array('some value'),
-            ),
-        );
+        return [
+            [
+                'fallbackValue' => []
+            ],
+            [
+                'fallbackValue' => [''],
+            ],
+            [
+                'fallbackValue' => [null],
+            ],
+            [
+                'fallbackValue' => ['some value'],
+            ],
+        ];
     }
 
     /**
@@ -213,7 +213,7 @@ class ArrayInputTest extends InputTest
         $this->input->setFallbackValue($fallbackValue);
         $validator = new Validator\Date();
         $this->input->getValidatorChain()->attach($validator);
-        $this->input->setValue(array('123')); // not a date
+        $this->input->setValue(['123']); // not a date
 
         $this->assertTrue($this->input->isValid());
         $this->assertEmpty($this->input->getMessages());
@@ -222,16 +222,16 @@ class ArrayInputTest extends InputTest
 
     public function emptyValuesProvider()
     {
-        return array(
-            array(array(null)),
-            array(array('')),
-            array(array(array())),
-        );
+        return [
+            [[null]],
+            [['']],
+            [[[]]],
+        ];
     }
 
     public function testNotAllowEmptyWithFilterConvertsNonemptyToEmptyIsNotValid()
     {
-        $this->input->setValue(array('nonempty'))
+        $this->input->setValue(['nonempty'])
                     ->getFilterChain()->attach(new Filter\Callback(function () {
                         return '';
                     }));
@@ -240,7 +240,7 @@ class ArrayInputTest extends InputTest
 
     public function testNotAllowEmptyWithFilterConvertsEmptyToNonEmptyIsValid()
     {
-        $this->input->setValue(array(''))
+        $this->input->setValue([''])
                     ->getFilterChain()->attach(new Filter\Callback(function () {
                         return 'nonempty';
                     }));

@@ -20,9 +20,9 @@ class DbaInifileTest extends TestCase
     public function testSpecifyingInifileHandlerRaisesException()
     {
         $this->setExpectedException('Zend\Cache\Exception\ExtensionNotLoadedException', 'inifile');
-        $cache = new Dba(array(
+        $cache = new Dba([
             'pathname' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('zfcache_dba_') . '.inifile',
             'handler'  => 'inifile',
-        ));
+        ]);
     }
 }

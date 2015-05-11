@@ -41,22 +41,22 @@ class SessionConfig extends StandardConfig
     /**
      * @var array Valid cache limiters (per session.cache_limiter)
      */
-    protected $validCacheLimiters = array(
+    protected $validCacheLimiters = [
         '',
         'nocache',
         'public',
         'private',
         'private_no_expire',
-    );
+    ];
 
     /**
      * @var array Valid hash bits per character (per session.hash_bits_per_character)
      */
-    protected $validHashBitsPerCharacters = array(
+    protected $validHashBitsPerCharacters = [
         4,
         5,
         6,
-    );
+    ];
 
     /**
      * @var array Valid hash functions (per session.hash_function)
@@ -132,7 +132,7 @@ class SessionConfig extends StandardConfig
     public function setPhpSaveHandler($phpSaveHandler)
     {
         $phpSaveHandler = (string) $phpSaveHandler;
-        set_error_handler(array($this, 'handleError'));
+        set_error_handler([$this, 'handleError']);
         ini_set('session.save_handler', $phpSaveHandler);
         restore_error_handler();
         if ($this->phpErrorCode >= E_WARNING) {
@@ -173,7 +173,7 @@ class SessionConfig extends StandardConfig
     {
         $serializeHandler = (string) $serializeHandler;
 
-        set_error_handler(array($this, 'handleError'));
+        set_error_handler([$this, 'handleError']);
         ini_set('session.serialize_handler', $serializeHandler);
         restore_error_handler();
         if ($this->phpErrorCode >= E_WARNING) {
@@ -258,7 +258,7 @@ class SessionConfig extends StandardConfig
              * "0" and "1" refer to MD5-128 and SHA1-160, respectively, and are
              * valid in addition to whatever is reported by hash_algos()
              */
-            $this->validHashFunctions = array('0', '1') + hash_algos();
+            $this->validHashFunctions = ['0', '1'] + hash_algos();
         }
         return $this->validHashFunctions;
     }

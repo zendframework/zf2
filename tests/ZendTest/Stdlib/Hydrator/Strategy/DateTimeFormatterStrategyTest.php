@@ -58,7 +58,7 @@ class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptsStringCastableDateTimeFormat()
     {
-        $format = $this->getMock('stdClass', array('__toString'));
+        $format = $this->getMock('stdClass', ['__toString']);
 
         $format->expects($this->once())->method('__toString')->will($this->returnValue('d/m/Y'));
 

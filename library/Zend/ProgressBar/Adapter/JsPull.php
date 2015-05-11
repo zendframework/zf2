@@ -48,7 +48,7 @@ class JsPull extends AbstractAdapter
      */
     public function notify($current, $max, $percent, $timeTaken, $timeRemaining, $text)
     {
-        $arguments = array(
+        $arguments = [
             'current'       => $current,
             'max'           => $max,
             'percent'       => ($percent * 100),
@@ -56,7 +56,7 @@ class JsPull extends AbstractAdapter
             'timeRemaining' => $timeRemaining,
             'text'          => $text,
             'finished'      => false
-        );
+        ];
 
         $data = Json::encode($arguments);
 
@@ -71,7 +71,7 @@ class JsPull extends AbstractAdapter
      */
     public function finish()
     {
-        $data = Json::encode(array('finished' => true));
+        $data = Json::encode(['finished' => true]);
 
         $this->_outputData($data);
     }

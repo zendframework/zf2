@@ -62,8 +62,8 @@ EOT;
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'prepareExceptionViewModel'));
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, array($this, 'prepareExceptionViewModel'));
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'prepareExceptionViewModel']);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, [$this, 'prepareExceptionViewModel']);
     }
 
     /**
@@ -189,22 +189,22 @@ EOT;
                     $previousException = $exception->getPrevious();
                     while ($previousException) {
                         $previous .= str_replace(
-                            array(
+                            [
                                 ':className',
                                 ':message',
                                 ':code',
                                 ':file',
                                 ':line',
                                 ':stack',
-                            ),
-                            array(
+                            ],
+                            [
                                 get_class($previousException),
                                 $previousException->getMessage(),
                                 $previousException->getCode(),
                                 $previousException->getFile(),
                                 $previousException->getLine(),
                                 $exception->getTraceAsString(),
-                            ),
+                            ],
                             $this->previousMessage
                         );
                         $previousException = $previousException->getPrevious();
@@ -212,7 +212,7 @@ EOT;
 
                     /* @var $exception \Exception */
                     $message = str_replace(
-                        array(
+                        [
                             ':className',
                             ':message',
                             ':code',
@@ -220,7 +220,7 @@ EOT;
                             ':line',
                             ':stack',
                             ':previous',
-                        ), array(
+                        ], [
                             get_class($exception),
                             $exception->getMessage(),
                             $exception->getCode(),
@@ -228,12 +228,12 @@ EOT;
                             $exception->getLine(),
                             $exception->getTraceAsString(),
                             $previous
-                        ),
+                        ],
                         $this->message
                     );
                 } else {
                     $message = str_replace(
-                        array(
+                        [
                             ':className',
                             ':message',
                             ':code',
@@ -241,7 +241,7 @@ EOT;
                             ':line',
                             ':stack',
                             ':previous',
-                        ), array(
+                        ], [
                             '',
                             '',
                             '',
@@ -249,7 +249,7 @@ EOT;
                             '',
                             '',
                             '',
-                        ),
+                        ],
                         $this->message
                     );
                 }

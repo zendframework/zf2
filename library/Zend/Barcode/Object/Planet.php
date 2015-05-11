@@ -20,7 +20,7 @@ class Planet extends Postnet
      * - 1 = complete bar
      * @var array
      */
-    protected $codingMap = array(
+    protected $codingMap = [
         0 => "00111",
         1 => "11100",
         2 => "11010",
@@ -31,5 +31,5 @@ class Planet extends Postnet
         7 => "01110",
         8 => "01101",
         9 => "01011"
-    );
+    ];
 }

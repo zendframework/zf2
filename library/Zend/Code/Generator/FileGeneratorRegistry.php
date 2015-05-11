@@ -16,7 +16,7 @@ class FileGeneratorRegistry
     /**
      * @var array $fileCodeGenerators
      */
-    private static $fileCodeGenerators = array();
+    private static $fileCodeGenerators = [];
 
     /**
      * Registry for the Zend\Code package.
@@ -37,7 +37,7 @@ class FileGeneratorRegistry
 
         // cannot use realpath since the file might not exist, but we do need to have the index
         // in the same DIRECTORY_SEPARATOR that realpath would use:
-        $fileName = str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $fileName);
+        $fileName = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $fileName);
 
         static::$fileCodeGenerators[$fileName] = $fileCodeGenerator;
     }

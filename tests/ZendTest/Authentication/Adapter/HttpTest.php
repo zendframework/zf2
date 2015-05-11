@@ -21,10 +21,10 @@ class HttpTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $config = array(
+        $config = [
             'accept_schemes' => 'basic',
             'realm'          => 'testing',
-        );
+        ];
 
         $this->_wrapper = new Wrapper($config);
     }
@@ -47,6 +47,6 @@ class Wrapper extends Adapter\Http
 {
     public function __call($method, $args)
     {
-        return call_user_func_array(array($this, $method), $args);
+        return call_user_func_array([$this, $method], $args);
     }
 }

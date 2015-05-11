@@ -20,11 +20,11 @@ class IndexTest extends \PHPUnit_Framework_TestCase
     {
         $uk = new Index('foo', 'my_uk');
         $this->assertEquals(
-            array(array(
+            [[
                 'INDEX %s(%s)',
-                array('my_uk', 'foo'),
-                array($uk::TYPE_IDENTIFIER, $uk::TYPE_IDENTIFIER)
-            )),
+                ['my_uk', 'foo'],
+                [$uk::TYPE_IDENTIFIER, $uk::TYPE_IDENTIFIER]
+            ]],
             $uk->getExpressionData()
         );
     }
@@ -34,13 +34,13 @@ class IndexTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExpressionDataWithLength()
     {
-        $key = new Index(array('foo', 'bar'), 'my_uk', array(10, 5));
+        $key = new Index(['foo', 'bar'], 'my_uk', [10, 5]);
         $this->assertEquals(
-            array(array(
+            [[
                 'INDEX %s(%s(10), %s(5))',
-                array('my_uk', 'foo', 'bar'),
-                array($key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER)
-            )),
+                ['my_uk', 'foo', 'bar'],
+                [$key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER]
+            ]],
             $key->getExpressionData()
         );
     }
@@ -50,13 +50,13 @@ class IndexTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExpressionDataWithLengthUnmatched()
     {
-        $key = new Index(array('foo', 'bar'), 'my_uk', array(10));
+        $key = new Index(['foo', 'bar'], 'my_uk', [10]);
         $this->assertEquals(
-            array(array(
+            [[
                 'INDEX %s(%s(10), %s)',
-                array('my_uk', 'foo', 'bar'),
-                array($key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER)
-            )),
+                ['my_uk', 'foo', 'bar'],
+                [$key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER, $key::TYPE_IDENTIFIER]
+            ]],
             $key->getExpressionData()
         );
     }

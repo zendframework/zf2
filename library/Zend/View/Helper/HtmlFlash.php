@@ -25,9 +25,9 @@ class HtmlFlash extends AbstractHtmlElement
      * @param  string $content Alternative content
      * @return string
      */
-    public function __invoke($data, array $attribs = array(), array $params = array(), $content = null)
+    public function __invoke($data, array $attribs = [], array $params = [], $content = null)
     {
-        $params = array_merge(array('movie' => $data, 'quality' => 'high'), $params);
+        $params = array_merge(['movie' => $data, 'quality' => 'high'], $params);
 
         $htmlObject = $this->getView()->plugin('htmlObject');
         return $htmlObject($data, self::TYPE, $attribs, $params, $content);

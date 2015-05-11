@@ -48,7 +48,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessExpressionWithoutParameterContainer()
     {
-        $expression = new Expression('? > ? AND y < ?', array('x', 5, 10), array(Expression::TYPE_IDENTIFIER));
+        $expression = new Expression('? > ? AND y < ?', ['x', 5, 10], [Expression::TYPE_IDENTIFIER]);
         $sqlAndParams = $this->invokeProcessExpressionMethod($expression);
 
         $this->assertEquals("\"x\" > '5' AND y < '10'", $sqlAndParams);
@@ -60,7 +60,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
     public function testProcessExpressionWithParameterContainerAndParameterizationTypeNamed()
     {
         $parameterContainer = new ParameterContainer;
-        $expression = new Expression('? > ? AND y < ?', array('x', 5, 10), array(Expression::TYPE_IDENTIFIER));
+        $expression = new Expression('? > ? AND y < ?', ['x', 5, 10], [Expression::TYPE_IDENTIFIER]);
         $sqlAndParams = $this->invokeProcessExpressionMethod($expression, $parameterContainer);
 
         $parameters = $parameterContainer->getNamedArray();
@@ -96,7 +96,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
     {
         $expression = new Predicate\Expression('x = ?', 5);
 
-        $predicateSet = new Predicate\PredicateSet(array(new Predicate\PredicateSet(array($expression))));
+        $predicateSet = new Predicate\PredicateSet([new Predicate\PredicateSet([$expression])]);
         $sqlAndParams = $this->invokeProcessExpressionMethod($predicateSet);
 
         $this->assertEquals("(x = '5')", $sqlAndParams);
@@ -111,7 +111,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
         $select->from('x')->where->like('bar', 'Foo%');
         $expression = new Predicate\In('x', $select);
 
-        $predicateSet = new Predicate\PredicateSet(array(new Predicate\PredicateSet(array($expression))));
+        $predicateSet = new Predicate\PredicateSet([new Predicate\PredicateSet([$expression])]);
         $sqlAndParams = $this->invokeProcessExpressionMethod($predicateSet);
 
         $this->assertEquals('("x" IN (SELECT "x".* FROM "x" WHERE "bar" LIKE \'Foo%\'))', $sqlAndParams);
@@ -145,7 +145,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
     {
         $parameterContainer = new ParameterContainer();
         $namedParameterPrefix = uniqid();
-        $expression = new Expression('FROM_UNIXTIME(?)', array(10000000));
+        $expression = new Expression('FROM_UNIXTIME(?)', [10000000]);
         $this->invokeProcessExpressionMethod($expression, $parameterContainer, $namedParameterPrefix);
 
         $this->assertSame($namedParameterPrefix . '1', key($parameterContainer->getNamedArray()));
@@ -155,7 +155,7 @@ class AbstractSqlTest extends \PHPUnit_Framework_TestCase
     {
         $parameterContainer = new ParameterContainer();
         $namedParameterPrefix = "string\ncontaining white space";
-        $expression = new Expression('FROM_UNIXTIME(?)', array(10000000));
+        $expression = new Expression('FROM_UNIXTIME(?)', [10000000]);
         $this->invokeProcessExpressionMethod($expression, $parameterContainer, $namedParameterPrefix);
 
         $this->assertSame('string__containing__white__space1', key($parameterContainer->getNamedArray()));

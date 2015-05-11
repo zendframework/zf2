@@ -28,9 +28,9 @@ class YamlTest extends AbstractReaderTestCase
 
         $yamlReader = explode('::', constant('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
         if (isset($yamlReader[1])) {
-            $this->reader = new YamlReader(array($yamlReader[0], $yamlReader[1]));
+            $this->reader = new YamlReader([$yamlReader[0], $yamlReader[1]]);
         } else {
-            $this->reader = new YamlReader(array($yamlReader[0]));
+            $this->reader = new YamlReader([$yamlReader[0]]);
         }
     }
 

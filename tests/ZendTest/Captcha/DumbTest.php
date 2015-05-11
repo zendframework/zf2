@@ -30,9 +30,9 @@ class DumbTest extends CommonWordTest
             unset($this->word);
         }
 
-        $this->captcha = new DumbCaptcha(array(
+        $this->captcha = new DumbCaptcha([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
     }
 
     public function testUsesCaptchaDumbAsHelper()

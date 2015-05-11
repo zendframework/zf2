@@ -42,7 +42,7 @@ if (getenv('PHPUNIT_OPTS') !== false) {
 }
 
 $run_as     = 'paths';
-$components = array();
+$components = [];
 
 if ($argc == 1) {
     $components = getAll($phpunit_conf);
@@ -100,7 +100,7 @@ exit($result);
 // Functions
 function getAll($phpunit_conf)
 {
-    $components = array();
+    $components = [];
     $conf = simplexml_load_file($phpunit_conf);
     $excludes = $conf->xpath('/phpunit/testsuites/testsuite/exclude/text()');
     for ($i = 0; $i < count($excludes); $i++) {

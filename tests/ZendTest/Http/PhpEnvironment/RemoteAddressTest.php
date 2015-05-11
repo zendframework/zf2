@@ -26,21 +26,21 @@ class RemoteAddressTest extends TestCase
      */
     public function setUp()
     {
-        $this->originalEnvironment = array(
+        $this->originalEnvironment = [
             'post'   => $_POST,
             'get'    => $_GET,
             'cookie' => $_COOKIE,
             'server' => $_SERVER,
             'env'    => $_ENV,
             'files'  => $_FILES,
-        );
+        ];
 
-        $_POST   = array();
-        $_GET    = array();
-        $_COOKIE = array();
-        $_SERVER = array();
-        $_ENV    = array();
-        $_FILES  = array();
+        $_POST   = [];
+        $_GET    = [];
+        $_COOKIE = [];
+        $_SERVER = [];
+        $_ENV    = [];
+        $_FILES  = [];
 
         $this->remoteAddress = new RemoteAddr();
     }
@@ -72,9 +72,9 @@ class RemoteAddressTest extends TestCase
 
     public function testSetTrustedProxies()
     {
-        $result = $this->remoteAddress->setTrustedProxies(array(
+        $result = $this->remoteAddress->setTrustedProxies([
             '192.168.0.10', '192.168.0.1'
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Http\PhpEnvironment\RemoteAddress', $result);
     }
 
@@ -87,9 +87,9 @@ class RemoteAddressTest extends TestCase
     public function testGetIpAddressFromProxy()
     {
         $this->remoteAddress->setUseProxy(true);
-        $this->remoteAddress->setTrustedProxies(array(
+        $this->remoteAddress->setTrustedProxies([
             '192.168.0.10', '10.0.0.1'
-        ));
+        ]);
         $_SERVER['REMOTE_ADDR'] = '192.168.0.10';
         $_SERVER['HTTP_X_FORWARDED_FOR'] = '8.8.8.8, 10.0.0.1';
         $this->assertEquals('8.8.8.8', $this->remoteAddress->getIpAddress());
@@ -98,9 +98,9 @@ class RemoteAddressTest extends TestCase
     public function testGetIpAddressFromProxyRemoteAddressNotTrusted()
     {
         $this->remoteAddress->setUseProxy(true);
-        $this->remoteAddress->setTrustedProxies(array(
+        $this->remoteAddress->setTrustedProxies([
             '10.0.0.1'
-        ));
+        ]);
         // the REMOTE_ADDR is not in the trusted IPs, possible attack here
         $_SERVER['REMOTE_ADDR'] = '1.1.1.1';
         $_SERVER['HTTP_X_FORWARDED_FOR'] = '8.8.8.8, 10.0.0.1';
@@ -116,9 +116,9 @@ class RemoteAddressTest extends TestCase
     public function testGetIpAddressFromProxyFakeData()
     {
         $this->remoteAddress->setUseProxy(true);
-        $this->remoteAddress->setTrustedProxies(array(
+        $this->remoteAddress->setTrustedProxies([
             '192.168.0.10', '10.0.0.1', '10.0.0.2'
-        ));
+        ]);
         $_SERVER['REMOTE_ADDR'] = '192.168.0.10';
         // 1.1.1.1 is the first IP address from the right not representing a known proxy server; as such, we
         // must treat it as a client IP.

@@ -32,7 +32,7 @@ class Event implements EventInterface
     /**
      * @var array|ArrayAccess|object The event parameters
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * @var bool Whether or not to stop propagation

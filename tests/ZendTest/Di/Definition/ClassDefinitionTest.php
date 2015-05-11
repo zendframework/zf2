@@ -31,9 +31,9 @@ class ClassDefinitionTest extends TestCase
     public function testGetClassSupertypes()
     {
         $definition = new ClassDefinition('Foo');
-        $definition->setSupertypes(array('superFoo'));
-        $this->assertEquals(array(), $definition->getClassSupertypes('Bar'));
-        $this->assertEquals(array('superFoo'), $definition->getClassSupertypes('Foo'));
+        $definition->setSupertypes(['superFoo']);
+        $this->assertEquals([], $definition->getClassSupertypes('Bar'));
+        $this->assertEquals(['superFoo'], $definition->getClassSupertypes('Foo'));
     }
 
     public function testGetInstantiator()
@@ -48,8 +48,8 @@ class ClassDefinitionTest extends TestCase
     {
         $definition = new ClassDefinition('Foo');
         $definition->addMethod("setVar", true);
-        $this->assertEquals(array(), $definition->getMethods('Bar'));
-        $this->assertEquals(array('setVar' => true), $definition->getMethods('Foo'));
+        $this->assertEquals([], $definition->getMethods('Bar'));
+        $this->assertEquals(['setVar' => true], $definition->getMethods('Foo'));
     }
 
     public function testHasMethod()
@@ -63,7 +63,7 @@ class ClassDefinitionTest extends TestCase
     public function testHasMethodParameters()
     {
         $definition = new ClassDefinition('Foo');
-        $definition->addMethodParameter("setVar", "var", array(null, true));
+        $definition->addMethodParameter("setVar", "var", [null, true]);
         $this->assertFalse($definition->hasMethodParameters("Bar", "setVar"));
         $this->assertTrue($definition->hasMethodParameters("Foo", "setVar"));
     }
@@ -71,10 +71,10 @@ class ClassDefinitionTest extends TestCase
     public function testGetMethodParameters()
     {
         $definition = new ClassDefinition('Foo');
-        $definition->addMethodParameter("setVar", "var", array('type' => null, 'required' => true, 'default' => 'test'));
+        $definition->addMethodParameter("setVar", "var", ['type' => null, 'required' => true, 'default' => 'test']);
         $this->assertNull($definition->getMethodParameters("Bar", "setVar"));
         $this->assertEquals(
-            array('Foo::setVar:var' => array("var", null, true, 'test')),
+            ['Foo::setVar:var' => ["var", null, true, 'test']],
             $definition->getMethodParameters("Foo", "setVar")
         );
     }
@@ -83,6 +83,6 @@ class ClassDefinitionTest extends TestCase
     {
         $definition = new ClassDefinition('Foo');
         $definition->addMethod('__construct');
-        $this->assertEquals(array('__construct' => Di::METHOD_IS_CONSTRUCTOR), $definition->getMethods('Foo'));
+        $this->assertEquals(['__construct' => Di::METHOD_IS_CONSTRUCTOR], $definition->getMethods('Foo'));
     }
 }

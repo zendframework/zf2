@@ -69,13 +69,13 @@ class StaticFilterTest extends \PHPUnit_Framework_TestCase
     public function testStaticFactoryWithConstructorArguments()
     {
         // Test HtmlEntities with one ctor argument.
-        $filteredValue = StaticFilter::execute('"O\'Reilly"', 'HtmlEntities', array('quotestyle' => ENT_COMPAT));
+        $filteredValue = StaticFilter::execute('"O\'Reilly"', 'HtmlEntities', ['quotestyle' => ENT_COMPAT]);
         $this->assertEquals('&quot;O\'Reilly&quot;', $filteredValue);
 
         // Test HtmlEntities with a different ctor argument,
         // and make sure it gives the correct response
         // so we know it passed the arg to the ctor.
-        $filteredValue = StaticFilter::execute('"O\'Reilly"', 'HtmlEntities', array('quotestyle' => ENT_QUOTES));
+        $filteredValue = StaticFilter::execute('"O\'Reilly"', 'HtmlEntities', ['quotestyle' => ENT_QUOTES]);
         $this->assertEquals('&quot;O&#039;Reilly&quot;', $filteredValue);
     }
 
@@ -95,16 +95,16 @@ class StaticFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesDifferentConfigurationOnEachRequest()
     {
-        $first = StaticFilter::execute('foo', 'callback', array(
+        $first = StaticFilter::execute('foo', 'callback', [
             'callback' => function ($value) {
                 return 'FOO';
             },
-        ));
-        $second = StaticFilter::execute('foo', 'callback', array(
+        ]);
+        $second = StaticFilter::execute('foo', 'callback', [
             'callback' => function ($value) {
                 return 'BAR';
             },
-        ));
+        ]);
         $this->assertNotSame($first, $second);
         $this->assertEquals('FOO', $first);
         $this->assertEquals('BAR', $second);

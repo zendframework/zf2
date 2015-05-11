@@ -20,7 +20,7 @@ use Zend\View;
  */
 class SitemapTest extends AbstractTest
 {
-    protected $_oldServer = array();
+    protected $_oldServer = [];
 
     /**
      * Class name for view helper to test
@@ -102,16 +102,16 @@ class SitemapTest extends AbstractTest
         $rendered1 = trim($this->_getExpected('sitemap/default1.xml'));
         $rendered2 = trim($this->_getExpected('sitemap/default2.xml'));
 
-        $expected = array(
+        $expected = [
             'registered'       => $rendered1,
             'supplied'         => $rendered2,
             'registered_again' => $rendered1
-        );
-        $actual = array(
+        ];
+        $actual = [
             'registered'       => $this->_helper->render(),
             'supplied'         => $this->_helper->render($this->_nav2),
             'registered_again' => $this->_helper->render()
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
@@ -172,7 +172,7 @@ class SitemapTest extends AbstractTest
     {
         $this->markTestIncomplete('Zend\URI changes affect this test');
         $nav = clone $this->_nav2;
-        $nav->addPage(array('label' => 'Invalid', 'uri' => 'http://w.'));
+        $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
 
         try {
             $this->_helper->render($nav);
@@ -191,7 +191,7 @@ class SitemapTest extends AbstractTest
     public function testDisablingValidators()
     {
         $nav = clone $this->_nav2;
-        $nav->addPage(array('label' => 'Invalid', 'uri' => 'http://w.'));
+        $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
         $this->_helper->setUseSitemapValidators(false);
 
         $expected = $this->_getExpected('sitemap/invalid.xml');
@@ -247,7 +247,7 @@ class SitemapTest extends AbstractTest
         $nav = clone $this->_nav2;
         $this->_helper->setUseSitemapValidators(false);
         $this->_helper->setUseSchemaValidation(true);
-        $nav->addPage(array('label' => 'Invalid', 'uri' => 'http://w.'));
+        $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
 
         try {
             $this->_helper->render($nav);

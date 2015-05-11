@@ -22,7 +22,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('This adapter needs the rar extension');
         }
 
-        $files = array(
+        $files = [
             dirname(__DIR__) . '/_files/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second',
@@ -32,7 +32,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__) . '/_files/_compress/Compress',
             dirname(__DIR__) . '/_files/_compress/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress'
-        );
+        ];
 
         foreach ($files as $file) {
             if (file_exists($file)) {
@@ -54,7 +54,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $files = array(
+        $files = [
             dirname(__DIR__) . '/_files/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second',
@@ -64,7 +64,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__) . '/_files/_compress/Compress',
             dirname(__DIR__) . '/_files/_compress/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress'
-        );
+        ];
 
         foreach ($files as $file) {
             if (file_exists($file)) {
@@ -92,11 +92,11 @@ class RarTest extends \PHPUnit_Framework_TestCase
     public function testBasicUsage()
     {
         $filter  = new RarCompression(
-            array(
+            [
                 'archive'  => dirname(__DIR__) . '/_files/compressed.rar',
                 'target'   => dirname(__DIR__) . '/_files/zipextracted.txt',
-                'callback' => array(__CLASS__, 'rarCompress')
-            )
+                'callback' => [__CLASS__, 'rarCompress']
+            ]
         );
 
         $content = $filter->compress('compress me');
@@ -118,22 +118,22 @@ class RarTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new RarCompression();
         $this->assertEquals(
-            array(
+            [
                 'archive'  => null,
                 'callback' => null,
                 'password' => null,
                 'target'   => '.',
-            ),
+            ],
             $filter->getOptions()
         );
 
         $this->assertEquals(null, $filter->getOptions('archive'));
 
         $this->assertNull($filter->getOptions('nooption'));
-        $filter->setOptions(array('nooption' => 'foo'));
+        $filter->setOptions(['nooption' => 'foo']);
         $this->assertNull($filter->getOptions('nooption'));
 
-        $filter->setOptions(array('archive' => 'temp.txt'));
+        $filter->setOptions(['archive' => 'temp.txt']);
         $this->assertEquals('temp.txt', $filter->getOptions('archive'));
     }
 
@@ -163,7 +163,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
         $filter->setPassword('test');
         $this->assertEquals('test', $filter->getPassword());
         $this->assertEquals('test', $filter->getOptions('password'));
-        $filter->setOptions(array('password' => 'test2'));
+        $filter->setOptions(['password' => 'test2']);
         $this->assertEquals('test2', $filter->getPassword());
         $this->assertEquals('test2', $filter->getOptions('password'));
     }
@@ -194,7 +194,7 @@ class RarTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new RarCompression();
 
-        $callback = array(__CLASS__, 'rarCompress');
+        $callback = [__CLASS__, 'rarCompress'];
         $filter->setCallback($callback);
         $this->assertEquals($callback, $filter->getCallback());
     }
@@ -223,11 +223,11 @@ class RarTest extends \PHPUnit_Framework_TestCase
     public function testRarCompressFile()
     {
         $filter  = new RarCompression(
-            array(
+            [
                 'archive'  => dirname(__DIR__) . '/_files/compressed.rar',
                 'target'   => dirname(__DIR__) . '/_files/zipextracted.txt',
-                'callback' => array(__CLASS__, 'rarCompress')
-            )
+                'callback' => [__CLASS__, 'rarCompress']
+            ]
         );
         file_put_contents(dirname(__DIR__) . '/_files/zipextracted.txt', 'compress me');
 
@@ -249,11 +249,11 @@ class RarTest extends \PHPUnit_Framework_TestCase
     public function testRarCompressDirectory()
     {
         $filter  = new RarCompression(
-            array(
+            [
                 'archive'  => dirname(__DIR__) . '/_files/compressed.rar',
                 'target'   => dirname(__DIR__) . '/_files/_compress',
-                'callback' => array(__CLASS__, 'rarCompress')
-            )
+                'callback' => [__CLASS__, 'rarCompress']
+            ]
         );
         $content = $filter->compress(dirname(__DIR__) . '/_files/Compress');
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'

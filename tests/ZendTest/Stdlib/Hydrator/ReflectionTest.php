@@ -35,13 +35,13 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testCanExtract()
     {
-        $this->assertSame(array(), $this->hydrator->extract(new stdClass()));
+        $this->assertSame([], $this->hydrator->extract(new stdClass()));
     }
 
     public function testCanHydrate()
     {
         $object = new stdClass();
 
-        $this->assertSame($object, $this->hydrator->hydrate(array('foo' => 'bar'), $object));
+        $this->assertSame($object, $this->hydrator->hydrate(['foo' => 'bar'], $object));
     }
 }

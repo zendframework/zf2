@@ -208,7 +208,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testCanBuildMetaTagsWithAttributes()
     {
-        $this->helper->setName('keywords', 'foo bar', array('lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused'));
+        $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused']);
         $value = $this->helper->getValue();
 
         $this->assertObjectHasAttribute('modifiers', $value);
@@ -221,7 +221,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testToStringReturnsValidHtml()
     {
-        $this->helper->setName('keywords', 'foo bar', array('lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused'))
+        $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused'])
                      ->prependName('title', 'boo bah')
                      ->appendHttpEquiv('screen', 'projection');
         $string = $this->helper->toString();
@@ -250,7 +250,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException()
     {
         $this->helper->__invoke('some-content', 'tag value', 'not allowed key');
-        set_error_handler(array($this, 'handleErrors'));
+        set_error_handler([$this, 'handleErrors']);
         $string = @$this->helper->toString();
         $this->assertEquals('', $string);
         $this->assertInternalType('string', $this->error);
@@ -343,7 +343,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $view = new View();
         $view->plugin('headMeta')->setName('keywords', 'foo');
-        $view->plugin('headMeta')->__invoke('some content', 'bar', 'name', array(), \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
+        $view->plugin('headMeta')->__invoke('some content', 'bar', 'name', [], \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
 
         $this->assertEquals(
             '<meta name="bar" content="some content" />' . PHP_EOL . '<meta name="keywords" content="foo" />',
@@ -518,7 +518,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
      */
     public function testConditional()
     {
-        $html = $this->helper->appendHttpEquiv('foo', 'bar', array('conditional' => 'lt IE 7'))->toString();
+        $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => 'lt IE 7'])->toString();
 
         $this->assertRegExp("|^<!--\[if lt IE 7\]>|", $html);
         $this->assertRegExp("|<!\[endif\]-->$|", $html);
@@ -526,7 +526,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testConditionalNoIE()
     {
-        $html = $this->helper->appendHttpEquiv('foo', 'bar', array('conditional' => '!IE'))->toString();
+        $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '!IE'])->toString();
 
         $this->assertContains('<!--[if !IE]><!--><', $html);
         $this->assertContains('<!--<![endif]-->', $html);
@@ -534,7 +534,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testConditionalNoIEWidthSpace()
     {
-        $html = $this->helper->appendHttpEquiv('foo', 'bar', array('conditional' => '! IE'))->toString();
+        $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '! IE'])->toString();
 
         $this->assertContains('<!--[if ! IE]><!--><', $html);
         $this->assertContains('<!--<![endif]-->', $html);

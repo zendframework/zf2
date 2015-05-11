@@ -32,15 +32,15 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $valuesExpected = array(
-            array(array('min' => 0, 'max' => 2000), true, true, false),
-            array(array('min' => 0, 'max' => '2 MB'), true, true, true),
-            array(array('min' => 0, 'max' => '2MB'), true, true, true),
-            array(array('min' => 0, 'max' => '2  MB'), true, true, true),
-            array(2000, true, true, false),
-            array(array('min' => 0, 'max' => 500), false, false, false),
-            array(500, false, false, false)
-        );
+        $valuesExpected = [
+            [['min' => 0, 'max' => 2000], true, true, false],
+            [['min' => 0, 'max' => '2 MB'], true, true, true],
+            [['min' => 0, 'max' => '2MB'], true, true, true],
+            [['min' => 0, 'max' => '2  MB'], true, true, true],
+            [2000, true, true, false],
+            [['min' => 0, 'max' => 500], false, false, false],
+            [500, false, false, false]
+        ];
 
         foreach ($valuesExpected as $element) {
             $validator = new File\FilesSize($element[0]);
@@ -61,15 +61,15 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
             );
         }
 
-        $validator = new File\FilesSize(array('min' => 0, 'max' => 200));
+        $validator = new File\FilesSize(['min' => 0, 'max' => 200]);
         $this->assertEquals(false, $validator->isValid(__DIR__ . '/_files/nofile.mo'));
         $this->assertArrayHasKey('fileFilesSizeNotReadable', $validator->getMessages());
 
-        $validator = new File\FilesSize(array('min' => 0, 'max' => 500000));
-        $this->assertEquals(true, $validator->isValid(array(
+        $validator = new File\FilesSize(['min' => 0, 'max' => 500000]);
+        $this->assertEquals(true, $validator->isValid([
             __DIR__ . '/_files/testsize.mo',
             __DIR__ . '/_files/testsize.mo',
-            __DIR__ . '/_files/testsize2.mo')));
+            __DIR__ . '/_files/testsize2.mo']));
         $this->assertEquals(true, $validator->isValid(__DIR__ . '/_files/testsize.mo'));
     }
 
@@ -80,14 +80,14 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMin()
     {
-        $validator = new File\FilesSize(array('min' => 1, 'max' => 100));
+        $validator = new File\FilesSize(['min' => 1, 'max' => 100]);
         $this->assertEquals('1B', $validator->getMin());
 
-        $validator = new File\FilesSize(array('min' => 1, 'max' => 100));
+        $validator = new File\FilesSize(['min' => 1, 'max' => 100]);
         $this->assertEquals('1B', $validator->getMin());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\FilesSize(array('min' => 100, 'max' => 1));
+        $validator = new File\FilesSize(['min' => 100, 'max' => 1]);
     }
 
     /**
@@ -97,7 +97,7 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMin()
     {
-        $validator = new File\FilesSize(array('min' => 1000, 'max' => 10000));
+        $validator = new File\FilesSize(['min' => 1000, 'max' => 10000]);
         $validator->setMin(100);
         $this->assertEquals('100B', $validator->getMin());
 
@@ -112,10 +112,10 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMax()
     {
-        $validator = new File\FilesSize(array('min' => 1, 'max' => 100));
+        $validator = new File\FilesSize(['min' => 1, 'max' => 100]);
         $this->assertEquals('100B', $validator->getMax());
 
-        $validator = new File\FilesSize(array('min' => 1, 'max' => 100000));
+        $validator = new File\FilesSize(['min' => 1, 'max' => 100000]);
         $this->assertEquals('97.66kB', $validator->getMax());
 
         $validator = new File\FilesSize(2000);
@@ -124,7 +124,7 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2000', $test);
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\FilesSize(array('min' => 100, 'max' => 1));
+        $validator = new File\FilesSize(['min' => 100, 'max' => 1]);
     }
 
     /**
@@ -134,7 +134,7 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMax()
     {
-        $validator = new File\FilesSize(array('min' => 1000, 'max' => 10000));
+        $validator = new File\FilesSize(['min' => 1000, 'max' => 10000]);
         $validator->setMax(1000000);
         $this->assertEquals('976.56kB', $validator->getMax());
 
@@ -144,7 +144,7 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorShouldRaiseErrorWhenPassedMultipleOptions()
     {
-        $handler = set_error_handler(array($this, 'errorHandler'), E_USER_NOTICE);
+        $handler = set_error_handler([$this, 'errorHandler'], E_USER_NOTICE);
         $validator = new File\FilesSize(1000, 10000);
         restore_error_handler();
     }
@@ -156,21 +156,21 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testFailureMessage()
     {
-        $validator = new File\FilesSize(array('min' => 9999, 'max' => 10000));
-        $this->assertFalse($validator->isValid(array(
+        $validator = new File\FilesSize(['min' => 9999, 'max' => 10000]);
+        $this->assertFalse($validator->isValid([
             __DIR__ . '/_files/testsize.mo',
             __DIR__ . '/_files/testsize.mo',
-            __DIR__ . '/_files/testsize2.mo'))
+            __DIR__ . '/_files/testsize2.mo'])
             );
         $messages = $validator->getMessages();
         $this->assertContains('9.76kB', current($messages));
         $this->assertContains('1.55kB', current($messages));
 
-        $validator = new File\FilesSize(array('min' => 9999, 'max' => 10000, 'useByteString' => false));
-        $this->assertFalse($validator->isValid(array(
+        $validator = new File\FilesSize(['min' => 9999, 'max' => 10000, 'useByteString' => false]);
+        $this->assertFalse($validator->isValid([
             __DIR__ . '/_files/testsize.mo',
             __DIR__ . '/_files/testsize.mo',
-            __DIR__ . '/_files/testsize2.mo'))
+            __DIR__ . '/_files/testsize2.mo'])
             );
         $messages = $validator->getMessages();
         $this->assertContains('9999', current($messages));
@@ -191,13 +191,13 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(File\FilesSize::NOT_READABLE, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\FilesSize::NOT_READABLE, $validator->getMessages());
@@ -205,7 +205,7 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
 
     public function testFilesFormat()
     {
-        $validator = new File\FilesSize(array('min' => 0, 'max' => 2000));
+        $validator = new File\FilesSize(['min' => 0, 'max' => 2000]);
 
         $this->assertTrue(
             $validator->isValid($this->createFileInfo(__DIR__ . '/_files/testsize.mo'))
@@ -217,13 +217,13 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
             $validator->isValid($this->createFileInfo(__DIR__ . '/_files/testsize3.mo'))
         );
 
-        $validator = new File\FilesSize(array('min' => 0, 'max' => 500000));
+        $validator = new File\FilesSize(['min' => 0, 'max' => 500000]);
 
-        $this->assertTrue($validator->isValid(array(
+        $this->assertTrue($validator->isValid([
             $this->createFileInfo(__DIR__ . '/_files/testsize.mo'),
             $this->createFileInfo(__DIR__ . '/_files/testsize.mo'),
             $this->createFileInfo(__DIR__ . '/_files/testsize2.mo'),
-        )));
+        ]));
     }
 
     /**
@@ -231,23 +231,23 @@ class FilesSizeTest extends \PHPUnit_Framework_TestCase
      */
     public function testIllegalFilesFormat()
     {
-        $validator = new File\FilesSize(array('min' => 0, 'max' => 2000));
+        $validator = new File\FilesSize(['min' => 0, 'max' => 2000]);
 
-        $validator->isValid(array(
-            array(
+        $validator->isValid([
+            [
                 'error' => 0
-            ),
-        ));
+            ],
+        ]);
     }
 
     private function createFileInfo($file)
     {
-        return array(
+        return [
             'tmp_name' => $file,
             'name'     => basename($file),
             'error'    => 0,
             'type'     => '',
             'size'     => filesize($file),
-        );
+        ];
     }
 }

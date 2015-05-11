@@ -22,7 +22,7 @@ class Config
     /**
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Constructor
@@ -78,7 +78,7 @@ class Config
                 case 'runtime':
                     if (isset($definitionData['enabled']) && !$definitionData['enabled']) {
                         // Remove runtime from definition list if not enabled
-                        $definitions = array();
+                        $definitions = [];
                         foreach ($di->definitions() as $definition) {
                             if (!$definition instanceof RuntimeDefinition) {
                                 $definitions[] = $definition;

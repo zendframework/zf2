@@ -48,7 +48,7 @@ array(
 EOS;
 
         $valueGenerator = new ValueGenerator();
-        $valueGenerator->setValue(array('foo'));
+        $valueGenerator->setValue(['foo']);
         $this->assertEquals($expectedSource, $valueGenerator->generate());
     }
 
@@ -70,23 +70,23 @@ EOS;
 
     public function testPropertyDefaultValueCanHandleComplexArrayOfTypes()
     {
-        $targetValue = array(
+        $targetValue = [
             5,
             'one' => 1,
             'two' => '2',
             'constant1' => '__DIR__ . \'/anydir1/anydir2\'',
-            array(
+            [
                 'baz' => true,
                 'foo',
                 'bar',
-                array(
+                [
                     'baz1',
                     'baz2',
                     'constant2' => 'ArrayObject::STD_PROP_LIST',
-                )
-            ),
+                ]
+            ],
             new ValueGenerator('PHP_EOL', 'constant')
-        );
+        ];
 
         $expectedSource = <<<EOS
 array(
@@ -117,13 +117,13 @@ EOS;
 
     public function testPropertyDefaultValueCanHandleArrayWithUnsortedKeys()
     {
-        $value = array(
+        $value = [
             1 => 'a',
             0 => 'b',
             'c',
             7 => 'd',
             3 => 'e'
-        );
+        ];
 
         $valueGenerator = new ValueGenerator();
         $valueGenerator->setValue($value);
@@ -157,10 +157,10 @@ EOS;
      */
     public function getEscapedParameters()
     {
-        return array(
-            array('\\', '\\\\'),
-            array("'", "\\'"),
-            array("\\'", "\\\\\\'"),
-        );
+        return [
+            ['\\', '\\\\'],
+            ["'", "\\'"],
+            ["\\'", "\\\\\\'"],
+        ];
     }
 }

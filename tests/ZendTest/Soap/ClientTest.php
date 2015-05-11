@@ -35,28 +35,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          *************************************************************/
         $client = new Client();
 
-        $this->assertEquals(array('encoding' => 'UTF-8', 'soap_version' => SOAP_1_2), $client->getOptions());
+        $this->assertEquals(['encoding' => 'UTF-8', 'soap_version' => SOAP_1_2], $client->getOptions());
 
         $ctx = stream_context_create();
 
-        $typeMap = array(
-            array(
+        $typeMap = [
+            [
                 'type_name'     => 'dateTime',
                 'type_ns'       => 'http://www.w3.org/2001/XMLSchema',
                 'from_xml'      => 'strtotime',
                 'to_xml'        => 'strtotime',
-            ),
-            array(
+            ],
+            [
                 'type_name'     => 'date',
                 'type_ns'       => 'http://www.w3.org/2001/XMLSchema',
                 'from_xml'      => 'strtotime',
                 'to_xml'        => 'strtotime',
-            )
-        );
+            ]
+        ];
 
-        $nonWSDLOptions = array('soap_version'   => SOAP_1_1,
-                                'classmap'       => array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                                                    'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',),
+        $nonWSDLOptions = ['soap_version'   => SOAP_1_1,
+                                'classmap'       => ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                                                    'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',],
                                 'encoding'       => 'ISO-8859-1',
                                 'uri'            => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
                                 'location'       => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
@@ -80,7 +80,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
                                 'compression'    => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5,
                                 'typemap'        => $typeMap
-        );
+        ];
 
         $client->setOptions($nonWSDLOptions);
         $this->assertEquals($nonWSDLOptions, $client->getOptions());
@@ -90,12 +90,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
          *************************************************************/
         $client1 = new Client();
 
-        $this->assertEquals(array('encoding' => 'UTF-8', 'soap_version' => SOAP_1_2), $client1->getOptions());
+        $this->assertEquals(['encoding' => 'UTF-8', 'soap_version' => SOAP_1_2], $client1->getOptions());
 
-        $wsdlOptions = array('soap_version'   => SOAP_1_1,
+        $wsdlOptions = ['soap_version'   => SOAP_1_1,
                              'wsdl'           => __DIR__.'/TestAsset/wsdl_example.wsdl',
-                             'classmap'       => array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                                                 'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',),
+                             'classmap'       => ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                                                 'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',],
                              'encoding'       => 'ISO-8859-1',
 
                              'login'          => 'http_login',
@@ -113,7 +113,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
                              'compression'    => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5,
                              'typemap'        => $typeMap
-        );
+        ];
 
         $client1->setOptions($wsdlOptions);
         $this->assertEquals($wsdlOptions, $client1->getOptions());
@@ -123,28 +123,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client();
 
-        $this->assertEquals(array('encoding' => 'UTF-8', 'soap_version' => SOAP_1_2), $client->getOptions());
+        $this->assertEquals(['encoding' => 'UTF-8', 'soap_version' => SOAP_1_2], $client->getOptions());
 
-        $typeMap = array(
-            array(
+        $typeMap = [
+            [
                 'type_name'     => 'dateTime',
                 'type_ns'       => 'http://www.w3.org/2001/XMLSchema',
                 'from_xml'      => 'strtotime',
                 'to_xml'        => 'strtotime',
-            ),
-            array(
+            ],
+            [
                 'type_name'     => 'date',
                 'type_ns'       => 'http://www.w3.org/2001/XMLSchema',
                 'from_xml'      => 'strtotime',
                 'to_xml'        => 'strtotime',
-            )
-        );
+            ]
+        ];
 
-        $options = array('soap_version'   => SOAP_1_1,
+        $options = ['soap_version'   => SOAP_1_1,
                          'wsdl'           => __DIR__.'/TestAsset/wsdl_example.wsdl',
 
-                         'classmap'       => array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                                             'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',),
+                         'classmap'       => ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                                             'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',],
                          'encoding'       => 'ISO-8859-1',
                          'uri'            => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
                          'location'       => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
@@ -164,7 +164,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
                          'compression'    => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5,
                          'typemap'        => $typeMap
-        );
+        ];
 
         $client->setOptions($options);
         $this->assertEquals($options, $client->getOptions());
@@ -181,19 +181,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->setUserAgent('agent1');
         $this->assertEquals('agent1', $client->getUserAgent());
 
-        $client->setOptions(array(
+        $client->setOptions([
             'user_agent' => 'agent2'
-        ));
+        ]);
         $this->assertEquals('agent2', $client->getUserAgent());
 
-        $client->setOptions(array(
+        $client->setOptions([
             'useragent' => 'agent3'
-        ));
+        ]);
         $this->assertEquals('agent3', $client->getUserAgent());
 
-        $client->setOptions(array(
+        $client->setOptions([
             'userAgent' => 'agent4'
-        ));
+        ]);
         $this->assertEquals('agent4', $client->getUserAgent());
 
         $options = $client->getOptions();
@@ -270,10 +270,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = new Client\Local($server, __DIR__ . '/TestAsset/wsdl_example.wsdl');
 
-        $expected = array('string testFunc()',
+        $expected = ['string testFunc()',
             'string testFunc2(string $who)',
             'string testFunc3(string $who, int $when)',
-            'string testFunc4()');
+            'string testFunc4()'];
         $this->assertEquals($expected, $client->getFunctions());
     }
 
@@ -404,7 +404,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = new Client\Local($server, __DIR__ . '/TestAsset/wsdl_example.wsdl');
 
-        $this->assertEquals($client->call('testFunc2', array('World')), 'Hello World!');
+        $this->assertEquals($client->call('testFunc2', ['World']), 'Hello World!');
     }
 
     public function testCallDirectWithArgString()
@@ -427,9 +427,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $ctx = stream_context_create();
 
-        $nonWSDLOptions = array('soap_version'   => SOAP_1_1,
-                                'classmap'       => array('TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
-                                                    'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',),
+        $nonWSDLOptions = ['soap_version'   => SOAP_1_1,
+                                'classmap'       => ['TestData1' => '\ZendTest\Soap\TestAsset\TestData1',
+                                                    'TestData2' => '\ZendTest\Soap\TestAsset\TestData2',],
                                 'encoding'       => 'ISO-8859-1',
                                 'uri'            => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
                                 'location'       => 'http://framework.zend.com/Zend_Soap_ServerTest.php',
@@ -450,7 +450,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                                 'stream_context' => $ctx,
 
                                 'compression'    => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 5
-        );
+        ];
 
         $config = new \Zend\Config\Config($nonWSDLOptions);
 
@@ -559,7 +559,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $fixtureCookieKey = "foo";
         $fixtureCookieValue = "bar";
 
-        $clientMock = $this->getMock('SoapClient', array('__setCookie'), array(null, array('uri' => 'http://www.zend.com', 'location' => 'http://www.zend.com')));
+        $clientMock = $this->getMock('SoapClient', ['__setCookie'], [null, ['uri' => 'http://www.zend.com', 'location' => 'http://www.zend.com']]);
         $clientMock->expects($this->once())
                    ->method('__setCookie')
                    ->with($fixtureCookieKey, $fixtureCookieValue);
@@ -572,7 +572,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testSetSoapClient()
     {
-        $clientMock = $this->getMock('SoapClient', array('__setCookie'), array(null, array('uri' => 'http://www.zend.com', 'location' => 'http://www.zend.com')));
+        $clientMock = $this->getMock('SoapClient', ['__setCookie'], [null, ['uri' => 'http://www.zend.com', 'location' => 'http://www.zend.com']]);
 
         $soap = new Client();
         $soap->setSoapClient($clientMock);
@@ -595,11 +595,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderForInitSoapClientObjectException()
     {
-        return array(
-            array(null,                             array()),
-            array(null,                             array('location'=>'http://example.com')),
-            array(__DIR__ . './TestAsset/wsdl_example.wsdl',    array('use'=>SOAP_ENCODED)),
-            array(__DIR__ . './TestAsset/wsdl_example.wsdl',    array('style'=>SOAP_DOCUMENT))
-        );
+        return [
+            [null,                             []],
+            [null,                             ['location'=>'http://example.com']],
+            [__DIR__ . './TestAsset/wsdl_example.wsdl',    ['use'=>SOAP_ENCODED]],
+            [__DIR__ . './TestAsset/wsdl_example.wsdl',    ['style'=>SOAP_DOCUMENT]]
+        ];
     }
 }

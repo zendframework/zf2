@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
-    'default' => array(
-        'en_US' => array(
-        ),
-    ),
-);
+return [
+    'default' => [
+        'en_US' => [
+        ],
+    ],
+];

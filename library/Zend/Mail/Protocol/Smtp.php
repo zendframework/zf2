@@ -105,7 +105,7 @@ class Smtp extends AbstractProtocol
 
         // If we don't have a config array, initialize it
         if (null === $config) {
-            $config = array();
+            $config = [];
         }
 
         if (isset($config['ssl'])) {
@@ -252,7 +252,7 @@ class Smtp extends AbstractProtocol
 
         // Set rcpt to true, as per 4.1.1.3 of RFC 2821
         $this->_send('RCPT TO:<' . $to . '>');
-        $this->_expect(array(250, 251), 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
+        $this->_expect([250, 251], 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
         $this->rcpt = true;
     }
 
@@ -300,7 +300,7 @@ class Smtp extends AbstractProtocol
     {
         $this->_send('RSET');
         // MS ESMTP doesn't follow RFC, see [ZF-1377]
-        $this->_expect(array(250, 220));
+        $this->_expect([250, 220]);
 
         $this->mail = false;
         $this->rcpt = false;
@@ -329,7 +329,7 @@ class Smtp extends AbstractProtocol
     public function vrfy($user)
     {
         $this->_send('VRFY ' . $user);
-        $this->_expect(array(250, 251, 252), 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
+        $this->_expect([250, 251, 252], 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
     }
 
     /**

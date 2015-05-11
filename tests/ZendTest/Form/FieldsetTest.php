@@ -44,62 +44,62 @@ class FieldsetTest extends TestCase
 
     public function getMessages()
     {
-        return array(
-            'foo' => array(
+        return [
+            'foo' => [
                 'Foo message 1',
-            ),
-            'bar' => array(
+            ],
+            'bar' => [
                 'Bar message 1',
                 'Bar message 2',
-            ),
-            'baz' => array(
+            ],
+            'baz' => [
                 'Baz message 1',
-            ),
-            'foobar' => array(
-                'foo' => array(
+            ],
+            'foobar' => [
+                'foo' => [
                     'Foo message 1',
-                ),
-                'bar' => array(
+                ],
+                'bar' => [
                     'Bar message 1',
                     'Bar message 2',
-                ),
-                'baz' => array(
+                ],
+                'baz' => [
                     'Baz message 1',
-                ),
-            ),
-            'barbaz' => array(
-                'foo' => array(
+                ],
+            ],
+            'barbaz' => [
+                'foo' => [
                     'Foo message 1',
-                ),
-                'bar' => array(
+                ],
+                'bar' => [
                     'Bar message 1',
                     'Bar message 2',
-                ),
-                'baz' => array(
+                ],
+                'baz' => [
                     'Baz message 1',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function testExtractOnAnEmptyRelationship()
     {
         $form = new TestAsset\FormCollection();
-        $form->populateValues(array('fieldsets' => array()));
+        $form->populateValues(['fieldsets' => []]);
     }
 
     public function testExtractOnAnEmptyTraversable()
     {
         $form = new TestAsset\FormCollection();
-        $form->populateValues(new \ArrayObject(array('fieldsets' => new \ArrayObject())));
+        $form->populateValues(new \ArrayObject(['fieldsets' => new \ArrayObject()]));
     }
 
     public function testTraversableAcceptedValueForFieldset()
     {
-        $subValue = new \ArrayObject(array('field' => 'value'));
+        $subValue = new \ArrayObject(['field' => 'value']);
         $subFieldset = new TestAsset\ValueStoringFieldset('subFieldset');
         $this->fieldset->add($subFieldset);
-        $this->fieldset->populateValues(array('subFieldset' => $subValue));
+        $this->fieldset->populateValues(['subFieldset' => $subValue]);
         $this->assertEquals($subValue, $subFieldset->getStoredValue());
     }
 
@@ -122,9 +122,9 @@ class FieldsetTest extends TestCase
 
     public function testCanSetCustomOptionFromConstructor()
     {
-        $fieldset = new Fieldset('foo', array(
+        $fieldset = new Fieldset('foo', [
             'custom' => 'option'
-        ));
+        ]);
         $options = $fieldset->getOptions();
         $this->assertArrayHasKey('custom', $options);
         $this->assertEquals('option', $options['custom']);
@@ -146,21 +146,21 @@ class FieldsetTest extends TestCase
     public function testElementMayBeRetrievedByAliasProvidedWhenAdded()
     {
         $element = new Element('foo');
-        $this->fieldset->add($element, array('name' => 'bar'));
+        $this->fieldset->add($element, ['name' => 'bar']);
         $this->assertSame($element, $this->fieldset->get('bar'));
     }
 
     public function testElementNameIsChangedToAliasWhenAdded()
     {
         $element = new Element('foo');
-        $this->fieldset->add($element, array('name' => 'bar'));
+        $this->fieldset->add($element, ['name' => 'bar']);
         $this->assertEquals('bar', $element->getName());
     }
 
     public function testCannotRetrieveElementByItsNameWhenProvidingAnAliasDuringAddition()
     {
         $element = new Element('foo');
-        $this->fieldset->add($element, array('name' => 'bar'));
+        $this->fieldset->add($element, ['name' => 'bar']);
         $this->assertFalse($this->fieldset->has('foo'));
     }
 
@@ -220,7 +220,7 @@ class FieldsetTest extends TestCase
         $this->populateFieldset();
         $elements = $this->fieldset->getElements();
         $this->assertEquals(3, count($elements));
-        foreach (array('foo', 'bar', 'baz') as $name) {
+        foreach (['foo', 'bar', 'baz'] as $name) {
             $this->assertTrue(isset($elements[$name]));
             $element = $this->fieldset->get($name);
             $this->assertSame($element, $elements[$name]);
@@ -232,7 +232,7 @@ class FieldsetTest extends TestCase
         $this->populateFieldset();
         $fieldsets = $this->fieldset->getFieldsets();
         $this->assertEquals(2, count($fieldsets));
-        foreach (array('foobar', 'barbaz') as $name) {
+        foreach (['foobar', 'barbaz'] as $name) {
             $this->assertTrue(isset($fieldsets[$name]));
             $fieldset = $this->fieldset->get($name);
             $this->assertSame($fieldset, $fieldsets[$name]);
@@ -263,7 +263,7 @@ class FieldsetTest extends TestCase
         $form = new Form();
         $form->add($fieldset);
         $form->setInputFilter(new InputFilter());
-        $form->setData(array());
+        $form->setData([]);
         $form->isValid();
 
         $messages = $form->getMessages();
@@ -306,8 +306,8 @@ class FieldsetTest extends TestCase
     public function testCanIterateOverElementsAndFieldsetsInOrderAttached()
     {
         $this->populateFieldset();
-        $expected = array('foo', 'bar', 'baz', 'foobar', 'barbaz');
-        $test     = array();
+        $expected = ['foo', 'bar', 'baz', 'foobar', 'barbaz'];
+        $test     = [];
         foreach ($this->fieldset as $element) {
             $test[] = $element->getName();
         }
@@ -316,13 +316,13 @@ class FieldsetTest extends TestCase
 
     public function testIteratingRespectsOrderPriorityProvidedWhenAttaching()
     {
-        $this->fieldset->add(new Element('foo'), array('priority' => 10));
-        $this->fieldset->add(new Element('bar'), array('priority' => 20));
-        $this->fieldset->add(new Element('baz'), array('priority' => -10));
-        $this->fieldset->add(new Fieldset('barbaz'), array('priority' => 30));
+        $this->fieldset->add(new Element('foo'), ['priority' => 10]);
+        $this->fieldset->add(new Element('bar'), ['priority' => 20]);
+        $this->fieldset->add(new Element('baz'), ['priority' => -10]);
+        $this->fieldset->add(new Fieldset('barbaz'), ['priority' => 30]);
 
-        $expected = array('barbaz', 'bar', 'foo', 'baz');
-        $test     = array();
+        $expected = ['barbaz', 'bar', 'foo', 'baz'];
+        $test     = [];
         foreach ($this->fieldset as $element) {
             $test[] = $element->getName();
         }
@@ -331,14 +331,14 @@ class FieldsetTest extends TestCase
 
     public function testIteratingRespectsOrderPriorityProvidedWhenSetLater()
     {
-        $this->fieldset->add(new Element('foo'), array('priority' => 10));
-        $this->fieldset->add(new Element('bar'), array('priority' => 20));
-        $this->fieldset->add(new Element('baz'), array('priority' => -10));
-        $this->fieldset->add(new Fieldset('barbaz'), array('priority' => 30));
+        $this->fieldset->add(new Element('foo'), ['priority' => 10]);
+        $this->fieldset->add(new Element('bar'), ['priority' => 20]);
+        $this->fieldset->add(new Element('baz'), ['priority' => -10]);
+        $this->fieldset->add(new Fieldset('barbaz'), ['priority' => 30]);
         $this->fieldset->setPriority('baz', 99);
 
-        $expected = array('baz', 'barbaz', 'bar', 'foo');
-        $test     = array();
+        $expected = ['baz', 'barbaz', 'bar', 'foo'];
+        $test     = [];
         foreach ($this->fieldset as $element) {
             $test[] = $element->getName();
         }
@@ -347,15 +347,15 @@ class FieldsetTest extends TestCase
 
     public function testIteratingRespectsOrderPriorityWhenCloned()
     {
-        $this->fieldset->add(new Element('foo'), array('priority' => 10));
-        $this->fieldset->add(new Element('bar'), array('priority' => 20));
-        $this->fieldset->add(new Element('baz'), array('priority' => -10));
-        $this->fieldset->add(new Fieldset('barbaz'), array('priority' => 30));
+        $this->fieldset->add(new Element('foo'), ['priority' => 10]);
+        $this->fieldset->add(new Element('bar'), ['priority' => 20]);
+        $this->fieldset->add(new Element('baz'), ['priority' => -10]);
+        $this->fieldset->add(new Fieldset('barbaz'), ['priority' => 30]);
 
-        $expected = array('barbaz', 'bar', 'foo', 'baz');
+        $expected = ['barbaz', 'bar', 'foo', 'baz'];
 
-        $testOrig  = array();
-        $testClone = array();
+        $testOrig  = [];
+        $testClone = [];
 
         $fieldsetClone = clone $this->fieldset;
 
@@ -389,36 +389,36 @@ class FieldsetTest extends TestCase
         $form = new Form();
         $fieldset = new Fieldset('foobar');
         $form->add($fieldset);
-        $value = new \ArrayObject(array(
+        $value = new \ArrayObject([
             'foobar' => 'abc',
-        ));
-        $value['foobar'] = new \ArrayObject(array(
+        ]);
+        $value['foobar'] = new \ArrayObject([
             'foo' => 'abc'
-        ));
+        ]);
         $form->bind($value);
         $this->assertSame($fieldset, $form->get('foobar'));
     }
 
     public function testBindEmptyValue()
     {
-        $value = new \ArrayObject(array(
+        $value = new \ArrayObject([
             'foo' => 'abc',
             'bar' => 'def',
-        ));
+        ]);
 
         $inputFilter = new InputFilter();
-        $inputFilter->add(array('name' => 'foo', 'required' => false));
-        $inputFilter->add(array('name' => 'bar', 'required' => false));
+        $inputFilter->add(['name' => 'foo', 'required' => false]);
+        $inputFilter->add(['name' => 'bar', 'required' => false]);
 
         $form = new Form();
         $form->add(new Element('foo'));
         $form->add(new Element('bar'));
         $form->setInputFilter($inputFilter);
         $form->bind($value);
-        $form->setData(array(
+        $form->setData([
             'foo' => '',
             'bar' => 'ghi',
-        ));
+        ]);
         $form->isValid();
 
         $this->assertSame('', $value['foo']);
@@ -435,9 +435,9 @@ class FieldsetTest extends TestCase
 
     public function testSetOptions()
     {
-        $this->fieldset->setOptions(array(
+        $this->fieldset->setOptions([
                                    'foo' => 'bar'
-                              ));
+                              ]);
         $option = $this->fieldset->getOption('foo');
 
         $this->assertEquals('bar', $option);
@@ -445,9 +445,9 @@ class FieldsetTest extends TestCase
 
     public function testSetOptionsUseAsBaseFieldset()
     {
-        $this->fieldset->setOptions(array(
+        $this->fieldset->setOptions([
                                    'use_as_base_fieldset' => 'bar'
-                              ));
+                              ]);
         $option = $this->fieldset->getOption('use_as_base_fieldset');
 
         $this->assertEquals('bar', $option);
@@ -455,9 +455,9 @@ class FieldsetTest extends TestCase
 
     public function testSetOptionAllowedObjectBindingClass()
     {
-        $this->fieldset->setOptions(array(
+        $this->fieldset->setOptions([
                                          'allowed_object_binding_class' => 'bar'
-                                    ));
+                                    ]);
         $option = $this->fieldset->getOption('allowed_object_binding_class');
 
         $this->assertEquals('bar', $option);
@@ -473,7 +473,7 @@ class FieldsetTest extends TestCase
 
     public function testBindValuesHasNoName()
     {
-        $bindValues = $this->fieldset->bindValues(array('foo'));
+        $bindValues = $this->fieldset->bindValues(['foo']);
         $this->assertNull($bindValues);
     }
 
@@ -493,7 +493,7 @@ class FieldsetTest extends TestCase
 
         $form->setObject($object);
         $form->setHydrator(new \Zend\Stdlib\Hydrator\ObjectProperty());
-        $form->bindValues(array('not_disabled' => 'modified', 'disabled' => 'modified'));
+        $form->bindValues(['not_disabled' => 'modified', 'disabled' => 'modified']);
 
         $this->assertEquals('modified', $object->not_disabled);
         $this->assertEquals('notModified', $object->disabled);
@@ -518,7 +518,7 @@ class FieldsetTest extends TestCase
 
         $form->setObject($object);
         $form->setHydrator(new \Zend\Stdlib\Hydrator\ObjectProperty());
-        $form->bindValues(array('not_disabled' => 'modified', 'disabled' => 'modified'));
+        $form->bindValues(['not_disabled' => 'modified', 'disabled' => 'modified']);
 
         $this->assertEquals('modified', $object->not_disabled);
         $this->assertEquals('modified', $object->disabled);
@@ -562,9 +562,9 @@ class FieldsetTest extends TestCase
         $object->foo = 'Initial value';
         $form->bind($object);
 
-        $form->setData(array(
+        $form->setData([
             'foo' => 'New value'
-        ));
+        ]);
 
         $this->assertSame('New value', $form->get('foo')->getValue());
 

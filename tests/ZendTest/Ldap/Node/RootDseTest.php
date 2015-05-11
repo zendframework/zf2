@@ -32,48 +32,48 @@ class RootDseTest extends TestLdap\AbstractOnlineTestCase
         $root = $this->getLDAP()->getRootDse();
 
         $this->assertInternalType('boolean', $root->supportsSaslMechanism('GSSAPI'));
-        $this->assertInternalType('boolean', $root->supportsSaslMechanism(array('GSSAPI', 'DIGEST-MD5')));
+        $this->assertInternalType('boolean', $root->supportsSaslMechanism(['GSSAPI', 'DIGEST-MD5']));
         $this->assertInternalType('boolean', $root->supportsVersion('3'));
         $this->assertInternalType('boolean', $root->supportsVersion(3));
-        $this->assertInternalType('boolean', $root->supportsVersion(array('3', '2')));
-        $this->assertInternalType('boolean', $root->supportsVersion(array(3, 2)));
+        $this->assertInternalType('boolean', $root->supportsVersion(['3', '2']));
+        $this->assertInternalType('boolean', $root->supportsVersion([3, 2]));
 
         switch ($root->getServerType()) {
             case Node\RootDse::SERVER_TYPE_ACTIVEDIRECTORY:
                 $this->assertInternalType('boolean', $root->supportsControl('1.2.840.113556.1.4.319'));
-                $this->assertInternalType('boolean', $root->supportsControl(array('1.2.840.113556.1.4.319',
-                                                                                 '1.2.840.113556.1.4.473')
+                $this->assertInternalType('boolean', $root->supportsControl(['1.2.840.113556.1.4.319',
+                                                                                 '1.2.840.113556.1.4.473']
                     )
                 );
                 $this->assertInternalType('boolean', $root->supportsCapability('1.3.6.1.4.1.4203.1.9.1.1'));
-                $this->assertInternalType('boolean', $root->supportsCapability(array('1.3.6.1.4.1.4203.1.9.1.1',
-                                                                                    '2.16.840.1.113730.3.4.18')
+                $this->assertInternalType('boolean', $root->supportsCapability(['1.3.6.1.4.1.4203.1.9.1.1',
+                                                                                    '2.16.840.1.113730.3.4.18']
                     )
                 );
                 $this->assertInternalType('boolean', $root->supportsPolicy('unknown'));
-                $this->assertInternalType('boolean', $root->supportsPolicy(array('unknown', 'unknown')));
+                $this->assertInternalType('boolean', $root->supportsPolicy(['unknown', 'unknown']));
                 break;
             case Node\RootDse::SERVER_TYPE_EDIRECTORY:
                 $this->assertInternalType('boolean', $root->supportsExtension('1.3.6.1.4.1.1466.20037'));
-                $this->assertInternalType('boolean', $root->supportsExtension(array('1.3.6.1.4.1.1466.20037',
-                                                                                   '1.3.6.1.4.1.4203.1.11.1')
+                $this->assertInternalType('boolean', $root->supportsExtension(['1.3.6.1.4.1.1466.20037',
+                                                                                   '1.3.6.1.4.1.4203.1.11.1']
                     )
                 );
                 break;
             case Node\RootDse::SERVER_TYPE_OPENLDAP:
                 $this->assertInternalType('boolean', $root->supportsControl('1.3.6.1.4.1.4203.1.9.1.1'));
-                $this->assertInternalType('boolean', $root->supportsControl(array('1.3.6.1.4.1.4203.1.9.1.1',
-                                                                                 '2.16.840.1.113730.3.4.18')
+                $this->assertInternalType('boolean', $root->supportsControl(['1.3.6.1.4.1.4203.1.9.1.1',
+                                                                                 '2.16.840.1.113730.3.4.18']
                     )
                 );
                 $this->assertInternalType('boolean', $root->supportsExtension('1.3.6.1.4.1.1466.20037'));
-                $this->assertInternalType('boolean', $root->supportsExtension(array('1.3.6.1.4.1.1466.20037',
-                                                                                   '1.3.6.1.4.1.4203.1.11.1')
+                $this->assertInternalType('boolean', $root->supportsExtension(['1.3.6.1.4.1.1466.20037',
+                                                                                   '1.3.6.1.4.1.4203.1.11.1']
                     )
                 );
                 $this->assertInternalType('boolean', $root->supportsFeature('1.3.6.1.1.14'));
-                $this->assertInternalType('boolean', $root->supportsFeature(array('1.3.6.1.1.14',
-                                                                                 '1.3.6.1.4.1.4203.1.5.1')
+                $this->assertInternalType('boolean', $root->supportsFeature(['1.3.6.1.1.14',
+                                                                                 '1.3.6.1.4.1.4203.1.5.1']
                     )
                 );
                 break;

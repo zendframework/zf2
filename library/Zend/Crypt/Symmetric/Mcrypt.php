@@ -70,7 +70,7 @@ class Mcrypt implements SymmetricInterface
      *
      * @var array
      */
-    protected $supportedAlgos = array(
+    protected $supportedAlgos = [
         'aes'          => 'rijndael-128',
         'blowfish'     => 'blowfish',
         'des'          => 'des',
@@ -84,21 +84,21 @@ class Mcrypt implements SymmetricInterface
         'saferplus'    => 'saferplus',
         'serpent'      => 'serpent',
         'twofish'      => 'twofish'
-    );
+    ];
 
     /**
      * Supported encryption modes
      *
      * @var array
      */
-    protected $supportedModes = array(
+    protected $supportedModes = [
         'cbc'  => 'cbc',
         'cfb'  => 'cfb',
         'ctr'  => 'ctr',
         'ofb'  => 'ofb',
         'nofb' => 'nofb',
         'ncfb' => 'ncfb'
-    );
+    ];
 
     /**
      * Constructor
@@ -107,7 +107,7 @@ class Mcrypt implements SymmetricInterface
      * @throws Exception\RuntimeException
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!extension_loaded('mcrypt')) {
             throw new Exception\RuntimeException(
@@ -155,7 +155,7 @@ class Mcrypt implements SymmetricInterface
      * @param  array $options
      * @return void
      */
-    protected function setDefaultOptions($options = array())
+    protected function setDefaultOptions($options = [])
     {
         if (!isset($options['padding'])) {
             $plugins       = static::getPaddingPluginManager();

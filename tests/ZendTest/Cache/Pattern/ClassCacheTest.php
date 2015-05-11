@@ -47,13 +47,13 @@ class ClassCacheTest extends CommonPatternTest
 
     public function setUp()
     {
-        $this->_storage = new Cache\Storage\Adapter\Memory(array(
+        $this->_storage = new Cache\Storage\Adapter\Memory([
             'memory_limit' => 0
-        ));
-        $this->_options = new Cache\Pattern\PatternOptions(array(
+        ]);
+        $this->_options = new Cache\Pattern\PatternOptions([
             'class'   => __NAMESPACE__ . '\TestClassCache',
             'storage' => $this->_storage,
-        ));
+        ]);
         $this->_pattern = new Cache\Pattern\ClassCache();
         $this->_pattern->setOptions($this->_options);
 
@@ -69,7 +69,7 @@ class ClassCacheTest extends CommonPatternTest
     {
         $this->_testCall(
             'bar',
-            array('testCallEnabledCacheOutputByDefault', 'arg2')
+            ['testCallEnabledCacheOutputByDefault', 'arg2']
         );
     }
 
@@ -78,13 +78,13 @@ class ClassCacheTest extends CommonPatternTest
         $this->_options->setCacheOutput(false);
         $this->_testCall(
             'bar',
-            array('testCallDisabledCacheOutput', 'arg2')
+            ['testCallDisabledCacheOutput', 'arg2']
         );
     }
 
     public function testGenerateKey()
     {
-        $args = array('arg1', 2, 3.33, null);
+        $args = ['arg1', 2, 3.33, null];
 
         $generatedKey = $this->_pattern->generateKey('emptyMethod', $args);
         $usedKey      = null;
@@ -107,7 +107,7 @@ class ClassCacheTest extends CommonPatternTest
 
         ob_start();
         ob_implicit_flush(0);
-        $return = call_user_func_array(array($this->_pattern, $method), $args);
+        $return = call_user_func_array([$this->_pattern, $method], $args);
         $data = ob_get_clean();
 
         $this->assertEquals($returnSpec . $firstCounter, $return);
@@ -116,7 +116,7 @@ class ClassCacheTest extends CommonPatternTest
         // second call - cached
         ob_start();
         ob_implicit_flush(0);
-        $return = call_user_func_array(array($this->_pattern, $method), $args);
+        $return = call_user_func_array([$this->_pattern, $method], $args);
         $data = ob_get_clean();
 
         $this->assertEquals($returnSpec . $firstCounter, $return);

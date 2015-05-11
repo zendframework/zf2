@@ -57,7 +57,7 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetConfigReturnsQuietly()
     {
-        $this->adapter->setOptions(array('foo' => 'bar'));
+        $this->adapter->setOptions(['foo' => 'bar']);
     }
 
     public function testConnectReturnsQuietly()
@@ -100,8 +100,8 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testReadingResponseCycles()
     {
-        $expected = array("HTTP/1.1 200 OK\r\n\r\n",
-                          "HTTP/1.1 302 Moved Temporarily\r\n\r\n");
+        $expected = ["HTTP/1.1 200 OK\r\n\r\n",
+                          "HTTP/1.1 302 Moved Temporarily\r\n\r\n"];
 
         $this->adapter->setResponse($expected[0]);
         $this->adapter->addResponse($expected[1]);
@@ -142,8 +142,8 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testReadingResponseCyclesWhenSetByArray()
     {
-        $expected = array("HTTP/1.1 200 OK\r\n\r\n",
-                          "HTTP/1.1 302 Moved Temporarily\r\n\r\n");
+        $expected = ["HTTP/1.1 200 OK\r\n\r\n",
+                          "HTTP/1.1 302 Moved Temporarily\r\n\r\n"];
 
         $this->adapter->setResponse($expected);
 
@@ -154,9 +154,9 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingNextResponseByIndex()
     {
-        $expected = array("HTTP/1.1 200 OK\r\n\r\n",
+        $expected = ["HTTP/1.1 200 OK\r\n\r\n",
                           "HTTP/1.1 302 Moved Temporarily\r\n\r\n",
-                          "HTTP/1.1 404 Not Found\r\n\r\n");
+                          "HTTP/1.1 404 Not Found\r\n\r\n"];
 
         $this->adapter->setResponse($expected);
         $this->assertEquals($expected[0], $this->adapter->read());
@@ -169,7 +169,7 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testSettingNextResponseToAnInvalidIndex()
     {
-        $indexes = array(-1, 1);
+        $indexes = [-1, 1];
         foreach ($indexes as $i) {
             try {
                 $this->adapter->setResponseIndex($i);
@@ -192,10 +192,10 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public static function validHttpResponseProvider()
     {
-        return array(
-           array("HTTP/1.1 200 OK\r\n\r\n"),
-           array("HTTP/1.1 302 Moved Temporarily\r\nLocation: http://example.com/baz\r\n\r\n"),
-           array("HTTP/1.1 404 Not Found\r\n" .
+        return [
+           ["HTTP/1.1 200 OK\r\n\r\n"],
+           ["HTTP/1.1 302 Moved Temporarily\r\nLocation: http://example.com/baz\r\n\r\n"],
+           ["HTTP/1.1 404 Not Found\r\n" .
                  "Date: Sun, 14 Jun 2009 10:40:06 GMT\r\n" .
                  "Server: Apache/2.2.3 (CentOS)\r\n" .
                  "Content-length: 281\r\n" .
@@ -209,7 +209,7 @@ class TestAdapterTest extends \PHPUnit_Framework_TestCase
                  "<p>The requested URL /foo/bar was not found on this server.</p>\n" .
                  "<hr>\n" .
                  "<address>Apache/2.2.3 (CentOS) Server at example.com Port 80</address>\n" .
-                 "</body></html>")
-        );
+                 "</body></html>"]
+        ];
     }
 }

@@ -23,21 +23,21 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
     public function basicBehaviorDataProvider()
     {
         $testFile = __DIR__ . '/_files/wordcount.txt';
-        $testData = array(
+        $testData = [
             //    Options, isValid Param, Expected value
-            array(15,      $testFile,     true),
-            array(4,       $testFile,     false),
-            array(array('min' => 0,  'max' => 10), $testFile,   true),
-            array(array('min' => 10, 'max' => 15), $testFile,   false),
-        );
+            [15,      $testFile,     true],
+            [4,       $testFile,     false],
+            [['min' => 0,  'max' => 10], $testFile,   true],
+            [['min' => 10, 'max' => 15], $testFile,   false],
+        ];
 
         // Dupe data in File Upload format
         foreach ($testData as $data) {
-            $fileUpload = array(
+            $fileUpload = [
                 'tmp_name' => $data[1], 'name' => basename($data[1]),
                 'size' => 200, 'error' => 0, 'type' => 'text'
-            );
-            $testData[] = array($data[0], $fileUpload, $data[2]);
+            ];
+            $testData[] = [$data[0], $fileUpload, $data[2]];
         }
         return $testData;
     }
@@ -75,11 +75,11 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMin()
     {
-        $validator = new File\WordCount(array('min' => 1, 'max' => 5));
+        $validator = new File\WordCount(['min' => 1, 'max' => 5]);
         $this->assertEquals(1, $validator->getMin());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\WordCount(array('min' => 5, 'max' => 1));
+        $validator = new File\WordCount(['min' => 5, 'max' => 1]);
     }
 
     /**
@@ -89,7 +89,7 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMin()
     {
-        $validator = new File\WordCount(array('min' => 1000, 'max' => 10000));
+        $validator = new File\WordCount(['min' => 1000, 'max' => 10000]);
         $validator->setMin(100);
         $this->assertEquals(100, $validator->getMin());
 
@@ -104,11 +104,11 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMax()
     {
-        $validator = new File\WordCount(array('min' => 1, 'max' => 100));
+        $validator = new File\WordCount(['min' => 1, 'max' => 100]);
         $this->assertEquals(100, $validator->getMax());
 
         $this->setExpectedException('Zend\Validator\Exception\InvalidArgumentException', 'greater than or equal');
-        $validator = new File\WordCount(array('min' => 5, 'max' => 1));
+        $validator = new File\WordCount(['min' => 5, 'max' => 1]);
     }
 
     /**
@@ -118,7 +118,7 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetMax()
     {
-        $validator = new File\WordCount(array('min' => 1000, 'max' => 10000));
+        $validator = new File\WordCount(['min' => 1000, 'max' => 10000]);
         $validator->setMax(1000000);
         $this->assertEquals(1000000, $validator->getMax());
 
@@ -131,7 +131,7 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
      */
     public function testZF11258()
     {
-        $validator = new File\WordCount(array('min' => 1, 'max' => 10000));
+        $validator = new File\WordCount(['min' => 1, 'max' => 10000]);
         $this->assertFalse($validator->isValid(__DIR__ . '/_files/nofile.mo'));
         $this->assertArrayHasKey('fileWordCountNotFound', $validator->getMessages());
         $this->assertContains("does not exist", current($validator->getMessages()));
@@ -144,13 +144,13 @@ class WordCountTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($validator->isValid(''));
         $this->assertArrayHasKey(File\WordCount::NOT_FOUND, $validator->getMessages());
 
-        $filesArray = array(
+        $filesArray = [
             'name'      => '',
             'size'      => 0,
             'tmp_name'  => '',
             'error'     => UPLOAD_ERR_NO_FILE,
             'type'      => '',
-        );
+        ];
 
         $this->assertFalse($validator->isValid($filesArray));
         $this->assertArrayHasKey(File\WordCount::NOT_FOUND, $validator->getMessages());

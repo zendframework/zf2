@@ -41,10 +41,10 @@ class SendResponseListener extends AbstractListenerAggregate implements
      */
     public function setEventManager(EventManagerInterface $eventManager)
     {
-        $eventManager->setIdentifiers(array(
+        $eventManager->setIdentifiers([
             __CLASS__,
             get_class($this),
-        ));
+        ]);
         $this->eventManager = $eventManager;
         $this->attachDefaultListeners();
         return $this;
@@ -73,7 +73,7 @@ class SendResponseListener extends AbstractListenerAggregate implements
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_FINISH, array($this, 'sendResponse'), -10000);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_FINISH, [$this, 'sendResponse'], -10000);
     }
 
     /**

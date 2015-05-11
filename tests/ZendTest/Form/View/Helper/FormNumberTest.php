@@ -46,43 +46,43 @@ class FormNumberTest extends CommonTestCase
 
     public function validAttributes()
     {
-        return array(
-            array('name', 'assertContains'),
-            array('accept', 'assertNotContains'),
-            array('alt', 'assertNotContains'),
-            array('autocomplete', 'assertContains'),
-            array('autofocus', 'assertContains'),
-            array('checked', 'assertNotContains'),
-            array('dirname', 'assertNotContains'),
-            array('disabled', 'assertContains'),
-            array('form', 'assertContains'),
-            array('formaction', 'assertNotContains'),
-            array('formenctype', 'assertNotContains'),
-            array('formmethod', 'assertNotContains'),
-            array('formnovalidate', 'assertNotContains'),
-            array('formtarget', 'assertNotContains'),
-            array('height', 'assertNotContains'),
-            array('list', 'assertContains'),
-            array('max', 'assertContains'),
-            array('maxlength', 'assertNotContains'),
-            array('min', 'assertContains'),
-            array('multiple', 'assertNotContains'),
-            array('pattern', 'assertNotContains'),
-            array('placeholder', 'assertContains'),
-            array('readonly', 'assertContains'),
-            array('required', 'assertContains'),
-            array('size', 'assertNotContains'),
-            array('src', 'assertNotContains'),
-            array('step', 'assertContains'),
-            array('value', 'assertContains'),
-            array('width', 'assertNotContains'),
-        );
+        return [
+            ['name', 'assertContains'],
+            ['accept', 'assertNotContains'],
+            ['alt', 'assertNotContains'],
+            ['autocomplete', 'assertContains'],
+            ['autofocus', 'assertContains'],
+            ['checked', 'assertNotContains'],
+            ['dirname', 'assertNotContains'],
+            ['disabled', 'assertContains'],
+            ['form', 'assertContains'],
+            ['formaction', 'assertNotContains'],
+            ['formenctype', 'assertNotContains'],
+            ['formmethod', 'assertNotContains'],
+            ['formnovalidate', 'assertNotContains'],
+            ['formtarget', 'assertNotContains'],
+            ['height', 'assertNotContains'],
+            ['list', 'assertContains'],
+            ['max', 'assertContains'],
+            ['maxlength', 'assertNotContains'],
+            ['min', 'assertContains'],
+            ['multiple', 'assertNotContains'],
+            ['pattern', 'assertNotContains'],
+            ['placeholder', 'assertContains'],
+            ['readonly', 'assertContains'],
+            ['required', 'assertContains'],
+            ['size', 'assertNotContains'],
+            ['src', 'assertNotContains'],
+            ['step', 'assertContains'],
+            ['value', 'assertContains'],
+            ['width', 'assertNotContains'],
+        ];
     }
 
     public function getCompleteElement()
     {
         $element = new Element('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'accept'             => 'value',
             'alt'                => 'value',
             'autocomplete'       => 'on',
@@ -112,7 +112,7 @@ class FormNumberTest extends CommonTestCase
             'src'                => 'value',
             'step'               => '1',
             'width'              => 'value',
-        ));
+        ]);
         $element->setValue('value');
         return $element;
     }

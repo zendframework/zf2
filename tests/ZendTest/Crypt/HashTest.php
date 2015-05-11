@@ -52,16 +52,16 @@ class HashTest extends \PHPUnit_Framework_TestCase
     // SHA1 tests taken from RFC 3174
     public function provideSha1Data()
     {
-        return array(
-            array('abc',
-                  strtolower('A9993E364706816ABA3E25717850C26C9CD0D89D')),
-            array('abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq',
-                  strtolower('84983E441C3BD26EBAAE4AA1F95129E5E54670F1')),
-            array(str_repeat('a', 1000000),
-                  strtolower('34AA973CD4C4DAA4F61EEB2BDBAD27316534016F')),
-            array(str_repeat('01234567', 80),
-                  strtolower('DEA356A2CDDD90C7A7ECEDC5EBB563934F460452'))
-        );
+        return [
+            ['abc',
+                  strtolower('A9993E364706816ABA3E25717850C26C9CD0D89D')],
+            ['abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq',
+                  strtolower('84983E441C3BD26EBAAE4AA1F95129E5E54670F1')],
+            [str_repeat('a', 1000000),
+                  strtolower('34AA973CD4C4DAA4F61EEB2BDBAD27316534016F')],
+            [str_repeat('01234567', 80),
+                  strtolower('DEA356A2CDDD90C7A7ECEDC5EBB563934F460452')]
+        ];
     }
 
     /**
@@ -76,13 +76,13 @@ class HashTest extends \PHPUnit_Framework_TestCase
     // SHA-224 tests taken from RFC 3874
     public function provideSha224Data()
     {
-        return array(
-            array('abc', '23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7'),
-            array('abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq',
-                  '75388b16512776cc5dba5da1fd890150b0c6455cb4f58b1952522525'),
-            array(str_repeat('a', 1000000),
-                  '20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67')
-        );
+        return [
+            ['abc', '23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7'],
+            ['abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq',
+                  '75388b16512776cc5dba5da1fd890150b0c6455cb4f58b1952522525'],
+            [str_repeat('a', 1000000),
+                  '20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67']
+        ];
     }
 
     /**
@@ -97,16 +97,16 @@ class HashTest extends \PHPUnit_Framework_TestCase
     // MD5 test suite taken from RFC 1321
     public function provideMd5Data()
     {
-        return array(
-            array('', 'd41d8cd98f00b204e9800998ecf8427e'),
-            array('a', '0cc175b9c0f1b6a831c399e269772661'),
-            array('abc', '900150983cd24fb0d6963f7d28e17f72'),
-            array('message digest', 'f96b697d7cb7938d525a2f31aaf161d0'),
-            array('abcdefghijklmnopqrstuvwxyz', 'c3fcd3d76192e4007dfb496cca67e13b'),
-            array('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
-                  'd174ab98d277d9f5a5611c2c9f419d9f'),
-            array(str_repeat('1234567890', 8), '57edf4a22be3c955ac49da2e2107b67a')
-        );
+        return [
+            ['', 'd41d8cd98f00b204e9800998ecf8427e'],
+            ['a', '0cc175b9c0f1b6a831c399e269772661'],
+            ['abc', '900150983cd24fb0d6963f7d28e17f72'],
+            ['message digest', 'f96b697d7cb7938d525a2f31aaf161d0'],
+            ['abcdefghijklmnopqrstuvwxyz', 'c3fcd3d76192e4007dfb496cca67e13b'],
+            ['ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+                  'd174ab98d277d9f5a5611c2c9f419d9f'],
+            [str_repeat('1234567890', 8), '57edf4a22be3c955ac49da2e2107b67a']
+        ];
     }
 
     /**

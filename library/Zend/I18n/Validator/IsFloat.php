@@ -28,10 +28,10 @@ class IsFloat extends AbstractValidator
     /**
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID   => "Invalid type given. String, integer or float expected",
         self::NOT_FLOAT => "The input does not appear to be a float",
-    );
+    ];
 
     /**
      * Optional locale
@@ -53,7 +53,7 @@ class IsFloat extends AbstractValidator
      * @param array|Traversable $options
      * @throws Exception\ExtensionNotLoadedException if ext/intl is not present
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!extension_loaded('intl')) {
             throw new I18nException\ExtensionNotLoadedException(
@@ -155,7 +155,7 @@ class IsFloat extends AbstractValidator
             $value = str_replace(' ', $groupSeparator, $value);
         } elseif ($groupSeparator == "\xD9\xAC") {
             //NumberFormatter doesn't have grouping at all for Arabic-Indic
-            $value = str_replace(array('\'', $groupSeparator), '', $value);
+            $value = str_replace(['\'', $groupSeparator], '', $value);
         }
 
         //ARABIC DECIMAL SEPARATOR

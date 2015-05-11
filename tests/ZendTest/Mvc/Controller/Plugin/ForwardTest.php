@@ -52,7 +52,7 @@ class ForwardTest extends TestCase
         StaticEventManager::resetInstance();
 
         $mockSharedEventManager = $this->getMock('Zend\EventManager\SharedEventManagerInterface');
-        $mockSharedEventManager->expects($this->any())->method('getListeners')->will($this->returnValue(array()));
+        $mockSharedEventManager->expects($this->any())->method('getListeners')->will($this->returnValue([]));
         $mockEventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
         $mockEventManager->expects($this->any())->method('getSharedManager')->will($this->returnValue($mockSharedEventManager));
         $mockApplication = $this->getMock('Zend\Mvc\ApplicationInterface');
@@ -63,7 +63,7 @@ class ForwardTest extends TestCase
         $event->setRequest(new Request());
         $event->setResponse(new Response());
 
-        $routeMatch = new RouteMatch(array('action' => 'test'));
+        $routeMatch = new RouteMatch(['action' => 'test']);
         $routeMatch->setMatchedRouteName('some-route');
         $event->setRouteMatch($routeMatch);
 
@@ -140,14 +140,14 @@ class ForwardTest extends TestCase
         $this->setExpectedException('Zend\Mvc\Exception\DomainException', 'Circular forwarding');
         $sampleController = $this->controller;
         $this->controllers->setService('sample', $sampleController);
-        $this->plugin->dispatch('sample', array('action' => 'test-circular'));
+        $this->plugin->dispatch('sample', ['action' => 'test-circular']);
     }
 
     public function testPluginDispatchsRequestedControllerWhenFound()
     {
         $result = $this->plugin->dispatch('forward');
         $this->assertInternalType('array', $result);
-        $this->assertEquals(array('content' => 'ZendTest\Mvc\Controller\TestAsset\ForwardController::testAction'), $result);
+        $this->assertEquals(['content' => 'ZendTest\Mvc\Controller\TestAsset\ForwardController::testAction'], $result);
     }
 
     /**
@@ -158,9 +158,9 @@ class ForwardTest extends TestCase
         $services = $this->plugins->getServiceLocator();
         $events   = $services->get('EventManager');
         $sharedEvents = $this->getMock('Zend\EventManager\SharedEventManagerInterface');
-        $sharedEvents->expects($this->any())->method('getListeners')->will($this->returnValue(array(
+        $sharedEvents->expects($this->any())->method('getListeners')->will($this->returnValue([
             new CallbackHandler(function ($e) {})
-        )));
+        ]));
         $events = $this->getMock('Zend\EventManager\EventManagerInterface');
         $events->expects($this->any())->method('getSharedManager')->will($this->returnValue($sharedEvents));
         $application = $this->getMock('Zend\Mvc\ApplicationInterface');
@@ -170,15 +170,15 @@ class ForwardTest extends TestCase
 
         $result = $this->plugin->dispatch('forward');
         $this->assertInternalType('array', $result);
-        $this->assertEquals(array('content' => 'ZendTest\Mvc\Controller\TestAsset\ForwardController::testAction'), $result);
+        $this->assertEquals(['content' => 'ZendTest\Mvc\Controller\TestAsset\ForwardController::testAction'], $result);
     }
 
     public function testDispatchWillSeedRouteMatchWithPassedParameters()
     {
-        $result = $this->plugin->dispatch('forward', array(
+        $result = $this->plugin->dispatch('forward', [
             'action' => 'test-matches',
             'param1' => 'foobar',
-        ));
+        ]);
         $this->assertInternalType('array', $result);
         $this->assertTrue(isset($result['action']));
         $this->assertEquals('test-matches', $result['action']);
@@ -191,10 +191,10 @@ class ForwardTest extends TestCase
         $routeMatch            = $this->controller->getEvent()->getRouteMatch();
         $matchParams           = $routeMatch->getParams();
         $matchMatchedRouteName = $routeMatch->getMatchedRouteName();
-        $result = $this->plugin->dispatch('forward', array(
+        $result = $this->plugin->dispatch('forward', [
             'action' => 'test-matches',
             'param1' => 'foobar',
-        ));
+        ]);
         $testMatch            = $this->controller->getEvent()->getRouteMatch();
         $testParams           = $testMatch->getParams();
         $testMatchedRouteName = $testMatch->getMatchedRouteName();
@@ -206,12 +206,12 @@ class ForwardTest extends TestCase
 
     public function testAllowsPassingEmptyArrayOfRouteParams()
     {
-        $result = $this->plugin->dispatch('forward', array());
+        $result = $this->plugin->dispatch('forward', []);
         $this->assertInternalType('array', $result);
         $this->assertTrue(isset($result['status']));
         $this->assertEquals('not-found', $result['status']);
         $this->assertTrue(isset($result['params']));
-        $this->assertEquals(array(), $result['params']);
+        $this->assertEquals([], $result['params']);
     }
 
     /**
@@ -219,6 +219,6 @@ class ForwardTest extends TestCase
      */
     public function testSetListenersToDetachIsFluent()
     {
-        $this->assertSame($this->plugin, $this->plugin->setListenersToDetach(array()));
+        $this->assertSame($this->plugin, $this->plugin->setListenersToDetach([]));
     }
 }

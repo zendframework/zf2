@@ -43,7 +43,7 @@ class CallbackHandler
      * @param  string|array|object|callable $callback PHP callback
      * @param  array                        $metadata  Callback metadata
      */
-    public function __construct($callback, array $metadata = array())
+    public function __construct($callback, array $metadata = [])
     {
         $this->metadata  = $metadata;
         $this->registerCallback($callback);
@@ -81,7 +81,7 @@ class CallbackHandler
      * @param  array $args Arguments to pass to callback
      * @return mixed
      */
-    public function call(array $args = array())
+    public function call(array $args = [])
     {
         $callback = $this->getCallback();
 
@@ -212,6 +212,6 @@ class CallbackHandler
         // returning a non boolean value may not be nice for a validate method,
         // but that allows the usage of a static string callback without using
         // the call_user_func function.
-        return array($class, $method);
+        return [$class, $method];
     }
 }

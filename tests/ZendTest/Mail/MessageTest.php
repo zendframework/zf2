@@ -212,11 +212,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddManyFromAddressesUsingArray()
     {
-        $addresses = array(
+        $addresses = [
             'zf-devteam@example.com',
             'zf-contributors@example.com' => 'ZF Contributors List',
             new Address('fw-announce@example.com', 'ZF Announce List'),
-        );
+        ];
         $this->message->addFrom($addresses);
 
         $from = $this->message->getFrom();
@@ -276,11 +276,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddManyCcAddressesUsingArray()
     {
-        $addresses = array(
+        $addresses = [
             'zf-devteam@example.com',
             'zf-contributors@example.com' => 'ZF Contributors List',
             new Address('fw-announce@example.com', 'ZF Announce List'),
-        );
+        ];
         $this->message->addCc($addresses);
 
         $cc = $this->message->getCc();
@@ -340,11 +340,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddManyBccAddressesUsingArray()
     {
-        $addresses = array(
+        $addresses = [
             'zf-devteam@example.com',
             'zf-contributors@example.com' => 'ZF Contributors List',
             new Address('fw-announce@example.com', 'ZF Announce List'),
-        );
+        ];
         $this->message->addBcc($addresses);
 
         $bcc = $this->message->getBcc();
@@ -404,11 +404,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddManyReplyToAddressesUsingArray()
     {
-        $addresses = array(
+        $addresses = [
             'zf-devteam@example.com',
             'zf-contributors@example.com' => 'ZF Contributors List',
             new Address('fw-announce@example.com', 'ZF Announce List'),
-        );
+        ];
         $this->message->addReplyTo($addresses);
 
         $replyTo = $this->message->getReplyTo();
@@ -501,12 +501,12 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public static function invalidBodyValues()
     {
-        return array(
-            array(array('foo')),
-            array(true),
-            array(false),
-            array(new stdClass),
-        );
+        return [
+            [['foo']],
+            [true],
+            [false],
+            [new stdClass],
+        ];
     }
 
     /**
@@ -690,7 +690,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testPassEmptyArrayIntoSetPartsOfMimeMessageShouldReturnEmptyBodyString()
     {
         $mimeMessage = new MimeMessage();
-        $mimeMessage->setParts(array());
+        $mimeMessage->setParts([]);
 
         $this->message->setBody($mimeMessage);
         $this->assertEquals('', $this->message->getBodyText());
@@ -698,18 +698,18 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function messageRecipients()
     {
-        return array(
-            'setFrom' => array('setFrom'),
-            'addFrom' => array('addFrom'),
-            'setTo' => array('setTo'),
-            'addTo' => array('addTo'),
-            'setCc' => array('setCc'),
-            'addCc' => array('addCc'),
-            'setBcc' => array('setBcc'),
-            'addBcc' => array('addBcc'),
-            'setReplyTo' => array('setReplyTo'),
-            'setSender' => array('setSender'),
-        );
+        return [
+            'setFrom' => ['setFrom'],
+            'addFrom' => ['addFrom'],
+            'setTo' => ['setTo'],
+            'addTo' => ['addTo'],
+            'setCc' => ['setCc'],
+            'addCc' => ['addCc'],
+            'setBcc' => ['setBcc'],
+            'addBcc' => ['addBcc'],
+            'setReplyTo' => ['setReplyTo'],
+            'setSender' => ['setSender'],
+        ];
     }
 
     /**
@@ -718,12 +718,12 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      */
     public function testRaisesExceptionWhenAttemptingToSerializeMessageWithCRLFInjectionViaHeader($recipientMethod)
     {
-        $subject = array(
+        $subject = [
             'test1',
             'Content-Type: text/html; charset = "iso-8859-1"',
             '',
             '<html><body><iframe src="http://example.com/"></iframe></body></html> <!--',
-        );
+        ];
         $this->setExpectedException('Zend\Mail\Exception\InvalidArgumentException');
         $this->message->{$recipientMethod}(implode(Headers::EOL, $subject));
     }
@@ -733,12 +733,12 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      */
     public function testDetectsCRLFInjectionViaSubject()
     {
-        $subject = array(
+        $subject = [
             'test1',
             'Content-Type: text/html; charset = "iso-8859-1"',
             '',
             '<html><body><iframe src="http://example.com/"></iframe></body></html> <!--',
-        );
+        ];
         $this->message->setSubject(implode(Headers::EOL, $subject));
 
         $serializedHeaders = $this->message->getHeaders()->toString();

@@ -166,11 +166,11 @@ final class Version
 
         if ($httpClient === null) {
             $context = stream_context_create(
-                array(
-                    'http' => array(
+                [
+                    'http' => [
                         'user_agent' => sprintf('Zend-Version/%s', self::VERSION),
-                    ),
-                )
+                    ],
+                ]
             );
             $apiResponse = file_get_contents($url, false, $context);
         } else {

@@ -35,9 +35,9 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $resolver = new Resolver\TemplatePathStack(array('script_paths' => array(
+        $resolver = new Resolver\TemplatePathStack(['script_paths' => [
             __DIR__ . '/_files/scripts',
-        )));
+        ]]);
         $view = new View();
         $view->setResolver($resolver);
 
@@ -140,7 +140,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
     public function testAcceptsViewPartialInOtherModule()
     {
         try {
-            $this->_viewHelper->__invoke($this->_paginator, null, array('partial.phtml', 'test'));
+            $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
         } catch (\Exception $e) {
             /* We don't care whether or not the module exists--we just want to
              * make sure it gets to Zend_View_Helper_Partial and it's recognized

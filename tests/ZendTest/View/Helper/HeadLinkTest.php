@@ -89,11 +89,11 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatingLinkStackViaHeadLinkCreatesAppropriateOutput()
     {
-        $links = array(
-            'link1' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'),
-            'link2' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'bar'),
-            'link3' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'baz'),
-        );
+        $links = [
+            'link1' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'],
+            'link2' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'bar'],
+            'link3' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'baz'],
+        ];
         $this->helper->headLink($links['link1'])
                      ->headLink($links['link2'], 'PREPEND')
                      ->headLink($links['link3']);
@@ -113,23 +113,23 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($substr, $string);
         }
 
-        $order = array();
+        $order = [];
         foreach ($this->helper as $key => $value) {
             if (isset($value->href)) {
                 $order[$key] = $value->href;
             }
         }
-        $expected = array('bar', 'foo', 'baz');
+        $expected = ['bar', 'foo', 'baz'];
         $this->assertSame($expected, $order);
     }
 
     public function testCreatingLinkStackViaStyleSheetMethodsCreatesAppropriateOutput()
     {
-        $links = array(
-            'link1' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'),
-            'link2' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'bar'),
-            'link3' => array('rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'baz'),
-        );
+        $links = [
+            'link1' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'],
+            'link2' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'bar'],
+            'link3' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'baz'],
+        ];
         $this->helper->appendStylesheet($links['link1']['href'])
                      ->prependStylesheet($links['link2']['href'])
                      ->appendStylesheet($links['link3']['href']);
@@ -149,23 +149,23 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($substr, $string);
         }
 
-        $order = array();
+        $order = [];
         foreach ($this->helper as $key => $value) {
             if (isset($value->href)) {
                 $order[$key] = $value->href;
             }
         }
-        $expected = array('bar', 'foo', 'baz');
+        $expected = ['bar', 'foo', 'baz'];
         $this->assertSame($expected, $order);
     }
 
     public function testCreatingLinkStackViaAlternateMethodsCreatesAppropriateOutput()
     {
-        $links = array(
-            'link1' => array('title' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'),
-            'link2' => array('title' => 'stylesheet', 'type' => 'text/css', 'href' => 'bar'),
-            'link3' => array('title' => 'stylesheet', 'type' => 'text/css', 'href' => 'baz'),
-        );
+        $links = [
+            'link1' => ['title' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'],
+            'link2' => ['title' => 'stylesheet', 'type' => 'text/css', 'href' => 'bar'],
+            'link3' => ['title' => 'stylesheet', 'type' => 'text/css', 'href' => 'baz'],
+        ];
         $where = 'append';
         foreach ($links as $link) {
             $method = $where . 'Alternate';
@@ -190,13 +190,13 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
             $this->assertContains($substr, $string);
         }
 
-        $order = array();
+        $order = [];
         foreach ($this->helper as $key => $value) {
             if (isset($value->href)) {
                 $order[$key] = $value->href;
             }
         }
-        $expected = array('bar', 'foo', 'baz');
+        $expected = ['bar', 'foo', 'baz'];
         $this->assertSame($expected, $order);
     }
 
@@ -208,7 +208,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingShouldAllowSingleArrayArgument()
     {
-        $this->helper->setStylesheet(array('href' => '/styles.css'));
+        $this->helper->setStylesheet(['href' => '/styles.css']);
         $link = $this->helper->getValue();
         $this->assertEquals('/styles.css', $link->href);
     }
@@ -216,7 +216,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     public function testOverloadingUsingSingleArrayArgumentWithInvalidValuesThrowsException()
     {
         $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
-        $this->helper->setStylesheet(array('bogus' => 'unused'));
+        $this->helper->setStylesheet(['bogus' => 'unused']);
     }
 
     public function testOverloadingOffsetSetWorks()
@@ -326,8 +326,8 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     public function testLinkRendersAsPlainHtmlIfDoctypeNotXhtml()
     {
         $this->view->plugin('doctype')->__invoke('HTML4_STRICT');
-        $this->helper->__invoke(array('rel' => 'icon', 'src' => '/foo/bar'))
-                     ->__invoke(array('rel' => 'foo', 'href' => '/bar/baz'));
+        $this->helper->__invoke(['rel' => 'icon', 'src' => '/foo/bar'])
+                     ->__invoke(['rel' => 'foo', 'href' => '/bar/baz']);
         $test = $this->helper->toString();
         $this->assertNotContains(' />', $test);
     }
@@ -344,7 +344,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
      */
     public function testBooleanStylesheet()
     {
-        $this->helper->appendStylesheet(array('href' => '/bar/baz', 'conditionalStylesheet' => false));
+        $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => false]);
         $test = $this->helper->toString();
         $this->assertNotContains('[if false]', $test);
     }
@@ -355,7 +355,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
      */
     public function testBooleanTrueConditionalStylesheet()
     {
-        $this->helper->appendStylesheet(array('href' => '/bar/baz', 'conditionalStylesheet' => true));
+        $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => true]);
         $test = $this->helper->toString();
         $this->assertNotContains('[if 1]', $test);
         $this->assertNotContains('[if true]', $test);
@@ -373,21 +373,21 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAlternateWithExtras()
     {
-        $this->helper->setAlternate('/mydocument.pdf', 'application/pdf', 'foo', array('media' => array('print', 'screen')));
+        $this->helper->setAlternate('/mydocument.pdf', 'application/pdf', 'foo', ['media' => ['print', 'screen']]);
         $test = $this->helper->toString();
         $this->assertContains('media="print,screen"', $test);
     }
 
     public function testAppendStylesheetWithExtras()
     {
-        $this->helper->appendStylesheet(array('href' => '/bar/baz', 'conditionalStylesheet' => false, 'extras' => array('id' => 'my_link_tag')));
+        $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => false, 'extras' => ['id' => 'my_link_tag']]);
         $test = $this->helper->toString();
         $this->assertContains('id="my_link_tag"', $test);
     }
 
     public function testSetStylesheetWithMediaAsArray()
     {
-        $this->helper->appendStylesheet('/bar/baz', array('screen', 'print'));
+        $this->helper->appendStylesheet('/bar/baz', ['screen', 'print']);
         $test = $this->helper->toString();
         $this->assertContains(' media="screen,print"', $test);
     }
@@ -433,7 +433,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
      */
     public function testIdAttributeIsSupported()
     {
-        $this->helper->appendStylesheet(array('href' => '/bar/baz', 'id' => 'foo'));
+        $this->helper->appendStylesheet(['href' => '/bar/baz', 'id' => 'foo']);
         $this->assertContains('id="foo"', $this->helper->toString());
     }
 
@@ -442,7 +442,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
      */
     public function testSizesAttributeIsSupported()
     {
-        $this->helper->appendStylesheet(array('rel' => 'icon', 'href' => '/bar/baz', 'sizes' => '123x456'));
+        $this->helper->appendStylesheet(['rel' => 'icon', 'href' => '/bar/baz', 'sizes' => '123x456']);
         $this->assertContains('sizes="123x456"', $this->helper->toString());
     }
 }

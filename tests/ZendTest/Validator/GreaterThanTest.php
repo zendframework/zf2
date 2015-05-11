@@ -29,16 +29,16 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
          *      - expected validation result
          *      - array of test input values
          */
-        $valuesExpected = array(
-            array(0, true, array(0.01, 1, 100)),
-            array(0, false, array(0, 0.00, -0.01, -1, -100)),
-            array('a', true, array('b', 'c', 'd')),
-            array('z', false, array('x', 'y', 'z')),
-            array(array('min' => 0, 'inclusive' => true), true, array(0, 0.00, 0.01, 1, 100)),
-            array(array('min' => 0, 'inclusive' => true), false, array(-0.01, -1, -100)),
-            array(array('min' => 0, 'inclusive' => false), true, array(0.01, 1, 100)),
-            array(array('min' => 0, 'inclusive' => false), false, array(0, 0.00, -0.01, -1, -100))
-        );
+        $valuesExpected = [
+            [0, true, [0.01, 1, 100]],
+            [0, false, [0, 0.00, -0.01, -1, -100]],
+            ['a', true, ['b', 'c', 'd']],
+            ['z', false, ['x', 'y', 'z']],
+            [['min' => 0, 'inclusive' => true], true, [0, 0.00, 0.01, 1, 100]],
+            [['min' => 0, 'inclusive' => true], false, [-0.01, -1, -100]],
+            [['min' => 0, 'inclusive' => false], true, [0.01, 1, 100]],
+            [['min' => 0, 'inclusive' => false], false, [0, 0.00, -0.01, -1, -100]]
+        ];
 
         foreach ($valuesExpected as $element) {
             $validator = new GreaterThan($element[0]);
@@ -56,7 +56,7 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
     public function testGetMessages()
     {
         $validator = new GreaterThan(10);
-        $this->assertEquals(array(), $validator->getMessages());
+        $this->assertEquals([], $validator->getMessages());
     }
 
     /**
@@ -97,7 +97,7 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectInclusiveMessageReturn()
     {
-        $valuesToValidate = array(0, 0.5, 5, 10);
+        $valuesToValidate = [0, 0.5, 5, 10];
 
         foreach ($valuesToValidate as $value) {
             $validator = new GreaterThan(10);
@@ -111,10 +111,10 @@ class GreaterThanTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectNotInclusiveMessageReturn()
     {
-        $valuesToValidate = array(0, 0.5, 5, 9);
+        $valuesToValidate = [0, 0.5, 5, 9];
 
         foreach ($valuesToValidate as $value) {
-            $validator = new GreaterThan(array('min' => 10, 'inclusive' => true));
+            $validator = new GreaterThan(['min' => 10, 'inclusive' => true]);
             $validator->isValid($value);
             $message = $validator->getMessages();
 

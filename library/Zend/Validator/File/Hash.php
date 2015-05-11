@@ -27,21 +27,21 @@ class Hash extends AbstractValidator
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::DOES_NOT_MATCH => "File does not match the given hashes",
         self::NOT_DETECTED   => "A hash could not be evaluated for the given file",
         self::NOT_FOUND      => "File is not readable or does not exist"
-    );
+    ];
 
     /**
      * Options for this validator
      *
      * @var string
      */
-    protected $options = array(
+    protected $options = [
         'algorithm' => 'crc32',
         'hash'      => null,
-    );
+    ];
 
     /**
      * Sets validator options
@@ -52,7 +52,7 @@ class Hash extends AbstractValidator
     {
         if (is_scalar($options) ||
             (is_array($options) && !array_key_exists('hash', $options))) {
-            $options = array('hash' => $options);
+            $options = ['hash' => $options];
         }
 
         if (1 < func_num_args()) {
@@ -96,7 +96,7 @@ class Hash extends AbstractValidator
     public function addHash($options)
     {
         if (is_string($options)) {
-            $options = array($options);
+            $options = [$options];
         } elseif (!is_array($options)) {
             throw new Exception\InvalidArgumentException("False parameter given");
         }

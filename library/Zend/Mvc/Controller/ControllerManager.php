@@ -44,7 +44,7 @@ class ControllerManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
         // Pushing to bottom of stack to ensure this is done last
-        $this->addInitializer(array($this, 'injectControllerDependencies'), false);
+        $this->addInitializer([$this, 'injectControllerDependencies'], false);
     }
 
     /**
@@ -132,7 +132,7 @@ class ControllerManager extends AbstractPluginManager
      * @param  bool $usePeeringServiceManagers
      * @return mixed
      */
-    public function get($name, $options = array(), $usePeeringServiceManagers = false)
+    public function get($name, $options = [], $usePeeringServiceManagers = false)
     {
         return parent::get($name, $options, $usePeeringServiceManagers);
     }

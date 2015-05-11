@@ -33,16 +33,16 @@ abstract class AbstractAdapter extends AbstractValidator implements AdapterInter
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Options to skip when processing options
      * @var array
      */
-    protected $skipOptions = array(
+    protected $skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Get name
@@ -99,7 +99,7 @@ abstract class AbstractAdapter extends AbstractValidator implements AdapterInter
      * @throws Exception\InvalidArgumentException
      * @return AbstractAdapter
      */
-    public function setOptions($options = array())
+    public function setOptions($options = [])
     {
         if (!is_array($options) && !$options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable');

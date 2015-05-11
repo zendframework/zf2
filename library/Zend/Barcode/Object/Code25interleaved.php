@@ -73,13 +73,13 @@ class Code25interleaved extends Code25
             $this->withBorder = false;
         }
 
-        $barcodeTable = array();
+        $barcodeTable = [];
 
         // Start character (0000)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
 
         // Encoded $text
         $text = $this->getText();
@@ -94,20 +94,20 @@ class Code25interleaved extends Code25
                           ? $this->barThickWidth
                           : $this->barThinWidth;
 
-                $barcodeTable[] = array(1, $barWidth, 0, 1);
+                $barcodeTable[] = [1, $barWidth, 0, 1];
 
                 // Left space corresponding to char2 (background color)
                 $barWidth = (substr($this->codingMap[$char2], $ibar, 1))
                           ? $this->barThickWidth
                           : $this->barThinWidth;
-                $barcodeTable[] = array(0, $barWidth, 0, 1);
+                $barcodeTable[] = [0, $barWidth, 0, 1];
             }
         }
 
         // Stop character (100)
-        $barcodeTable[] = array(1, $this->barThickWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
+        $barcodeTable[] = [1, $this->barThickWidth, 0, 1];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
         return $barcodeTable;
     }
 
@@ -127,12 +127,12 @@ class Code25interleaved extends Code25
         $point2 = $this->rotate($this->calculateWidth() - 1, -1);
         $point3 = $this->rotate($this->calculateWidth() - 1, $width - 1);
         $point4 = $this->rotate(-1, $width - 1);
-        $this->addPolygon(array(
+        $this->addPolygon([
             $point1,
             $point2,
             $point3,
             $point4,
-        ));
+        ]);
         $point1 = $this->rotate(
             0,
             0 + $this->barHeight * $this->factor - 1
@@ -149,11 +149,11 @@ class Code25interleaved extends Code25
             0,
             0 + $this->barHeight * $this->factor - $width
         );
-        $this->addPolygon(array(
+        $this->addPolygon([
             $point1,
             $point2,
             $point3,
             $point4,
-        ));
+        ]);
     }
 }

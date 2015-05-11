@@ -24,18 +24,18 @@ class UrlTest extends TestCase
     public function setUp()
     {
         $router = new SimpleRouteStack;
-        $router->addRoute('home', LiteralRoute::factory(array(
+        $router->addRoute('home', LiteralRoute::factory([
             'route'    => '/',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-            ),
-        )));
-        $router->addRoute('default', array(
+            ],
+        ]));
+        $router->addRoute('default', [
             'type' => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
+            'options' => [
                 'route' => '/:controller[/:action]',
-            )
-        ));
+            ]
+        ]);
         $this->router = $router;
 
         $event = new MvcEvent();
@@ -55,7 +55,7 @@ class UrlTest extends TestCase
 
     public function testModel()
     {
-        $it = new \ArrayIterator(array('controller' => 'ctrl', 'action' => 'act'));
+        $it = new \ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
 
         $url = $this->plugin->fromRoute('default', $it);
         $this->assertEquals('/ctrl/act', $url);
@@ -95,14 +95,14 @@ class UrlTest extends TestCase
     public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
     {
         $event = $this->controller->getEvent();
-        $event->setRouteMatch(new RouteMatch(array()));
+        $event->setRouteMatch(new RouteMatch([]));
         $this->setExpectedException('Zend\Mvc\Exception\RuntimeException', 'matched');
         $url = $this->plugin->fromRoute();
     }
 
     public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
     {
-        $routeMatch = new RouteMatch(array());
+        $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('home');
         $this->controller->getEvent()->setRouteMatch($routeMatch);
         $url = $this->plugin->fromRoute();
@@ -111,66 +111,66 @@ class UrlTest extends TestCase
 
     public function testCanReuseMatchedParameters()
     {
-        $this->router->addRoute('replace', SegmentRoute::factory(array(
+        $this->router->addRoute('replace', SegmentRoute::factory([
             'route'    => '/:controller/:action',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-            ),
-        )));
-        $routeMatch = new RouteMatch(array(
+            ],
+        ]));
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('replace');
         $this->controller->getEvent()->setRouteMatch($routeMatch);
-        $url = $this->plugin->fromRoute('replace', array('action' => 'bar'), array(), true);
+        $url = $this->plugin->fromRoute('replace', ['action' => 'bar'], [], true);
         $this->assertEquals('/foo/bar', $url);
     }
 
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
     {
-        $this->router->addRoute('replace', SegmentRoute::factory(array(
+        $this->router->addRoute('replace', SegmentRoute::factory([
             'route'    => '/:controller/:action',
-            'defaults' => array(
+            'defaults' => [
                 'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-            ),
-        )));
-        $routeMatch = new RouteMatch(array(
+            ],
+        ]));
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('replace');
         $this->controller->getEvent()->setRouteMatch($routeMatch);
-        $url = $this->plugin->fromRoute('replace', array('action' => 'bar'), true);
+        $url = $this->plugin->fromRoute('replace', ['action' => 'bar'], true);
         $this->assertEquals('/foo/bar', $url);
     }
 
     public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
     {
         $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
-        $router->addRoute('default', array(
+        $router->addRoute('default', [
             'type' => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/:controller/:action',
-                'defaults' => array(
+                'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
                     'controller' => 'SampleController',
                     'action'     => 'Dash'
-                )
-            ),
-            'child_routes' => array(
-                'wildcard' => array(
+                ]
+            ],
+            'child_routes' => [
+                'wildcard' => [
                     'type'    => 'Zend\Mvc\Router\Http\Wildcard',
-                    'options' => array(
+                    'options' => [
                         'param_delimiter'     => '=',
                         'key_value_delimiter' => '%'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
-        $routeMatch = new RouteMatch(array(
+        $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
             'controller' => 'Rainbow'
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('default/wildcard');
 
         $event = new MvcEvent();
@@ -182,7 +182,7 @@ class UrlTest extends TestCase
 
         $controller = new SampleController();
         $controller->setEvent($event);
-        $url = $controller->plugin('url')->fromRoute('default/wildcard', array('Twenty' => 'Cooler'), true);
+        $url = $controller->plugin('url')->fromRoute('default/wildcard', ['Twenty' => 'Cooler'], true);
 
         $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
     }

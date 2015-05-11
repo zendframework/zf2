@@ -231,7 +231,7 @@ abstract class ArrayUtils
             return $iterator->toArray();
         }
 
-        $array = array();
+        $array = [];
         foreach ($iterator as $key => $value) {
             if (is_scalar($value)) {
                 $array[$key] = $value;
@@ -312,16 +312,16 @@ abstract class ArrayUtils
             return array_filter($data, $callback, $flag);
         }
 
-        $output = array();
+        $output = [];
         foreach ($data as $key => $value) {
-            $params = array($value);
+            $params = [$value];
 
             if ($flag === static::ARRAY_FILTER_USE_BOTH) {
                 $params[] = $key;
             }
 
             if ($flag === static::ARRAY_FILTER_USE_KEY) {
-                $params = array($key);
+                $params = [$key];
             }
 
             $response = call_user_func_array($callback, $params);

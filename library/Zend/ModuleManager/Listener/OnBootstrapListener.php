@@ -34,6 +34,6 @@ class OnBootstrapListener extends AbstractListener
         $moduleManager = $e->getTarget();
         $events        = $moduleManager->getEventManager();
         $sharedEvents  = $events->getSharedManager();
-        $sharedEvents->attach('Zend\Mvc\Application', ModuleManager::EVENT_BOOTSTRAP, array($module, 'onBootstrap'));
+        $sharedEvents->attach('Zend\Mvc\Application', ModuleManager::EVENT_BOOTSTRAP, [$module, 'onBootstrap']);
     }
 }

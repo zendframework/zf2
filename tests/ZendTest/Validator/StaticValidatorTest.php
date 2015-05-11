@@ -95,9 +95,9 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, AbstractValidator::getMessageLength());
 
         $loader = new TestAsset\ArrayTranslator();
-        $loader->translations = array(
+        $loader->translations = [
             'Invalid type given. String expected' => 'This is the translated message for %value%',
-        );
+        ];
         $translator = new TestAsset\Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
@@ -154,7 +154,7 @@ class StaticValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testExecuteValidWithParameters()
     {
-        $this->assertTrue(StaticValidator::execute(5, 'Between', array(1, 10)));
-        $this->assertTrue(StaticValidator::execute(5, 'Between', array('min' => 1, 'max' => 10)));
+        $this->assertTrue(StaticValidator::execute(5, 'Between', [1, 10]));
+        $this->assertTrue(StaticValidator::execute(5, 'Between', ['min' => 1, 'max' => 10]));
     }
 }

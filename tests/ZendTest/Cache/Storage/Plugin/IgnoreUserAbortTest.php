@@ -37,7 +37,7 @@ class IgnoreUserAbortTest extends CommonPluginTest
         $this->_adapter->addPlugin($this->_plugin);
 
         // check attached callbacks
-        $expectedListeners = array(
+        $expectedListeners = [
             'setItem.pre'       => 'onBefore',
             'setItem.post'      => 'onAfter',
             'setItem.exception' => 'onAfter',
@@ -81,7 +81,7 @@ class IgnoreUserAbortTest extends CommonPluginTest
             'decrementItems.pre'       => 'onBefore',
             'decrementItems.post'      => 'onAfter',
             'decrementItems.exception' => 'onAfter',
-        );
+        ];
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->getEventManager()->getListeners($eventName);
 

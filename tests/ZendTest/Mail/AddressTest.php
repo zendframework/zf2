@@ -47,21 +47,21 @@ class AddressTest extends \PHPUnit_Framework_TestCase
 
     public function invalidSenderDataProvider()
     {
-        return array(
+        return [
             // Description => [sender address, sender name],
-            'Empty' => array('', null),
-            'any ASCII' => array('azAZ09-_', null),
-            'any UTF-8' => array('ázÁZ09-_', null),
+            'Empty' => ['', null],
+            'any ASCII' => ['azAZ09-_', null],
+            'any UTF-8' => ['ázÁZ09-_', null],
 
             // CRLF @group ZF2015-04 cases
-            array("foo@bar\n", null),
-            array("foo@bar\r", null),
-            array("foo@bar\r\n", null),
-            array("foo@bar", "\r"),
-            array("foo@bar", "\n"),
-            array("foo@bar", "\r\n"),
-            array("foo@bar", "foo\r\nevilBody"),
-            array("foo@bar", "\r\nevilBody"),
-        );
+            ["foo@bar\n", null],
+            ["foo@bar\r", null],
+            ["foo@bar\r\n", null],
+            ["foo@bar", "\r"],
+            ["foo@bar", "\n"],
+            ["foo@bar", "\r\n"],
+            ["foo@bar", "foo\r\nevilBody"],
+            ["foo@bar", "\r\nevilBody"],
+        ];
     }
 }

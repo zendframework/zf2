@@ -20,7 +20,7 @@ class Transfer
      *
      * @var array
      */
-    protected $adapter = array();
+    protected $adapter = [];
 
     /**
      * Creates a file processing handler
@@ -30,7 +30,7 @@ class Transfer
      * @param  array   $options   OPTIONAL Options to set for this adapter
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct($adapter = 'Http', $direction = false, $options = array())
+    public function __construct($adapter = 'Http', $direction = false, $options = [])
     {
         $this->setAdapter($adapter, $direction, $options);
     }
@@ -44,7 +44,7 @@ class Transfer
      * @return Transfer
      * @throws Exception\InvalidArgumentException
      */
-    public function setAdapter($adapter, $direction = false, $options = array())
+    public function setAdapter($adapter, $direction = false, $options = [])
     {
         if (!is_string($adapter)) {
             throw new Exception\InvalidArgumentException('Adapter must be a string');
@@ -100,7 +100,7 @@ class Transfer
         }
 
         if (method_exists($this->adapter[$direction], $method)) {
-            return call_user_func_array(array($this->adapter[$direction], $method), $options);
+            return call_user_func_array([$this->adapter[$direction], $method], $options);
         }
 
         throw new Exception\BadMethodCallException("Unknown method '" . $method . "' called!");

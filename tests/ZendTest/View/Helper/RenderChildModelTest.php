@@ -22,12 +22,12 @@ class RenderChildModelTest extends TestCase
 {
     public function setUp()
     {
-        $this->resolver = new TemplateMapResolver(array(
+        $this->resolver = new TemplateMapResolver([
             'layout'  => __DIR__ . '/../_templates/nested-view-model-layout.phtml',
             'child1'  => __DIR__ . '/../_templates/nested-view-model-content.phtml',
             'child2'  => __DIR__ . '/../_templates/nested-view-model-child2.phtml',
             'complex' => __DIR__ . '/../_templates/nested-view-model-complexlayout.phtml',
-        ));
+        ]);
         $this->renderer = $renderer = new PhpRenderer();
         $renderer->setCanRenderTrees(true);
         $renderer->setResolver($this->resolver);

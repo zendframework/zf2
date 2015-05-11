@@ -26,5 +26,5 @@ class MockCallUserFunc
      *
      * @var array
      */
-    public static $params = array();
+    public static $params = [];
 }

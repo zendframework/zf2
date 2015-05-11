@@ -16,7 +16,7 @@ class Message implements MessageInterface
     /**
      * @var array
      */
-    protected $metadata = array();
+    protected $metadata = [];
 
     /**
      * @var string

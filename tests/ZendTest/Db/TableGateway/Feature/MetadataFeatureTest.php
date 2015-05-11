@@ -23,18 +23,18 @@ class MetadataFeatureTest extends PHPUnit_Framework_TestCase
         $tableGatewayMock = $this->getMockForAbstractClass('Zend\Db\TableGateway\AbstractTableGateway');
 
         $metadataMock = $this->getMock('Zend\Db\Metadata\MetadataInterface');
-        $metadataMock->expects($this->any())->method('getColumnNames')->will($this->returnValue(array('id', 'name')));
+        $metadataMock->expects($this->any())->method('getColumnNames')->will($this->returnValue(['id', 'name']));
 
         $constraintObject = new ConstraintObject('id_pk', 'table');
-        $constraintObject->setColumns(array('id'));
+        $constraintObject->setColumns(['id']);
         $constraintObject->setType('PRIMARY KEY');
 
-        $metadataMock->expects($this->any())->method('getConstraints')->will($this->returnValue(array($constraintObject)));
+        $metadataMock->expects($this->any())->method('getConstraints')->will($this->returnValue([$constraintObject]));
 
         $feature = new MetadataFeature($metadataMock);
         $feature->setTableGateway($tableGatewayMock);
         $feature->postInitialize();
 
-        $this->assertEquals(array('id', 'name'), $tableGatewayMock->getColumns());
+        $this->assertEquals(['id', 'name'], $tableGatewayMock->getColumns());
     }
 }

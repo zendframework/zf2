@@ -36,7 +36,7 @@ class FormElementManagerFactoryTest extends TestCase
     public function setUp()
     {
         $formElementManagerFactory = new FormElementManagerFactory();
-        $config = new ArrayObject(array('di' => array()));
+        $config = new ArrayObject(['di' => []]);
         $services = $this->services = new ServiceManager();
         $services->setService('Zend\ServiceManager\ServiceLocatorInterface', $services);
         $services->setFactory('FormElementManager', $formElementManagerFactory);
@@ -55,7 +55,7 @@ class FormElementManagerFactoryTest extends TestCase
         $ref = new \ReflectionClass('Zend\Validator\Csrf');
         $hashCache = $ref->getProperty('hashCache');
         $hashCache->setAccessible(true);
-        $hashCache->setValue(new Csrf, array());
+        $hashCache->setValue(new Csrf, []);
         SessionContainer::setDefaultManager(null);
     }
 
@@ -86,7 +86,7 @@ class FormElementManagerFactoryTest extends TestCase
 
     public function testCsrfCompatibility()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         $formClass = 'ZendTest\Form\TestAsset\CustomForm';
         $ref = new \ReflectionClass('Zend\Validator\Csrf');
         $hashPropRef = $ref->getProperty('hash');
@@ -103,7 +103,7 @@ class FormElementManagerFactoryTest extends TestCase
 
     public function testCsrfWorkFlow()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         $formClass = 'ZendTest\Form\TestAsset\CustomForm';
 
         $preForm = new $formClass;

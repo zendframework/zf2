@@ -29,10 +29,10 @@ class Delete extends AbstractPreparableSql
     /**
      * {@inheritDoc}
      */
-    protected $specifications = array(
+    protected $specifications = [
         self::SPECIFICATION_DELETE => 'DELETE FROM %1$s',
         self::SPECIFICATION_WHERE => 'WHERE %1$s'
-    );
+    ];
 
     /**
      * @var string|TableIdentifier
@@ -47,7 +47,7 @@ class Delete extends AbstractPreparableSql
     /**
      * @var array
      */
-    protected $set = array();
+    protected $set = [];
 
     /**
      * @var null|string|Where
@@ -86,12 +86,12 @@ class Delete extends AbstractPreparableSql
      */
     public function getRawState($key = null)
     {
-        $rawState = array(
+        $rawState = [
             'emptyWhereProtection' => $this->emptyWhereProtection,
             'table' => $this->table,
             'set' => $this->set,
             'where' => $this->where
-        );
+        ];
         return (isset($key) && array_key_exists($key, $rawState)) ? $rawState[$key] : $rawState;
     }
 

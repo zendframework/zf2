@@ -27,7 +27,7 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->parameterContainer = new ParameterContainer(array('foo' => 'bar'));
+        $this->parameterContainer = new ParameterContainer(['foo' => 'bar']);
     }
 
     /**
@@ -66,7 +66,7 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
 
         $this->parameterContainer->offsetSet('1', 'book', ParameterContainer::TYPE_STRING, 4);
         $this->assertEquals(
-            array('foo' => 'bar', 'boo' => 'baz', '1' => 'book'),
+            ['foo' => 'bar', 'boo' => 'baz', '1' => 'book'],
             $this->parameterContainer->getNamedArray()
         );
 
@@ -77,11 +77,11 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
         $this->parameterContainer[0] = 'Zero';
         $this->parameterContainer[1] = 'One';
         $this->assertEquals(
-            array('foo' => 'Zero', 'boo' => 'One', '1' => 'book'),
+            ['foo' => 'Zero', 'boo' => 'One', '1' => 'book'],
             $this->parameterContainer->getNamedArray()
         );
         $this->assertEquals(
-            array(0 => 'Zero', 1 => 'One', 2 => 'book'),
+            [0 => 'Zero', 1 => 'One', 2 => 'book'],
             $this->parameterContainer->getPositionalArray()
         );
 
@@ -90,11 +90,11 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
         $this->parameterContainer[] = 'Second To Last';
         $this->parameterContainer[] = 'Last';
         $this->assertEquals(
-            array('foo' => 'Zero', 'boo' => 'One', '1' => 'book', 'buffer' => 'A buffer Element', '4' => 'Second To Last', '5' => 'Last'),
+            ['foo' => 'Zero', 'boo' => 'One', '1' => 'book', 'buffer' => 'A buffer Element', '4' => 'Second To Last', '5' => 'Last'],
             $this->parameterContainer->getNamedArray()
         );
         $this->assertEquals(
-            array(0 => 'Zero', 1 => 'One', 2 => 'book', 3 => 'A buffer Element', 4 => 'Second To Last', 5 => 'Last'),
+            [0 => 'Zero', 1 => 'One', 2 => 'book', 3 => 'A buffer Element', 4 => 'Second To Last', 5 => 'Last'],
             $this->parameterContainer->getPositionalArray()
         );
     }
@@ -119,7 +119,7 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetFromArray()
     {
-        $this->parameterContainer->setFromArray(array('bar' => 'baz'));
+        $this->parameterContainer->setFromArray(['bar' => 'baz']);
         $this->assertEquals('baz', $this->parameterContainer['bar']);
     }
 
@@ -226,7 +226,7 @@ class ParameterContainerTest extends \PHPUnit_Framework_TestCase
     public function testGetNamedArray()
     {
         $data = $this->parameterContainer->getNamedArray();
-        $this->assertEquals(array('foo' => 'bar'), $data);
+        $this->assertEquals(['foo' => 'bar'], $data);
     }
 
     /**

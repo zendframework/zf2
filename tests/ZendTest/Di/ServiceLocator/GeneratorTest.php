@@ -71,26 +71,26 @@ class GeneratorTest extends TestCase
                    ->addClass($struct);
         $this->di->definitions()->unshift($definition);
 
-        $data = array(
-            'instance' => array(
-                'alias' => array(
+        $data = [
+            'instance' => [
+                'alias' => [
                     'composed' => 'ZendTest\Di\TestAsset\ComposedClass',
                     'inspect'  => 'ZendTest\Di\TestAsset\InspectedClass',
                     'struct'   => 'ZendTest\Di\TestAsset\Struct',
-                ),
-                'preferences' => array(
-                    'composed' => array('composed'),
-                    'inspect'  => array('inspect'),
-                    'struct'   => array('struct'),
-                ),
-                'ZendTest\Di\TestAsset\InspectedClass' => array( 'parameters' => array(
+                ],
+                'preferences' => [
+                    'composed' => ['composed'],
+                    'inspect'  => ['inspect'],
+                    'struct'   => ['struct'],
+                ],
+                'ZendTest\Di\TestAsset\InspectedClass' => [ 'parameters' => [
                     'baz' => 'BAZ',
-                )),
-                'ZendTest\Di\TestAsset\Struct' => array( 'parameters' => array(
+                ]],
+                'ZendTest\Di\TestAsset\Struct' => [ 'parameters' => [
                     'param1' => 'foo',
-                )),
-            ),
-        );
+                ]],
+            ],
+        ];
         $configuration = new Config($data);
         $configuration->configure($this->di);
     }
@@ -145,7 +145,7 @@ class GeneratorTest extends TestCase
 
         $tokens   = token_get_all(file_get_contents($this->tmpFile));
         $count    = count($tokens);
-        $services = array();
+        $services = [];
         for ($i = 0; $i < $count; $i++) {
             $token = $tokens[$i];
             if (is_string($token)) {
@@ -169,14 +169,14 @@ class GeneratorTest extends TestCase
                 }
             }
         }
-        $expected = array(
+        $expected = [
             'composed',
             'ZendTest\Di\TestAsset\ComposedClass',
             'inspect',
             'ZendTest\Di\TestAsset\InspectedClass',
             'struct',
             'ZendTest\Di\TestAsset\Struct',
-        );
+        ];
         $this->assertEquals(count($expected), count($services), var_export($services, 1));
         foreach ($expected as $service) {
             $this->assertContains($service, $services);
@@ -188,7 +188,7 @@ class GeneratorTest extends TestCase
         $this->buildContainerClass();
         $tokens  = token_get_all(file_get_contents($this->tmpFile));
         $count   = count($tokens);
-        $methods = array();
+        $methods = [];
         for ($i = 0; $i < $count; $i++) {
             $token = $tokens[$i];
             if (is_string($token)) {
@@ -210,7 +210,7 @@ class GeneratorTest extends TestCase
                 }
             }
         }
-        $expected = array(
+        $expected = [
             'get',
             'getZendTestDiTestAssetComposedClass',
             'getComposed',
@@ -218,7 +218,7 @@ class GeneratorTest extends TestCase
             'getInspect',
             'getZendTestDiTestAssetStruct',
             'getStruct',
-        );
+        ];
         $this->assertEquals(count($expected), count($methods), var_export($methods, 1));
         foreach ($expected as $method) {
             $this->assertContains($method, $methods);
@@ -260,14 +260,14 @@ class GeneratorTest extends TestCase
         $def->addClass($opt);
         $this->di->setDefinition($def);
 
-        $cfg = new Config(array(
-            'instance' => array(
-                'alias' => array('optional' => 'ZendTest\Di\TestAsset\OptionalArg'),
-            ),
-            'properties' => array(
-                'ZendTest\Di\TestAsset\OptionalArg' => array('param' => null),
-            ),
-        ));
+        $cfg = new Config([
+            'instance' => [
+                'alias' => ['optional' => 'ZendTest\Di\TestAsset\OptionalArg'],
+            ],
+            'properties' => [
+                'ZendTest\Di\TestAsset\OptionalArg' => ['param' => null],
+            ],
+        ]);
         $cfg->configure($this->di);
 
         $builder = new ContainerGenerator($this->di);
@@ -293,7 +293,7 @@ class GeneratorTest extends TestCase
 
         $dummy = new Builder\PhpClass();
         $dummy->setName('ZendTest\Di\TestAsset\DummyParams')
-              ->setInstantiator(array('ZendTest\Di\TestAsset\StaticFactory', 'factory'));
+              ->setInstantiator(['ZendTest\Di\TestAsset\StaticFactory', 'factory']);
 
         $staticFactory = new Builder\PhpClass();
         $staticFactory->setName('ZendTest\Di\TestAsset\StaticFactory');
@@ -310,24 +310,24 @@ class GeneratorTest extends TestCase
 
         $this->di->setDefinition($def);
 
-        $cfg = new Config(array(
-            'instance' => array(
-                'alias' => array(
+        $cfg = new Config([
+            'instance' => [
+                'alias' => [
                     'struct'  => 'ZendTest\Di\TestAsset\Struct',
                     'dummy'   => 'ZendTest\Di\TestAsset\DummyParams',
                     'factory' => 'ZendTest\Di\TestAsset\StaticFactory',
-                ),
-                'properties' => array(
-                    'ZendTest\Di\TestAsset\Struct' => array(
+                ],
+                'properties' => [
+                    'ZendTest\Di\TestAsset\Struct' => [
                         'param1' => 'foo',
                         'param2' => 'bar',
-                    ),
-                    'ZendTest\Di\TestAsset\StaticFactory' => array(
+                    ],
+                    'ZendTest\Di\TestAsset\StaticFactory' => [
                         'params' => null,
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
         $cfg->configure($this->di);
 
         $builder = new ContainerGenerator($this->di);
@@ -359,18 +359,18 @@ class GeneratorTest extends TestCase
         $def->addClass($opt);
         $this->di->setDefinition($def);
 
-        $cfg = new Config(array(
-            'instance' => array(
-                'alias' => array('optional' => 'ZendTest\Di\TestAsset\OptionalArg'),
-            ),
-            'properties' => array(
-                'ZendTest\Di\TestAsset\OptionalArg' => array(
+        $cfg = new Config([
+            'instance' => [
+                'alias' => ['optional' => 'ZendTest\Di\TestAsset\OptionalArg'],
+            ],
+            'properties' => [
+                'ZendTest\Di\TestAsset\OptionalArg' => [
                     'param'  => null,
                     'param1' => null,
                     'param2' => null,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $cfg->configure($this->di);
 
         $builder = new ContainerGenerator($this->di);

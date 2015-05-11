@@ -164,11 +164,11 @@ abstract class AbstractController implements
 
         $nsPos = strpos($className, '\\') ?: 0;
         $events->setIdentifiers(array_merge(
-            array(
+            [
                 __CLASS__,
                 $className,
                 substr($className, 0, $nsPos)
-            ),
+            ],
             array_values(class_implements($className)),
             (array) $this->eventIdentifier
         ));
@@ -320,7 +320,7 @@ abstract class AbstractController implements
     protected function attachDefaultListeners()
     {
         $events = $this->getEventManager();
-        $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
+        $events->attach(MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch']);
     }
 
     /**
@@ -331,7 +331,7 @@ abstract class AbstractController implements
      */
     public static function getMethodFromAction($action)
     {
-        $method  = str_replace(array('.', '-', '_'), ' ', $action);
+        $method  = str_replace(['.', '-', '_'], ' ', $action);
         $method  = ucwords($method);
         $method  = str_replace(' ', '', $method);
         $method  = lcfirst($method);

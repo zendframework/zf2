@@ -14,23 +14,23 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 class InputFilterProviderFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct($name, $options);
 
-        $this->add(array(
+        $this->add([
             'name' => 'test_field',
-        ));
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'test_field' => array(
-                'filters' => array(
+        return [
+            'test_field' => [
+                'filters' => [
                     new \Zend\Filter\StringToUpper,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

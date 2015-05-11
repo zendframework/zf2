@@ -29,7 +29,7 @@ class DoctrineAnnotationParser implements ParserInterface
     /**
      * @var array Annotation classes we support on this iteration
      */
-    protected $allowedAnnotations = array();
+    protected $allowedAnnotations = [];
 
     /**
      * @var DocParser

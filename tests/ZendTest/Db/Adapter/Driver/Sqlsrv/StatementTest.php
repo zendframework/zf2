@@ -42,7 +42,7 @@ class StatementTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDriver()
     {
-        $this->assertEquals($this->statement, $this->statement->setDriver(new Sqlsrv(array())));
+        $this->assertEquals($this->statement, $this->statement->setDriver(new Sqlsrv([])));
     }
 
     /**

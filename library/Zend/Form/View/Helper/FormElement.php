@@ -21,7 +21,7 @@ class FormElement extends BaseAbstractHelper
      *
      * @var array
      */
-    protected $classMap = array(
+    protected $classMap = [
         'Zend\Form\Element\Button'         => 'formbutton',
         'Zend\Form\Element\Captcha'        => 'formcaptcha',
         'Zend\Form\Element\Csrf'           => 'formhidden',
@@ -29,14 +29,14 @@ class FormElement extends BaseAbstractHelper
         'Zend\Form\Element\DateTimeSelect' => 'formdatetimeselect',
         'Zend\Form\Element\DateSelect'     => 'formdateselect',
         'Zend\Form\Element\MonthSelect'    => 'formmonthselect',
-    );
+    ];
 
     /**
      * Type map to view helper
      *
      * @var array
      */
-    protected $typeMap = array(
+    protected $typeMap = [
         'checkbox'       => 'formcheckbox',
         'color'          => 'formcolor',
         'date'           => 'formdate',
@@ -62,7 +62,7 @@ class FormElement extends BaseAbstractHelper
         'time'           => 'formtime',
         'url'            => 'formurl',
         'week'           => 'formweek',
-    );
+    ];
 
     /**
      * Default helper name

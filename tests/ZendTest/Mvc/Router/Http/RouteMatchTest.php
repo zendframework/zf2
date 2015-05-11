@@ -16,29 +16,29 @@ class RouteMatchTest extends TestCase
 {
     public function testParamsAreStored()
     {
-        $match = new RouteMatch(array('foo' => 'bar'));
+        $match = new RouteMatch(['foo' => 'bar']);
 
-        $this->assertEquals(array('foo' => 'bar'), $match->getParams());
+        $this->assertEquals(['foo' => 'bar'], $match->getParams());
     }
 
     public function testLengthIsStored()
     {
-        $match = new RouteMatch(array(), 10);
+        $match = new RouteMatch([], 10);
 
         $this->assertEquals(10, $match->getLength());
     }
 
     public function testLengthIsMerged()
     {
-        $match = new RouteMatch(array(), 10);
-        $match->merge(new RouteMatch(array(), 5));
+        $match = new RouteMatch([], 10);
+        $match->merge(new RouteMatch([], 5));
 
         $this->assertEquals(15, $match->getLength());
     }
 
     public function testMatchedRouteNameIsSet()
     {
-        $match = new RouteMatch(array());
+        $match = new RouteMatch([]);
         $match->setMatchedRouteName('foo');
 
         $this->assertEquals('foo', $match->getMatchedRouteName());
@@ -46,7 +46,7 @@ class RouteMatchTest extends TestCase
 
     public function testMatchedRouteNameIsPrependedWhenAlreadySet()
     {
-        $match = new RouteMatch(array());
+        $match = new RouteMatch([]);
         $match->setMatchedRouteName('foo');
         $match->setMatchedRouteName('bar');
 
@@ -55,10 +55,10 @@ class RouteMatchTest extends TestCase
 
     public function testMatchedRouteNameIsOverriddenOnMerge()
     {
-        $match = new RouteMatch(array());
+        $match = new RouteMatch([]);
         $match->setMatchedRouteName('foo');
 
-        $subMatch = new RouteMatch(array());
+        $subMatch = new RouteMatch([]);
         $subMatch->setMatchedRouteName('bar');
 
         $match->merge($subMatch);

@@ -37,16 +37,16 @@ class HtmlTag extends AbstractTag
      *
      * @var array
      */
-    protected $allowedFontSizeUnits = array('em', 'ex', 'px', 'in', 'cm', 'mm', 'pt', 'pc', '%');
+    protected $allowedFontSizeUnits = ['em', 'ex', 'px', 'in', 'cm', 'mm', 'pt', 'pc', '%'];
 
     /**
      * List of HTML tags
      *
      * @var array
      */
-    protected $htmlTags = array(
+    protected $htmlTags = [
         'li'
-    );
+    ];
 
     /**
      * Maximum fontsize
@@ -226,7 +226,7 @@ class HtmlTag extends AbstractTag
 
         $tags->spreadWeightValues($weightValues);
 
-        $result = array();
+        $result = [];
 
         $escaper = $this->getEscaper();
         foreach ($tags as $tag) {

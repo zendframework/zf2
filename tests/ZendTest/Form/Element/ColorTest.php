@@ -16,20 +16,20 @@ class ColorTest extends TestCase
 {
     public function colorData()
     {
-        return array(
-            array('#012345',     true),
-            array('#abcdef',     true),
-            array('#012abc',     true),
-            array('#012abcd',    false),
-            array('#012abcde',   false),
-            array('#ABCDEF',     true),
-            array('#012ABC',     true),
-            array('#bcdefg',     false),
-            array('#01a',        false),
-            array('01abcd',      false),
-            array('blue',        false),
-            array('transparent', false),
-        );
+        return [
+            ['#012345',     true],
+            ['#abcdef',     true],
+            ['#012abc',     true],
+            ['#012abcd',    false],
+            ['#012abcde',   false],
+            ['#ABCDEF',     true],
+            ['#012ABC',     true],
+            ['#bcdefg',     false],
+            ['#01a',        false],
+            ['01abcd',      false],
+            ['blue',        false],
+            ['transparent', false],
+        ];
     }
 
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
@@ -40,9 +40,9 @@ class ColorTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Regex'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);

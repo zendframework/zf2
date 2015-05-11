@@ -70,14 +70,14 @@ class JsPush extends AbstractAdapter
      */
     public function notify($current, $max, $percent, $timeTaken, $timeRemaining, $text)
     {
-        $arguments = array(
+        $arguments = [
             'current'       => $current,
             'max'           => $max,
             'percent'       => ($percent * 100),
             'timeTaken'     => $timeTaken,
             'timeRemaining' => $timeRemaining,
             'text'          => $text
-        );
+        ];
 
         $data = '<script type="text/javascript">'
               . 'parent.' . $this->updateMethodName . '(' . Json::encode($arguments) . ');'

@@ -46,7 +46,7 @@ class PrototypeTest extends \PHPUnit_Framework_TestCase
         $parameters = $method->getParameters();
         $this->_parametersRaw = $parameters;
 
-        $fParameters = array();
+        $fParameters = [];
         foreach ($parameters as $p) {
             $fParameters[] = new Reflection\ReflectionParameter($p);
         }

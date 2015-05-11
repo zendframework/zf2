@@ -53,7 +53,7 @@ class Catchall implements RouteInterface
      *
      * @var array
      */
-    protected $assembledParams = array();
+    protected $assembledParams = [];
 
     /**
      * @var ValidatorChain
@@ -71,7 +71,7 @@ class Catchall implements RouteInterface
      * @param  array                                    $defaults
      * @return Catchall
      */
-    public function __construct(array $defaults = array())
+    public function __construct(array $defaults = [])
     {
         $this->defaults = $defaults;
     }
@@ -83,7 +83,7 @@ class Catchall implements RouteInterface
      * @param  array|Traversable $options
      * @return Simple
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         return new static($options['defaults']);
     }
@@ -112,9 +112,9 @@ class Catchall implements RouteInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
-        $this->assembledParams = array();
+        $this->assembledParams = [];
     }
 
     /**

@@ -58,7 +58,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
             }
         }
 
-        foreach (array('cur', 'tmp', 'new') as $subdir) {
+        foreach (['cur', 'tmp', 'new'] as $subdir) {
             ErrorHandler::start();
             $test  = mkdir($dir . DIRECTORY_SEPARATOR . $subdir);
             $error = ErrorHandler::stop();
@@ -208,7 +208,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
             throw new StorageException\RuntimeException('wont delete selected folder');
         }
 
-        foreach (array('tmp', 'new', 'cur', '.') as $subdir) {
+        foreach (['tmp', 'new', 'cur', '.'] as $subdir) {
             $dir = $this->rootdir . '.' . $name . DIRECTORY_SEPARATOR . $subdir;
             if (!file_exists($dir)) {
                 continue;
@@ -295,7 +295,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
         }
 
         $olddir = $this->rootdir . '.' . $folder;
-        foreach (array('tmp', 'new', 'cur') as $subdir) {
+        foreach (['tmp', 'new', 'cur'] as $subdir) {
             $subdir = DIRECTORY_SEPARATOR . $subdir;
             if (!file_exists($olddir . $subdir)) {
                 continue;
@@ -384,10 +384,10 @@ class Maildir extends Folder\Maildir implements WritableInterface
             );
         }
 
-        return array('dirname'  => $this->rootdir . '.' . $folder,
+        return ['dirname'  => $this->rootdir . '.' . $folder,
                      'uniq'     => $uniq,
                      'filename' => $tmpdir . $uniq,
-                     'handle'   => $fh);
+                     'handle'   => $fh];
     }
 
     /**
@@ -406,7 +406,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
         }
 
         $info  = ':2,';
-        $flags = array();
+        $flags = [];
         foreach (Storage\Maildir::$knownFlags as $char => $flag) {
             if (!isset($wantedFlags[$flag])) {
                 continue;
@@ -450,7 +450,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
         }
 
         if ($flags === null) {
-            $flags = array(Storage::FLAG_SEEN);
+            $flags = [Storage::FLAG_SEEN];
         }
         $info     = $this->_getInfoString($flags);
         $tempFile = $this->_createTmpFile($folder->getGlobalName());
@@ -487,9 +487,9 @@ class Maildir extends Folder\Maildir implements WritableInterface
             throw $exception;
         }
 
-        $this->files[] = array('uniq'     => $tempFile['uniq'],
+        $this->files[] = ['uniq'     => $tempFile['uniq'],
                                 'flags'    => $flags,
-                                'filename' => $newFilename);
+                                'filename' => $newFilename];
         if ($this->quota) {
             $this->_addQuotaEntry((int) $size, 1);
         }
@@ -555,9 +555,9 @@ class Maildir extends Folder\Maildir implements WritableInterface
         if ($folder->getGlobalName() == $this->currentFolder
             || ($this->currentFolder == 'INBOX' && $folder->getGlobalName() == '/')
         ) {
-            $this->files[] = array('uniq'     => $tempFile['uniq'],
+            $this->files[] = ['uniq'     => $tempFile['uniq'],
                                     'flags'    => $flags,
-                                    'filename' => $newFile);
+                                    'filename' => $newFile];
         }
 
         if ($this->quota) {
@@ -719,7 +719,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
             $definition = fgets($fh);
             fclose($fh);
             $definition = explode(',', trim($definition));
-            $quota      = array();
+            $quota      = [];
             foreach ($definition as $member) {
                 $key = $member[strlen($member) - 1];
                 if ($key == 'S' || $key == 'C') {
@@ -740,7 +740,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
      */
     protected function _calculateMaildirsize()
     {
-        $timestamps = array();
+        $timestamps = [];
         $messages   = 0;
         $totalSize  = 0;
 
@@ -766,7 +766,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
                 continue;
             }
 
-            foreach (array('cur', 'new') as $subsubdir) {
+            foreach (['cur', 'new'] as $subsubdir) {
                 $dirname = $this->rootdir . $subdir . DIRECTORY_SEPARATOR . $subsubdir . DIRECTORY_SEPARATOR;
                 if (!file_exists($dirname)) {
                     continue;
@@ -809,7 +809,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
 
         $tmp        = $this->_createTmpFile();
         $fh         = $tmp['handle'];
-        $definition = array();
+        $definition = [];
         foreach ($quota as $type => $value) {
             if ($type == 'size' || $type == 'count') {
                 $type = $type == 'count' ? 'C' : 'S';
@@ -828,9 +828,9 @@ class Maildir extends Folder\Maildir implements WritableInterface
             }
         }
 
-        return array('size'  => $totalSize,
+        return ['size'  => $totalSize,
                      'count' => $messages,
-                     'quota' => $quota);
+                     'quota' => $quota];
     }
 
     /**
@@ -866,7 +866,7 @@ class Maildir extends Folder\Maildir implements WritableInterface
                 $quota = $this->quota;
             } else {
                 $definition = explode(',', $maildirsize[0]);
-                $quota      = array();
+                $quota      = [];
                 foreach ($definition as $member) {
                     $key = $member[strlen($member) - 1];
                     if ($key == 'S' || $key == 'C') {
@@ -905,10 +905,10 @@ class Maildir extends Folder\Maildir implements WritableInterface
             fclose($fh);
         }
 
-        return array('size'       => $totalSize,
+        return ['size'       => $totalSize,
                      'count'      => $messages,
                      'quota'      => $quota,
-                     'over_quota' => $overQuota);
+                     'over_quota' => $overQuota];
     }
 
     protected function _addQuotaEntry($size, $count = 1)

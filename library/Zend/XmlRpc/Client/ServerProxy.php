@@ -31,7 +31,7 @@ class ServerProxy
     /**
      * @var array of \Zend\XmlRpc\Client\ServerProxy
      */
-    private $cache = array();
+    private $cache = [];
 
     /**
      * Class constructor

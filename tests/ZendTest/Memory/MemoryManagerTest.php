@@ -27,7 +27,7 @@ class MemoryManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_cache = CacheFactory::adapterFactory('memory', array('memory_limit' => 0));
+        $this->_cache = CacheFactory::adapterFactory('memory', ['memory_limit' => 0]);
     }
 
     /**
@@ -97,7 +97,7 @@ class MemoryManagerTest extends \PHPUnit_Framework_TestCase
         $memoryManager->setMinSize(256);
         $memoryManager->setMemoryLimit(1024*32);
 
-        $memObjects = array();
+        $memObjects = [];
         for ($count = 0; $count < 64; $count++) {
             $memObject = $memoryManager->create(str_repeat((string)($count % 10), 1024) /* 1K */);
             $memObjects[] = $memObject;
@@ -123,7 +123,7 @@ class MemoryManagerTest extends \PHPUnit_Framework_TestCase
         $memoryManager->setMinSize(128);
         $memoryManager->setMemoryLimit(1024);
 
-        $memObjects = array();
+        $memObjects = [];
         for ($count = 0; $count < 8; $count++) {
             $memObject = $memoryManager->create(str_repeat((string)($count % 10), 128) /* 1K */);
             $memObjects[] = $memObject;

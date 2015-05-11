@@ -26,7 +26,7 @@ class IniTest extends AbstractWriterTestCase
 
     public function testNoSection()
     {
-        $config = new Config(array('test' => 'foo', 'test2' => array('test3' => 'bar')));
+        $config = new Config(['test' => 'foo', 'test2' => ['test3' => 'bar']]);
 
         $this->writer->toFile($this->getTestAssetFileName(), $config);
 

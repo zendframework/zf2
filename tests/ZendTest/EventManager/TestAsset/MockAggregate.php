@@ -18,16 +18,16 @@ use Zend\EventManager\ListenerAggregateInterface;
 class MockAggregate implements ListenerAggregateInterface
 {
 
-    protected $listeners = array();
+    protected $listeners = [];
     public $priority;
 
     public function attach(EventManagerInterface $events, $priority = null)
     {
         $this->priority = $priority;
 
-        $listeners = array();
-        $listeners[] = $events->attach('foo.bar', array( $this, 'fooBar' ));
-        $listeners[] = $events->attach('foo.baz', array( $this, 'fooBaz' ));
+        $listeners = [];
+        $listeners[] = $events->attach('foo.bar', [ $this, 'fooBar' ]);
+        $listeners[] = $events->attach('foo.baz', [ $this, 'fooBaz' ]);
 
         $this->listeners[ \spl_object_hash($events) ] = $listeners;
 

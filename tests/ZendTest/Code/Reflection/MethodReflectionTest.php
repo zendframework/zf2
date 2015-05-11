@@ -208,33 +208,33 @@ CONTENTS;
             'ZendTest\Code\Reflection\TestAsset\TestSampleClass10',
             'doSomethingElse'
         );
-        $prototype = array(
+        $prototype = [
             'namespace' => 'ZendTest\Code\Reflection\TestAsset',
             'class' => 'TestSampleClass10',
             'name' => 'doSomethingElse',
             'visibility' => 'public',
             'return' => 'int',
-            'arguments' => array(
-                'one' => array(
+            'arguments' => [
+                'one' => [
                     'type'     => 'int',
                     'required' => true,
                     'by_ref'   => false,
                     'default'  => null,
-                ),
-                'two' => array(
+                ],
+                'two' => [
                     'type'     => 'int',
                     'required' => false,
                     'by_ref'   => false,
                     'default'  => 2,
-                ),
-                'three' => array(
+                ],
+                'three' => [
                     'type'     => 'string',
                     'required' => false,
                     'by_ref'   => false,
                     'default'  => 'three',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->assertEquals($prototype, $reflectionMethod->getPrototype());
         $this->assertEquals(
             'public int doSomethingElse(int $one, int $two = 2, string $three = \'three\')',
@@ -242,27 +242,27 @@ CONTENTS;
         );
 
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass2', 'getProp2');
-        $prototype = array(
+        $prototype = [
             'namespace' => 'ZendTest\Code\Reflection\TestAsset',
             'class' => 'TestSampleClass2',
             'name' => 'getProp2',
             'visibility' => 'public',
             'return' => 'mixed',
-            'arguments' => array(
-                'param1' => array(
+            'arguments' => [
+                'param1' => [
                     'type'     => '',
                     'required' => true,
                     'by_ref'   => false,
                     'default'  => null,
-                ),
-                'param2' => array(
+                ],
+                'param2' => [
                     'type'     => 'ZendTest\Code\Reflection\TestAsset\TestSampleClass',
                     'required' => true,
                     'by_ref'   => false,
                     'default'  => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->assertEquals($prototype, $reflectionMethod->getPrototype());
         $this->assertEquals(
             'public mixed getProp2($param1, ZendTest\Code\Reflection\TestAsset\TestSampleClass $param2)',
@@ -270,27 +270,27 @@ CONTENTS;
         );
 
         $reflectionMethod = new MethodReflection('ZendTest\Code\Reflection\TestAsset\TestSampleClass12', 'doSomething');
-        $prototype = array(
+        $prototype = [
             'namespace' => 'ZendTest\Code\Reflection\TestAsset',
             'class' => 'TestSampleClass12',
             'name' => 'doSomething',
             'visibility' => 'protected',
             'return' => 'string',
-            'arguments' => array(
-                'one' => array(
+            'arguments' => [
+                'one' => [
                     'type'     => 'int',
                     'required' => true,
                     'by_ref'   => true,
                     'default'  => null,
-                ),
-                'two' => array(
+                ],
+                'two' => [
                     'type'     => 'int',
                     'required' => true,
                     'by_ref'   => false,
                     'default'  => null,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $this->assertEquals($prototype, $reflectionMethod->getPrototype());
         $this->assertEquals(
             'protected string doSomething(int &$one, int $two)',

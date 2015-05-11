@@ -35,9 +35,9 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCustomAdapter()
     {
-        $barcode = new Barcode(array(
+        $barcode = new Barcode([
             'adapter' => $this->getMock('Zend\Validator\Barcode\AdapterInterface')
-        ));
+        ]);
 
         $this->assertInstanceOf('Zend\Validator\Barcode\AdapterInterface', $barcode->getAdapter());
     }
@@ -49,11 +49,11 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
     {
         $barcode = new Barcode('upca');
         $this->assertFalse($barcode->isValid(106510000.4327));
-        $this->assertFalse($barcode->isValid(array('065100004327')));
+        $this->assertFalse($barcode->isValid(['065100004327']));
 
         $barcode = new Barcode('ean13');
         $this->assertFalse($barcode->isValid(06510000.4327));
-        $this->assertFalse($barcode->isValid(array('065100004327')));
+        $this->assertFalse($barcode->isValid(['065100004327']));
     }
 
     public function testInvalidChecksumAdapter()
@@ -127,20 +127,20 @@ class BarcodeTest extends \PHPUnit_Framework_TestCase
 
     public function testArrayConstructAdapter()
     {
-        $barcode = new Barcode(array('adapter' => 'Ean13', 'options' => 'unknown', 'useChecksum' => false));
+        $barcode = new Barcode(['adapter' => 'Ean13', 'options' => 'unknown', 'useChecksum' => false]);
         $this->assertInstanceOf('Zend\Validator\Barcode\Ean13', $barcode->getAdapter());
         $this->assertFalse($barcode->useChecksum());
     }
 
     public function testDefaultArrayConstructWithMissingAdapter()
     {
-        $barcode = new Barcode(array('options' => 'unknown', 'checksum' => false));
+        $barcode = new Barcode(['options' => 'unknown', 'checksum' => false]);
         $this->assertTrue($barcode->isValid('0075678164125'));
     }
 
     public function testConfigConstructAdapter()
     {
-        $array = array('adapter' => 'Ean13', 'options' => 'unknown', 'useChecksum' => false);
+        $array = ['adapter' => 'Ean13', 'options' => 'unknown', 'useChecksum' => false];
         $config = new \Zend\Config\Config($array);
 
         $barcode = new Barcode($config);

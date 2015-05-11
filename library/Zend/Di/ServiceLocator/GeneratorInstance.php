@@ -37,7 +37,7 @@ class GeneratorInstance
     /**
      * @var array
      */
-    protected $methods = array();
+    protected $methods = [];
 
     /**
      * @var bool

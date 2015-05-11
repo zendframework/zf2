@@ -27,7 +27,7 @@ class FirePhp implements FormatterInterface
             $line = $event['message'];
         }
 
-        return array($line, $label);
+        return [$line, $label];
     }
 
     /**

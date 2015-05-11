@@ -27,26 +27,26 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
 
     public function getExpectedData()
     {
-        return array(
+        return [
             //    value              delim break  N  valid  messages                   expects
-            array('foo,bar,dev,null', ',', false, 4, true,  array(),                   true),
-            array('foo,bar,dev,null', ',', true,  1, false, array('X'),                false),
-            array('foo,bar,dev,null', ',', false, 4, false, array('X'),                false),
-            array('foo,bar,dev,null', ';', false, 1, true,  array(),                   true),
-            array('foo;bar,dev;null', ',', false, 2, true,  array(),                   true),
-            array('foo;bar,dev;null', ',', false, 2, false, array('X'),                false),
-            array('foo;bar;dev;null', ';', false, 4, true,  array(),                   true),
-            array('foo',              ',', false, 1, true,  array(),                   true),
-            array('foo',              ',', false, 1, false, array('X'),                false),
-            array('foo',              ',', true,  1, false, array('X'),                false),
-            array(array('a', 'b'),   null, false, 2, true,  array(),                   true),
-            array(array('a', 'b'),   null, false, 2, false, array('X'),                false),
-            array('foo',             null, false, 1, true,  array(),                   true),
-            array(1,                  ',', false, 1, true,  array(),                   true),
-            array(null,               ',', false, 1, true,  array(),                   true),
-            array(new \stdClass(),    ',', false, 1, true,  array(),                   true),
-            array(new \ArrayObject(array('a', 'b')), null, false, 2, true,  array(),   true),
-        );
+            ['foo,bar,dev,null', ',', false, 4, true,  [],                   true],
+            ['foo,bar,dev,null', ',', true,  1, false, ['X'],                false],
+            ['foo,bar,dev,null', ',', false, 4, false, ['X'],                false],
+            ['foo,bar,dev,null', ';', false, 1, true,  [],                   true],
+            ['foo;bar,dev;null', ',', false, 2, true,  [],                   true],
+            ['foo;bar,dev;null', ',', false, 2, false, ['X'],                false],
+            ['foo;bar;dev;null', ';', false, 4, true,  [],                   true],
+            ['foo',              ',', false, 1, true,  [],                   true],
+            ['foo',              ',', false, 1, false, ['X'],                false],
+            ['foo',              ',', true,  1, false, ['X'],                false],
+            [['a', 'b'],   null, false, 2, true,  [],                   true],
+            [['a', 'b'],   null, false, 2, false, ['X'],                false],
+            ['foo',             null, false, 1, true,  [],                   true],
+            [1,                  ',', false, 1, true,  [],                   true],
+            [null,               ',', false, 1, true,  [],                   true],
+            [new \stdClass(),    ',', false, 1, true,  [],                   true],
+            [new \ArrayObject(['a', 'b']), null, false, 2, true,  [],   true],
+        ];
     }
 
     /**
@@ -58,11 +58,11 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
         $mockValidator->expects($this->exactly($numIsValidCalls))->method('isValid')->will($this->returnValue($isValidReturn));
         $mockValidator->expects($this->any())->method('getMessages')->will($this->returnValue('X'));
 
-        $validator = new Explode(array(
+        $validator = new Explode([
             'validator'           => $mockValidator,
             'valueDelimiter'      => $delimiter,
             'breakOnFirstFailure' => $breakOnFirst,
-        ));
+        ]);
 
         $this->assertEquals($expects,  $validator->isValid($value));
         $this->assertEquals($messages, $validator->getMessages());
@@ -71,19 +71,19 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
     public function testGetMessagesReturnsDefaultValue()
     {
         $validator = new Explode();
-        $this->assertEquals(array(), $validator->getMessages());
+        $this->assertEquals([], $validator->getMessages());
     }
 
     public function testEqualsMessageTemplates()
     {
-        $validator = new Explode(array());
+        $validator = new Explode([]);
         $this->assertAttributeEquals($validator->getOption('messageTemplates'),
                                      'messageTemplates', $validator);
     }
 
     public function testEqualsMessageVariables()
     {
-        $validator = new Explode(array());
+        $validator = new Explode([]);
         $this->assertAttributeEquals($validator->getOption('messageVariables'),
                                      'messageVariables', $validator);
     }
@@ -92,21 +92,21 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Explode();
         $validator->setValidator(
-            array(
+            [
                 'name' => 'inarray',
-                'options' => array(
-                    'haystack' => array(
+                'options' => [
+                    'haystack' => [
                         'a', 'b', 'c'
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         );
 
         /** @var $inArrayValidator \Zend\Validator\InArray */
         $inArrayValidator = $validator->getValidator();
         $this->assertInstanceOf('Zend\Validator\InArray', $inArrayValidator);
         $this->assertSame(
-            array('a', 'b', 'c'), $inArrayValidator->getHaystack()
+            ['a', 'b', 'c'], $inArrayValidator->getHaystack()
         );
     }
 
@@ -117,9 +117,9 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
     {
         $validator = new Explode();
         $validator->setValidator(
-            array(
-                'options' => array()
-            )
+            [
+                'options' => []
+            ]
         );
     }
 
@@ -137,19 +137,19 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessagesMultipleInvalid()
     {
-        $validator = new Explode(array(
+        $validator = new Explode([
             'validator'           => new Regex(
                 '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/'
             ),
             'valueDelimiter'      => ',',
             'breakOnFirstFailure' => false,
-        ));
+        ]);
 
-        $messages = array(
-            0 => array(
+        $messages = [
+            0 => [
                 'regexNotMatch' => "The input does not match against pattern '/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/'",
-            ),
-        );
+            ],
+        ];
 
         $this->assertFalse($validator->isValid('zf-devteam@zend.com,abc,defghij'));
         $this->assertEquals($messages, $validator->getMessages());
@@ -162,14 +162,14 @@ class ExplodeTest extends \PHPUnit_Framework_TestCase
     {
         $context       = 'context';
         $contextSame   = false;
-        $validator = new Explode(array(
+        $validator = new Explode([
             'validator'           => new Callback(function ($v, $c) use ($context, &$contextSame) {
                 $contextSame = ($context === $c);
                 return true;
             }),
             'valueDelimiter'      => ',',
             'breakOnFirstFailure' => false,
-        ));
+        ]);
         $this->assertTrue($validator->isValid('a,b,c', $context));
         $this->assertTrue($contextSame);
     }

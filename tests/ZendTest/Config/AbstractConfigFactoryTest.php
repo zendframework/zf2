@@ -40,25 +40,25 @@ class AbstractConfigFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->config = array(
-            'MyModule' => array(
-                'foo' => array(
+        $this->config = [
+            'MyModule' => [
+                'foo' => [
                     'bar'
-                )
-            ),
-            'phly-blog' => array(
-                'foo' => array(
+                ]
+            ],
+            'phly-blog' => [
+                'foo' => [
                     'bar'
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         $sm = $this->serviceManager = new ServiceManager\ServiceManager(
-            new ServiceManagerConfig(array(
-            'abstract_factories' => array(
+            new ServiceManagerConfig([
+            'abstract_factories' => [
                 'Zend\Config\AbstractConfigFactory',
-            )
-            ))
+            ]
+            ])
         );
 
         $sm->setService('Config', $this->config);
@@ -102,7 +102,7 @@ class AbstractConfigFactoryTest extends \PHPUnit_Framework_TestCase
 
         // Tests adding multiple patterns at once
         $patterns = $factory->getPatterns();
-        $this->assertSame($factory, $factory->addPatterns(array('#foobartwo#i', '#foobarthree#i')));
+        $this->assertSame($factory, $factory->addPatterns(['#foobartwo#i', '#foobarthree#i']));
         $this->assertCount(count($patterns) + 2, $factory->getPatterns());
 
         // Tests whether the latest added pattern is the first in stack

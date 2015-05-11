@@ -11,7 +11,7 @@ namespace ZendTest\Di\TestAsset\InjectionClasses;
 
 class A
 {
-    public $bs = array();
+    public $bs = [];
 
     public function addB(B $b)
     {

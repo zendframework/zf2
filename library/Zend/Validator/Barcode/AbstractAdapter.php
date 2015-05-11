@@ -15,12 +15,12 @@ abstract class AbstractAdapter implements AdapterInterface
      * Allowed options for this adapter
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'length'     => null,   // Allowed barcode lengths, integer, array, string
         'characters' => null,   // Allowed barcode characters
         'checksum'   => null,   // Callback to checksum function
         'useChecksum' => true,  // Is a checksum value included?, boolean
-    );
+    ];
 
     /**
      * Checks the length of a barcode

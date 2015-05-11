@@ -22,14 +22,14 @@ class BasicAuthObjectResolver implements ResolverInterface
             return new AuthenticationResult(
                 AuthenticationResult::SUCCESS,
                 $identity,
-                array('Authentication successful.')
+                ['Authentication successful.']
             );
         }
 
         return new AuthenticationResult(
             AuthenticationResult::FAILURE,
             null,
-            array('Authentication failed.')
+            ['Authentication failed.']
         );
     }
 }

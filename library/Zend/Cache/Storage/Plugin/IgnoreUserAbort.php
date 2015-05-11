@@ -26,8 +26,8 @@ class IgnoreUserAbort extends AbstractPlugin
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $cbOnBefore = array($this, 'onBefore');
-        $cbOnAfter  = array($this, 'onAfter');
+        $cbOnBefore = [$this, 'onBefore'];
+        $cbOnAfter  = [$this, 'onAfter'];
 
         $this->listeners[] = $events->attach('setItem.pre', $cbOnBefore, $priority);
         $this->listeners[] = $events->attach('setItem.post', $cbOnAfter, $priority);

@@ -11,7 +11,7 @@ use Zend\Loader\StandardAutoloader;
 use Zend\XmlRpc\Client;
 
 require_once dirname(dirname(dirname(__DIR__))) . '/library/Zend/Loader/StandardAutoloader.php';
-$loader = new StandardAutoloader(array('autoregister_zf' => true));
+$loader = new StandardAutoloader(['autoregister_zf' => true]);
 $loader->register();
 
 $server = new Client('http://www.upcdatabase.com/xmlrpc');
@@ -19,9 +19,9 @@ $server = new Client('http://www.upcdatabase.com/xmlrpc');
 $client = $server->getProxy();
 
 print_r($client->lookup(
-            array(
+            [
                  'rpc_key' => '0000...0000',	// Set your rpc_key here
                  'upc' => '123456789012',
-            )
+            ]
         )
 );

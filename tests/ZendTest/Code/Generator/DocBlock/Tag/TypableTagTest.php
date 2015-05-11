@@ -34,43 +34,43 @@ class TypableTagTest extends \PHPUnit_Framework_TestCase
 
     public function testGetterAndSetterPersistValue()
     {
-        $this->tag->setTypes(array('string', 'null'));
+        $this->tag->setTypes(['string', 'null']);
         $this->tag->setDescription('Description');
-        $this->assertEquals(array('string', 'null'), $this->tag->getTypes());
+        $this->assertEquals(['string', 'null'], $this->tag->getTypes());
         $this->assertEquals('Description', $this->tag->getDescription());
     }
 
     public function testGetterForTypesAsStringWithSingleType()
     {
-        $this->tag->setTypes(array('string'));
+        $this->tag->setTypes(['string']);
         $this->assertEquals('string', $this->tag->getTypesAsString());
     }
 
     public function testGetterForTypesAsStringWithSingleTypeAndDelimiter()
     {
-        $this->tag->setTypes(array('string'));
+        $this->tag->setTypes(['string']);
         $this->assertEquals('string', $this->tag->getTypesAsString('/'));
     }
 
     public function testGetterForTypesAsStringWithMultipleTypes()
     {
-        $this->tag->setTypes(array('string', 'null'));
+        $this->tag->setTypes(['string', 'null']);
         $this->assertEquals('string|null', $this->tag->getTypesAsString());
     }
 
     public function testGetterForTypesAsStringWithMultipleTypesAndDelimiter()
     {
-        $this->tag->setTypes(array('string', 'null'));
+        $this->tag->setTypes(['string', 'null']);
         $this->assertEquals('string/null', $this->tag->getTypesAsString('/'));
     }
 
     public function testConstructorWithOptions()
     {
-        $this->tag->setOptions(array(
-            'types' => array('string', 'null'),
+        $this->tag->setOptions([
+            'types' => ['string', 'null'],
             'description' => 'description',
-        ));
-        $tagWithOptionsFromConstructor = new TypeableTag(array('string', 'null'), 'description');
+        ]);
+        $tagWithOptionsFromConstructor = new TypeableTag(['string', 'null'], 'description');
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 }

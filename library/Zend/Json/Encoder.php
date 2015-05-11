@@ -33,14 +33,14 @@ class Encoder
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Array of visited objects; used to prevent cycling.
      *
      * @var array
      */
-    protected $visited = array();
+    protected $visited = [];
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ class Encoder
      * @param array $options Additional options used during encoding
      * @return Encoder
      */
-    protected function __construct($cycleCheck = false, $options = array())
+    protected function __construct($cycleCheck = false, $options = [])
     {
         $this->cycleCheck = $cycleCheck;
         $this->options = $options;
@@ -63,7 +63,7 @@ class Encoder
      * @param array $options Additional options used during encoding
      * @return string  The encoded value
      */
-    public static function encode($value, $cycleCheck = false, $options = array())
+    public static function encode($value, $cycleCheck = false, $options = [])
     {
         $encoder = new static($cycleCheck, $options);
 
@@ -184,7 +184,7 @@ class Encoder
      */
     protected function _encodeArray(&$array)
     {
-        $tmpArray = array();
+        $tmpArray = [];
 
         // Check for associative array
         if (!empty($array) && (array_keys($array) !== range(0, count($array) - 1))) {
@@ -247,14 +247,14 @@ class Encoder
     {
         // Escape these characters with a backslash or unicode escape:
         // " \ / \n \r \t \b \f
-        $search  = array('\\', "\n", "\t", "\r", "\b", "\f", '"', '\'', '&', '<', '>', '/');
-        $replace = array('\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\\u0022', '\\u0027', '\\u0026',  '\\u003C', '\\u003E', '\\/');
+        $search  = ['\\', "\n", "\t", "\r", "\b", "\f", '"', '\'', '&', '<', '>', '/'];
+        $replace = ['\\\\', '\\n', '\\t', '\\r', '\\b', '\\f', '\\u0022', '\\u0027', '\\u0026',  '\\u003C', '\\u003E', '\\/'];
         $string  = str_replace($search, $replace, $string);
 
         // Escape certain ASCII characters:
         // 0x08 => \b
         // 0x0c => \f
-        $string = str_replace(array(chr(0x08), chr(0x0C)), array('\b', '\f'), $string);
+        $string = str_replace([chr(0x08), chr(0x0C)], ['\b', '\f'], $string);
         $string = self::encodeUnicodeString($string);
 
         return '"' . $string . '"';
@@ -272,7 +272,7 @@ class Encoder
         $result    = "constants : {";
         $constants = $cls->getConstants();
 
-        $tmpArray = array();
+        $tmpArray = [];
         if (!empty($constants)) {
             foreach ($constants as $key => $value) {
                 $tmpArray[] = "$key: " . self::encode($value);
@@ -360,7 +360,7 @@ class Encoder
         $propValues = get_class_vars($cls->getName());
         $result = "variables:{";
 
-        $tmpArray = array();
+        $tmpArray = [];
         foreach ($properties as $prop) {
             if (! $prop->isPublic()) {
                 continue;

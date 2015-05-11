@@ -38,9 +38,9 @@ class PartialLoop extends Partial
      *
      * @var array indexed by nesting level
      */
-    private $objectKeyStack = array(
+    private $objectKeyStack = [
         0 => null,
-    );
+    ];
 
     /**
      * Renders a template fragment within a variable scope distinct from the

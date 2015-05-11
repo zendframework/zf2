@@ -11,7 +11,7 @@ namespace ZendTest\Code\TestAsset;
 
 abstract class AbstractClass
 {
-    protected $config = array();
+    protected $config = [];
 
     public function getConfig()
     {

@@ -42,18 +42,18 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $router = new Router();
-        $router->addRoute('home', array(
+        $router->addRoute('home', [
             'type' => 'Zend\Mvc\Router\Http\Literal',
-            'options' => array(
+            'options' => [
                 'route' => '/',
-            )
-        ));
-        $router->addRoute('default', array(
+            ]
+        ]);
+        $router->addRoute('default', [
                 'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
+                'options' => [
                     'route' => '/:controller[/:action]',
-                )
-        ));
+                ]
+        ]);
         $this->router = $router;
 
         $this->url = new UrlHelper;
@@ -75,13 +75,13 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testModuleRoute()
     {
-        $url = $this->url->__invoke('default', array('controller' => 'ctrl', 'action' => 'act'));
+        $url = $this->url->__invoke('default', ['controller' => 'ctrl', 'action' => 'act']);
         $this->assertEquals('/ctrl/act', $url);
     }
 
     public function testModel()
     {
-        $it = new \ArrayIterator(array('controller' => 'ctrl', 'action' => 'act'));
+        $it = new \ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
 
         $url = $this->url->__invoke('default', $it);
         $this->assertEquals('/ctrl/act', $url);
@@ -103,14 +103,14 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
     {
-        $this->url->setRouteMatch(new RouteMatch(array()));
+        $this->url->setRouteMatch(new RouteMatch([]));
         $this->setExpectedException('Zend\View\Exception\RuntimeException', 'matched');
         $this->url->__invoke();
     }
 
     public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
     {
-        $routeMatch = new RouteMatch(array());
+        $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('home');
         $this->url->setRouteMatch($routeMatch);
         $url = $this->url->__invoke();
@@ -119,72 +119,72 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testCanReuseMatchedParameters()
     {
-        $this->router->addRoute('replace', array(
+        $this->router->addRoute('replace', [
             'type'    => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/:controller/:action',
-                'defaults' => array(
+                'defaults' => [
                     'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-                ),
-            ),
-        ));
-        $routeMatch = new RouteMatch(array(
+                ],
+            ],
+        ]);
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('replace');
         $this->url->setRouteMatch($routeMatch);
-        $url = $this->url->__invoke('replace', array('action' => 'bar'), array(), true);
+        $url = $this->url->__invoke('replace', ['action' => 'bar'], [], true);
         $this->assertEquals('/foo/bar', $url);
     }
 
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
     {
-        $this->router->addRoute('replace', array(
+        $this->router->addRoute('replace', [
             'type' => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/:controller/:action',
-                'defaults' => array(
+                'defaults' => [
                     'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
-                ),
-            ),
-        ));
-        $routeMatch = new RouteMatch(array(
+                ],
+            ],
+        ]);
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('replace');
         $this->url->setRouteMatch($routeMatch);
-        $url = $this->url->__invoke('replace', array('action' => 'bar'), true);
+        $url = $this->url->__invoke('replace', ['action' => 'bar'], true);
         $this->assertEquals('/foo/bar', $url);
     }
 
     public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
     {
         $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
-        $router->addRoute('default', array(
+        $router->addRoute('default', [
             'type' => 'Zend\Mvc\Router\Http\Segment',
-            'options' => array(
+            'options' => [
                 'route'    => '/:controller/:action',
-                'defaults' => array(
+                'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
                     'controller' => 'SampleController',
                     'action'     => 'Dash'
-                )
-            ),
-            'child_routes' => array(
-                'wildcard' => array(
+                ]
+            ],
+            'child_routes' => [
+                'wildcard' => [
                     'type'    => 'Zend\Mvc\Router\Http\Wildcard',
-                    'options' => array(
+                    'options' => [
                         'param_delimiter'     => '=',
                         'key_value_delimiter' => '%'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
-        $routeMatch = new RouteMatch(array(
+        $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
             'controller' => 'Rainbow'
-        ));
+        ]);
         $routeMatch->setMatchedRouteName('default/wildcard');
 
         $event = new MvcEvent();
@@ -198,7 +198,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
         $helper->setRouter($router);
         $helper->setRouteMatch($routeMatch);
 
-        $url = $helper->__invoke('default/wildcard', array('Twenty' => 'Cooler'), true);
+        $url = $helper->__invoke('default/wildcard', ['Twenty' => 'Cooler'], true);
         $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
     }
 }

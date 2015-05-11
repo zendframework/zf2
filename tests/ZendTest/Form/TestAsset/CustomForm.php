@@ -23,47 +23,47 @@ class CustomForm extends Form
         $this->setAttribute('method', 'post')
              ->setHydrator(new ClassMethodsHydrator());
 
-        $field1 = new Element('name', array('label' => 'Name'));
+        $field1 = new Element('name', ['label' => 'Name']);
         $field1->setAttribute('type', 'text');
         $this->add($field1);
 
-        $field2 = new Element('email', array('label' => 'Email'));
+        $field2 = new Element('email', ['label' => 'Email']);
         $field2->setAttribute('type', 'text');
         $this->add($field2);
 
-        $this->add(array(
+        $this->add([
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf',
-            'attributes' => array(
-            ),
-        ));
+            'attributes' => [
+            ],
+        ]);
 
-        $this->add(array(
+        $this->add([
             'name' => 'submit',
-            'attributes' => array(
+            'attributes' => [
                 'type' => 'submit'
-            )
-        ));
+            ]
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'name' => array(
+        return [
+            'name' => [
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-            ),
-            'email' => array(
+                'filters'  => [
+                    ['name' => 'Zend\Filter\StringTrim'],
+                ],
+            ],
+            'email' => [
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Zend\Filter\StringTrim'),
-                ),
-                'validators' => array(
+                'filters'  => [
+                    ['name' => 'Zend\Filter\StringTrim'],
+                ],
+                'validators' => [
                     new Validator\EmailAddress(),
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

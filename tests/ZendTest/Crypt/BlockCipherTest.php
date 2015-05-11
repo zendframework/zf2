@@ -27,11 +27,11 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         try {
-            $cipher = new Mcrypt(array(
+            $cipher = new Mcrypt([
                 'algorithm' => 'aes',
                 'mode'      => 'cbc',
                 'padding'   => 'pkcs7'
-            ));
+            ]);
             $this->blockCipher = new BlockCipher($cipher);
         } catch (Exception\RuntimeException $e) {
             $this->markTestSkipped('Mcrypt is not installed, I cannot execute the BlockCipherTest');
@@ -49,7 +49,7 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
 
     public function testFactory()
     {
-        $this->blockCipher = BlockCipher::factory('mcrypt', array('algo' => 'blowfish'));
+        $this->blockCipher = BlockCipher::factory('mcrypt', ['algo' => 'blowfish']);
         $this->assertInstanceOf('Zend\Crypt\Symmetric\Mcrypt', $this->blockCipher->getCipher());
         $this->assertEquals('blowfish', $this->blockCipher->getCipher()->getAlgorithm());
     }
@@ -157,11 +157,11 @@ class BlockCipherTest extends \PHPUnit_Framework_TestCase
 
     public function zeroValuesProvider()
     {
-        return array(
-            '"0"'   => array(0),
-            '"0.0"' => array(0.0),
-            '"0"'   => array('0'),
-        );
+        return [
+            '"0"'   => [0],
+            '"0.0"' => [0.0],
+            '"0"'   => ['0'],
+        ];
     }
 
     /**

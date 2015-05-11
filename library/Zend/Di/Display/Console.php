@@ -24,7 +24,7 @@ class Console
     /**
      * @var string[]
      */
-    protected $runtimeClasses = array();
+    protected $runtimeClasses = [];
 
     /**
      * Export
@@ -33,7 +33,7 @@ class Console
      * @param  array $runtimeClasses
      * @return void
      */
-    public static function export(Di $di, array $runtimeClasses = array())
+    public static function export(Di $di, array $runtimeClasses = [])
     {
         $console = new static($di);
         $console->addRuntimeClasses($runtimeClasses);
@@ -70,7 +70,7 @@ class Console
 
     public function render()
     {
-        $knownClasses = array();
+        $knownClasses = [];
 
         echo 'Definitions' . PHP_EOL . PHP_EOL;
 
@@ -99,7 +99,7 @@ class Console
 
         echo PHP_EOL . '  Aliases:' . PHP_EOL;
 
-        $configuredTypes = array();
+        $configuredTypes = [];
         foreach ($this->di->instanceManager()->getAliases() as $alias => $class) {
             echo '    ' . $alias . ' [type: ' . $class . ']' . PHP_EOL;
             $configuredTypes[] = $alias;

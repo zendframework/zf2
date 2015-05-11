@@ -26,9 +26,9 @@ class ClearExpiredByFactorTest extends CommonPluginTest
     public function setUp()
     {
         $this->_adapter = new ClearExpiredMockAdapter();
-        $this->_options = new Cache\Storage\Plugin\PluginOptions(array(
+        $this->_options = new Cache\Storage\Plugin\PluginOptions([
             'clearing_factor' => 1,
-        ));
+        ]);
         $this->_plugin  = new Cache\Storage\Plugin\ClearExpiredByFactor();
         $this->_plugin->setOptions($this->_options);
 
@@ -40,12 +40,12 @@ class ClearExpiredByFactorTest extends CommonPluginTest
         $this->_adapter->addPlugin($this->_plugin);
 
         // check attached callbacks
-        $expectedListeners = array(
+        $expectedListeners = [
             'setItem.post'  => 'clearExpiredByFactor',
             'setItems.post' => 'clearExpiredByFactor',
             'addItem.post'  => 'clearExpiredByFactor',
             'addItems.post' => 'clearExpiredByFactor',
-        );
+        ];
         foreach ($expectedListeners as $eventName => $expectedCallbackMethod) {
             $listeners = $this->_adapter->getEventManager()->getListeners($eventName);
 
@@ -72,7 +72,7 @@ class ClearExpiredByFactorTest extends CommonPluginTest
 
     public function testClearExpiredByFactor()
     {
-        $adapter = $this->getMock(get_class($this->_adapter), array('clearExpired'));
+        $adapter = $this->getMock(get_class($this->_adapter), ['clearExpired']);
         $this->_options->setClearingFactor(1);
 
         // test clearByNamespace will be called
@@ -83,9 +83,9 @@ class ClearExpiredByFactorTest extends CommonPluginTest
 
         // call event callback
         $result = true;
-        $event = new PostEvent('setItem.post', $adapter, new ArrayObject(array(
-            'options' => array(),
-        )), $result);
+        $event = new PostEvent('setItem.post', $adapter, new ArrayObject([
+            'options' => [],
+        ]), $result);
         $this->_plugin->clearExpiredByFactor($event);
 
         $this->assertTrue($event->getResult());

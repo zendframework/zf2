@@ -23,9 +23,9 @@ class MonthSelectTest extends TestCase
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Regex'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -47,16 +47,16 @@ class MonthSelectTest extends TestCase
      */
     public function monthValuesDataProvider()
     {
-        return array(
+        return [
             //    value         expected
-            array('2012-01',    true),
-            array('2012-12',    true),
-            array('2012-13',    false),
-            array('2012-12-01', false),
-            array('12-2012',    false),
-            array('2012-1',     true),
-            array('12-01',      false),
-        );
+            ['2012-01',    true],
+            ['2012-12',    true],
+            ['2012-13',    false],
+            ['2012-12-01', false],
+            ['12-2012',    false],
+            ['2012-1',     true],
+            ['12-01',      false],
+        ];
     }
 
     /**

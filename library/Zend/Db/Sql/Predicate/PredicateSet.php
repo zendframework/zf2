@@ -21,7 +21,7 @@ class PredicateSet implements PredicateInterface, Countable
     const OP_OR           = 'OR';
 
     protected $defaultCombination = self::COMBINED_BY_AND;
-    protected $predicates         = array();
+    protected $predicates         = [];
 
     /**
      * Constructor
@@ -48,7 +48,7 @@ class PredicateSet implements PredicateInterface, Countable
      */
     public function addPredicate(PredicateInterface $predicate, $combination = null)
     {
-        if ($combination === null || !in_array($combination, array(self::OP_AND, self::OP_OR))) {
+        if ($combination === null || !in_array($combination, [self::OP_AND, self::OP_OR])) {
             $combination = $this->defaultCombination;
         }
 
@@ -142,7 +142,7 @@ class PredicateSet implements PredicateInterface, Countable
      */
     public function orPredicate(PredicateInterface $predicate)
     {
-        $this->predicates[] = array(self::OP_OR, $predicate);
+        $this->predicates[] = [self::OP_OR, $predicate];
         return $this;
     }
 
@@ -154,7 +154,7 @@ class PredicateSet implements PredicateInterface, Countable
      */
     public function andPredicate(PredicateInterface $predicate)
     {
-        $this->predicates[] = array(self::OP_AND, $predicate);
+        $this->predicates[] = [self::OP_AND, $predicate];
         return $this;
     }
 
@@ -165,7 +165,7 @@ class PredicateSet implements PredicateInterface, Countable
      */
     public function getExpressionData()
     {
-        $parts = array();
+        $parts = [];
         for ($i = 0, $count = count($this->predicates); $i < $count; $i++) {
             /** @var $predicate PredicateInterface */
             $predicate = $this->predicates[$i][1];

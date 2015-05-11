@@ -19,7 +19,7 @@ class InputFilterProviderFieldset extends Fieldset implements InputFilterProvide
      *
      * @var array|Traversable
      */
-    protected $filterSpec = array();
+    protected $filterSpec = [];
 
     /**
      * @return array|Traversable

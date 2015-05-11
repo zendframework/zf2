@@ -24,7 +24,7 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->oci8 = new Oci8(array());
+        $this->oci8 = new Oci8([]);
     }
 
     /**
@@ -32,7 +32,7 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterConnection()
     {
-        $mockConnection = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\Oci8\Connection', array(array()), '', true, true, true, array('setDriver'));
+        $mockConnection = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\Oci8\Connection', [[]], '', true, true, true, ['setDriver']);
         $mockConnection->expects($this->once())->method('setDriver')->with($this->equalTo($this->oci8));
         $this->assertSame($this->oci8, $this->oci8->registerConnection($mockConnection));
     }
@@ -42,8 +42,8 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterStatementPrototype()
     {
-        $this->oci8 = new Oci8(array());
-        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\Oci8\Statement', array(), '', true, true, true, array('setDriver'));
+        $this->oci8 = new Oci8([]);
+        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\Oci8\Statement', [], '', true, true, true, ['setDriver']);
         $mockStatement->expects($this->once())->method('setDriver')->with($this->equalTo($this->oci8));
         $this->assertSame($this->oci8, $this->oci8->registerStatementPrototype($mockStatement));
     }
@@ -53,8 +53,8 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
      */
     public function testRegisterResultPrototype()
     {
-        $this->oci8 = new Oci8(array());
-        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\Oci8\Result', array(), '', true, true, true, array('setDriver'));
+        $this->oci8 = new Oci8([]);
+        $mockStatement = $this->getMockForAbstractClass('Zend\Db\Adapter\Driver\Oci8\Result', [], '', true, true, true, ['setDriver']);
         $this->assertSame($this->oci8, $this->oci8->registerResultPrototype($mockStatement));
     }
 
@@ -63,7 +63,7 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
      */
     public function testGetDatabasePlatformName()
     {
-        $this->oci8 = new Oci8(array());
+        $this->oci8 = new Oci8([]);
         $this->assertEquals('Oracle', $this->oci8->getDatabasePlatformName());
         $this->assertEquals('Oracle', $this->oci8->getDatabasePlatformName(Oci8::NAME_FORMAT_NATURAL));
     }
@@ -74,7 +74,7 @@ class Oci8Test extends \PHPUnit_Framework_TestCase
      */
     public function testGetConnection($mockConnection)
     {
-        $conn = new \Zend\Db\Adapter\Driver\Oci8\Connection(array());
+        $conn = new \Zend\Db\Adapter\Driver\Oci8\Connection([]);
         $this->oci8->registerConnection($conn);
         $this->assertSame($conn, $this->oci8->getConnection());
     }

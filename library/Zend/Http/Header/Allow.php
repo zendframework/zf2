@@ -25,7 +25,7 @@ class Allow implements HeaderInterface
      *
      * @var array
      */
-    protected $methods = array(
+    protected $methods = [
         Request::METHOD_OPTIONS => false,
         Request::METHOD_GET     => true,
         Request::METHOD_HEAD    => false,
@@ -35,7 +35,7 @@ class Allow implements HeaderInterface
         Request::METHOD_TRACE   => false,
         Request::METHOD_CONNECT => false,
         Request::METHOD_PATCH   => false,
-    );
+    ];
 
     /**
      * Create Allow header from header line

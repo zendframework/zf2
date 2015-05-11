@@ -27,10 +27,10 @@ class SimpleRouteStack extends BaseSimpleRouteStack
     protected function init()
     {
         $routes = $this->routePluginManager;
-        foreach (array(
+        foreach ([
                 'catchall' => __NAMESPACE__ . '\Catchall',
                 'simple'   => __NAMESPACE__ . '\Simple',
-            ) as $name => $class
+            ] as $name => $class
         ) {
             $routes->setInvokableClass($name, $class);
         };

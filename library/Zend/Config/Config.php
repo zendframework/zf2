@@ -35,7 +35,7 @@ class Config implements Countable, Iterator, ArrayAccess
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Used when unsetting values during iteration to ensure we do not skip
@@ -130,7 +130,7 @@ class Config implements Countable, Iterator, ArrayAccess
      */
     public function __clone()
     {
-        $array = array();
+        $array = [];
 
         foreach ($this->data as $key => $value) {
             if ($value instanceof self) {
@@ -150,7 +150,7 @@ class Config implements Countable, Iterator, ArrayAccess
      */
     public function toArray()
     {
-        $array = array();
+        $array = [];
         $data  = $this->data;
 
         /** @var self $value */

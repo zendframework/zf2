@@ -73,7 +73,7 @@ class AbstractZendServerTest extends \PHPUnit_Framework_TestCase
                        ->with($this->equalTo('ns' . AbstractZendServer::NAMESPACE_SEPARATOR . 'key'))
                        ->will($this->returnValue('value'));
 
-        $this->assertEquals(array(), $this->_storage->getMetadata('key'));
+        $this->assertEquals([], $this->_storage->getMetadata('key'));
     }
 
     public function testHasItem()

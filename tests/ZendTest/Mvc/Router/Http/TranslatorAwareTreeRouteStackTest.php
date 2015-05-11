@@ -40,20 +40,20 @@ class TranslatorAwareTreeRouteStackTest extends TestCase
         $this->translator->addTranslationFile('phpArray', $this->testFilesDir . '/tokens.en.php', 'route', 'en');
         $this->translator->addTranslationFile('phpArray', $this->testFilesDir . '/tokens.de.php', 'route', 'de');
 
-        $this->fooRoute = array(
+        $this->fooRoute = [
             'type' => 'Segment',
-            'options' => array(
+            'options' => [
                 'route' => '/:locale',
-            ),
-            'child_routes' => array(
-                'index' => array(
+            ],
+            'child_routes' => [
+                'index' => [
                     'type' => 'Segment',
-                    'options' => array(
+                    'options' => [
                         'route' => '/{homepage}',
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
     }
 
     public function testTranslatorAwareInterfaceImplementation()
@@ -104,13 +104,13 @@ class TranslatorAwareTreeRouteStackTest extends TestCase
               ->with(
                   $this->equalTo($request),
                   $this->isNull(),
-                  $this->equalTo(array('translator' => $translator, 'text_domain' => 'default'))
+                  $this->equalTo(['translator' => $translator, 'text_domain' => 'default'])
               );
 
         $stack = new TranslatorAwareTreeRouteStack();
         $stack->addRoute('test', $route);
 
-        $stack->match($request, null, array('translator' => $translator));
+        $stack->match($request, null, ['translator' => $translator]);
     }
 
     public function testTranslatorIsPassedThroughAssembleMethod()
@@ -122,14 +122,14 @@ class TranslatorAwareTreeRouteStackTest extends TestCase
         $route->expects($this->once())
               ->method('assemble')
               ->with(
-                  $this->equalTo(array()),
-                  $this->equalTo(array('translator' => $translator, 'text_domain' => 'default', 'uri' => $uri))
+                  $this->equalTo([]),
+                  $this->equalTo(['translator' => $translator, 'text_domain' => 'default', 'uri' => $uri])
               );
 
         $stack = new TranslatorAwareTreeRouteStack();
         $stack->addRoute('test', $route);
 
-        $stack->assemble(array(), array('name' => 'test', 'translator' => $translator, 'uri' => $uri));
+        $stack->assemble([], ['name' => 'test', 'translator' => $translator, 'uri' => $uri]);
     }
 
     public function testAssembleRouteWithParameterLocale()
@@ -141,8 +141,8 @@ class TranslatorAwareTreeRouteStackTest extends TestCase
             $this->fooRoute
         );
 
-        $this->assertEquals('/de/hauptseite', $stack->assemble(array('locale' => 'de'), array('name' => 'foo/index')));
-        $this->assertEquals('/en/homepage',   $stack->assemble(array('locale' => 'en'), array('name' => 'foo/index')));
+        $this->assertEquals('/de/hauptseite', $stack->assemble(['locale' => 'de'], ['name' => 'foo/index']));
+        $this->assertEquals('/en/homepage',   $stack->assemble(['locale' => 'en'], ['name' => 'foo/index']));
     }
 
     public function testMatchRouteWithParameterLocale()

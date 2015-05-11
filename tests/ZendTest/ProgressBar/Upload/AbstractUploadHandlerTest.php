@@ -21,13 +21,13 @@ class AbstractUploadHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCurrentlyInProgress()
     {
-        $progressData = array(
+        $progressData = [
             'total'    => 1000,
             'current'  => 500,
             'rate'     => 0,
             'message'  => '',
             'done'     => false,
-        );
+        ];
         $stub = $this->getMockForAbstractClass(
             'Zend\ProgressBar\Upload\AbstractUploadHandler'
         );
@@ -45,13 +45,13 @@ class AbstractUploadHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNoFileInProgress()
     {
-        $status  = array(
+        $status  = [
             'total'    => 0,
             'current'  => 0,
             'rate'     => 0,
             'message'  => 'No upload in progress',
             'done'     => true
-        );
+        ];
         $stub = $this->getMockForAbstractClass(
             'Zend\ProgressBar\Upload\AbstractUploadHandler'
         );
@@ -66,29 +66,29 @@ class AbstractUploadHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function progressDataProvider()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'total'    => 1000,
                 'current'  => 200,
                 'rate'     => 0,
                 'message'  => '',
                 'done'     => false,
-            )),
-            array(array(
+            ]],
+            [[
                 'total'    => 1000,
                 'current'  => 600,
                 'rate'     => 300,
                 'message'  => '',
                 'done'     => false,
-            )),
-            array(array(
+            ]],
+            [[
                 'total'    => 1000,
                 'current'  => 1000,
                 'rate'     => 500,
                 'message'  => '',
                 'done'     => true,
-            )),
-        );
+            ]],
+        ];
     }
 
     /**
@@ -115,10 +115,10 @@ class AbstractUploadHandlerTest extends \PHPUnit_Framework_TestCase
         $stub->expects($this->once())
             ->method('getUploadProgress')
             ->will($this->returnValue($progressData));
-        $stub->setOptions(array(
+        $stub->setOptions([
                                'session_namespace' => 'testSession',
                                'progress_adapter'  => $adapterStub,
-                          ));
+                          ]);
 
         $this->assertEquals('testSession', $stub->getSessionNamespace());
         $this->assertEquals($adapterStub, $stub->getProgressAdapter());
@@ -154,10 +154,10 @@ class AbstractUploadHandlerTest extends \PHPUnit_Framework_TestCase
         $stub->expects($this->once())
             ->method('getUploadProgress')
             ->will($this->returnValue($progressData));
-        $stub->setOptions(array(
+        $stub->setOptions([
            'session_namespace' => 'testSession',
            'progress_adapter'  => $progressBar,
-        ));
+        ]);
 
         $this->assertEquals('testSession', $stub->getSessionNamespace());
         $this->assertEquals($progressBar, $stub->getProgressAdapter());

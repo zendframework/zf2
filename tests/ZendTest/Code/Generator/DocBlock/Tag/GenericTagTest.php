@@ -58,10 +58,10 @@ class GenericTagTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorWithOptions()
     {
-        $this->tag->setOptions(array(
+        $this->tag->setOptions([
             'name' => 'var',
             'content' => 'string',
-        ));
+        ]);
         $tagWithOptionsFromConstructor = new GenericTag('var', 'string');
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }

@@ -25,7 +25,7 @@ class UserAgent implements HeaderInterface
         list($name, $value) = GenericHeader::splitHeaderLine($headerLine);
 
         // check to ensure proper header type for this factory
-        if (str_replace(array('_', ' ', '.'), '-', strtolower($name)) !== 'user-agent') {
+        if (str_replace(['_', ' ', '.'], '-', strtolower($name)) !== 'user-agent') {
             throw new Exception\InvalidArgumentException('Invalid header line for User-Agent string: "' . $name . '"');
         }
 

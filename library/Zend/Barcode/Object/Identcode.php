@@ -41,7 +41,7 @@ class Identcode extends Code25interleaved
      */
     public function validateText($value)
     {
-        $this->validateSpecificText($value, array('validator' => $this->getType()));
+        $this->validateSpecificText($value, ['validator' => $this->getType()]);
     }
 
     /**

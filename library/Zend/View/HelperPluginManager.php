@@ -27,17 +27,17 @@ class HelperPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $factories = array(
+    protected $factories = [
         'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
         'identity'       => 'Zend\View\Helper\Service\IdentityFactory',
-    );
+    ];
 
     /**
      * Default set of helpers
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         // basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
         // basepath and url are not very useful without their factories, however the doctype
         // helper works fine as an invokable. The factory for doctype simply checks for the
@@ -75,7 +75,7 @@ class HelperPluginManager extends AbstractPluginManager
         'serverurl'           => 'Zend\View\Helper\ServerUrl',
         'url'                 => 'Zend\View\Helper\Url',
         'viewmodel'           => 'Zend\View\Helper\ViewModel',
-    );
+    ];
 
     /**
      * @var Renderer\RendererInterface
@@ -94,8 +94,8 @@ class HelperPluginManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
 
-        $this->addInitializer(array($this, 'injectRenderer'))
-             ->addInitializer(array($this, 'injectTranslator'));
+        $this->addInitializer([$this, 'injectRenderer'])
+             ->addInitializer([$this, 'injectTranslator']);
     }
 
     /**

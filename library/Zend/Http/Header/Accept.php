@@ -51,7 +51,7 @@ class Accept extends AbstractAccept
      * @param  array $params
      * @return Accept
      */
-    public function addMediaType($type, $priority = 1, array $params = array())
+    public function addMediaType($type, $priority = 1, array $params = [])
     {
         return $this->addType($type, $priority, $params);
     }
@@ -103,7 +103,7 @@ class Accept extends AbstractAccept
             $subtype = trim(substr($subtype, 0, $pos));
         }
 
-        $aggregated = array(
+        $aggregated = [
             'typeString' => trim($fieldValuePart),
             'type'       => $type,
             'subtype'    => $subtype,
@@ -112,7 +112,7 @@ class Accept extends AbstractAccept
             'priority'   => isset($params['q']) ? $params['q'] : 1,
             'params'     => $params,
             'raw'        => trim($raw),
-        );
+        ];
 
         return new FieldValuePart\AcceptFieldValuePart((object) $aggregated);
     }

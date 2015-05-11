@@ -64,17 +64,17 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testImplementedInterfacesAccessors()
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->setImplementedInterfaces(array('Class1', 'Class2'));
+        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
         $this->assertEquals(count($classGenerator->getImplementedInterfaces()), 0);
     }
 
     public function testPropertyAccessors()
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->addProperties(array(
+        $classGenerator->addProperties([
             'propOne',
             new PropertyGenerator('propTwo')
-        ));
+        ]);
 
         $properties = $classGenerator->getProperties();
         $this->assertEquals(count($properties), 2);
@@ -115,10 +115,10 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testMethodAccessors()
     {
         $classGenerator = new TraitGenerator();
-        $classGenerator->addMethods(array(
+        $classGenerator->addMethods([
             'methodOne',
             new MethodGenerator('methodTwo')
-        ));
+        ]);
 
         $methods = $classGenerator->getMethods();
         $this->assertEquals(count($methods), 2);
@@ -197,15 +197,15 @@ class TraitGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $classGenerator = TraitGenerator::fromArray(array(
+        $classGenerator = TraitGenerator::fromArray([
             'name' => 'SampleClass',
-            'properties' => array('foo',
-                array('name' => 'bar')
-            ),
-            'methods' => array(
-                array('name' => 'baz')
-            ),
-        ));
+            'properties' => ['foo',
+                ['name' => 'bar']
+            ],
+            'methods' => [
+                ['name' => 'baz']
+            ],
+        ]);
 
         $expectedOutput = <<<EOS
 trait SampleClass
@@ -418,12 +418,12 @@ CODE;
 
     public function testCreateFromArrayWithDocBlockFromArray()
     {
-        $classGenerator = TraitGenerator::fromArray(array(
+        $classGenerator = TraitGenerator::fromArray([
             'name' => 'SampleClass',
-            'docblock' => array(
+            'docblock' => [
                 'shortdescription' => 'foo',
-            ),
-        ));
+            ],
+        ]);
 
         $docBlock = $classGenerator->getDocBlock();
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
@@ -431,10 +431,10 @@ CODE;
 
     public function testCreateFromArrayWithDocBlockInstance()
     {
-        $classGenerator = TraitGenerator::fromArray(array(
+        $classGenerator = TraitGenerator::fromArray([
             'name' => 'SampleClass',
             'docblock' => new DocBlockGenerator('foo'),
-        ));
+        ]);
 
         $docBlock = $classGenerator->getDocBlock();
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);

@@ -24,14 +24,14 @@ class ListenerAggregateTraitTest extends \PHPUnit_Framework_TestCase
         $listener              = new MockListenerAggregateTrait();
         $eventManager          = $this->getMock('Zend\\EventManager\\EventManagerInterface');
         $unrelatedEventManager = $this->getMock('Zend\\EventManager\\EventManagerInterface');
-        $callbackHandlers      = array();
+        $callbackHandlers      = [];
         $test                  = $this;
 
         $eventManager
             ->expects($this->exactly(2))
             ->method('attach')
             ->will($this->returnCallback(function () use (&$callbackHandlers, $test) {
-                return $callbackHandlers[] = $test->getMock('Zend\\Stdlib\\CallbackHandler', array(), array(), '', false);
+                return $callbackHandlers[] = $test->getMock('Zend\\Stdlib\\CallbackHandler', [], [], '', false);
             }));
 
         $listener->attach($eventManager);

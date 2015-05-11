@@ -48,7 +48,7 @@ class ExceptionStrategyTest extends TestCase
     public function test404ApplicationErrorsResultInNoOperations()
     {
         $event = new MvcEvent();
-        foreach (array(Application::ERROR_CONTROLLER_NOT_FOUND, Application::ERROR_CONTROLLER_INVALID) as $error) {
+        foreach ([Application::ERROR_CONTROLLER_NOT_FOUND, Application::ERROR_CONTROLLER_INVALID] as $error) {
             $event->setError($error);
             $this->strategy->prepareExceptionViewModel($event);
             $response = $event->getResponse();
@@ -137,7 +137,7 @@ class ExceptionStrategyTest extends TestCase
         $events->attachAggregate($this->strategy);
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH_ERROR);
 
-        $expectedCallback = array($this->strategy, 'prepareExceptionViewModel');
+        $expectedCallback = [$this->strategy, 'prepareExceptionViewModel'];
         $expectedPriority = 1;
         $found            = false;
         foreach ($listeners as $listener) {

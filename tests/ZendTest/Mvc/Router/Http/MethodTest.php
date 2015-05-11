@@ -19,24 +19,24 @@ class MethodTest extends TestCase
 {
     public static function routeProvider()
     {
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 new HttpMethod('get'),
                 'get'
-            ),
-            'match-comma-separated-verbs' => array(
+            ],
+            'match-comma-separated-verbs' => [
                 new HttpMethod('get,post'),
                 'get'
-            ),
-            'match-comma-separated-verbs-ws' => array(
+            ],
+            'match-comma-separated-verbs-ws' => [
                 new HttpMethod('get ,   post , put'),
                 'post'
-            ),
-            'match-ignores-case' => array(
+            ],
+            'match-ignores-case' => [
                 new HttpMethod('Get'),
                 'get'
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -70,12 +70,12 @@ class MethodTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Method',
-            array(
+            [
                 'verb' => 'Missing "verb" in options array'
-            ),
-            array(
+            ],
+            [
                 'verb' => 'get'
-            )
+            ]
         );
     }
 }

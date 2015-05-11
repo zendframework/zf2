@@ -360,11 +360,11 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterfa
     {
         if (class_exists('tidy', false)) {
             $tidy = new \tidy;
-            $config = array(
+            $config = [
                 'output-xhtml' => true,
                 'show-body-only' => true,
                 'quote-nbsp' => false
-            );
+            ];
             $encoding = str_replace('-', '', $this->getEncoding());
             $tidy->parseString($content, $config, $encoding);
             $tidy->cleanRepair();
@@ -372,9 +372,9 @@ class Atom extends Renderer\AbstractRenderer implements Renderer\RendererInterfa
         } else {
             $xhtml = $content;
         }
-        $xhtml = preg_replace(array(
+        $xhtml = preg_replace([
             "/(<[\/]?)([a-zA-Z]+)/"
-        ), '$1xhtml:$2', $xhtml);
+        ], '$1xhtml:$2', $xhtml);
         $dom = new DOMDocument('1.0', $this->getEncoding());
         $dom->loadXML(
             '<xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">'

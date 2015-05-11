@@ -21,10 +21,10 @@ class CountryFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator())
              ->setObject(new Entity\Country());
 
-        $name = new \Zend\Form\Element('name', array('label' => 'Name of the country'));
+        $name = new \Zend\Form\Element('name', ['label' => 'Name of the country']);
         $name->setAttribute('type', 'text');
 
-        $continent = new \Zend\Form\Element('continent', array('label' => 'Continent of the city'));
+        $continent = new \Zend\Form\Element('continent', ['label' => 'Continent of the city']);
         $continent->setAttribute('type', 'text');
 
         $this->add($name);
@@ -39,13 +39,13 @@ class CountryFieldset extends Fieldset implements InputFilterProviderInterface
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'name' => array(
+        return [
+            'name' => [
                 'required' => true,
-            ),
-            'continent' => array(
+            ],
+            'continent' => [
                 'required' => true
-            )
-        );
+            ]
+        ];
     }
 }

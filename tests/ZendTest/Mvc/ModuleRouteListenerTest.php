@@ -33,16 +33,16 @@ class ModuleRouteListenerTest extends TestCase
 
     public function testRouteReturningModuleNamespaceInRouteMatchTriggersControllerRename()
     {
-        $this->router->addRoute('foo', array(
+        $this->router->addRoute('foo', [
             'type' => 'Literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/foo',
-                'defaults' => array(
+                'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'Foo',
                     'controller' => 'Index',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $this->request->setUri('/foo');
         $event = new MvcEvent();
         $event->setRouter($this->router);
@@ -57,15 +57,15 @@ class ModuleRouteListenerTest extends TestCase
 
     public function testRouteNotReturningModuleNamespaceInRouteMatchLeavesControllerUntouched()
     {
-        $this->router->addRoute('foo', array(
+        $this->router->addRoute('foo', [
             'type' => 'Literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/foo',
-                'defaults' => array(
+                'defaults' => [
                     'controller' => 'Index',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $this->request->setUri('/foo');
         $event = new MvcEvent();
         $event->setRouter($this->router);
@@ -82,16 +82,16 @@ class ModuleRouteListenerTest extends TestCase
         $moduleListener = new ModuleRouteListener();
         $this->events->attach($moduleListener);
 
-        $this->router->addRoute('foo', array(
+        $this->router->addRoute('foo', [
             'type' => 'Literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/foo',
-                'defaults' => array(
+                'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'Foo',
                     'controller' => 'Index',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $this->request->setUri('/foo');
         $event = new MvcEvent();
         $event->setRouter($this->router);
@@ -109,16 +109,16 @@ class ModuleRouteListenerTest extends TestCase
         $moduleListener = new ModuleRouteListener();
         $this->events->attach($moduleListener);
 
-        $this->router->addRoute('foo', array(
+        $this->router->addRoute('foo', [
             'type' => 'Literal',
-            'options' => array(
+            'options' => [
                 'route'    => '/foo',
-                'defaults' => array(
+                'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'Foo',
                     'controller' => 'some-index',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $this->request->setUri('/foo');
         $event = new MvcEvent();

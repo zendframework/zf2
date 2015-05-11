@@ -20,13 +20,13 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorOptions()
     {
-        $filter = new BlacklistFilter(array(
-            'list'    => array('test', 1),
+        $filter = new BlacklistFilter([
+            'list'    => ['test', 1],
             'strict'  => true,
-        ));
+        ]);
 
         $this->assertEquals(true, $filter->getStrict());
-        $this->assertEquals(array('test', 1), $filter->getList());
+        $this->assertEquals(['test', 1], $filter->getList());
     }
 
     public function testConstructorDefaults()
@@ -34,7 +34,7 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
         $filter = new BlacklistFilter();
 
         $this->assertEquals(false, $filter->getStrict());
-        $this->assertEquals(array(), $filter->getList());
+        $this->assertEquals([], $filter->getList());
     }
 
     public function testWithPluginManager()
@@ -48,26 +48,26 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
     public function testNullListShouldThrowException()
     {
         $this->setExpectedException('Zend\Stdlib\Exception\InvalidArgumentException');
-        $filter = new BlacklistFilter(array(
+        $filter = new BlacklistFilter([
             'list' => null,
-        ));
+        ]);
     }
 
     public function testTraversableConvertsToArray()
     {
-        $array = array('test', 1);
-        $obj = new ArrayObject(array('test', 1));
-        $filter = new BlacklistFilter(array(
+        $array = ['test', 1];
+        $obj = new ArrayObject(['test', 1]);
+        $filter = new BlacklistFilter([
             'list' => $obj,
-        ));
+        ]);
         $this->assertEquals($array, $filter->getList());
     }
 
     public function testSetStrictShouldCastToBoolean()
     {
-        $filter = new BlacklistFilter(array(
+        $filter = new BlacklistFilter([
             'strict' => 1
-        ));
+        ]);
         $this->assertSame(true, $filter->getStrict());
     }
 
@@ -89,10 +89,10 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
      */
     public function testList($strict, $list, $testData)
     {
-        $filter = new BlacklistFilter(array(
+        $filter = new BlacklistFilter([
             'strict' => $strict,
             'list'   => $list,
-        ));
+        ]);
         foreach ($testData as $data) {
             list($value, $expected) = $data;
             $message = sprintf(
@@ -108,43 +108,43 @@ class BlacklistTest extends \PHPUnit_Framework_TestCase
 
     public static function defaultTestProvider()
     {
-        return array(
-            array('test',   'test'),
-            array(0,        0),
-            array(0.1,      0.1),
-            array(array(),  array()),
-            array(null,     null),
-        );
+        return [
+            ['test',   'test'],
+            [0,        0],
+            [0.1,      0.1],
+            [[],  []],
+            [null,     null],
+        ];
     }
 
     public static function listTestProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 true, //strict
-                array('test', 0),
-                array(
-                    array('test',   null),
-                    array(0,        null),
-                    array(null,     null),
-                    array(false,    false),
-                    array(0.0,      0.0),
-                    array(array(),  array()),
-                ),
-            ),
-            array(
+                ['test', 0],
+                [
+                    ['test',   null],
+                    [0,        null],
+                    [null,     null],
+                    [false,    false],
+                    [0.0,      0.0],
+                    [[],  []],
+                ],
+            ],
+            [
                 false, //not strict
-                array('test', 0),
-                array(
-                    array('test',   null),
-                    array(0,        null),
-                    array(null,     null),
-                    array(false,    null),
-                    array(0.0,      null),
-                    array(0.1,      0.1),
-                    array(array(),  array()),
-                ),
-            ),
-        );
+                ['test', 0],
+                [
+                    ['test',   null],
+                    [0,        null],
+                    [null,     null],
+                    [false,    null],
+                    [0.0,      null],
+                    [0.1,      0.1],
+                    [[],  []],
+                ],
+            ],
+        ];
     }
 }

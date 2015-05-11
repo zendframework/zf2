@@ -23,7 +23,7 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
     /**
      * @var int[]
      */
-    protected $columnOptionSortOrder = array(
+    protected $columnOptionSortOrder = [
         'unsigned'      => 0,
         'zerofill'      => 1,
         'identity'      => 2,
@@ -33,7 +33,7 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
         'columnformat'  => 4,
         'format'        => 4,
         'storage'       => 5,
-    );
+    ];
 
     /**
      * @param CreateTable $subject
@@ -54,9 +54,9 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
     protected function getSqlInsertOffsets($sql)
     {
         $sqlLength   = strlen($sql);
-        $insertStart = array();
+        $insertStart = [];
 
-        foreach (array('NOT NULL', 'NULL', 'DEFAULT', 'UNIQUE', 'PRIMARY', 'REFERENCES') as $needle) {
+        foreach (['NOT NULL', 'NULL', 'DEFAULT', 'UNIQUE', 'PRIMARY', 'REFERENCES'] as $needle) {
             $insertPos = strpos($sql, ' ' . $needle);
 
             if ($insertPos !== false) {
@@ -90,14 +90,14 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
             return;
         }
 
-        $sqls = array();
+        $sqls = [];
 
         foreach ($this->columns as $i => $column) {
             $sql           = $this->processExpression($column, $platform);
             $insertStart   = $this->getSqlInsertOffsets($sql);
             $columnOptions = $column->getOptions();
 
-            uksort($columnOptions, array($this, 'compareColumnOptions'));
+            uksort($columnOptions, [$this, 'compareColumnOptions']);
 
             foreach ($columnOptions as $coName => $coValue) {
                 $insert = '';
@@ -149,7 +149,7 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
             $sqls[$i] = $sql;
         }
 
-        return array($sqls);
+        return [$sqls];
     }
 
     /**
@@ -159,7 +159,7 @@ class CreateTableDecorator extends CreateTable implements PlatformDecoratorInter
      */
     private function normalizeColumnOption($name)
     {
-        return strtolower(str_replace(array('-', '_', ' '), '', $name));
+        return strtolower(str_replace(['-', '_', ' '], '', $name));
     }
 
     /**

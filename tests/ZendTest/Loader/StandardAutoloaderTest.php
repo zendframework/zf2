@@ -25,7 +25,7 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
         if (!is_array($this->loaders)) {
             // spl_autoload_functions does not return empty array when no
             // autoloaders registered...
-            $this->loaders = array();
+            $this->loaders = [];
         }
 
         // Store original include_path
@@ -70,7 +70,7 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
         $loader = new StandardAutoloader();
 
         $obj  = new \stdClass();
-        foreach (array(true, 'foo', $obj) as $arg) {
+        foreach ([true, 'foo', $obj] as $arg) {
             try {
                 $loader->setOptions(true);
                 $this->fail('Setting options with invalid type should fail');
@@ -82,15 +82,15 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingArrayOptionsPopulatesProperties()
     {
-        $options = array(
-            'namespaces' => array(
+        $options = [
+            'namespaces' => [
                 'Zend\\'   => dirname(__DIR__) . DIRECTORY_SEPARATOR,
-            ),
-            'prefixes'   => array(
+            ],
+            'prefixes'   => [
                 'Zend_'  => dirname(__DIR__) . DIRECTORY_SEPARATOR,
-            ),
+            ],
             'fallback_autoloader' => true,
-        );
+        ];
         $loader = new TestAsset\StandardAutoloader();
         $loader->setOptions($options);
         $this->assertEquals($options['namespaces'], $loader->getNamespaces());
@@ -100,17 +100,17 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingTraversableOptionsPopulatesProperties()
     {
-        $namespaces = new \ArrayObject(array(
+        $namespaces = new \ArrayObject([
             'Zend\\' => dirname(__DIR__) . DIRECTORY_SEPARATOR,
-        ));
-        $prefixes = new \ArrayObject(array(
+        ]);
+        $prefixes = new \ArrayObject([
             'Zend_' => dirname(__DIR__) . DIRECTORY_SEPARATOR,
-        ));
-        $options = new \ArrayObject(array(
+        ]);
+        $options = new \ArrayObject([
             'namespaces' => $namespaces,
             'prefixes'   => $prefixes,
             'fallback_autoloader' => true,
-        ));
+        ]);
         $loader = new TestAsset\StandardAutoloader();
         $loader->setOptions($options);
         $this->assertEquals((array) $options['namespaces'], $loader->getNamespaces());
@@ -163,7 +163,7 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
         $loaders = spl_autoload_functions();
         $this->assertGreaterThan(count($this->loaders), count($loaders));
         $test = array_pop($loaders);
-        $this->assertEquals(array($loader, 'autoload'), $test);
+        $this->assertEquals([$loader, 'autoload'], $test);
     }
 
     public function testAutoloadsNamespacedClassesWithUnderscores()
@@ -177,19 +177,19 @@ class StandardAutoloaderTest extends \PHPUnit_Framework_TestCase
     public function testZendFrameworkNamespaceIsNotLoadedByDefault()
     {
         $loader = new StandardAutoloader();
-        $expected = array();
+        $expected = [];
         $this->assertAttributeEquals($expected, 'namespaces', $loader);
     }
 
     public function testCanTellAutoloaderToRegisterZendNamespaceAtInstantiation()
     {
-        $loader = new StandardAutoloader(array('autoregister_zf' => true));
+        $loader = new StandardAutoloader(['autoregister_zf' => true]);
         $r      = new ReflectionClass($loader);
         $file   = $r->getFileName();
-        $expected = array(
+        $expected = [
             'Zend\\'    => dirname(dirname($file)) . DIRECTORY_SEPARATOR,
             'ZendXml\\' => dirname(dirname(dirname($file))) . DIRECTORY_SEPARATOR . 'ZendXml' . DIRECTORY_SEPARATOR,
-        );
+        ];
         $this->assertAttributeEquals($expected, 'namespaces', $loader);
     }
 

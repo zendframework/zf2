@@ -27,7 +27,7 @@ class DummyRouteWithParam extends DummyRoute
      */
     public function match(RequestInterface $request)
     {
-        return new RouteMatch(array('foo' => 'bar'));
+        return new RouteMatch(['foo' => 'bar']);
     }
 
     /**

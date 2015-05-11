@@ -148,7 +148,7 @@ class ApacheResolver implements ResolverInterface
         fclose($fp);
 
         if (!isset($matchedHash)) {
-            return new AuthResult(AuthResult::FAILURE_IDENTITY_NOT_FOUND, null, array('Username not found in provided htpasswd file'));
+            return new AuthResult(AuthResult::FAILURE_IDENTITY_NOT_FOUND, null, ['Username not found in provided htpasswd file']);
         }
 
         // Plaintext password
@@ -166,6 +166,6 @@ class ApacheResolver implements ResolverInterface
             return new AuthResult(AuthResult::SUCCESS, $username);
         }
 
-        return new AuthResult(AuthResult::FAILURE_CREDENTIAL_INVALID, null, array('Passwords did not match.'));
+        return new AuthResult(AuthResult::FAILURE_CREDENTIAL_INVALID, null, ['Passwords did not match.']);
     }
 }

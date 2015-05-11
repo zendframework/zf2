@@ -25,9 +25,9 @@ class PaddingPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'pkcs7' => 'Zend\Crypt\Symmetric\Padding\Pkcs7'
-    );
+    ];
 
     /**
      * Do not share by default

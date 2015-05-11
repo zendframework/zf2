@@ -29,10 +29,10 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $expected  = 't\28e,s\29t\2av\5cal\1eue';
         $filterval = 't(e,s)t*v\\al' . chr(30) . 'ue';
         $this->assertEquals($expected, Ldap\Filter::escapeValue($filterval));
-        $this->assertEquals($expected, Ldap\Filter::escapeValue(array($filterval)));
+        $this->assertEquals($expected, Ldap\Filter::escapeValue([$filterval]));
         $this->assertEquals(
-            array($expected, $expected, $expected),
-            Ldap\Filter::escapeValue(array($filterval, $filterval, $filterval))
+            [$expected, $expected, $expected],
+            Ldap\Filter::escapeValue([$filterval, $filterval, $filterval])
         );
     }
 
@@ -41,10 +41,10 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $expected  = 't(e,s)t*v\\al' . chr(30) . 'ue';
         $filterval = 't\28e,s\29t\2av\5cal\1eue';
         $this->assertEquals($expected, Ldap\Filter::unescapeValue($filterval));
-        $this->assertEquals($expected, Ldap\Filter::unescapeValue(array($filterval)));
+        $this->assertEquals($expected, Ldap\Filter::unescapeValue([$filterval]));
         $this->assertEquals(
-            array($expected, $expected, $expected),
-            Ldap\Filter::unescapeValue(array($filterval, $filterval, $filterval))
+            [$expected, $expected, $expected],
+            Ldap\Filter::unescapeValue([$filterval, $filterval, $filterval])
         );
     }
 
@@ -105,7 +105,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testIllegalGroupingFilter()
     {
-        $data = array('a', 'b', 5);
+        $data = ['a', 'b', 5];
         $f    = new Filter\AndFilter($data);
     }
 

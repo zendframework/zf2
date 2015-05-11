@@ -49,7 +49,7 @@ abstract class AbstractSessionArrayStorage implements
                 $input = (array) $input;
             }
         } elseif (null === $input) {
-            $input = array();
+            $input = [];
         }
         $_SESSION = $input;
         $this->setRequestAccessTime(microtime(true));
@@ -253,7 +253,7 @@ abstract class AbstractSessionArrayStorage implements
             return $this;
         }
         if (isset($_SESSION[$key])) {
-            $this->setMetadata('_LOCKS', array($key => true));
+            $this->setMetadata('_LOCKS', [$key => true]);
         }
 
         return $this;
@@ -356,7 +356,7 @@ abstract class AbstractSessionArrayStorage implements
         }
 
         if (!isset($_SESSION['__ZF'])) {
-            $_SESSION['__ZF'] = array();
+            $_SESSION['__ZF'] = [];
         }
         if (isset($_SESSION['__ZF'][$key]) && is_array($value)) {
             if ($overwriteArray) {
@@ -417,7 +417,7 @@ abstract class AbstractSessionArrayStorage implements
             throw new Exception\RuntimeException('Cannot clear storage as it is marked immutable');
         }
         if (null === $key) {
-            $this->fromArray(array());
+            $this->fromArray([]);
 
             return $this;
         }
@@ -470,7 +470,7 @@ abstract class AbstractSessionArrayStorage implements
         if (isset($_SESSION)) {
             $values = $_SESSION;
         } else {
-            $values = array();
+            $values = [];
         }
 
         if ($metaData) {

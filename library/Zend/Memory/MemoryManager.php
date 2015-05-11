@@ -72,7 +72,7 @@ class MemoryManager
      *
      * @var array
      */
-    private $unloadCandidates = array();
+    private $unloadCandidates = [];
 
     /**
      * List of object sizes.
@@ -83,7 +83,7 @@ class MemoryManager
      *
      * @var array
      */
-    private $sizes = array();
+    private $sizes = [];
 
     /**
      * Last modified object

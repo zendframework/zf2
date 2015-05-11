@@ -35,25 +35,25 @@ class LocatorRegistrationListenerTest extends TestCase
         if (!is_array($this->loaders)) {
             // spl_autoload_functions does not return empty array when no
             // autoloaders registered...
-            $this->loaders = array();
+            $this->loaders = [];
         }
 
         // Store original include_path
         $this->includePath = get_include_path();
 
-        $autoloader = new ModuleAutoloader(array(
+        $autoloader = new ModuleAutoloader([
             dirname(__DIR__) . '/TestAsset',
-        ));
+        ]);
         $autoloader->register();
 
         $this->sharedEvents = new SharedEventManager();
 
-        $this->moduleManager = new ModuleManager(array('ListenerTestModule'));
+        $this->moduleManager = new ModuleManager(['ListenerTestModule']);
         $this->moduleManager->getEventManager()->setSharedManager($this->sharedEvents);
         $this->moduleManager->getEventManager()->attach(ModuleEvent::EVENT_LOAD_MODULE_RESOLVE, new ModuleResolverListener, 1000);
 
         $this->application = new MockApplication;
-        $events            = new EventManager(array('Zend\Mvc\Application', 'ZendTest\Module\TestAsset\MockApplication', 'application'));
+        $events            = new EventManager(['Zend\Mvc\Application', 'ZendTest\Module\TestAsset\MockApplication', 'application']);
         $events->setSharedManager($this->sharedEvents);
         $this->application->setEventManager($events);
 

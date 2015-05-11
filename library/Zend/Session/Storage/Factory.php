@@ -25,7 +25,7 @@ abstract class Factory
      * @return StorageInterface
      * @throws Exception\InvalidArgumentException for unrecognized $type or individual options
      */
-    public static function factory($type, $options = array())
+    public static function factory($type, $options = [])
     {
         if (!is_string($type)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -83,7 +83,7 @@ abstract class Factory
      */
     protected static function createArrayStorage($type, $options)
     {
-        $input         = array();
+        $input         = [];
         $flags         = ArrayObject::ARRAY_AS_PROPS;
         $iteratorClass = 'ArrayIterator';
 

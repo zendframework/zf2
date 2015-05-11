@@ -17,23 +17,23 @@ class DateTimeLocalTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesValidatorsBasedOnAttributes()
     {
         $element = new DateTimeLocalElement('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'inclusive' => true,
             'min'       => '2000-01-01T00:00Z',
             'max'       => '2001-01-01T00:00Z',
             'step'      => '1',
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Date',
             'Zend\Validator\GreaterThan',
             'Zend\Validator\LessThan',
             'Zend\Validator\DateStep',
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);

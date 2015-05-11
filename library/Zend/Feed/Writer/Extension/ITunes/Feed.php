@@ -23,7 +23,7 @@ class Feed
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Encoding of all text values
@@ -119,7 +119,7 @@ class Feed
             . ' contain a maximum of 255 characters each');
         }
         if (!isset($this->data['authors'])) {
-            $this->data['authors'] = array();
+            $this->data['authors'] = [];
         }
         $this->data['authors'][] = $value;
         return $this;
@@ -135,7 +135,7 @@ class Feed
     public function setItunesCategories(array $values)
     {
         if (!isset($this->data['categories'])) {
-            $this->data['categories'] = array();
+            $this->data['categories'] = [];
         }
         foreach ($values as $key => $value) {
             if (!is_array($value)) {
@@ -149,7 +149,7 @@ class Feed
                     throw new Writer\Exception\InvalidArgumentException('invalid parameter: any "category" may only'
                     . ' contain a maximum of 255 characters each');
                 }
-                $this->data['categories'][$key] = array();
+                $this->data['categories'][$key] = [];
                 foreach ($value as $val) {
                     if ($this->stringWrapper->strlen($val) > 255) {
                         throw new Writer\Exception\InvalidArgumentException('invalid parameter: any "category" may only'
@@ -175,7 +175,7 @@ class Feed
             throw new Writer\Exception\InvalidArgumentException('invalid parameter: "image" may only'
             . ' be a valid URI/IRI');
         }
-        if (!in_array(substr($value, -3), array('jpg', 'png'))) {
+        if (!in_array(substr($value, -3), ['jpg', 'png'])) {
             throw new Writer\Exception\InvalidArgumentException('invalid parameter: "image" may only'
             . ' use file extension "jpg" or "png" which must be the last three'
             . ' characters of the URI (i.e. no query string or fragment)');
@@ -214,7 +214,7 @@ class Feed
      */
     public function setItunesExplicit($value)
     {
-        if (!in_array($value, array('yes', 'no', 'clean'))) {
+        if (!in_array($value, ['yes', 'no', 'clean'])) {
             throw new Writer\Exception\InvalidArgumentException('invalid parameter: "explicit" may only'
             . ' be one of "yes", "no" or "clean"');
         }
@@ -296,7 +296,7 @@ class Feed
             . ' contain a maximum of 255 characters each for "name" and "email"');
         }
         if (!isset($this->data['owners'])) {
-            $this->data['owners'] = array();
+            $this->data['owners'] = [];
         }
         $this->data['owners'][] = $value;
         return $this;

@@ -30,29 +30,29 @@ class CaptchaTest extends TestCase
         $element = new CaptchaElement();
 
         // by instance
-        $captcha = new Captcha\Dumb(array(
+        $captcha = new Captcha\Dumb([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $element->setCaptcha($captcha);
         $this->assertSame($captcha, $element->getCaptcha());
 
         // by array
-        $captcha = array(
+        $captcha = [
             'class'   => 'dumb',
-            'options' => array(
+            'options' => [
                 'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            )
-        );
+            ]
+        ];
         $element->setCaptcha($captcha);
         $this->assertInstanceOf('Zend\Captcha\Dumb', $element->getCaptcha());
 
         // by traversable
-        $captcha = new ArrayObject(array(
+        $captcha = new ArrayObject([
             'class'   => 'dumb',
-            'options' => array(
+            'options' => [
                     'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-            )
-        ));
+            ]
+        ]);
         $element->setCaptcha($captcha);
         $this->assertInstanceOf('Zend\Captcha\Dumb', $element->getCaptcha());
     }
@@ -67,9 +67,9 @@ class CaptchaTest extends TestCase
     public function testSettingCaptchaSetsCaptchaAttribute()
     {
         $element = new CaptchaElement();
-        $captcha = new Captcha\Dumb(array(
+        $captcha = new Captcha\Dumb([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $element->setCaptcha($captcha);
         $this->assertSame($captcha, $element->getCaptcha());
     }
@@ -77,18 +77,18 @@ class CaptchaTest extends TestCase
     public function testCreatingCaptchaElementViaFormFactoryWillCreateCaptcha()
     {
         $factory = new Factory();
-        $element = $factory->createElement(array(
+        $element = $factory->createElement([
             'type'       => 'Zend\Form\Element\Captcha',
             'name'       => 'foo',
-            'options'    => array(
-                'captcha' => array(
+            'options'    => [
+                'captcha' => [
                     'class'   => 'dumb',
-                    'options' => array(
+                    'options' => [
                         'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
         $this->assertInstanceOf('Zend\Form\Element\Captcha', $element);
         $captcha = $element->getCaptcha();
         $this->assertInstanceOf('Zend\Captcha\Dumb', $captcha);
@@ -97,9 +97,9 @@ class CaptchaTest extends TestCase
     public function testProvidesInputSpecificationThatIncludesCaptchaAsValidator()
     {
         $element = new CaptchaElement();
-        $captcha = new Captcha\Dumb(array(
+        $captcha = new Captcha\Dumb([
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-        ));
+        ]);
         $element->setCaptcha($captcha);
 
         $inputSpec = $element->getInputSpecification();
@@ -114,14 +114,14 @@ class CaptchaTest extends TestCase
      */
     public function testAllowsPassingTraversableOptionsToConstructor()
     {
-        $options = new TestAsset\IteratorAggregate(new ArrayIterator(array(
-            'captcha' => array(
+        $options = new TestAsset\IteratorAggregate(new ArrayIterator([
+            'captcha' => [
                 'class'   => 'dumb',
-                'options' => array(
+                'options' => [
                     'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
-                ),
-            ),
-        )));
+                ],
+            ],
+        ]));
         $element = new CaptchaElement('captcha', $options);
         $captcha = $element->getCaptcha();
         $this->assertInstanceOf('Zend\Captcha\Dumb', $captcha);

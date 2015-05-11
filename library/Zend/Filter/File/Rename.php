@@ -19,7 +19,7 @@ class Rename extends Filter\AbstractFilter
     /**
      * Internal array of array(source, target, overwrite)
      */
-    protected $files = array();
+    protected $files = [];
 
     /**
      * Class constructor
@@ -39,7 +39,7 @@ class Rename extends Filter\AbstractFilter
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
         } elseif (is_string($options)) {
-            $options = array('target' => $options);
+            $options = ['target' => $options];
         } elseif (!is_array($options)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid options argument provided to filter'
@@ -73,7 +73,7 @@ class Rename extends Filter\AbstractFilter
      */
     public function setFile($options)
     {
-        $this->files = array();
+        $this->files = [];
         $this->addFile($options);
 
         return $this;
@@ -95,7 +95,7 @@ class Rename extends Filter\AbstractFilter
     public function addFile($options)
     {
         if (is_string($options)) {
-            $options = array('target' => $options);
+            $options = ['target' => $options];
         } elseif (!is_array($options)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid options to rename filter provided'
@@ -213,7 +213,7 @@ class Rename extends Filter\AbstractFilter
      */
     protected function _convertOptions($options)
     {
-        $files = array();
+        $files = [];
         foreach ($options as $key => $value) {
             if (is_array($value)) {
                 $this->_convertOptions($value);
@@ -287,7 +287,7 @@ class Rename extends Filter\AbstractFilter
      */
     protected function _getFileName($file)
     {
-        $rename = array();
+        $rename = [];
         foreach ($this->files as $value) {
             if ($value['source'] == '*') {
                 if (!isset($rename['source'])) {

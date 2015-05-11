@@ -25,7 +25,7 @@ class BarcodeTest extends \Zend\Barcode\Object\AbstractObject
 
     protected function prepareBarcode()
     {
-        return array();
+        return [];
     }
 
     protected function checkSpecificParams()

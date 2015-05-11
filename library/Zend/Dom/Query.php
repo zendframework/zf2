@@ -53,7 +53,7 @@ class Query
      * XPath namespaces
      * @var array
      */
-    protected $xpathNamespaces = array();
+    protected $xpathNamespaces = [];
 
     /**
      * XPath PHP Functions

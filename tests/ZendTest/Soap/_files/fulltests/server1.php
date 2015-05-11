@@ -33,7 +33,7 @@ class Zend_Soap_Service_Server1
 
         $a->baz[] = $request;
 
-        return array($a);
+        return [$a];
     }
 }
 
@@ -54,7 +54,7 @@ class Zend_Soap_Wsdl_ComplexTypeA
     /**
      * @var Zend_Soap_Wsdl_ComplexTypeB[]
      */
-    public $baz = array();
+    public $baz = [];
 }
 
 if (isset($_GET['wsdl'])) {

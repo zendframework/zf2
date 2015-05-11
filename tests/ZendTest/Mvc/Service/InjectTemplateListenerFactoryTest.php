@@ -22,32 +22,32 @@ class InjectTemplateListenerFactoryTest extends TestCase
 {
     public function testFactoryCanCreateInjectTemplateListener()
     {
-        $this->buildInjectTemplateListenerWithConfig(array());
+        $this->buildInjectTemplateListenerWithConfig([]);
     }
 
     public function testFactoryCanSetControllerMap()
     {
-        $listener = $this->buildInjectTemplateListenerWithConfig(array(
-            'view_manager' => array(
-                'controller_map' => array(
+        $listener = $this->buildInjectTemplateListenerWithConfig([
+            'view_manager' => [
+                'controller_map' => [
                     'SomeModule' => 'some/module',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
 
         $this->assertEquals('some/module', $listener->mapController("SomeModule"));
     }
 
     public function testFactoryCanSetControllerMapViaArrayAccessVM()
     {
-        $listener = $this->buildInjectTemplateListenerWithConfig(array(
-            'view_manager' => new ArrayObject(array(
-                'controller_map' => array(
+        $listener = $this->buildInjectTemplateListenerWithConfig([
+            'view_manager' => new ArrayObject([
+                'controller_map' => [
                     // must be an array due to type hinting on setControllerMap()
                     'SomeModule' => 'some/module',
-                ),
-            ))
-        ));
+                ],
+            ])
+        ]);
 
         $this->assertEquals('some/module', $listener->mapController("SomeModule"));
     }

@@ -27,7 +27,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $files = array(
+        $files = [
             dirname(__DIR__) . '/_files/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second',
@@ -38,7 +38,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__) . '/_files/_compress/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress',
             dirname(__DIR__) . '/_files/compressed.tar'
-        );
+        ];
 
         foreach ($files as $file) {
             if (file_exists($file)) {
@@ -60,7 +60,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $files = array(
+        $files = [
             dirname(__DIR__) . '/_files/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second/zipextracted.txt',
             dirname(__DIR__) . '/_files/_compress/Compress/First/Second',
@@ -73,7 +73,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
             dirname(__DIR__) . '/_files/compressed.tar',
             dirname(__DIR__) . '/_files/compressed.tar.gz',
             dirname(__DIR__) . '/_files/compressed.tar.bz2'
-        );
+        ];
 
         foreach ($files as $file) {
             if (file_exists($file)) {
@@ -101,10 +101,10 @@ class TarTest extends \PHPUnit_Framework_TestCase
     public function testBasicUsage()
     {
         $filter  = new TarCompression(
-            array(
+            [
                 'archive'  => dirname(__DIR__) . '/_files/compressed.tar',
                 'target'   => dirname(__DIR__) . '/_files/zipextracted.txt'
-            )
+            ]
         );
 
         $content = $filter->compress('compress me');
@@ -126,20 +126,20 @@ class TarTest extends \PHPUnit_Framework_TestCase
     {
         $filter = new TarCompression();
         $this->assertEquals(
-            array(
+            [
                 'archive' => null,
                 'target'  => '.',
-                'mode'    => null),
+                'mode'    => null],
             $filter->getOptions()
         );
 
         $this->assertEquals(null, $filter->getOptions('archive'));
 
         $this->assertNull($filter->getOptions('nooption'));
-        $filter->setOptions(array('nooptions' => 'foo'));
+        $filter->setOptions(['nooptions' => 'foo']);
         $this->assertNull($filter->getOptions('nooption'));
 
-        $filter->setOptions(array('archive' => 'temp.txt'));
+        $filter->setOptions(['archive' => 'temp.txt']);
         $this->assertEquals('temp.txt', $filter->getOptions('archive'));
     }
 
@@ -182,10 +182,10 @@ class TarTest extends \PHPUnit_Framework_TestCase
     public function testTarCompressToFile()
     {
         $filter  = new TarCompression(
-            array(
+            [
                 'archive'  => dirname(__DIR__) . '/_files/compressed.tar',
                 'target'   => dirname(__DIR__) . '/_files/zipextracted.txt'
-            )
+            ]
         );
         file_put_contents(dirname(__DIR__) . '/_files/zipextracted.txt', 'compress me');
 
@@ -207,10 +207,10 @@ class TarTest extends \PHPUnit_Framework_TestCase
     public function testTarCompressDirectory()
     {
         $filter  = new TarCompression(
-            array(
+            [
                 'archive'  => dirname(__DIR__) . '/_files/compressed.tar',
                 'target'   => dirname(__DIR__) . '/_files/_compress'
-            )
+            ]
         );
         $content = $filter->compress(dirname(__DIR__) . '/_files/Compress');
         $this->assertEquals(dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files'
@@ -222,7 +222,7 @@ class TarTest extends \PHPUnit_Framework_TestCase
         $filter = new TarCompression;
         $filter->setTarget(dirname(__DIR__).'/_files/zipextracted.txt');
 
-        foreach (array('GZ', 'Bz2') as $mode) {
+        foreach (['GZ', 'Bz2'] as $mode) {
             $archive = dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'compressed.tar.'.strtolower($mode);
             $filter->setArchive($archive);
             $filter->setMode($mode);

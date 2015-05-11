@@ -159,7 +159,7 @@ abstract class AbstractWord extends FormInput
     public function setCaptchaPosition($captchaPosition)
     {
         $captchaPosition = strtolower($captchaPosition);
-        if (!in_array($captchaPosition, array(self::CAPTCHA_APPEND, self::CAPTCHA_PREPEND))) {
+        if (!in_array($captchaPosition, [self::CAPTCHA_APPEND, self::CAPTCHA_PREPEND])) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects either %s::CAPTCHA_APPEND or %s::CAPTCHA_PREPEND; received "%s"',
                 __METHOD__,

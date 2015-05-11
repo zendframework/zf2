@@ -18,7 +18,7 @@ class Submit extends Element
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'submit',
-    );
+    ];
 }

@@ -20,22 +20,22 @@ class ListenerOptions extends AbstractOptions
     /**
      * @var array
      */
-    protected $modulePaths = array();
+    protected $modulePaths = [];
 
     /**
      * @var array
      */
-    protected $configGlobPaths = array();
+    protected $configGlobPaths = [];
 
     /**
      * @var array
      */
-    protected $configStaticPaths = array();
+    protected $configStaticPaths = [];
 
     /**
      * @var array
      */
-    protected $extraConfig = array();
+    protected $extraConfig = [];
 
     /**
      * @var bool

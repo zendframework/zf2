@@ -20,7 +20,7 @@ class Router implements RouteStackInterface
      * @param  array|\Traversable $options
      * @return void
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         return new static();
     }
@@ -42,7 +42,7 @@ class Router implements RouteStackInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
     }
 

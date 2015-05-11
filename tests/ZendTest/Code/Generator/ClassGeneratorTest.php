@@ -61,17 +61,17 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testImplementedInterfacesAccessors()
     {
         $classGenerator = new ClassGenerator();
-        $classGenerator->setImplementedInterfaces(array('Class1', 'Class2'));
-        $this->assertEquals($classGenerator->getImplementedInterfaces(), array('Class1', 'Class2'));
+        $classGenerator->setImplementedInterfaces(['Class1', 'Class2']);
+        $this->assertEquals($classGenerator->getImplementedInterfaces(), ['Class1', 'Class2']);
     }
 
     public function testPropertyAccessors()
     {
         $classGenerator = new ClassGenerator();
-        $classGenerator->addProperties(array(
+        $classGenerator->addProperties([
             'propOne',
             new PropertyGenerator('propTwo')
-        ));
+        ]);
 
         $properties = $classGenerator->getProperties();
         $this->assertEquals(count($properties), 2);
@@ -112,10 +112,10 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testMethodAccessors()
     {
         $classGenerator = new ClassGenerator();
-        $classGenerator->addMethods(array(
+        $classGenerator->addMethods([
             'methodOne',
             new MethodGenerator('methodTwo')
-        ));
+        ]);
 
         $methods = $classGenerator->getMethods();
         $this->assertEquals(count($methods), 2);
@@ -194,18 +194,18 @@ class ClassGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $classGenerator = ClassGenerator::fromArray(array(
+        $classGenerator = ClassGenerator::fromArray([
             'name' => 'SampleClass',
             'flags' => ClassGenerator::FLAG_ABSTRACT,
             'extendedClass' => 'ExtendedClassName',
-            'implementedInterfaces' => array('Iterator', 'Traversable'),
-            'properties' => array('foo',
-                array('name' => 'bar')
-            ),
-            'methods' => array(
-                array('name' => 'baz')
-            ),
-        ));
+            'implementedInterfaces' => ['Iterator', 'Traversable'],
+            'properties' => ['foo',
+                ['name' => 'bar']
+            ],
+            'methods' => [
+                ['name' => 'baz']
+            ],
+        ]);
 
         $expectedOutput = <<<EOS
 abstract class SampleClass extends ExtendedClassName implements Iterator, Traversable
@@ -422,12 +422,12 @@ CODE;
 
     public function testCreateFromArrayWithDocBlockFromArray()
     {
-        $classGenerator = ClassGenerator::fromArray(array(
+        $classGenerator = ClassGenerator::fromArray([
             'name' => 'SampleClass',
-            'docblock' => array(
+            'docblock' => [
                 'shortdescription' => 'foo',
-            ),
-        ));
+            ],
+        ]);
 
         $docBlock = $classGenerator->getDocBlock();
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
@@ -435,10 +435,10 @@ CODE;
 
     public function testCreateFromArrayWithDocBlockInstance()
     {
-        $classGenerator = ClassGenerator::fromArray(array(
+        $classGenerator = ClassGenerator::fromArray([
             'name' => 'SampleClass',
             'docblock' => new DocBlockGenerator('foo'),
-        ));
+        ]);
 
         $docBlock = $classGenerator->getDocBlock();
         $this->assertInstanceOf('Zend\Code\Generator\DocBlockGenerator', $docBlock);
@@ -524,10 +524,10 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $classGenerator->addConstants(array(
+        $classGenerator->addConstants([
             new PropertyGenerator('x', 'value1', PropertyGenerator::FLAG_CONSTANT),
             new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT)
-        ));
+        ]);
 
         $this->assertCount(2, $classGenerator->getConstants());
         $this->assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
@@ -541,10 +541,10 @@ CODE;
     {
         $classGenerator = new ClassGenerator();
 
-        $classGenerator->addConstants(array(
-            array( 'name'=> 'x', 'value' => 'value1'),
-            array('name' => 'y', 'value' => 'value2')
-        ));
+        $classGenerator->addConstants([
+            [ 'name'=> 'x', 'value' => 'value1'],
+            ['name' => 'y', 'value' => 'value2']
+        ]);
 
         $this->assertCount(2, $classGenerator->getConstants());
         $this->assertEquals($classGenerator->getConstant('x')->getDefaultValue()->getValue(), 'value1');
@@ -560,7 +560,7 @@ CODE;
 
         $classGenerator = new ClassGenerator();
 
-        $classGenerator->addConstant(array(), 'value1');
+        $classGenerator->addConstant([], 'value1');
     }
 
     /**
@@ -605,10 +605,10 @@ CODE;
      */
     public function testAddPropertiesIsBackwardsCompatibleWithConstants()
     {
-        $constants = array(
+        $constants = [
             new PropertyGenerator('x', 'value1', PropertyGenerator::FLAG_CONSTANT),
             new PropertyGenerator('y', 'value2', PropertyGenerator::FLAG_CONSTANT)
-        );
+        ];
         $classGenerator = new ClassGenerator();
 
         $classGenerator->addProperties($constants);
@@ -727,7 +727,7 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTrait(array('traitName' => 'myTrait'));
+        $classGenerator->addTrait(['traitName' => 'myTrait']);
         $this->assertTrue($classGenerator->hasTrait('myTrait'));
     }
 
@@ -738,7 +738,7 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTrait(array('traitName' => 'myTrait'));
+        $classGenerator->addTrait(['traitName' => 'myTrait']);
         $this->assertTrue($classGenerator->hasTrait('myTrait'));
         $classGenerator->removeTrait('myTrait');
         $this->assertFalse($classGenerator->hasTrait('myTrait'));
@@ -751,7 +751,7 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTraits(array('myTrait', 'hisTrait'));
+        $classGenerator->addTraits(['myTrait', 'hisTrait']);
 
         $traits = $classGenerator->getTraits();
         $this->assertContains('myTrait', $traits);
@@ -784,10 +784,10 @@ CODE;
         $classGenerator = new ClassGenerator();
 
         $classGenerator->addTrait('myTrait');
-        $classGenerator->addTraitAlias(array(
+        $classGenerator->addTraitAlias([
             'traitName' => 'myTrait',
             'method'    => 'method',
-        ), 'useMe', ReflectionMethod::IS_PRIVATE);
+        ], 'useMe', ReflectionMethod::IS_PRIVATE);
 
         $aliases = $classGenerator->getTraitAliases();
         $this->assertArrayHasKey('myTrait::method', $aliases);
@@ -889,7 +889,7 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTraits(array('myTrait', 'histTrait'));
+        $classGenerator->addTraits(['myTrait', 'histTrait']);
         $classGenerator->addTraitOverride('myTrait::foo', 'hisTrait');
 
         $overrides = $classGenerator->getTraitOverrides();
@@ -905,8 +905,8 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTraits(array('myTrait', 'histTrait', 'thatTrait'));
-        $classGenerator->addTraitOverride('myTrait::foo', array('hisTrait', 'thatTrait'));
+        $classGenerator->addTraits(['myTrait', 'histTrait', 'thatTrait']);
+        $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
         $this->assertEquals(count($overrides['myTrait::foo']), 2);
@@ -961,7 +961,7 @@ CODE;
         );
 
         $classGenerator->addTrait('myTrait');
-        $classGenerator->addTraitOverride(array('method' => 'foo'), 'test');
+        $classGenerator->addTraitOverride(['method' => 'foo'], 'test');
     }
 
     public function testAddTraitOverrideExceptionInvalidTraitToReplaceArgument()
@@ -978,7 +978,7 @@ CODE;
         );
 
         $classGenerator->addTrait('myTrait');
-        $classGenerator->addTraitOverride('myTrait::method', array('methodOne', 4));
+        $classGenerator->addTraitOverride('myTrait::method', ['methodOne', 4]);
     }
 
     public function testAddTraitOverrideExceptionInvalidMethodArgInArray()
@@ -995,7 +995,7 @@ CODE;
         );
 
         $classGenerator->addTrait('myTrait');
-        $classGenerator->addTraitOverride(array('traitName' => 'myTrait'), 'test');
+        $classGenerator->addTraitOverride(['traitName' => 'myTrait'], 'test');
     }
 
     public function testCanRemoveTraitOverride()
@@ -1005,8 +1005,8 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTraits(array('myTrait', 'histTrait', 'thatTrait'));
-        $classGenerator->addTraitOverride('myTrait::foo', array('hisTrait', 'thatTrait'));
+        $classGenerator->addTraits(['myTrait', 'histTrait', 'thatTrait']);
+        $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
         $this->assertEquals(count($overrides['myTrait::foo']), 2);
@@ -1025,8 +1025,8 @@ CODE;
         }
 
         $classGenerator = new ClassGenerator();
-        $classGenerator->addTraits(array('myTrait', 'histTrait', 'thatTrait'));
-        $classGenerator->addTraitOverride('myTrait::foo', array('hisTrait', 'thatTrait'));
+        $classGenerator->addTraits(['myTrait', 'histTrait', 'thatTrait']);
+        $classGenerator->addTraitOverride('myTrait::foo', ['hisTrait', 'thatTrait']);
 
         $overrides = $classGenerator->getTraitOverrides();
         $this->assertEquals(count($overrides['myTrait::foo']), 2);
@@ -1080,7 +1080,7 @@ CODE;
         $classGenerator->addTrait('hisTrait');
         $classGenerator->addTrait('thatTrait');
         $classGenerator->addTraitAlias("hisTrait::foo", "test", ReflectionMethod::IS_PUBLIC);
-        $classGenerator->addTraitOverride('myTrait::bar', array('hisTrait', 'thatTrait'));
+        $classGenerator->addTraitOverride('myTrait::bar', ['hisTrait', 'thatTrait']);
 
         $output = <<<'CODE'
 class myClass
@@ -1102,10 +1102,10 @@ CODE;
 
     public function testGenerateWithFinalFlag()
     {
-        $classGenerator = ClassGenerator::fromArray(array(
+        $classGenerator = ClassGenerator::fromArray([
             'name' => 'SomeClass',
             'flags' => ClassGenerator::FLAG_FINAL
-        ));
+        ]);
 
         $expectedOutput = <<<EOS
 final class SomeClass

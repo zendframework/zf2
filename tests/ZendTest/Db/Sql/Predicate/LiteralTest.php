@@ -28,6 +28,6 @@ class LiteralTest extends \PHPUnit_Framework_TestCase
     public function testGetExpressionData()
     {
         $literal = new Literal('bar');
-        $this->assertEquals(array(array('bar', array(), array())), $literal->getExpressionData());
+        $this->assertEquals([['bar', [], []]], $literal->getExpressionData());
     }
 }

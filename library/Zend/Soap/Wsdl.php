@@ -41,7 +41,7 @@ class Wsdl
      * Map of PHP Class names to WSDL QNames.
      * @var array
      */
-    protected $classMap = array();
+    protected $classMap = [];
 
     /**
      * DOM Instance
@@ -53,7 +53,7 @@ class Wsdl
      * Types defined on schema
      * @var array
      */
-    protected $includedTypes = array();
+    protected $includedTypes = [];
 
     /**
      * @var DOMElement
@@ -88,7 +88,7 @@ class Wsdl
         $name,
         $uri,
         ComplexTypeStrategy $strategy = null,
-        array $classMap = array()
+        array $classMap = []
     ) {
         if ($uri instanceof Uri) {
             $uri = $uri->toString();
@@ -535,7 +535,7 @@ class Wsdl
             $node->appendChild($doc);
         }
 
-        $docCData = $this->dom->createTextNode(str_replace(array("\r\n", "\r"), "\n", $documentation));
+        $docCData = $this->dom->createTextNode(str_replace(["\r\n", "\r"], "\n", $documentation));
         $doc->appendChild($docCData);
         return $doc;
     }
@@ -760,7 +760,7 @@ class Wsdl
 
         $elementXML = $this->dom->createElementNS(self::XSD_NS_URI, 'element');
         foreach ($element as $key => $value) {
-            if (in_array($key, array('sequence', 'all', 'choice'))) {
+            if (in_array($key, ['sequence', 'all', 'choice'])) {
                 if (is_array($value)) {
                     $complexType = $this->dom->createElementNS(self::XSD_NS_URI, 'complexType');
                     if (count($value) > 0) {

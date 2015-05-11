@@ -294,11 +294,11 @@ abstract class AbstractAdapter extends BaseAdapter
             throw new Exception\RuntimeException($exception);
         }
 
-        $this->authenticateResultInfo = array(
+        $this->authenticateResultInfo = [
             'code'     => AuthenticationResult::FAILURE,
             'identity' => $this->identity,
-            'messages' => array()
-        );
+            'messages' => []
+        ];
 
         return true;
     }
@@ -317,7 +317,7 @@ abstract class AbstractAdapter extends BaseAdapter
         $statement = $sql->prepareStatementForSqlObject($dbSelect);
         try {
             $result = $statement->execute();
-            $resultIdentities = array();
+            $resultIdentities = [];
             // iterate result, most cross platform way
             foreach ($result as $row) {
                 // ZF-6428 - account for db engines that by default return uppercase column names

@@ -49,7 +49,7 @@ class Column
      *
      * @var array
      */
-    protected $allowedAligns = array(self::ALIGN_LEFT, self::ALIGN_CENTER, self::ALIGN_RIGHT);
+    protected $allowedAligns = [self::ALIGN_LEFT, self::ALIGN_CENTER, self::ALIGN_RIGHT];
 
     /**
      * Create a column for a Zend\Text\Table\Row object.
@@ -201,7 +201,7 @@ class Column
         $outputCharset = Table::getOutputCharset();
         $strWrapper    = StringUtils::getWrapper($outputCharset);
         $lines         = explode("\n", $strWrapper->wordWrap($this->content, $columnWidth, "\n", true));
-        $paddedLines   = array();
+        $paddedLines   = [];
 
         foreach ($lines as $line) {
             $paddedLines[] = str_repeat(' ', $padding)

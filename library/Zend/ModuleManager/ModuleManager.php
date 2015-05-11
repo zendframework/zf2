@@ -27,7 +27,7 @@ class ModuleManager implements ModuleManagerInterface
     /**
      * @var array An array of Module classes of loaded modules
      */
-    protected $loadedModules = array();
+    protected $loadedModules = [];
 
     /**
      * @var EventManagerInterface
@@ -49,7 +49,7 @@ class ModuleManager implements ModuleManagerInterface
      *
      * @var array|Traversable
      */
-    protected $modules = array();
+    protected $modules = [];
 
     /**
      * True if modules have already been loaded
@@ -91,7 +91,7 @@ class ModuleManager implements ModuleManagerInterface
                         get_class($module)
                     ));
                 }
-                $module = array($moduleName => $module);
+                $module = [$moduleName => $module];
             }
             $this->loadModule($module);
         }
@@ -296,11 +296,11 @@ class ModuleManager implements ModuleManagerInterface
      */
     public function setEventManager(EventManagerInterface $events)
     {
-        $events->setIdentifiers(array(
+        $events->setIdentifiers([
             __CLASS__,
             get_class($this),
             'module_manager',
-        ));
+        ]);
         $this->events = $events;
         $this->attachDefaultListeners();
         return $this;
@@ -329,6 +329,6 @@ class ModuleManager implements ModuleManagerInterface
     protected function attachDefaultListeners()
     {
         $events = $this->getEventManager();
-        $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModules'));
+        $events->attach(ModuleEvent::EVENT_LOAD_MODULES, [$this, 'onLoadModules']);
     }
 }

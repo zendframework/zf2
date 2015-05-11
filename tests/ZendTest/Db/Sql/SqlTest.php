@@ -36,7 +36,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
 
         // setup mock adapter
-        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver, new TestAsset\TrustingSql92Platform()));
+        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver, new TestAsset\TrustingSql92Platform()]);
 
         $this->sql = new Sql($this->mockAdapter, 'foo');
     }
@@ -119,7 +119,7 @@ class SqlTest extends \PHPUnit_Framework_TestCase
      */
     public function testPrepareStatementForSqlObject()
     {
-        $insert = $this->sql->insert()->columns(array('foo'))->values(array('foo'=>'bar'));
+        $insert = $this->sql->insert()->columns(['foo'])->values(['foo'=>'bar']);
         $stmt = $this->sql->prepareStatementForSqlObject($insert);
         $this->assertInstanceOf('Zend\Db\Adapter\Driver\StatementInterface', $stmt);
     }

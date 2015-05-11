@@ -20,7 +20,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testMustDefineTwoCallbacksOnConstructor()
     {
         $itemsCallback = new CallbackHandler(function () {
-            return array();
+            return [];
         });
         $countCallback = new CallbackHandler(function () {
             return 0;
@@ -57,7 +57,7 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 
     public function testMustPassArgumentsToGetItemCallback()
     {
-        $data = array(0, 1, 2, 3);
+        $data = [0, 1, 2, 3];
         $itemsCallback = function ($offset, $itemCountPerPage) {
             return range($offset, $itemCountPerPage);
         };

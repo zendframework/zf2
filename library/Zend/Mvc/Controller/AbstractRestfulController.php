@@ -30,12 +30,12 @@ abstract class AbstractRestfulController extends AbstractController
     /**
      * @var array
      */
-    protected $contentTypes = array(
-        self::CONTENT_TYPE_JSON => array(
+    protected $contentTypes = [
+        self::CONTENT_TYPE_JSON => [
             'application/hal+json',
             'application/json'
-        )
-    );
+        ]
+    ];
 
     /**
      * Name of request or query parameter containing identifier
@@ -54,7 +54,7 @@ abstract class AbstractRestfulController extends AbstractController
      *
      * @var array
      */
-    protected $customHttpMethodsMap = array();
+    protected $customHttpMethodsMap = [];
 
     /**
      * Set the route match/query parameter name containing the identifier
@@ -88,9 +88,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -103,9 +103,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -120,9 +120,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -135,9 +135,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -149,9 +149,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -167,9 +167,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -187,9 +187,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -206,9 +206,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -224,9 +224,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -242,9 +242,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -258,9 +258,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(405);
 
-        return array(
+        return [
             'content' => 'Method Not Allowed'
-        );
+        ];
     }
 
     /**
@@ -272,9 +272,9 @@ abstract class AbstractRestfulController extends AbstractController
     {
         $this->response->setStatusCode(404);
 
-        return array(
+        return [
             'content' => 'Page not found'
-        );
+        ];
     }
 
     /**

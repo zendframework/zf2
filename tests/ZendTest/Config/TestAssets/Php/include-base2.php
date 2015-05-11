@@ -1,6 +1,6 @@
 <?php
-return array(
-    'base' => array(
+return [
+    'base' => [
         'foo' => 'bar',
-    ),
-);
+    ],
+];

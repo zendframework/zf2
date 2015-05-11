@@ -26,7 +26,7 @@ class ClassFileLocatorTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorThrowsInvalidArgumentExceptionForNonDirectoryIteratorArgument()
     {
-        $iterator = new \ArrayIterator(array());
+        $iterator = new \ArrayIterator([]);
         $this->setExpectedException('Zend\File\Exception\InvalidArgumentException');
         $locator = new ClassFileLocator($iterator);
     }

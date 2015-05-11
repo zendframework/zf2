@@ -377,7 +377,7 @@ abstract class AbstractValue
                         . ' type: ARRAY tag must contain DATA tag'
                     );
                 }
-                $values = array();
+                $values = [];
                 // Parse all the elements of the array from the XML string
                 // (simple xml element) to Value objects
                 foreach ($data->value as $element) {
@@ -386,7 +386,7 @@ abstract class AbstractValue
                 $xmlrpcValue = new Value\ArrayValue($values);
                 break;
             case self::XMLRPC_TYPE_STRUCT:
-                $values = array();
+                $values = [];
                 // Parse all the members of the struct from the XML string
                 // (simple xml element) to Value objects
                 foreach ($value->member as $member) {
@@ -442,7 +442,7 @@ abstract class AbstractValue
         $xmlAsArray = (array) $xml;
         list($type, $value) = each($xmlAsArray);
         if (!$type and $value === null) {
-            $namespaces = array('ex' => 'http://ws.apache.org/xmlrpc/namespaces/extensions');
+            $namespaces = ['ex' => 'http://ws.apache.org/xmlrpc/namespaces/extensions'];
             foreach ($namespaces as $namespaceName => $namespaceUri) {
                 $namespaceXml = $xml->children($namespaceUri);
                 list($type, $value) = each($namespaceXml);
@@ -457,7 +457,7 @@ abstract class AbstractValue
         if (!$type) {
             $type = self::XMLRPC_TYPE_STRING;
             if (empty($value) and preg_match('#^<value>.*</value>$#', $xml->asXML())) {
-                $value = str_replace(array('<value>', '</value>'), '', $xml->asXML());
+                $value = str_replace(['<value>', '</value>'], '', $xml->asXML());
             }
         }
     }

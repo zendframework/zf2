@@ -26,10 +26,10 @@ class DateTime extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID          => "Invalid type given. String expected",
         self::INVALID_DATETIME => "The input does not appear to be a valid datetime",
-    );
+    ];
 
     /**
      * Optional locale
@@ -84,7 +84,7 @@ class DateTime extends AbstractValidator
      * @param array|Traversable $options
      * @throws I18nException\ExtensionNotLoadedException if ext/intl is not present
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!extension_loaded('intl')) {
             throw new I18nException\ExtensionNotLoadedException(

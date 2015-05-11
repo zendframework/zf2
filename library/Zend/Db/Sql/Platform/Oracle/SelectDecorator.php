@@ -66,7 +66,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
         $starSuffix = $platform->getIdentifierSeparator() . self::SQL_STAR;
         foreach ($selectParameters[0] as $i => $columnParameters) {
             if ($columnParameters[0] == self::SQL_STAR || (isset($columnParameters[1]) && $columnParameters[1] == self::SQL_STAR) || strpos($columnParameters[0], $starSuffix)) {
-                $selectParameters[0] = array(array(self::SQL_STAR));
+                $selectParameters[0] = [[self::SQL_STAR]];
                 break;
             }
             if (isset($columnParameters[1])) {
@@ -81,7 +81,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         // first, produce column list without compound names (using the AS portion only)
         array_unshift($sqls, $this->createSqlFromSpecificationAndParameters(
-            array('SELECT %1$s FROM (SELECT b.%1$s, rownum b_rownum FROM (' => current($this->specifications[self::SELECT])), $selectParameters
+            ['SELECT %1$s FROM (SELECT b.%1$s, rownum b_rownum FROM (' => current($this->specifications[self::SELECT])], $selectParameters
         ));
 
         if ($parameterContainer) {

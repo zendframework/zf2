@@ -16,7 +16,7 @@ class Issn extends AbstractAdapter
      */
     public function __construct()
     {
-        $this->setLength(array(8, 13));
+        $this->setLength([8, 13]);
         $this->setCharacters('0123456789X');
         $this->setChecksum('gtin');
     }

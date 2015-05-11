@@ -25,7 +25,7 @@ class PdoTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->pdo = new Pdo(array());
+        $this->pdo = new Pdo([]);
     }
 
     /**
@@ -34,7 +34,7 @@ class PdoTest extends \PHPUnit_Framework_TestCase
     public function testGetDatabasePlatformName()
     {
         // Test platform name for SqlServer
-        $this->pdo->getConnection()->setConnectionParameters(array('pdodriver' => 'sqlsrv'));
+        $this->pdo->getConnection()->setConnectionParameters(['pdodriver' => 'sqlsrv']);
         $this->assertEquals('SqlServer', $this->pdo->getDatabasePlatformName());
         $this->assertEquals('SQLServer', $this->pdo->getDatabasePlatformName(DriverInterface::NAME_FORMAT_NATURAL));
     }

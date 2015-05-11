@@ -26,14 +26,14 @@ abstract class UriFactory
      *
      * @var array
      */
-     protected static $schemeClasses = array(
+     protected static $schemeClasses = [
         'http'   => 'Zend\Uri\Http',
         'https'  => 'Zend\Uri\Http',
         'mailto' => 'Zend\Uri\Mailto',
         'file'   => 'Zend\Uri\File',
         'urn'    => 'Zend\Uri\Uri',
         'tag'    => 'Zend\Uri\Uri',
-    );
+    ];
 
     /**
      * Register a scheme-specific class to be used

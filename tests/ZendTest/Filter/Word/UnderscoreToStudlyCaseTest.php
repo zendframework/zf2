@@ -65,10 +65,10 @@ class UnderscoreToStudlyCaseTest extends \PHPUnit_Framework_TestCase
     {
         $filter   = new UnderscoreToStudlyCase();
 
-        $string   = array('zend_framework', '_zend_framework');
+        $string   = ['zend_framework', '_zend_framework'];
         $filtered = $filter($string);
         $this->assertNotEquals($string, $filtered);
-        $this->assertEquals(array('zendFramework', 'zendFramework'), $filtered);
+        $this->assertEquals(['zendFramework', 'zendFramework'], $filtered);
     }
 
     public function testWithEmpties()
@@ -79,8 +79,8 @@ class UnderscoreToStudlyCaseTest extends \PHPUnit_Framework_TestCase
         $filtered = $filter($string);
         $this->assertEquals('', $filtered);
 
-        $string   = array('', 'Zend_Framework');
+        $string   = ['', 'Zend_Framework'];
         $filtered = $filter($string);
-        $this->assertEquals(array('', 'zendFramework'), $filtered);
+        $this->assertEquals(['', 'zendFramework'], $filtered);
     }
 }

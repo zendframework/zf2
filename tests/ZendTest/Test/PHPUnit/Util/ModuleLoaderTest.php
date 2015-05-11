@@ -23,7 +23,7 @@ class ModuleLoaderTest extends PHPUnit_Framework_TestCase
 
     public static function rmdir($dir)
     {
-        $files = array_diff(scandir($dir), array('.', '..'));
+        $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? static::rmdir("$dir/$file") : unlink("$dir/$file");
         }
@@ -45,7 +45,7 @@ class ModuleLoaderTest extends PHPUnit_Framework_TestCase
     {
         require_once __DIR__ . '/../../_files/Baz/Module.php';
 
-        $loader = new ModuleLoader(array('Baz'));
+        $loader = new ModuleLoader(['Baz']);
         $baz = $loader->getModule('Baz');
         $this->assertInstanceOf('Baz\Module', $baz);
     }
@@ -53,12 +53,12 @@ class ModuleLoaderTest extends PHPUnit_Framework_TestCase
     public function testCanNotLoadModule()
     {
         $this->setExpectedException('Zend\ModuleManager\Exception\RuntimeException', 'could not be initialized');
-        $loader = new ModuleLoader(array('FooBaz'));
+        $loader = new ModuleLoader(['FooBaz']);
     }
 
     public function testCanLoadModuleWithPath()
     {
-        $loader = new ModuleLoader(array('Baz' => __DIR__ . '/../../_files/Baz'));
+        $loader = new ModuleLoader(['Baz' => __DIR__ . '/../../_files/Baz']);
         $baz = $loader->getModule('Baz');
         $this->assertInstanceOf('Baz\Module', $baz);
     }
@@ -68,7 +68,7 @@ class ModuleLoaderTest extends PHPUnit_Framework_TestCase
         require_once __DIR__ . '/../../_files/Baz/Module.php';
         require_once __DIR__ . '/../../_files/modules-path/with-subdir/Foo/Module.php';
 
-        $loader = new ModuleLoader(array('Baz', 'Foo'));
+        $loader = new ModuleLoader(['Baz', 'Foo']);
         $baz = $loader->getModule('Baz');
         $this->assertInstanceOf('Baz\Module', $baz);
         $foo = $loader->getModule('Foo');
@@ -77,10 +77,10 @@ class ModuleLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testCanLoadModulesWithPath()
     {
-        $loader = new ModuleLoader(array(
+        $loader = new ModuleLoader([
             'Baz' => __DIR__ . '/../../_files/Baz',
             'Foo' => __DIR__ . '/../../_files/modules-path/with-subdir/Foo',
-        ));
+        ]);
 
         $fooObject = $loader->getServiceManager()->get('FooObject');
         $this->assertInstanceOf('stdClass', $fooObject);
@@ -96,7 +96,7 @@ class ModuleLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testCanGetService()
     {
-        $loader = new ModuleLoader(array('Baz' => __DIR__ . '/../../_files/Baz'));
+        $loader = new ModuleLoader(['Baz' => __DIR__ . '/../../_files/Baz']);
 
         $this->assertInstanceOf(
             'Zend\ServiceManager\ServiceLocatorInterface',

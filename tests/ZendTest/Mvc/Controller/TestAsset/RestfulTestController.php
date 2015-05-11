@@ -13,8 +13,8 @@ use Zend\Mvc\Controller\AbstractRestfulController;
 
 class RestfulTestController extends AbstractRestfulController
 {
-    public $entities = array();
-    public $entity   = array();
+    public $entities = [];
+    public $entity   = [];
 
     /**
      * @var \Zend\Stdlib\ResponseInterface|null
@@ -29,7 +29,7 @@ class RestfulTestController extends AbstractRestfulController
      */
     public function create($data)
     {
-        return array('entity' => $data);
+        return ['entity' => $data];
     }
 
     /**
@@ -40,8 +40,8 @@ class RestfulTestController extends AbstractRestfulController
      */
     public function delete($id)
     {
-        $this->entity = array();
-        return array();
+        $this->entity = [];
+        return [];
     }
 
     /**
@@ -77,7 +77,7 @@ class RestfulTestController extends AbstractRestfulController
      */
     public function get($id)
     {
-        return array('entity' => $this->entity);
+        return ['entity' => $this->entity];
     }
 
     /**
@@ -87,7 +87,7 @@ class RestfulTestController extends AbstractRestfulController
      */
     public function getList()
     {
-        return array('entities' => $this->entities);
+        return ['entities' => $this->entities];
     }
 
     /**
@@ -131,7 +131,7 @@ class RestfulTestController extends AbstractRestfulController
         $entity     = (array) $this->entity;
         $data['id'] = $id;
         $updated    = array_merge($entity, $data);
-        return array('entity' => $updated);
+        return ['entity' => $updated];
     }
 
     /**
@@ -170,21 +170,21 @@ class RestfulTestController extends AbstractRestfulController
     public function update($id, $data)
     {
         $data['id'] = $id;
-        return array('entity' => $data);
+        return ['entity' => $data];
     }
 
     public function editAction()
     {
-        return array('content' => __FUNCTION__);
+        return ['content' => __FUNCTION__];
     }
 
     public function testSomeStrangelySeparatedWordsAction()
     {
-        return array('content' => 'Test Some Strangely Separated Words');
+        return ['content' => 'Test Some Strangely Separated Words'];
     }
 
     public function describe()
     {
-        return array('description' => __METHOD__);
+        return ['description' => __METHOD__];
     }
 }

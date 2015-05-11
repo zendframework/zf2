@@ -33,8 +33,8 @@ class SplPriorityQueueTest extends \PHPUnit_Framework_TestCase
         $queue->insert('baz', 1000);
         $queue->insert('bat', 1000);
 
-        $expected = array('foo', 'bar', 'baz', 'bat');
-        $test     = array();
+        $expected = ['foo', 'bar', 'baz', 'bat'];
+        $test     = [];
         foreach ($queue as $datum) {
             $test[] = $datum;
         }
@@ -48,11 +48,11 @@ class SplPriorityQueueTest extends \PHPUnit_Framework_TestCase
         $count = count($this->queue);
         $this->assertSame($count, count($unserialized), 'Expected count ' . $count . '; received ' . count($unserialized));
 
-        $expected = array();
+        $expected = [];
         foreach ($this->queue as $item) {
             $expected[] = $item;
         }
-        $test = array();
+        $test = [];
         foreach ($unserialized as $item) {
             $test[] = $item;
         }
@@ -61,12 +61,12 @@ class SplPriorityQueueTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRetrieveQueueAsArray()
     {
-        $expected = array(
+        $expected = [
             'bar',
             'foo',
             'baz',
             'bat',
-        );
+        ];
         $test     = $this->queue->toArray();
         $this->assertSame($expected, $test, var_export($test, 1));
     }

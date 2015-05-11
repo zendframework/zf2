@@ -24,7 +24,7 @@ class EmailAddress extends AbstractValidator
     /**
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::INVALID            => "Invalid type given. String expected",
         self::INVALID_FORMAT     => "The input is not a valid email address. Use the basic format local-part@hostname",
         self::INVALID_HOSTNAME   => "'%hostname%' is not a valid hostname for the email address",
@@ -34,15 +34,15 @@ class EmailAddress extends AbstractValidator
         self::QUOTED_STRING      => "'%localPart%' can not be matched against quoted-string format",
         self::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for the email address",
         self::LENGTH_EXCEEDED    => "The input exceeds the allowed length",
-    );
+    ];
 
     /**
      * @var array
      */
-    protected $messageVariables = array(
+    protected $messageVariables = [
         'hostname'  => 'hostname',
         'localPart' => 'localPart'
-    );
+    ];
 
     /**
      * @var string
@@ -64,13 +64,13 @@ class EmailAddress extends AbstractValidator
     /**
      * Internal options array
      */
-    protected $options = array(
+    protected $options = [
         'useMxCheck'        => false,
         'useDeepMxCheck'    => false,
         'useDomainCheck'    => true,
         'allow'             => Hostname::ALLOW_DNS,
         'hostnameValidator' => null,
-    );
+    ];
 
     /**
      * Instantiates hostname validator for local use
@@ -83,7 +83,7 @@ class EmailAddress extends AbstractValidator
      *
      * @param array|\Traversable $options OPTIONAL
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!is_array($options)) {
             $options = func_get_args();
@@ -290,7 +290,7 @@ class EmailAddress extends AbstractValidator
         if (!preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $host)) {
             $host = gethostbynamel($host);
         } else {
-            $host = array($host);
+            $host = [$host];
         }
 
         if (empty($host)) {
@@ -371,8 +371,8 @@ class EmailAddress extends AbstractValidator
      */
     protected function validateMXRecords()
     {
-        $mxHosts = array();
-        $weight  = array();
+        $mxHosts = [];
+        $weight  = [];
         $result = getmxrr($this->idnToAscii($this->hostname), $mxHosts, $weight);
         if (!empty($mxHosts) && !empty($weight)) {
             $this->mxRecord = array_combine($mxHosts, $weight);

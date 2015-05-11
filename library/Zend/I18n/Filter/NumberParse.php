@@ -16,11 +16,11 @@ use Zend\Stdlib\ErrorHandler;
 
 class NumberParse extends AbstractLocale
 {
-    protected $options = array(
+    protected $options = [
         'locale' => null,
         'style'  => NumberFormatter::DEFAULT_STYLE,
         'type'   => NumberFormatter::TYPE_DOUBLE
-    );
+    ];
 
     /**
      * @var NumberFormatter

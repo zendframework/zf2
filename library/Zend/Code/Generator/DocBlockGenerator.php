@@ -29,7 +29,7 @@ class DocBlockGenerator extends AbstractGenerator
     /**
      * @var array
      */
-    protected $tags = array();
+    protected $tags = [];
 
     /**
      * @var string
@@ -83,7 +83,7 @@ class DocBlockGenerator extends AbstractGenerator
 
         foreach ($array as $name => $value) {
             // normalize key
-            switch (strtolower(str_replace(array('.', '-', '_'), '', $name))) {
+            switch (strtolower(str_replace(['.', '-', '_'], '', $name))) {
                 case 'shortdescription':
                     $docBlock->setShortDescription($value);
                     break;
@@ -113,7 +113,7 @@ class DocBlockGenerator extends AbstractGenerator
      * @param  string $longDescription
      * @param  array $tags
      */
-    public function __construct($shortDescription = null, $longDescription = null, array $tags = array())
+    public function __construct($shortDescription = null, $longDescription = null, array $tags = [])
     {
         if ($shortDescription) {
             $this->setShortDescription($shortDescription);

@@ -42,11 +42,11 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function provideDateTimeFormats()
     {
-        return array(
-            array('r'),
-            array('U'),
-            array(DateTime::RSS),
-        );
+        return [
+            ['r'],
+            ['U'],
+            [DateTime::RSS],
+        ];
     }
 
     /**
@@ -65,7 +65,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDateTimeFormatInConstructor($dateTimeFormat)
     {
-        $options = array('dateTimeFormat' => $dateTimeFormat);
+        $options = ['dateTimeFormat' => $dateTimeFormat];
         $formatter = new BaseFormatter($options);
 
         $this->assertEquals($dateTimeFormat, $formatter->getDateTimeFormat());
@@ -78,29 +78,29 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $object->foo = 'bar';
         $formatter = new BaseFormatter();
 
-        $event = array(
+        $event = [
             'timestamp' => $datetime,
             'priority' => 1,
             'message' => 'tottakai',
-            'extra' => array(
+            'extra' => [
                 'float' => 0.2,
                 'boolean' => false,
-                'array_empty' => array(),
+                'array_empty' => [],
                 'array' => range(0, 4),
                 'traversable_empty' => new EmptyIterator(),
-                'traversable' => new ArrayIterator(array('id', 42)),
+                'traversable' => new ArrayIterator(['id', 42]),
                 'null' => null,
                 'object_empty' => new stdClass(),
                 'object' => $object,
                 'string object' => new StringObject(),
                 'resource' => fopen('php://stdout', 'w'),
-            ),
-        );
-        $outputExpected = array(
+            ],
+        ];
+        $outputExpected = [
             'timestamp' => $datetime->format($formatter->getDateTimeFormat()),
             'priority' => 1,
             'message' => 'tottakai',
-            'extra' => array(
+            'extra' => [
                 'boolean' => false,
                 'float' => 0.2,
                 'array_empty' => '[]',
@@ -112,8 +112,8 @@ class BaseTest extends \PHPUnit_Framework_TestCase
                 'object' => 'object(stdClass) {"foo":"bar"}',
                 'string object' => 'Hello World',
                 'resource' => 'resource(stream)',
-            ),
-        );
+            ],
+        ];
 
         $this->assertEquals($outputExpected, $formatter->format($event));
     }
@@ -123,36 +123,36 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $datetime  = new DateTime();
         $formatter = new BaseFormatter();
 
-        $selfRefArr = array();
+        $selfRefArr = [];
         $selfRefArr['selfRefArr'] = & $selfRefArr;
 
-        $event = array(
+        $event = [
             'timestamp' => $datetime,
             'priority'  => 1,
             'message'   => 'tottakai',
-            'extra' => array(
+            'extra' => [
                 'selfRefArr' => $selfRefArr,
-            ),
-        );
+            ],
+        ];
 
         if (version_compare(PHP_VERSION, '5.5', 'lt')) {
-            $outputExpected = array(
+            $outputExpected = [
                 'timestamp' => $datetime->format($formatter->getDateTimeFormat()),
                 'priority'  => 1,
                 'message'   => 'tottakai',
-                'extra' => array(
+                'extra' => [
                     'selfRefArr' => '{"selfRefArr":{"selfRefArr":null}}',
-                ),
-            );
+                ],
+            ];
         } else {
-            $outputExpected = array(
+            $outputExpected = [
                 'timestamp' => $datetime->format($formatter->getDateTimeFormat()),
                 'priority'  => 1,
                 'message'   => 'tottakai',
-                'extra' => array(
+                'extra' => [
                     'selfRefArr' => '',
-                ),
-            );
+                ],
+            ];
         }
 
         $this->assertEquals($outputExpected, $formatter->format($event));
@@ -162,14 +162,14 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $formatter = new BaseFormatter();
 
-        $event = array(
+        $event = [
             'message'   => 'Hi',
             'extra'     => '',
-        );
-        $outputExpected = array(
+        ];
+        $outputExpected = [
             'message' => 'Hi',
             'extra'   =>  '',
-        );
+        ];
 
         $this->assertEquals($outputExpected, $formatter->format($event));
     }

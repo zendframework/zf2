@@ -36,7 +36,7 @@ abstract class AbstractWriter implements WriterInterface
      *
      * @var Filter\FilterInterface[]
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      * Formats the log message before writing

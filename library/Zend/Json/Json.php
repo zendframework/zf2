@@ -96,7 +96,7 @@ class Json
      * @param  array $options Additional options used during encoding
      * @return string JSON encoded object
      */
-    public static function encode($valueToEncode, $cycleCheck = false, $options = array())
+    public static function encode($valueToEncode, $cycleCheck = false, $options = [])
     {
         if (is_object($valueToEncode)) {
             if (method_exists($valueToEncode, 'toJson')) {
@@ -107,7 +107,7 @@ class Json
         }
 
         // Pre-encoding look for Zend\Json\Expr objects and replacing by tmp ids
-        $javascriptExpressions = array();
+        $javascriptExpressions = [];
         if (isset($options['enableJsonExprFinder'])
            && ($options['enableJsonExprFinder'] == true)
         ) {
@@ -134,7 +134,7 @@ class Json
         }
 
         if ($prettyPrint) {
-            $encodedResult = self::prettyPrint($encodedResult, array("intent" => "    "));
+            $encodedResult = self::prettyPrint($encodedResult, ["intent" => "    "]);
         }
 
         //only do post-processing to revert back the Zend\Json\Expr if any.
@@ -180,12 +180,12 @@ class Json
         if ($value instanceof Expr) {
             // TODO: Optimize with ascii keys, if performance is bad
             $magicKey = "____" . $currentKey . "_" . (count($javascriptExpressions));
-            $javascriptExpressions[] = array(
+            $javascriptExpressions[] = [
 
                 //if currentKey is integer, encodeUnicodeString call is not required.
                 "magicKey" => (is_int($currentKey)) ? $magicKey : Encoder::encodeUnicodeString($magicKey),
                 "value"    => $value->__toString(),
-            );
+            ];
             $value = $magicKey;
         } elseif (is_array($value)) {
             foreach ($value as $k => $v) {
@@ -212,7 +212,7 @@ class Json
     protected static function _getXmlValue($simpleXmlElementObject)
     {
         $pattern   = '/^[\s]*new Zend[_\\]Json[_\\]Expr[\s]*\([\s]*[\"\']{1}(.*)[\"\']{1}[\s]*\)[\s]*$/';
-        $matchings = array();
+        $matchings = [];
         $match     = preg_match($pattern, $simpleXmlElementObject, $matchings);
         if ($match) {
             return new Expr($matchings[1]);
@@ -264,19 +264,19 @@ class Json
                 if (!empty($value)) {
                     $attributes['@text'] = $value;
                 }
-                return array($name => $attributes);
+                return [$name => $attributes];
             }
 
-            return array($name => $value);
+            return [$name => $value];
         }
 
-        $childArray = array();
+        $childArray = [];
         foreach ($children as $child) {
             $childname = $child->getName();
             $element   = static::_processXml($child, $ignoreXmlAttributes, $recursionDepth + 1);
             if (array_key_exists($childname, $childArray)) {
                 if (empty($subChild[$childname])) {
-                    $childArray[$childname] = array($childArray[$childname]);
+                    $childArray[$childname] = [$childArray[$childname]];
                     $subChild[$childname]   = true;
                 }
                 $childArray[$childname][] = $element[$childname];
@@ -296,7 +296,7 @@ class Json
             $childArray['@text'] = $value;
         }
 
-        return array($name => $childArray);
+        return [$name => $childArray];
     }
 
     /**
@@ -353,7 +353,7 @@ class Json
      * @param array $options Encoding options
      * @return string
      */
-    public static function prettyPrint($json, $options = array())
+    public static function prettyPrint($json, $options = [])
     {
         $tokens = preg_split('|([\{\}\]\[,])|', $json, -1, PREG_SPLIT_DELIM_CAPTURE);
         $result = "";

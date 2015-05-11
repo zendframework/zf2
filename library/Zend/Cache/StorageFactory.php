@@ -55,14 +55,14 @@ abstract class StorageFactory
             throw new Exception\InvalidArgumentException('Missing "adapter"');
         }
         $adapterName    = $cfg['adapter'];
-        $adapterOptions = array();
+        $adapterOptions = [];
         if (is_array($cfg['adapter'])) {
             if (!isset($cfg['adapter']['name'])) {
                 throw new Exception\InvalidArgumentException('Missing "adapter.name"');
             }
 
             $adapterName    = $cfg['adapter']['name'];
-            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : array();
+            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : [];
         }
         if (isset($cfg['options'])) {
             $adapterOptions = array_merge($adapterOptions, $cfg['options']);
@@ -106,7 +106,7 @@ abstract class StorageFactory
                     if (isset($v['options'])) {
                         $pluginOptions = $v['options'];
                     } else {
-                        $pluginOptions = array();
+                        $pluginOptions = [];
                     }
 
                     if (isset($v['priority'])) {
@@ -114,7 +114,7 @@ abstract class StorageFactory
                     }
                 } else {
                     $pluginName    = $v;
-                    $pluginOptions = array();
+                    $pluginOptions = [];
                 }
 
                 $plugin = static::pluginFactory($pluginName, $pluginOptions);
@@ -133,7 +133,7 @@ abstract class StorageFactory
      * @return Storage\StorageInterface
      * @throws Exception\RuntimeException
      */
-    public static function adapterFactory($adapterName, $options = array())
+    public static function adapterFactory($adapterName, $options = [])
     {
         if ($adapterName instanceof Storage\StorageInterface) {
             // $adapterName is already an adapter object
@@ -191,7 +191,7 @@ abstract class StorageFactory
      * @return Storage\Plugin\PluginInterface
      * @throws Exception\RuntimeException
      */
-    public static function pluginFactory($pluginName, $options = array())
+    public static function pluginFactory($pluginName, $options = [])
     {
         if ($pluginName instanceof Storage\Plugin\PluginInterface) {
             // $pluginName is already a plugin object

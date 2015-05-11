@@ -25,7 +25,7 @@ class TestSampleClass2 implements \IteratorAggregate
 
     public function getIterator()
     {
-        return array();
+        return [];
     }
 
 }

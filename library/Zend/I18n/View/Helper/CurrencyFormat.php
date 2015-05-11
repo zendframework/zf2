@@ -31,7 +31,7 @@ class CurrencyFormat extends AbstractHelper
      *
      * @var array
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * Locale to use instead of the default

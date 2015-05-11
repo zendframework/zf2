@@ -31,10 +31,10 @@ class MetadataFeature extends AbstractFeature
         if ($metadata) {
             $this->metadata = $metadata;
         }
-        $this->sharedData['metadata'] = array(
+        $this->sharedData['metadata'] = [
             'primaryKey' => null,
-            'columns' => array()
-        );
+            'columns' => []
+        ];
     }
 
     public function postInitialize()

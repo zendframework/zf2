@@ -142,10 +142,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $plugin = new \ZendTest\Cache\Storage\TestAsset\MockPlugin();
         $this->_storage->addPlugin($plugin);
 
-        $params = new \ArrayObject(array(
+        $params = new \ArrayObject([
             'key'   => 'key1',
             'value' => 'value1'
-        ));
+        ]);
 
         // call protected method
         $method = new \ReflectionMethod(get_class($this->_storage), 'triggerPre');
@@ -171,16 +171,16 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $plugin = new \ZendTest\Cache\Storage\TestAsset\MockPlugin();
         $this->_storage->addPlugin($plugin);
 
-        $params = new \ArrayObject(array(
+        $params = new \ArrayObject([
             'key'   => 'key1',
             'value' => 'value1'
-        ));
+        ]);
         $result = true;
 
         // call protected method
         $method = new \ReflectionMethod(get_class($this->_storage), 'triggerPost');
         $method->setAccessible(true);
-        $result = $method->invokeArgs($this->_storage, array('setItem', $params, &$result));
+        $result = $method->invokeArgs($this->_storage, ['setItem', $params, &$result]);
 
         // test called event
         $calledEvents = $plugin->getCalledEvents();
@@ -205,22 +205,22 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_storage->addPlugin($plugin);
 
         $result = null;
-        $params = new \ArrayObject(array(
+        $params = new \ArrayObject([
             'key'   => 'key1',
             'value' => 'value1'
-        ));
+        ]);
 
         // call protected method
         $method = new \ReflectionMethod(get_class($this->_storage), 'triggerException');
         $method->setAccessible(true);
 
         $this->setExpectedException('Zend\Cache\Exception\RuntimeException', 'test');
-        $method->invokeArgs($this->_storage, array('setItem', $params, & $result, new Exception\RuntimeException('test')));
+        $method->invokeArgs($this->_storage, ['setItem', $params, & $result, new Exception\RuntimeException('test')]);
     }
 
     public function testGetItemCallsInternalGetItem()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalGetItem'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalGetItem']);
 
         $key    = 'key1';
         $result = 'value1';
@@ -237,10 +237,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItemsCallsInternalGetItems()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalGetItems'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalGetItems']);
 
-        $keys   = array('key1', 'key2');
-        $result = array('key2' => 'value2');
+        $keys   = ['key1', 'key2'];
+        $result = ['key2' => 'value2'];
 
         $this->_storage
             ->expects($this->once())
@@ -259,10 +259,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
             . 'https://github.com/sebastianbergmann/phpunit-mock-objects/issues/81'
         );
 
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalGetItem'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalGetItem']);
 
-        $items  = array('key1' => 'value1', 'notFound' => false, 'key2' => 'value2');
-        $result = array('key1' => 'value1', 'key2' => 'value2');
+        $items  = ['key1' => 'value1', 'notFound' => false, 'key2' => 'value2'];
+        $result = ['key1' => 'value1', 'key2' => 'value2'];
 
         $i = 0; // method call counter
         foreach ($items as $k => $v) {
@@ -290,7 +290,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testHasItemCallsInternalHasItem()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalHasItem'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalHasItem']);
 
         $key    = 'key1';
         $result = true;
@@ -307,10 +307,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testHasItemsCallsInternalHasItems()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalHasItems'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalHasItems']);
 
-        $keys   = array('key1', 'key2');
-        $result = array('key2');
+        $keys   = ['key1', 'key2'];
+        $result = ['key2'];
 
         $this->_storage
             ->expects($this->once())
@@ -324,9 +324,9 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testInternalHasItemsCallsInternalHasItem()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalHasItem'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalHasItem']);
 
-        $items  = array('key1' => true);
+        $items  = ['key1' => true];
 
         $this->_storage
             ->expects($this->atLeastOnce())
@@ -335,15 +335,15 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $rs = $this->_storage->hasItems(array_keys($items));
-        $this->assertEquals(array('key1'), $rs);
+        $this->assertEquals(['key1'], $rs);
     }
 
     public function testGetMetadataCallsInternalGetMetadata()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalGetMetadata'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalGetMetadata']);
 
         $key    = 'key1';
-        $result = array();
+        $result = [];
 
         $this->_storage
             ->expects($this->once())
@@ -357,13 +357,13 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItemReturnsNullIfFailed()
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array('internalGetItem'));
+        $this->_storage = $this->getMockForAbstractAdapter(['internalGetItem']);
 
         $key    = 'key1';
 
         // Do not throw exceptions outside the adapter
         $pluginOptions = new Cache\Storage\Plugin\PluginOptions(
-            array('throw_exceptions' => false)
+            ['throw_exceptions' => false]
         );
         $plugin = new Cache\Storage\Plugin\ExceptionHandler();
         $plugin->setOptions($pluginOptions);
@@ -383,40 +383,40 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function simpleEventHandlingMethodDefinitions()
     {
-        return array(
+        return [
             //    name, internalName, args, internalName, returnValue
-            array('hasItem', 'internalGetItem', array('k'), 'v'),
-            array('hasItems', 'internalHasItems', array(array('k1', 'k2')), array('v1', 'v2')),
+            ['hasItem', 'internalGetItem', ['k'], 'v'],
+            ['hasItems', 'internalHasItems', [['k1', 'k2']], ['v1', 'v2']],
 
-            array('getItem', 'internalGetItem', array('k'), 'v'),
-            array('getItems', 'internalGetItems', array(array('k1', 'k2')), array('k1' => 'v1', 'k2' => 'v2')),
+            ['getItem', 'internalGetItem', ['k'], 'v'],
+            ['getItems', 'internalGetItems', [['k1', 'k2']], ['k1' => 'v1', 'k2' => 'v2']],
 
-            array('getMetadata', 'internalGetMetadata', array('k'), array()),
-            array('getMetadatas', 'internalGetMetadatas', array(array('k1', 'k2')), array('k1' => array(), 'k2' => array())),
+            ['getMetadata', 'internalGetMetadata', ['k'], []],
+            ['getMetadatas', 'internalGetMetadatas', [['k1', 'k2']], ['k1' => [], 'k2' => []]],
 
-            array('setItem', 'internalSetItem', array('k', 'v'), true),
-            array('setItems', 'internalSetItems', array(array('k1' => 'v1', 'k2' => 'v2')), array()),
+            ['setItem', 'internalSetItem', ['k', 'v'], true],
+            ['setItems', 'internalSetItems', [['k1' => 'v1', 'k2' => 'v2']], []],
 
-            array('replaceItem', 'internalReplaceItem', array('k', 'v'), true),
-            array('replaceItems', 'internalReplaceItems', array(array('k1' => 'v1', 'k2' => 'v2')), array()),
+            ['replaceItem', 'internalReplaceItem', ['k', 'v'], true],
+            ['replaceItems', 'internalReplaceItems', [['k1' => 'v1', 'k2' => 'v2']], []],
 
-            array('addItem', 'internalAddItem', array('k', 'v'), true),
-            array('addItems', 'internalAddItems', array(array('k1' => 'v1', 'k2' => 'v2')), array()),
+            ['addItem', 'internalAddItem', ['k', 'v'], true],
+            ['addItems', 'internalAddItems', [['k1' => 'v1', 'k2' => 'v2']], []],
 
-            array('checkAndSetItem', 'internalCheckAndSetItem', array(123, 'k', 'v'), true),
+            ['checkAndSetItem', 'internalCheckAndSetItem', [123, 'k', 'v'], true],
 
-            array('touchItem', 'internalTouchItem', array('k'), true),
-            array('touchItems', 'internalTouchItems', array(array('k1', 'k2')), array()),
+            ['touchItem', 'internalTouchItem', ['k'], true],
+            ['touchItems', 'internalTouchItems', [['k1', 'k2']], []],
 
-            array('removeItem', 'internalRemoveItem', array('k'), true),
-            array('removeItems', 'internalRemoveItems', array(array('k1', 'k2')), array()),
+            ['removeItem', 'internalRemoveItem', ['k'], true],
+            ['removeItems', 'internalRemoveItems', [['k1', 'k2']], []],
 
-            array('incrementItem', 'internalIncrementItem', array('k', 1), true),
-            array('incrementItems', 'internalIncrementItems', array(array('k1' => 1, 'k2' => 2)), array()),
+            ['incrementItem', 'internalIncrementItem', ['k', 1], true],
+            ['incrementItems', 'internalIncrementItems', [['k1' => 1, 'k2' => 2]], []],
 
-            array('decrementItem', 'internalDecrementItem', array('k', 1), true),
-            array('decrementItems', 'internalDecrementItems', array(array('k1' => 1, 'k2' => 2)), array()),
-        );
+            ['decrementItem', 'internalDecrementItem', ['k', 1], true],
+            ['decrementItems', 'internalDecrementItems', [['k1' => 1, 'k2' => 2]], []],
+        ];
     }
 
     /**
@@ -424,9 +424,9 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function testEventHandlingSimple($methodName, $internalMethodName, $methodArgs, $retVal)
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array($internalMethodName));
+        $this->_storage = $this->getMockForAbstractAdapter([$internalMethodName]);
 
-        $eventList    = array();
+        $eventList    = [];
         $eventHandler = function ($event) use (&$eventList) {
             $eventList[] = $event->getName();
         };
@@ -437,15 +437,15 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $mock = $this->_storage
             ->expects($this->once())
             ->method($internalMethodName);
-        $mock = call_user_func_array(array($mock, 'with'), array_map(array($this, 'equalTo'), $methodArgs));
+        $mock = call_user_func_array([$mock, 'with'], array_map([$this, 'equalTo'], $methodArgs));
         $mock->will($this->returnValue($retVal));
 
-        call_user_func_array(array($this->_storage, $methodName), $methodArgs);
+        call_user_func_array([$this->_storage, $methodName], $methodArgs);
 
-        $expectedEventList = array(
+        $expectedEventList = [
             $methodName . '.pre',
             $methodName . '.post'
-        );
+        ];
         $this->assertSame($expectedEventList, $eventList);
     }
 
@@ -454,9 +454,9 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function testEventHandlingStopInPre($methodName, $internalMethodName, $methodArgs, $retVal)
     {
-        $this->_storage = $this->getMockForAbstractAdapter(array($internalMethodName));
+        $this->_storage = $this->getMockForAbstractAdapter([$internalMethodName]);
 
-        $eventList    = array();
+        $eventList    = [];
         $eventHandler = function ($event) use (&$eventList) {
             $eventList[] = $event->getName();
         };
@@ -473,14 +473,14 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_storage->expects($this->never())->method($internalMethodName);
 
         // the return vaue should be available by pre-event
-        $result = call_user_func_array(array($this->_storage, $methodName), $methodArgs);
+        $result = call_user_func_array([$this->_storage, $methodName], $methodArgs);
         $this->assertSame($retVal, $result);
 
         // after the triggered pre-event the post-event should be triggered as well
-        $expectedEventList = array(
+        $expectedEventList = [
             $methodName . '.pre',
             $methodName . '.post',
-        );
+        ];
         $this->assertSame($expectedEventList, $eventList);
     }
 
@@ -676,155 +676,155 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
     public function testPreEventsCanChangeArguments()
     {
         // getItem(s)
-        $this->checkPreEventCanChangeArguments('getItem', array(
+        $this->checkPreEventCanChangeArguments('getItem', [
             'key' => 'key'
-        ), array(
+        ], [
             'key' => 'changedKey',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('getItems', array(
-            'keys' => array('key')
-        ), array(
-            'keys' => array('changedKey'),
-        ));
+        $this->checkPreEventCanChangeArguments('getItems', [
+            'keys' => ['key']
+        ], [
+            'keys' => ['changedKey'],
+        ]);
 
         // hasItem(s)
-        $this->checkPreEventCanChangeArguments('hasItem', array(
+        $this->checkPreEventCanChangeArguments('hasItem', [
             'key' => 'key'
-        ), array(
+        ], [
             'key' => 'changedKey',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('hasItems', array(
-            'keys' => array('key'),
-        ), array(
-            'keys' => array('changedKey'),
-        ));
+        $this->checkPreEventCanChangeArguments('hasItems', [
+            'keys' => ['key'],
+        ], [
+            'keys' => ['changedKey'],
+        ]);
 
         // getMetadata(s)
-        $this->checkPreEventCanChangeArguments('getMetadata', array(
+        $this->checkPreEventCanChangeArguments('getMetadata', [
             'key' => 'key'
-        ), array(
+        ], [
             'key' => 'changedKey',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('getMetadatas', array(
-            'keys' => array('key'),
-        ), array(
-            'keys' => array('changedKey'),
-        ));
+        $this->checkPreEventCanChangeArguments('getMetadatas', [
+            'keys' => ['key'],
+        ], [
+            'keys' => ['changedKey'],
+        ]);
 
         // setItem(s)
-        $this->checkPreEventCanChangeArguments('setItem', array(
+        $this->checkPreEventCanChangeArguments('setItem', [
             'key'   => 'key',
             'value' => 'value',
-        ), array(
+        ], [
             'key'   => 'changedKey',
             'value' => 'changedValue',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('setItems', array(
-            'keyValuePairs' => array('key' => 'value'),
-        ), array(
-            'keyValuePairs' => array('changedKey' => 'changedValue'),
-        ));
+        $this->checkPreEventCanChangeArguments('setItems', [
+            'keyValuePairs' => ['key' => 'value'],
+        ], [
+            'keyValuePairs' => ['changedKey' => 'changedValue'],
+        ]);
 
         // addItem(s)
-        $this->checkPreEventCanChangeArguments('addItem', array(
+        $this->checkPreEventCanChangeArguments('addItem', [
             'key'   => 'key',
             'value' => 'value',
-        ), array(
+        ], [
             'key'   => 'changedKey',
             'value' => 'changedValue',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('addItems', array(
-            'keyValuePairs' => array('key' => 'value'),
-        ), array(
-            'keyValuePairs' => array('changedKey' => 'changedValue'),
-        ));
+        $this->checkPreEventCanChangeArguments('addItems', [
+            'keyValuePairs' => ['key' => 'value'],
+        ], [
+            'keyValuePairs' => ['changedKey' => 'changedValue'],
+        ]);
 
         // replaceItem(s)
-        $this->checkPreEventCanChangeArguments('replaceItem', array(
+        $this->checkPreEventCanChangeArguments('replaceItem', [
             'key'   => 'key',
             'value' => 'value',
-        ), array(
+        ], [
             'key'   => 'changedKey',
             'value' => 'changedValue',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('replaceItems', array(
-            'keyValuePairs' => array('key' => 'value'),
-        ), array(
-            'keyValuePairs' => array('changedKey' => 'changedValue'),
-        ));
+        $this->checkPreEventCanChangeArguments('replaceItems', [
+            'keyValuePairs' => ['key' => 'value'],
+        ], [
+            'keyValuePairs' => ['changedKey' => 'changedValue'],
+        ]);
 
         // CAS
-        $this->checkPreEventCanChangeArguments('checkAndSetItem', array(
+        $this->checkPreEventCanChangeArguments('checkAndSetItem', [
             'token' => 'token',
             'key'   => 'key',
             'value' => 'value',
-        ), array(
+        ], [
             'token' => 'changedToken',
             'key'   => 'changedKey',
             'value' => 'changedValue',
-        ));
+        ]);
 
         // touchItem(s)
-        $this->checkPreEventCanChangeArguments('touchItem', array(
+        $this->checkPreEventCanChangeArguments('touchItem', [
             'key' => 'key',
-        ), array(
+        ], [
             'key' => 'changedKey',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('touchItems', array(
-            'keys' => array('key'),
-        ), array(
-            'keys' => array('changedKey'),
-        ));
+        $this->checkPreEventCanChangeArguments('touchItems', [
+            'keys' => ['key'],
+        ], [
+            'keys' => ['changedKey'],
+        ]);
 
         // removeItem(s)
-        $this->checkPreEventCanChangeArguments('removeItem', array(
+        $this->checkPreEventCanChangeArguments('removeItem', [
             'key' => 'key',
-        ), array(
+        ], [
             'key' => 'changedKey',
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('removeItems', array(
-            'keys' => array('key'),
-        ), array(
-            'keys' => array('changedKey'),
-        ));
+        $this->checkPreEventCanChangeArguments('removeItems', [
+            'keys' => ['key'],
+        ], [
+            'keys' => ['changedKey'],
+        ]);
 
         // incrementItem(s)
-        $this->checkPreEventCanChangeArguments('incrementItem', array(
+        $this->checkPreEventCanChangeArguments('incrementItem', [
             'key'   => 'key',
             'value' => 1
-        ), array(
+        ], [
             'key'   => 'changedKey',
             'value' => 2,
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('incrementItems', array(
-            'keyValuePairs' => array('key' => 1),
-        ), array(
-            'keyValuePairs' => array('changedKey' => 2),
-        ));
+        $this->checkPreEventCanChangeArguments('incrementItems', [
+            'keyValuePairs' => ['key' => 1],
+        ], [
+            'keyValuePairs' => ['changedKey' => 2],
+        ]);
 
         // decrementItem(s)
-        $this->checkPreEventCanChangeArguments('decrementItem', array(
+        $this->checkPreEventCanChangeArguments('decrementItem', [
             'key'   => 'key',
             'value' => 1
-        ), array(
+        ], [
             'key'   => 'changedKey',
             'value' => 2,
-        ));
+        ]);
 
-        $this->checkPreEventCanChangeArguments('decrementItems', array(
-            'keyValuePairs' => array('key' => 1),
-        ), array(
-            'keyValuePairs' => array('changedKey' => 2),
-        ));
+        $this->checkPreEventCanChangeArguments('decrementItems', [
+            'keyValuePairs' => ['key' => 1],
+        ], [
+            'keyValuePairs' => ['changedKey' => 2],
+        ]);
     }
 
     protected function checkPreEventCanChangeArguments($method, array $args, array $expectedArgs)
@@ -833,7 +833,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $eventName      = $method . '.pre';
 
         // init mock
-        $this->_storage = $this->getMockForAbstractAdapter(array($internalMethod));
+        $this->_storage = $this->getMockForAbstractAdapter([$internalMethod]);
         $this->_storage->getEventManager()->attach($eventName, function ($event) use ($expectedArgs) {
             $params = $event->getParams();
             foreach ($expectedArgs as $k => $v) {
@@ -843,14 +843,14 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
 
         // set expected arguments of internal method call
         $tmp = $this->_storage->expects($this->once())->method($internalMethod);
-        $equals = array();
+        $equals = [];
         foreach ($expectedArgs as $v) {
             $equals[] = $this->equalTo($v);
         }
-        call_user_func_array(array($tmp, 'with'), $equals);
+        call_user_func_array([$tmp, 'with'], $equals);
 
         // run
-        call_user_func_array(array($this->_storage, $method), $args);
+        call_user_func_array([$this->_storage, $method], $args);
     }
 
     /**
@@ -860,7 +860,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
      * @param array $methods
      * @return \Zend\Cache\Storage\Adapter\AbstractAdapter
      */
-    protected function getMockForAbstractAdapter(array $methods = array())
+    protected function getMockForAbstractAdapter(array $methods = [])
     {
         $class = 'Zend\Cache\Storage\Adapter\AbstractAdapter';
 

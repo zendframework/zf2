@@ -145,13 +145,13 @@ class FormRow extends AbstractHelper
         }
 
         if ($this->partial) {
-            $vars = array(
+            $vars = [
                 'element'           => $element,
                 'label'             => $label,
                 'labelAttributes'   => $this->labelAttributes,
                 'labelPosition'     => $labelPosition,
                 'renderErrors'      => $this->renderErrors,
-            );
+            ];
 
             return $this->view->render($this->partial, $vars);
         }
@@ -165,7 +165,7 @@ class FormRow extends AbstractHelper
         // hidden elements do not need a <label> -https://github.com/zendframework/zf2/issues/5607
         $type = $element->getAttribute('type');
         if (isset($label) && '' !== $label && $type !== 'hidden') {
-            $labelAttributes = array();
+            $labelAttributes = [];
 
             if ($element instanceof LabelAwareInterface) {
                 $labelAttributes = $element->getLabelAttributes();
@@ -299,7 +299,7 @@ class FormRow extends AbstractHelper
     public function setLabelPosition($labelPosition)
     {
         $labelPosition = strtolower($labelPosition);
-        if (!in_array($labelPosition, array(self::LABEL_APPEND, self::LABEL_PREPEND))) {
+        if (!in_array($labelPosition, [self::LABEL_APPEND, self::LABEL_PREPEND])) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects either %s::LABEL_APPEND or %s::LABEL_PREPEND; received "%s"',
                 __METHOD__,

@@ -199,6 +199,6 @@ abstract class Console
     public static function __callStatic($funcName, $arguments)
     {
         $instance = static::getInstance();
-        return call_user_func_array(array($instance, $funcName), $arguments);
+        return call_user_func_array([$instance, $funcName], $arguments);
     }
 }

@@ -49,11 +49,11 @@ class IdentityNamingStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function getTestedNames()
     {
-        return array(
-            array(123),
-            array(0),
-            array('foo'),
-            array('bar'),
-        );
+        return [
+            [123],
+            [0],
+            ['foo'],
+            ['bar'],
+        ];
     }
 }

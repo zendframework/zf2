@@ -28,7 +28,7 @@ class TimestampTest extends TestCase
     {
         $filter = new TimestampFilter($dateTimeValue, null, $operator);
 
-        $result = $filter->filter(array('timestamp' => $timestamp));
+        $result = $filter->filter(['timestamp' => $timestamp]);
 
         if ($expectation === true) {
             $this->assertTrue($result);
@@ -44,7 +44,7 @@ class TimestampTest extends TestCase
     {
         $filter = new TimestampFilter($datePartVal, $datePartChar, $operator);
 
-        $result = $filter->filter(array('timestamp' => $timestamp));
+        $result = $filter->filter(['timestamp' => $timestamp]);
 
         if ($expectation === true) {
             $this->assertTrue($result);
@@ -79,11 +79,11 @@ class TimestampTest extends TestCase
 
     public function testFilterCreatedFromArray()
     {
-        $config = array(
+        $config = [
             'value' => 10,
             'dateFormatChar' => 'm',
             'operator' => '==',
-        );
+        ];
         $filter = new TimestampFilter($config);
 
         $this->assertAttributeEquals($config['value'], 'value', $filter);
@@ -93,11 +93,11 @@ class TimestampTest extends TestCase
 
     public function testFilterCreatedFromTraversable()
     {
-        $config = new ArrayObject(array(
+        $config = new ArrayObject([
             'value' => 10,
             'dateFormatChar' => 'm',
             'operator' => '==',
-        ));
+        ]);
         $filter = new TimestampFilter($config);
 
         $this->assertAttributeEquals($config['value'], 'value', $filter);
@@ -122,40 +122,40 @@ class TimestampTest extends TestCase
         $march2 = new DateTime('2014-03-02');
         $march3 = new DateTime('2014-03-03');
 
-        return array(
-            array(new DateTime('2014-03-03'), new DateTime('2014-03-03'), '>=', true),
-            array(new DateTime('2014-10-10'), new DateTime('2014-03-03'),'>=', true),
-            array(new DateTime('2014-03-03'), new DateTime('2014-10-10'), 'gt', false),
-            array(new DateTime('2013-03-03'), new DateTime('2014-03-03'), 'ge', false),
-            array(new DateTime('2014-03-03'), new DateTime('2014-03-03'), '==', true),
-            array(new DateTime('2014-02-02'), new DateTime('2014-03-03'), '<', true),
-            array(new DateTime('2014-03-03'), new DateTime('2014-03-03'), 'lt', false),
-            array($march3->getTimestamp(), new DateTime('2014-03-03'), 'lt', false),
-            array($march2->getTimestamp(), new DateTime('2014-03-03'), 'lt', true),
-            array((string) $march3->getTimestamp(), new DateTime('2014-03-03'), 'lt', false),
-            array((string) $march2->getTimestamp(), new DateTime('2014-03-03'), 'lt', true),
-        );
+        return [
+            [new DateTime('2014-03-03'), new DateTime('2014-03-03'), '>=', true],
+            [new DateTime('2014-10-10'), new DateTime('2014-03-03'),'>=', true],
+            [new DateTime('2014-03-03'), new DateTime('2014-10-10'), 'gt', false],
+            [new DateTime('2013-03-03'), new DateTime('2014-03-03'), 'ge', false],
+            [new DateTime('2014-03-03'), new DateTime('2014-03-03'), '==', true],
+            [new DateTime('2014-02-02'), new DateTime('2014-03-03'), '<', true],
+            [new DateTime('2014-03-03'), new DateTime('2014-03-03'), 'lt', false],
+            [$march3->getTimestamp(), new DateTime('2014-03-03'), 'lt', false],
+            [$march2->getTimestamp(), new DateTime('2014-03-03'), 'lt', true],
+            [(string) $march3->getTimestamp(), new DateTime('2014-03-03'), 'lt', false],
+            [(string) $march2->getTimestamp(), new DateTime('2014-03-03'), 'lt', true],
+        ];
     }
 
     public function datePartDataProvider()
     {
-        return array(
-            array(new DateTime('2014-03-03 10:15:00'), 10, 'H', '==', true),
-            array(new DateTime('2013-03-03 22:00:00'), 10, 'H', '=', false),
-            array(new DateTime('2014-03-04 10:15:00'), 3, 'd', 'gt', true),
-            array(new DateTime('2014-03-04 10:15:00'), 10, 'd', '<', true),
-            array(new DateTime('2014-03-03 10:15:00'), 1, 'm', 'eq', false),
-            array(new DateTime('2014-03-03 10:15:00'), 2, 'm', 'ge', true),
-            array(new DateTime('2014-03-03 10:15:00'), 20, 'H', '!=', true),
-        );
+        return [
+            [new DateTime('2014-03-03 10:15:00'), 10, 'H', '==', true],
+            [new DateTime('2013-03-03 22:00:00'), 10, 'H', '=', false],
+            [new DateTime('2014-03-04 10:15:00'), 3, 'd', 'gt', true],
+            [new DateTime('2014-03-04 10:15:00'), 10, 'd', '<', true],
+            [new DateTime('2014-03-03 10:15:00'), 1, 'm', 'eq', false],
+            [new DateTime('2014-03-03 10:15:00'), 2, 'm', 'ge', true],
+            [new DateTime('2014-03-03 10:15:00'), 20, 'H', '!=', true],
+        ];
     }
 
     public function ignoredMessages()
     {
-        return array(
-            array(array()),
-            array(array('hello world')),
-            array(array('timestamp' => null)),
-        );
+        return [
+            [[]],
+            [['hello world']],
+            [['timestamp' => null]],
+        ];
     }
 }

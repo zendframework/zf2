@@ -85,14 +85,14 @@ class CredentialTreatmentAdapter extends AbstractAdapter
 
         $credentialExpression = new SqlExpr(
             '(CASE WHEN ?' . ' = ' . $this->credentialTreatment . ' THEN 1 ELSE 0 END) AS ?',
-            array($this->credentialColumn, $this->credential, 'zend_auth_credential_match'),
-            array(SqlExpr::TYPE_IDENTIFIER, SqlExpr::TYPE_VALUE, SqlExpr::TYPE_IDENTIFIER)
+            [$this->credentialColumn, $this->credential, 'zend_auth_credential_match'],
+            [SqlExpr::TYPE_IDENTIFIER, SqlExpr::TYPE_VALUE, SqlExpr::TYPE_IDENTIFIER]
         );
 
         // get select
         $dbSelect = clone $this->getDbSelect();
         $dbSelect->from($this->tableName)
-            ->columns(array('*', $credentialExpression))
+            ->columns(['*', $credentialExpression])
             ->where(new SqlOp($this->identityColumn, '=', $this->identity));
 
         return $dbSelect;

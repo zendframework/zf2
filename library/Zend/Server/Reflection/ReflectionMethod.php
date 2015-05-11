@@ -34,7 +34,7 @@ class ReflectionMethod extends AbstractFunction
      * @param string $namespace
      * @param array $argv
      */
-    public function __construct(ReflectionClass $class, \ReflectionMethod $r, $namespace = null, $argv = array())
+    public function __construct(ReflectionClass $class, \ReflectionMethod $r, $namespace = null, $argv = [])
     {
         $this->classReflection = $class;
         $this->reflection      = $r;

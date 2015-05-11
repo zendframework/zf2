@@ -25,10 +25,10 @@ class ExcludeExtension extends Extension
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::FALSE_EXTENSION => "File has an incorrect extension",
         self::NOT_FOUND       => "File is not readable or does not exist",
-    );
+    ];
 
     /**
      * Returns true if and only if the file extension of $value is not included in the

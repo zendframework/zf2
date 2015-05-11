@@ -55,9 +55,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function testRetrievingASingleValueForParameters()
     {
         $request = new Request();
-        $p = new \Zend\Stdlib\Parameters(array(
+        $p = new \Zend\Stdlib\Parameters([
             'foo' => 'bar'
-        ));
+        ]);
         $request->setQuery($p);
         $request->setPost($p);
         $request->setFiles($p);
@@ -79,9 +79,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function testParameterRetrievalDefaultValue()
     {
         $request = new Request();
-        $p = new \Zend\Stdlib\Parameters(array(
+        $p = new \Zend\Stdlib\Parameters([
             'foo' => 'bar'
-        ));
+        ]);
         $request->setQuery($p);
         $request->setPost($p);
         $request->setFiles($p);
@@ -146,11 +146,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function uriDataProvider()
     {
-        return array(
-            array('/foo'),
-            array('/foo#test'),
-            array('/hello?what=true#noway')
-        );
+        return [
+            ['/foo'],
+            ['/foo#test'],
+            ['/hello?what=true#noway']
+        ];
     }
 
     public function testRequestSetUriWillThrowExceptionOnInvalidArgument()
@@ -250,11 +250,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     public function getMethods($providerContext, $trueMethod = null)
     {
         $refClass = new \ReflectionClass('Zend\Http\Request');
-        $return = array();
+        $return = [];
         foreach ($refClass->getConstants() as $cName => $cValue) {
             if (substr($cName, 0, 6) == 'METHOD') {
                 if ($providerContext) {
-                    $return[] = array($cValue);
+                    $return[] = [$cValue];
                 } else {
                     $return[strtolower($cValue)] = ($trueMethod == $cValue);
                 }

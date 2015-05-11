@@ -47,7 +47,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * @var Escaper[]
      */
-    protected $escapers = array();
+    protected $escapers = [];
 
     /**
      * Constructor
@@ -72,7 +72,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     {
         $container = $this->getContainer();
         if (method_exists($container, $method)) {
-            $return = call_user_func_array(array($container, $method), $args);
+            $return = call_user_func_array([$container, $method], $args);
             if ($return === $container) {
                 // If the container is returned, we really want the current object
                 return $this;

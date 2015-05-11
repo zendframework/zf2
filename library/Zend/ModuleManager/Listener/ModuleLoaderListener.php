@@ -32,7 +32,7 @@ class ModuleLoaderListener extends AbstractListener implements ListenerAggregate
     /**
      * @var array
      */
-    protected $callbacks = array();
+    protected $callbacks = [];
 
     /**
      * Constructor.
@@ -62,14 +62,14 @@ class ModuleLoaderListener extends AbstractListener implements ListenerAggregate
     {
         $this->callbacks[] = $events->attach(
             ModuleEvent::EVENT_LOAD_MODULES,
-            array($this->moduleLoader, 'register'),
+            [$this->moduleLoader, 'register'],
             9000
         );
 
         if ($this->generateCache) {
             $this->callbacks[] = $events->attach(
                 ModuleEvent::EVENT_LOAD_MODULES_POST,
-                array($this, 'onLoadModulesPost')
+                [$this, 'onLoadModulesPost']
             );
         }
     }

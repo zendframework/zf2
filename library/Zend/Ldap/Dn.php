@@ -71,7 +71,7 @@ class Dn implements ArrayAccess
     {
         $dn = trim($dn);
         if (empty($dn)) {
-            $dnArray = array();
+            $dnArray = [];
         } else {
             $dnArray = static::explodeDn((string) $dn);
         }
@@ -244,7 +244,7 @@ class Dn implements ArrayAccess
         static::assertRdn($value);
         $first    = array_slice($this->dn, 0, $index + 1);
         $second   = array_slice($this->dn, $index + 1);
-        $this->dn = array_merge($first, array($value), $second);
+        $this->dn = array_merge($first, [$value], $second);
         return $this;
     }
 
@@ -354,7 +354,7 @@ class Dn implements ArrayAccess
      */
     protected static function caseFoldDn(array $dn, $caseFold)
     {
-        $return = array();
+        $return = [];
         foreach ($dn as $part) {
             $return[] = static::caseFoldRdn($part, $caseFold);
         }
@@ -464,16 +464,16 @@ class Dn implements ArrayAccess
      * @param  string|array $values An array containing the DN values that should be escaped
      * @return array The array $values, but escaped
      */
-    public static function escapeValue($values = array())
+    public static function escapeValue($values = [])
     {
         if (!is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         foreach ($values as $key => $val) {
             // Escaping of filter meta characters
             $val = str_replace(
-                array('\\', ',', '+', '"', '<', '>', ';', '#', '='),
-                array('\\\\', '\,', '\+', '\"', '\<', '\>', '\;', '\#', '\='), $val
+                ['\\', ',', '+', '"', '<', '>', ';', '#', '='],
+                ['\\\\', '\,', '\+', '\"', '\<', '\>', '\;', '\#', '\='], $val
             );
             $val = Converter\Converter::ascToHex32($val);
 
@@ -507,16 +507,16 @@ class Dn implements ArrayAccess
      * @param  string|array $values Array of DN Values
      * @return array Same as $values, but unescaped
      */
-    public static function unescapeValue($values = array())
+    public static function unescapeValue($values = [])
     {
         if (!is_array($values)) {
-            $values = array($values);
+            $values = [$values];
         }
         foreach ($values as $key => $val) {
             // strip slashes from special chars
             $val          = str_replace(
-                array('\\\\', '\,', '\+', '\"', '\<', '\>', '\;', '\#', '\='),
-                array('\\', ',', '+', '"', '<', '>', ';', '#', '=', ), $val
+                ['\\\\', '\,', '\+', '\"', '\<', '\>', '\;', '\#', '\='],
+                ['\\', ',', '+', '"', '<', '>', ';', '#', '=', ], $val
             );
             $values[$key] = Converter\Converter::hex32ToAsc($val);
         }
@@ -546,15 +546,15 @@ class Dn implements ArrayAccess
         $dn, array &$keys = null, array &$vals = null,
         $caseFold = self::ATTR_CASEFOLD_NONE
     ) {
-        $k = array();
-        $v = array();
+        $k = [];
+        $v = [];
         if (!self::checkDn($dn, $k, $v, $caseFold)) {
             throw new Exception\LdapException(null, 'DN is malformed');
         }
-        $ret = array();
+        $ret = [];
         for ($i = 0, $count = count($k); $i < $count; $i++) {
             if (is_array($k[$i]) && is_array($v[$i]) && (($keyCount = count($k[$i])) === count($v[$i]))) {
-                $multi = array();
+                $multi = [];
                 for ($j = 0; $j < $keyCount; $j++) {
                     $key         = $k[$i][$j];
                     $val         = $v[$i][$j];
@@ -562,7 +562,7 @@ class Dn implements ArrayAccess
                 }
                 $ret[] = $multi;
             } elseif (is_string($k[$i]) && is_string($v[$i])) {
-                $ret[] = array($k[$i] => $v[$i]);
+                $ret[] = [$k[$i] => $v[$i]];
             }
         }
         if ($keys !== null) {
@@ -596,8 +596,8 @@ class Dn implements ArrayAccess
         $state = 1;
         $ko    = $vo = 0;
         $multi = false;
-        $ka    = array();
-        $va    = array();
+        $ka    = [];
+        $va    = [];
         for ($di = 0; $di <= $slen; $di++) {
             $ch = ($di == $slen) ? 0 : $dn[$di];
             switch ($state) {
@@ -640,9 +640,9 @@ class Dn implements ArrayAccess
                         if ($ch === '+' && $multi === false) {
                             $lastKey = array_pop($ka);
                             $lastVal = array_pop($va);
-                            $ka[]    = array($lastKey);
-                            $va[]    = array($lastVal);
-                            $multi   = array(strtolower($lastKey));
+                            $ka[]    = [$lastKey];
+                            $va[]    = [$lastVal];
+                            $multi   = [strtolower($lastKey)];
                         } elseif ($ch === ',' || $ch === ';' || $ch === 0) {
                             $multi = false;
                         }
@@ -681,11 +681,11 @@ class Dn implements ArrayAccess
     {
         static::assertRdn($part);
         $part     = static::caseFoldRdn($part, $caseFold);
-        $rdnParts = array();
+        $rdnParts = [];
         foreach ($part as $key => $value) {
             $value            = static::escapeValue($value);
             $keyId            = strtolower($key);
-            $rdnParts[$keyId] = implode('=', array($key, $value));
+            $rdnParts[$keyId] = implode('=', [$key, $value]);
         }
         ksort($rdnParts, SORT_STRING);
 
@@ -712,7 +712,7 @@ class Dn implements ArrayAccess
      */
     public static function implodeDn(array $dnArray, $caseFold = null, $separator = ',')
     {
-        $parts = array();
+        $parts = [];
         foreach ($dnArray as $p) {
             $parts[] = static::implodeRdn($p, $caseFold);
         }
@@ -730,8 +730,8 @@ class Dn implements ArrayAccess
     public static function isChildOf($childDn, $parentDn)
     {
         try {
-            $keys = array();
-            $vals = array();
+            $keys = [];
+            $vals = [];
             if ($childDn instanceof Dn) {
                 $cdn = $childDn->toArray(DN::ATTR_CASEFOLD_LOWER);
             } else {

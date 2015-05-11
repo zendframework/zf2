@@ -102,7 +102,7 @@ class DocumentLiteralWrapper
         $this->_assertServiceDelegateHasMethod($method);
 
         $delegateArgs = $this->_parseArguments($method, $args[0]);
-        $ret          = call_user_func_array(array($this->object, $method), $delegateArgs);
+        $ret          = call_user_func_array([$this->object, $method], $delegateArgs);
         return $this->_getResultMessage($method, $ret);
     }
 
@@ -118,12 +118,12 @@ class DocumentLiteralWrapper
     protected function _parseArguments($method, $document)
     {
         $reflMethod = $this->reflection->getMethod($method);
-        $params = array();
+        $params = [];
         foreach ($reflMethod->getParameters() as $param) {
             $params[$param->getName()] = $param;
         }
 
-        $delegateArgs = array();
+        $delegateArgs = [];
         foreach (get_object_vars($document) as $argName => $argValue) {
             if (!isset($params[$argName])) {
                 throw new Exception\UnexpectedValueException(sprintf(
@@ -148,7 +148,7 @@ class DocumentLiteralWrapper
      */
     protected function _getResultMessage($method, $ret)
     {
-        return array($method . 'Result' => $ret);
+        return [$method . 'Result' => $ret];
     }
 
     /**

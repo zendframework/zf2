@@ -14,7 +14,7 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
     /**
      * @var array
      */
-    protected $types = array();
+    protected $types = [];
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class PropertyTag implements TagInterface, PhpDocTypedTagInterface
      */
     public function initialize($tagDocblockLine)
     {
-        $match = array();
+        $match = [];
         if (!preg_match('#^(.+)?(\$[\S]+)[\s]*(.*)$#m', $tagDocblockLine, $match)) {
             return;
         }

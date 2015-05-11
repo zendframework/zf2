@@ -52,12 +52,12 @@ class Writer
      *
      * @var array
      */
-    protected static $extensions = array(
-        'entry'         => array(),
-        'feed'          => array(),
-        'entryRenderer' => array(),
-        'feedRenderer'  => array(),
-    );
+    protected static $extensions = [
+        'entry'         => [],
+        'feed'          => [],
+        'entryRenderer' => [],
+        'feedRenderer'  => [],
+    ];
 
     /**
      * Set plugin loader for use with Extensions
@@ -167,12 +167,12 @@ class Writer
     public static function reset()
     {
         static::$extensionManager = null;
-        static::$extensions   = array(
-            'entry'         => array(),
-            'feed'          => array(),
-            'entryRenderer' => array(),
-            'feedRenderer'  => array(),
-        );
+        static::$extensions   = [
+            'entry'         => [],
+            'feed'          => [],
+            'entryRenderer' => [],
+            'feedRenderer'  => [],
+        ];
     }
 
     /**

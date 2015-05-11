@@ -17,7 +17,7 @@ use PHPUnit_Framework_TestSuite;
 
 class IntegrationTestListener implements PHPUnit_Framework_TestListener
 {
-    protected $adapters = array(
+    protected $adapters = [
         'mysqli' => null,
         'pdo_mysql' => null,
         'pgsql' => null,
@@ -25,7 +25,7 @@ class IntegrationTestListener implements PHPUnit_Framework_TestListener
         'pdo_sqlite' => null,
         'sqlsrv' => null,
         'pdo_sqlsrv' => null,
-    );
+    ];
 
     public function __construct()
     {
@@ -74,12 +74,12 @@ class IntegrationTestListener implements PHPUnit_Framework_TestListener
             if (extension_loaded('sqlsrv')) {
                 $this->adapters['sqlsrv'] = sqlsrv_connect(
                     $GLOBALS['ZEND_DB_ADAPTER_DRIVER_SQLSRV_HOSTNAME'],
-                    array(
+                    [
                         'UID' => $GLOBALS['ZEND_DB_ADAPTER_DRIVER_SQLSRV_USERNAME'],
                         'PWD' => $GLOBALS['ZEND_DB_ADAPTER_DRIVER_SQLSRV_PASSWORD'],
                         'Database' => (isset($GLOBALS['ZEND_DB_ADAPTER_DRIVER_SQLSRV_DATABASE'])
                             ? $GLOBALS['ZEND_DB_ADAPTER_DRIVER_SQLSRV_DATABASE'] : null)
-                    )
+                    ]
                 );
                 if (!$this->adapters['sqlsrv']) {
                     var_dump(sqlsrv_errors());
@@ -155,7 +155,7 @@ class IntegrationTestListener implements PHPUnit_Framework_TestListener
             if ($refObj->hasProperty('adapters')) {
                 $refProp = $refObj->getProperty('adapters');
                 $refProp->setAccessible(true);
-                $refProp->setValue($test, array());
+                $refProp->setValue($test, []);
             }
         }
     }

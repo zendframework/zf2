@@ -14,18 +14,18 @@ namespace Zend\Barcode\Object;
  */
 class Ean5 extends Ean13
 {
-    protected $parities = array(
-        0 => array('B','B','A','A','A'),
-        1 => array('B','A','B','A','A'),
-        2 => array('B','A','A','B','A'),
-        3 => array('B','A','A','A','B'),
-        4 => array('A','B','B','A','A'),
-        5 => array('A','A','B','B','A'),
-        6 => array('A','A','A','B','B'),
-        7 => array('A','B','A','B','A'),
-        8 => array('A','B','A','A','B'),
-        9 => array('A','A','B','A','B')
-    );
+    protected $parities = [
+        0 => ['B','B','A','A','A'],
+        1 => ['B','A','B','A','A'],
+        2 => ['B','A','A','B','A'],
+        3 => ['B','A','A','A','B'],
+        4 => ['A','B','B','A','A'],
+        5 => ['A','A','B','B','A'],
+        6 => ['A','A','A','B','B'],
+        7 => ['A','B','A','B','A'],
+        8 => ['A','B','A','A','B'],
+        9 => ['A','A','B','A','B']
+    ];
 
     /**
      * Default options for Ean5 barcode
@@ -55,14 +55,14 @@ class Ean5 extends Ean13
      */
     protected function prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
 
         // Start character (01011)
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
+        $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
 
         $firstCharacter = true;
         $textTable = str_split($this->getText());
@@ -73,12 +73,12 @@ class Ean5 extends Ean13
                 $firstCharacter = false;
             } else {
                 // Intermediate character (01)
-                $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
-                $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
+                $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
             }
             $bars = str_split($this->codingMap[$this->getParity($i)][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$b, $this->barThinWidth, 0, 1];
             }
         }
 

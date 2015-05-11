@@ -26,7 +26,7 @@ class HtmlPage extends AbstractHtmlElement
      *
      * @var array
      */
-    protected $attribs = array('classid' => self::ATTRIB_CLASSID);
+    protected $attribs = ['classid' => self::ATTRIB_CLASSID];
 
     /**
      * Output a html object tag
@@ -37,13 +37,13 @@ class HtmlPage extends AbstractHtmlElement
      * @param  string $content Alternative content
      * @return string
      */
-    public function __invoke($data, array $attribs = array(), array $params = array(), $content = null)
+    public function __invoke($data, array $attribs = [], array $params = [], $content = null)
     {
         // Attribs
         $attribs = array_merge($this->attribs, $attribs);
 
         // Params
-        $params = array_merge(array('data' => $data), $params);
+        $params = array_merge(['data' => $data], $params);
 
         $htmlObject = $this->getView()->plugin('htmlObject');
         return $htmlObject($data, self::TYPE, $attribs, $params, $content);

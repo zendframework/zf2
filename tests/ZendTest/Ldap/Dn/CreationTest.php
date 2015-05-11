@@ -23,28 +23,28 @@ class CreationTest extends \PHPUnit_Framework_TestCase
         Ldap\Dn::setDefaultCaseFold(Ldap\Dn::ATTR_CASEFOLD_NONE);
 
         $dnString1 = 'CN=Baker\\, Alice,CN=Users+OU=Lab,DC=example,DC=com';
-        $dnArray1  = array(
-            array('CN' => 'Baker, Alice'),
-            array('CN' => 'Users',
-                  'OU' => 'Lab'),
-            array('DC' => 'example'),
-            array('DC' => 'com'));
+        $dnArray1  = [
+            ['CN' => 'Baker, Alice'],
+            ['CN' => 'Users',
+                  'OU' => 'Lab'],
+            ['DC' => 'example'],
+            ['DC' => 'com']];
 
         $dnString2 = 'cn=Baker\\, Alice,cn=Users+ou=Lab,dc=example,dc=com';
-        $dnArray2  = array(
-            array('cn' => 'Baker, Alice'),
-            array('cn' => 'Users',
-                  'ou' => 'Lab'),
-            array('dc' => 'example'),
-            array('dc' => 'com'));
+        $dnArray2  = [
+            ['cn' => 'Baker, Alice'],
+            ['cn' => 'Users',
+                  'ou' => 'Lab'],
+            ['dc' => 'example'],
+            ['dc' => 'com']];
 
         $dnString3 = 'Cn=Baker\\, Alice,Cn=Users+Ou=Lab,Dc=example,Dc=com';
-        $dnArray3  = array(
-            array('Cn' => 'Baker, Alice'),
-            array('Cn' => 'Users',
-                  'Ou' => 'Lab'),
-            array('Dc' => 'example'),
-            array('Dc' => 'com'));
+        $dnArray3  = [
+            ['Cn' => 'Baker, Alice'],
+            ['Cn' => 'Users',
+                  'Ou' => 'Lab'],
+            ['Dc' => 'example'],
+            ['Dc' => 'com']];
 
         $dn11 = Ldap\Dn::fromString($dnString1);
         $dn12 = Ldap\Dn::fromArray($dnArray1);
@@ -152,13 +152,13 @@ class CreationTest extends \PHPUnit_Framework_TestCase
         $dnString = 'cn=Baker\\, Alice,cn=Users,dc=example,dc=com';
         $dn       = Ldap\Dn::fromString($dnString);
 
-        $this->assertEquals(array('cn' => 'Baker, Alice'), $dn->getRdn());
+        $this->assertEquals(['cn' => 'Baker, Alice'], $dn->getRdn());
         $this->assertEquals('cn=Baker\\, Alice', $dn->getRdnString());
 
         $dnString = 'Cn=Users+Ou=Lab,dc=example,dc=com';
         $dn       = Ldap\Dn::fromString($dnString);
-        $this->assertEquals(array('Cn' => 'Users',
-                                 'Ou'  => 'Lab'), $dn->getRdn()
+        $this->assertEquals(['Cn' => 'Users',
+                                 'Ou'  => 'Lab'], $dn->getRdn()
         );
         $this->assertEquals('Cn=Users+Ou=Lab', $dn->getRdnString());
     }

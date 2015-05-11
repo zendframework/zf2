@@ -19,7 +19,7 @@ class FormInput extends AbstractHelper
      *
      * @var array
      */
-    protected $validTagAttributes = array(
+    protected $validTagAttributes = [
         'name'           => true,
         'accept'         => true,
         'alt'            => true,
@@ -50,14 +50,14 @@ class FormInput extends AbstractHelper
         'type'           => true,
         'value'          => true,
         'width'          => true,
-    );
+    ];
 
     /**
      * Valid values for the input type
      *
      * @var array
      */
-    protected $validTypes = array(
+    protected $validTypes = [
         'text'           => true,
         'button'         => true,
         'checkbox'       => true,
@@ -82,7 +82,7 @@ class FormInput extends AbstractHelper
         'time'           => true,
         'url'            => true,
         'week'           => true,
-    );
+    ];
 
     /**
      * Invoke helper as functor

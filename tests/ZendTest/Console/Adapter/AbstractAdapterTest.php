@@ -159,9 +159,9 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
     public function testTextBlockLongUnbreakableWord()
     {
         $text = 'thisisaverylongwordthatwontbreakproperlysothereyouhaveit and here is some more text';
-        $expected = array('thisisaver', 'ylongwordt', 'hatwontbre', 'akproperly'
+        $expected = ['thisisaver', 'ylongwordt', 'hatwontbre', 'akproperly'
            , 'sothereyou', 'haveit and', 'here is', 'some more'
-           , 'text');
+           , 'text'];
 
         ob_start();
         $this->adapter->writeTextBlock($text, 10);
@@ -173,10 +173,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
     public function testTextBlockLongerThanHeight()
     {
         $text = 'thisisaverylongwordthatwontbreakproperlysothereyouhaveit and here is some more text';
-        $expected = array('thisisaver', 'ylongwordt', 'hatwontbre');
+        $expected = ['thisisaver', 'ylongwordt', 'hatwontbre'];
 
         //reset tracking of written data
-        $this->adapter->writtenData = array();
+        $this->adapter->writtenData = [];
 
         ob_start();
         $this->adapter->writeTextBlock($text, 10, 3);

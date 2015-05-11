@@ -32,10 +32,10 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
         $adapter = $this->getMock(
             'Zend\Db\Adapter\Adapter',
             null,
-            array(
+            [
                 $driver,
                 new MysqlPlatform()
-            )
+            ]
         );
 
         $parameterContainer = new ParameterContainer;
@@ -74,27 +74,27 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
         $select0 = new Select;
         $select0->from('foo')->limit(5)->offset(10);
         $expectedPrepareSql0 = 'SELECT `foo`.* FROM `foo` LIMIT ? OFFSET ?';
-        $expectedParams0 = array('offset' => 10, 'limit' => 5);
+        $expectedParams0 = ['offset' => 10, 'limit' => 5];
         $expectedSql0 = 'SELECT `foo`.* FROM `foo` LIMIT 5 OFFSET 10';
 
         // offset without limit
         $select1 = new Select;
         $select1->from('foo')->offset(10);
         $expectedPrepareSql1 = 'SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET ?';
-        $expectedParams1 = array('offset' => 10);
+        $expectedParams1 = ['offset' => 10];
         $expectedSql1 = 'SELECT `foo`.* FROM `foo` LIMIT 18446744073709551615 OFFSET 10';
 
         // offset and limit are not type casted when injected into parameter container
         $select2 = new Select;
         $select2->from('foo')->limit('5')->offset('10000000000000000000');
         $expectedPrepareSql2 = 'SELECT `foo`.* FROM `foo` LIMIT ? OFFSET ?';
-        $expectedParams2 = array('offset' => '10000000000000000000', 'limit' => '5');
+        $expectedParams2 = ['offset' => '10000000000000000000', 'limit' => '5'];
         $expectedSql2 = 'SELECT `foo`.* FROM `foo` LIMIT 5 OFFSET 10000000000000000000';
 
-        return array(
-            array($select0, $expectedPrepareSql0, $expectedParams0, $expectedSql0),
-            array($select1, $expectedPrepareSql1, $expectedParams1, $expectedSql1),
-            array($select2, $expectedPrepareSql2, $expectedParams2, $expectedSql2),
-        );
+        return [
+            [$select0, $expectedPrepareSql0, $expectedParams0, $expectedSql0],
+            [$select1, $expectedPrepareSql1, $expectedParams1, $expectedSql1],
+            [$select2, $expectedPrepareSql2, $expectedParams2, $expectedSql2],
+        ];
     }
 }

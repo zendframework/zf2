@@ -17,7 +17,7 @@ use Zend\Di\Definition\RuntimeDefinition;
  */
 class DefinitionList extends SplDoublyLinkedList implements Definition\DefinitionInterface
 {
-    protected $classes = array();
+    protected $classes = [];
     protected $runtimeDefinitions;
 
     /**
@@ -27,7 +27,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
     {
         $this->runtimeDefinitions = new SplDoublyLinkedList();
         if (!is_array($definitions)) {
-            $definitions = array($definitions);
+            $definitions = [$definitions];
         }
         foreach ($definitions as $definition) {
             $this->addDefinition($definition, true);
@@ -54,7 +54,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
     {
         $definitionClasses = $definition->getClasses();
         if (empty($definitionClasses)) {
-            return array();
+            return [];
         }
         return array_combine(array_values($definitionClasses), array_fill(0, count($definitionClasses), $definition));
     }
@@ -85,7 +85,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
      */
     public function getDefinitionsByType($type)
     {
-        $definitions = array();
+        $definitions = [];
         foreach ($this as $definition) {
             if ($definition instanceof $type) {
                 $definitions[] = $definition;
@@ -172,7 +172,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
     public function getClassSupertypes($class)
     {
         if (false === ($classDefinition = $this->getDefinitionForClass($class))) {
-            return array();
+            return [];
         }
         $supertypes = $classDefinition->getClassSupertypes($class);
         if (! $classDefinition instanceof Definition\PartialMarker) {
@@ -290,7 +290,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
     public function getMethods($class)
     {
         if (false === ($classDefinition = $this->getDefinitionForClass($class))) {
-            return array();
+            return [];
         }
         $methods = $classDefinition->getMethods($class);
         if (! $classDefinition instanceof Definition\PartialMarker) {
@@ -320,7 +320,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
     {
         $methodParameters = $this->getMethodParameters($class, $method);
 
-        return ($methodParameters !== array());
+        return ($methodParameters !== []);
     }
 
     /**
@@ -329,7 +329,7 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
     public function getMethodParameters($class, $method)
     {
         if (false === ($classDefinition = $this->getDefinitionForClass($class))) {
-            return array();
+            return [];
         }
         if ($classDefinition->hasMethod($class, $method) && $classDefinition->hasMethodParameters($class, $method)) {
             return $classDefinition->getMethodParameters($class, $method);
@@ -347,6 +347,6 @@ class DefinitionList extends SplDoublyLinkedList implements Definition\Definitio
             }
         }
 
-        return array();
+        return [];
     }
 }

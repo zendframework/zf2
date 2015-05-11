@@ -14,10 +14,10 @@ namespace ZendTest\Json\TestAsset;
  */
 class TestIteratorAggregate implements \IteratorAggregate
 {
-    protected $array = array(
+    protected $array = [
         'foo' => 'bar',
         'baz' => 5
-    );
+    ];
 
     public function getIterator()
     {

@@ -19,12 +19,12 @@ class NotInTest extends TestCase
     {
         $in = new NotIn();
         $in->setIdentifier('foo.bar')
-            ->setValueSet(array(1, 2, 3));
-        $expected = array(array(
+            ->setValueSet([1, 2, 3]);
+        $expected = [[
             '%s NOT IN (%s, %s, %s)',
-            array('foo.bar', 1, 2, 3),
-            array(NotIn::TYPE_IDENTIFIER, NotIn::TYPE_VALUE, NotIn::TYPE_VALUE, NotIn::TYPE_VALUE),
-        ));
+            ['foo.bar', 1, 2, 3],
+            [NotIn::TYPE_IDENTIFIER, NotIn::TYPE_VALUE, NotIn::TYPE_VALUE, NotIn::TYPE_VALUE],
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 
@@ -32,11 +32,11 @@ class NotInTest extends TestCase
     {
         $select = new Select;
         $in = new NotIn('foo', $select);
-        $expected = array(array(
+        $expected = [[
             '%s NOT IN %s',
-            array('foo', $select),
-            array($in::TYPE_IDENTIFIER, $in::TYPE_VALUE)
-        ));
+            ['foo', $select],
+            [$in::TYPE_IDENTIFIER, $in::TYPE_VALUE]
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 
@@ -44,23 +44,23 @@ class NotInTest extends TestCase
     {
         $select = new Select;
         $in = new NotIn('foo', $select);
-        $expected = array(array(
+        $expected = [[
             '%s NOT IN %s',
-            array('foo', $select),
-            array($in::TYPE_IDENTIFIER, $in::TYPE_VALUE)
-        ));
+            ['foo', $select],
+            [$in::TYPE_IDENTIFIER, $in::TYPE_VALUE]
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 
     public function testGetExpressionDataWithSubselectAndArrayIdentifier()
     {
         $select = new Select;
-        $in = new NotIn(array('foo', 'bar'), $select);
-        $expected = array(array(
+        $in = new NotIn(['foo', 'bar'], $select);
+        $expected = [[
             '(%s, %s) NOT IN %s',
-            array('foo', 'bar', $select),
-            array($in::TYPE_IDENTIFIER, $in::TYPE_IDENTIFIER, $in::TYPE_VALUE)
-        ));
+            ['foo', 'bar', $select],
+            [$in::TYPE_IDENTIFIER, $in::TYPE_IDENTIFIER, $in::TYPE_VALUE]
+        ]];
         $this->assertEquals($expected, $in->getExpressionData());
     }
 }

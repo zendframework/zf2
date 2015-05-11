@@ -16,7 +16,7 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
     /**
      * All character encodings supported by htmlspecialchars()
      */
-    protected $supportedEncodings = array(
+    protected $supportedEncodings = [
         'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
         'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
         'ibm866',       '866',          'cp1251',       'windows-1251',
@@ -26,17 +26,17 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
         'big5-hkscs',   'shift_jis',    'sjis',         'sjis-win',
         'cp932',        '932',          'euc-jp',       'eucjp',
         'eucjp-win',    'macroman'
-    );
+    ];
 
-    protected $htmlSpecialChars = array(
+    protected $htmlSpecialChars = [
         '\''    => '&#039;',
         '"'     => '&quot;',
         '<'     => '&lt;',
         '>'     => '&gt;',
         '&'     => '&amp;'
-    );
+    ];
 
-    protected $htmlAttrSpecialChars = array(
+    protected $htmlAttrSpecialChars = [
         '\''    => '&#x27;',
         '"'     => '&quot;',
         '<'     => '&lt;',
@@ -68,9 +68,9 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
         '"'     => '&quot;',
         /* Encode spaces for quoteless attribute protection */
         ' '     => '&#x20;',
-    );
+    ];
 
-    protected $jsSpecialChars = array(
+    protected $jsSpecialChars = [
         /* HTML special chars - escape without exception to hex */
         '<'     => '\\x3C',
         '>'     => '\\x3E',
@@ -97,9 +97,9 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
         "\0"    => '\\x00',
         /* Encode spaces for quoteless attribute protection */
         ' '     => '\\x20',
-    );
+    ];
 
-    protected $urlSpecialChars = array(
+    protected $urlSpecialChars = [
         /* HTML special chars - escape without exception to percent encoding */
         '<'     => '%3C',
         '>'     => '%3E',
@@ -132,9 +132,9 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
         ' '     => '%20',
         '~'     => '~',
         '+'     => '%2B',
-    );
+    ];
 
-    protected $cssSpecialChars = array(
+    protected $cssSpecialChars = [
         /* HTML special chars - escape without exception to hex */
         '<'     => '\\3C ',
         '>'     => '\\3E ',
@@ -161,7 +161,7 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
         "\0"    => '\\0 ',
         /* Encode spaces for quoteless attribute protection */
         ' '     => '\\20 ',
-    );
+    ];
 
 
     public function setUp()
@@ -283,7 +283,7 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
     public function testUnicodeCodepointConversionToUtf8()
     {
         $expected = " ~ޙ";
-        $codepoints = array(0x20, 0x7e, 0x799);
+        $codepoints = [0x20, 0x7e, 0x799];
         $result = '';
         foreach ($codepoints as $value) {
             $result .= $this->codepointToUtf8($value);
@@ -322,7 +322,7 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
 
     public function testJavascriptEscapingEscapesOwaspRecommendedRanges()
     {
-        $immune = array(',', '.', '_'); // Exceptions to escaping ranges
+        $immune = [',', '.', '_']; // Exceptions to escaping ranges
         for ($chr=0; $chr < 0xFF; $chr++) {
             if ($chr >= 0x30 && $chr <= 0x39
                 || $chr >= 0x41 && $chr <= 0x5A
@@ -347,7 +347,7 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
 
     public function testHtmlAttributeEscapingEscapesOwaspRecommendedRanges()
     {
-        $immune = array(',', '.', '-', '_'); // Exceptions to escaping ranges
+        $immune = [',', '.', '-', '_']; // Exceptions to escaping ranges
         for ($chr=0; $chr < 0xFF; $chr++) {
             if ($chr >= 0x30 && $chr <= 0x39
                 || $chr >= 0x41 && $chr <= 0x5A
@@ -372,7 +372,7 @@ class EscaperTest extends \PHPUnit_Framework_TestCase
 
     public function testCssEscapingEscapesOwaspRecommendedRanges()
     {
-        $immune = array(); // CSS has no exceptions to escaping ranges
+        $immune = []; // CSS has no exceptions to escaping ranges
         for ($chr=0; $chr < 0xFF; $chr++) {
             if ($chr >= 0x30 && $chr <= 0x39
                 || $chr >= 0x41 && $chr <= 0x5A

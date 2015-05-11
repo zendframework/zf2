@@ -61,7 +61,7 @@ class Rbac extends AbstractIterator
 
         if ($parents) {
             if (!is_array($parents)) {
-                $parents = array($parents);
+                $parents = [$parents];
             }
             foreach ($parents as $parent) {
                 if ($this->createMissingRoles && !$this->hasRole($parent)) {

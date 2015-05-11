@@ -69,12 +69,12 @@ class PropertyTagTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorWithOptions()
     {
-        $this->tag->setOptions(array(
+        $this->tag->setOptions([
             'propertyName' => 'property',
-            'types' => array('string'),
+            'types' => ['string'],
             'description' => 'description'
-        ));
-        $tagWithOptionsFromConstructor = new PropertyTag('property', array('string'), 'description');
+        ]);
+        $tagWithOptionsFromConstructor = new PropertyTag('property', ['string'], 'description');
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }
 

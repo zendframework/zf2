@@ -17,19 +17,19 @@ class SelectTest extends TestCase
     public function testProvidesInputSpecificationForSingleSelect()
     {
         $element = new SelectElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\InArray'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -39,12 +39,12 @@ class SelectTest extends TestCase
     public function testValidateWorksForNestedSelectElementWithSimpleNaming()
     {
         $element = new SelectElement();
-        $element->setValueOptions(array(
-          array('label' => 'group 1', 'options' => array(
+        $element->setValueOptions([
+          ['label' => 'group 1', 'options' => [
             'Option 1' => 'Label 1',
             'Option 2' => 'Label 2',
             'Option 3' => 'Label 2',
-          ))));
+          ]]]);
 
         $inputSpec = $element->getInputSpecification();
         $inArrayValidator = $inputSpec['validators'][0];
@@ -56,12 +56,12 @@ class SelectTest extends TestCase
     public function testValidateWorksForNestedSelectElementWithExplicitNaming()
     {
         $element = new SelectElement();
-        $element->setValueOptions(array(
-          array('label' => 'group 1', 'options' => array(
-            array('value' => 'Option 1', 'label'=> 'Label 1'),
-            array('value' => 'Option 2', 'label'=> 'Label 2'),
-            array('value' => 'Option 3', 'label'=> 'Label 3'),
-          ))));
+        $element->setValueOptions([
+          ['label' => 'group 1', 'options' => [
+            ['value' => 'Option 1', 'label'=> 'Label 1'],
+            ['value' => 'Option 2', 'label'=> 'Label 2'],
+            ['value' => 'Option 3', 'label'=> 'Label 3'],
+          ]]]);
 
         $inputSpec = $element->getInputSpecification();
         $inArrayValidator = $inputSpec['validators'][0];
@@ -74,22 +74,22 @@ class SelectTest extends TestCase
     public function testProvidesInputSpecificationForMultipleSelect()
     {
         $element = new SelectElement();
-        $element->setAttributes(array(
+        $element->setAttributes([
             'multiple' => true,
-        ));
-        $element->setValueOptions(array(
+        ]);
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
 
         $inputSpec = $element->getInputSpecification();
         $this->assertArrayHasKey('validators', $inputSpec);
         $this->assertInternalType('array', $inputSpec['validators']);
 
-        $expectedClasses = array(
+        $expectedClasses = [
             'Zend\Validator\Explode'
-        );
+        ];
         foreach ($inputSpec['validators'] as $validator) {
             $class = get_class($validator);
             $this->assertContains($class, $expectedClasses, $class);
@@ -105,22 +105,22 @@ class SelectTest extends TestCase
 
     public function selectOptionsDataProvider()
     {
-        return array(
-            array(
-                array('foo', 'bar'),
-                array(
+        return [
+            [
+                ['foo', 'bar'],
+                [
                     'foo' => 'My Foo Label',
                     'bar' => 'My Bar Label',
-                )
-            ),
-            array(
-                array('foo', 'bar'),
-                array(
-                    0 => array('label' => 'My Foo Label', 'value' => 'foo'),
-                    1 => array('label' => 'My Bar Label', 'value' => 'bar'),
-                )
-            ),
-        );
+                ]
+            ],
+            [
+                ['foo', 'bar'],
+                [
+                    0 => ['label' => 'My Foo Label', 'value' => 'foo'],
+                    1 => ['label' => 'My Bar Label', 'value' => 'bar'],
+                ]
+            ],
+        ];
     }
 
     /**
@@ -168,39 +168,39 @@ class SelectTest extends TestCase
     public function testDeprecateOptionsInAttributes()
     {
         $element = new SelectElement();
-        $valueOptions = array(
+        $valueOptions = [
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        );
-        $element->setAttributes(array(
+        ];
+        $element->setAttributes([
             'multiple' => true,
             'options'  => $valueOptions,
-        ));
+        ]);
         $this->assertEquals($valueOptions, $element->getValueOptions());
     }
 
     public function testSetOptionsOptions()
     {
         $element = new SelectElement();
-        $element->setOptions(array(
-                                  'value_options' => array('bar' => 'baz'),
-                                  'options' => array('foo' => 'bar'),
-                                  'empty_option' => array('baz' => 'foo'),
-                             ));
-        $this->assertEquals(array('bar' => 'baz'), $element->getOption('value_options'));
-        $this->assertEquals(array('foo' => 'bar'), $element->getOption('options'));
-        $this->assertEquals(array('baz' => 'foo'), $element->getOption('empty_option'));
+        $element->setOptions([
+                                  'value_options' => ['bar' => 'baz'],
+                                  'options' => ['foo' => 'bar'],
+                                  'empty_option' => ['baz' => 'foo'],
+                             ]);
+        $this->assertEquals(['bar' => 'baz'], $element->getOption('value_options'));
+        $this->assertEquals(['foo' => 'bar'], $element->getOption('options'));
+        $this->assertEquals(['baz' => 'foo'], $element->getOption('empty_option'));
     }
 
     public function testDisableInputSpecification()
     {
         $element = new SelectElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->setDisableInArrayValidator(true);
 
         $inputSpec = $element->getInputSpecification();
@@ -210,11 +210,11 @@ class SelectTest extends TestCase
     public function testUnsetValueOption()
     {
         $element = new SelectElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->unsetValueOption('Option 2');
 
         $valueOptions = $element->getValueOptions();
@@ -224,11 +224,11 @@ class SelectTest extends TestCase
     public function testUnsetUndefinedValueOption()
     {
         $element = new SelectElement();
-        $element->setValueOptions(array(
+        $element->setValueOptions([
             'Option 1' => 'option1',
             'Option 2' => 'option2',
             'Option 3' => 'option3',
-        ));
+        ]);
         $element->unsetValueOption('Option Undefined');
 
         $valueOptions = $element->getValueOptions();
@@ -237,16 +237,16 @@ class SelectTest extends TestCase
 
     public function testSetOptionsToSelectMultiple()
     {
-        $element = new SelectElement(null, array(
+        $element = new SelectElement(null, [
             'label' => 'Importance',
             'use_hidden_element' => true,
             'unselected_value' => 'empty',
-            'value_options' => array(
+            'value_options' => [
                 'foo' => 'Foo',
                 'bar' => 'Bar'
-            ),
-        ));
-        $element->setAttributes(array('multiple' => 'multiple'));
+            ],
+        ]);
+        $element->setAttributes(['multiple' => 'multiple']);
 
         $this->assertTrue($element->isMultiple());
         $this->assertTrue($element->useHiddenElement());
@@ -258,9 +258,9 @@ class SelectTest extends TestCase
         $element = new SelectElement();
         $element
             ->setUseHiddenElement(true)
-            ->setAttributes(array(
+            ->setAttributes([
                 'multiple' => true,
-            ));
+            ]);
 
         $inputSpec = $element->getInputSpecification();
 

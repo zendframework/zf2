@@ -18,13 +18,13 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         $this->storage = new SessionStorage;
     }
 
     public function tearDown()
     {
-        $_SESSION = array();
+        $_SESSION = [];
     }
 
     public function testSessionStorageInheritsFromArrayStorage()
@@ -44,14 +44,14 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
     public function testPassingArrayToConstructorOverwritesSessionSuperglobal()
     {
         $_SESSION['foo'] = 'bar';
-        $array   = array('foo' => 'FOO');
+        $array   = ['foo' => 'FOO'];
         $storage = new SessionStorage($array);
-        $expected = array(
+        $expected = [
             'foo' => 'FOO',
-            '__ZF' => array(
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $storage->getRequestAccessTime(),
-            ),
-        );
+            ],
+        ];
         $this->assertSame($expected, $_SESSION->getArrayCopy());
     }
 
@@ -64,12 +64,12 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
     public function testDestructorSetsSessionToArray()
     {
         $this->storage->foo = 'bar';
-        $expected = array(
-            '__ZF' => array(
+        $expected = [
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
-            ),
+            ],
             'foo' => 'bar',
-        );
+        ];
         $this->storage->__destruct();
         $this->assertSame($expected, $_SESSION);
     }
@@ -93,7 +93,7 @@ class SessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testMultiDimensionalUnset()
     {
-        $this->storage['foo'] = array('bar' => array('baz' => 'boo'));
+        $this->storage['foo'] = ['bar' => ['baz' => 'boo']];
         unset($this->storage['foo']['bar']['baz']);
         $this->assertFalse(isset($this->storage['foo']['bar']['baz']));
         unset($this->storage['foo']['bar']);

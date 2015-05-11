@@ -22,10 +22,10 @@ class ZendMonitorTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $writer = new ZendMonitor();
-        $writer->write(array(
+        $writer->write([
             'message' => 'my mess',
             'priority' => 1
-        ));
+        ]);
     }
 
     public function testIsEnabled()

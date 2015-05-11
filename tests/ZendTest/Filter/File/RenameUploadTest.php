@@ -126,12 +126,12 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($filter->getOverwrite());
         $this->assertFalse($filter->getRandomize());
 
-        $filter = new FileRenameUpload(array(
+        $filter = new FileRenameUpload([
             'target'          => $this->_oldFile,
             'use_upload_name' => true,
             'overwrite'       => true,
             'randomize'       => true,
-        ));
+        ]);
         $this->assertEquals($this->_oldFile, $filter->getTarget());
         $this->assertTrue($filter->getUseUploadName());
         $this->assertTrue($filter->getOverwrite());
@@ -157,14 +157,14 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
         $filter = new RenameUploadMock($this->_newFile);
         $this->assertEquals($this->_newFile, $filter->getTarget());
         $this->assertEquals(
-            array(
+            [
                 'tmp_name' => $this->_newFile,
                 'name'     => $this->_newFile,
-            ),
-            $filter(array(
+            ],
+            $filter([
                 'tmp_name' => $this->_oldFile,
                 'name' => $this->_newFile,
-            ))
+            ])
         );
         $this->assertEquals('falsefile', $filter('falsefile'));
     }
@@ -174,9 +174,9 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayConstructorParam()
     {
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target' => $this->_newFile,
-        ));
+        ]);
         $this->assertEquals($this->_newFile, $filter->getTarget());
         $this->assertEquals($this->_newFile, $filter($this->_oldFile));
         $this->assertEquals('falsefile', $filter('falsefile'));
@@ -209,10 +209,10 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testOverwriteWithExistingFile()
     {
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'overwrite'       => true,
-        ));
+        ]);
 
         copy($this->_oldFile, $this->_newFile);
 
@@ -225,10 +225,10 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testCannotOverwriteExistingFile()
     {
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'overwrite'       => false,
-        ));
+        ]);
 
         copy($this->_oldFile, $this->_newFile);
 
@@ -246,10 +246,10 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
     public function testGetRandomizedFile()
     {
         $fileNoExt = $this->_filesPath . DIRECTORY_SEPARATOR . 'newfile';
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'randomize'       => true,
-        ));
+        ]);
 
         $this->assertRegExp('#' . str_replace('\\', '\\\\', $fileNoExt) . '_.{13}\.xml#', $filter($this->_oldFile));
     }
@@ -257,11 +257,11 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
     public function testGetFileWithOriginalExtension()
     {
         $fileNoExt = $this->_filesPath . DIRECTORY_SEPARATOR . 'newfile';
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'use_upload_extension' => true,
             'randomize'       => false,
-        ));
+        ]);
 
         $oldFilePathInfo = pathinfo($this->_oldFile);
 
@@ -274,11 +274,11 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
     public function testGetRandomizedFileWithOriginalExtension()
     {
         $fileNoExt = $this->_filesPath . DIRECTORY_SEPARATOR . 'newfile';
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'use_upload_extension' => true,
             'randomize'       => true,
-        ));
+        ]);
 
         $oldFilePathInfo = pathinfo($this->_oldFile);
 
@@ -294,10 +294,10 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
     public function testGetRandomizedFileWithoutExtension()
     {
         $fileNoExt = $this->_filesPath . DIRECTORY_SEPARATOR . 'newfile';
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $fileNoExt,
             'randomize'       => true,
-        ));
+        ]);
 
         $this->assertRegExp('#' . str_replace('\\', '\\\\', $fileNoExt) . '_.{13}#', $filter($this->_oldFile));
     }
@@ -316,10 +316,10 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanFilterMultipleTimesWithSameResult()
     {
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'randomize'       => true,
-        ));
+        ]);
 
         $firstResult = $filter($this->_oldFile);
 
@@ -333,14 +333,14 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 $this->_oldFile,
                 'something invalid'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**
@@ -349,10 +349,10 @@ class RenameUploadTest extends \PHPUnit_Framework_TestCase
      */
     public function testReturnUnfiltered($input)
     {
-        $filter = new RenameUploadMock(array(
+        $filter = new RenameUploadMock([
             'target'          => $this->_newFile,
             'randomize'       => true,
-        ));
+        ]);
 
         $this->assertEquals($input, $filter($input));
     }

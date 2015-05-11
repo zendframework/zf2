@@ -19,7 +19,7 @@ class FormFile extends FormInput
      *
      * @var array
      */
-    protected $validTagAttributes = array(
+    protected $validTagAttributes = [
         'name'           => true,
         'accept'         => true,
         'autofocus'      => true,
@@ -28,7 +28,7 @@ class FormFile extends FormInput
         'multiple'       => true,
         'required'       => true,
         'type'           => true,
-    );
+    ];
 
     /**
      * Render a form <input> element from the provided $element

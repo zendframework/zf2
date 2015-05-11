@@ -42,16 +42,16 @@ abstract class AbstractValidator implements
      */
     protected static $messageLength = -1;
 
-    protected $abstractOptions = array(
-        'messages'             => array(), // Array of validation failure messages
-        'messageTemplates'     => array(), // Array of validation failure message templates
-        'messageVariables'     => array(), // Array of additional variables available for validation failure messages
+    protected $abstractOptions = [
+        'messages'             => [], // Array of validation failure messages
+        'messageTemplates'     => [], // Array of validation failure message templates
+        'messageVariables'     => [], // Array of additional variables available for validation failure messages
         'translator'           => null,    // Translation object to used -> Translator\TranslatorInterface
         'translatorTextDomain' => null,    // Translation text domain
         'translatorEnabled'    => true,    // Is translation enabled?
         'valueObscured'        => false,   // Flag indicating whether or not value should be obfuscated
                                            // in error messages
-    );
+    ];
 
     /**
      * Abstract constructor for all validators
@@ -124,7 +124,7 @@ abstract class AbstractValidator implements
      * @throws Exception\InvalidArgumentException If $options is not an array or Traversable
      * @return AbstractValidator Provides fluid interface
      */
-    public function setOptions($options = array())
+    public function setOptions($options = [])
     {
         if (!is_array($options) && !$options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable');
@@ -359,7 +359,7 @@ abstract class AbstractValidator implements
     protected function setValue($value)
     {
         $this->value               = $value;
-        $this->abstractOptions['messages'] = array();
+        $this->abstractOptions['messages'] = [];
     }
 
     /**

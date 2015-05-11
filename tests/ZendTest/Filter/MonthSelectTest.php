@@ -28,13 +28,13 @@ class MonthSelectTest extends \PHPUnit_Framework_TestCase
 
     public function provideFilter()
     {
-        return array(
-            array(array(), array('year' => '2014', 'month' => '10'), '2014-10'),
-            array(array('nullOnEmpty' => true), array('year' => null, 'month' => '10'), null),
-            array(array('null_on_empty' => true), array('year' => null, 'month' => '10'), null),
-            array(array('nullOnAllEmpty' => true), array('year' => null, 'month' => null), null),
-            array(array('null_on_all_empty' => true), array('year' => null, 'month' => null), null),
-        );
+        return [
+            [[], ['year' => '2014', 'month' => '10'], '2014-10'],
+            [['nullOnEmpty' => true], ['year' => null, 'month' => '10'], null],
+            [['null_on_empty' => true], ['year' => null, 'month' => '10'], null],
+            [['nullOnAllEmpty' => true], ['year' => null, 'month' => null], null],
+            [['null_on_all_empty' => true], ['year' => null, 'month' => null], null],
+        ];
     }
 
     /**
@@ -43,6 +43,6 @@ class MonthSelectTest extends \PHPUnit_Framework_TestCase
     public function testInvalidInput()
     {
         $sut = new MonthSelectFilter();
-        $sut->filter(array('year' => '2120'));
+        $sut->filter(['year' => '2120']);
     }
 }

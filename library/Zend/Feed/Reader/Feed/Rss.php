@@ -83,13 +83,13 @@ class Rss extends AbstractFeed
             return $this->data['authors'];
         }
 
-        $authors = array();
+        $authors = [];
         $authorsDc = $this->getExtension('DublinCore')->getAuthors();
         if (!empty($authorsDc)) {
             foreach ($authorsDc as $author) {
-                $authors[] = array(
+                $authors[] = [
                     'name' => $author['name']
-                );
+                ];
             }
         }
 
@@ -106,7 +106,7 @@ class Rss extends AbstractFeed
         if ($list->length) {
             foreach ($list as $author) {
                 $string = trim($author->nodeValue);
-                $data = array();
+                $data = [];
                 // Pretty rough parsing - but it's a catchall
                 if (preg_match("/^.*@[^ ]*/", $string, $matches)) {
                     $data['email'] = trim($matches[0]);
@@ -205,8 +205,8 @@ class Rss extends AbstractFeed
                 if ($dateModifiedParsed) {
                     $date = new DateTime('@' . $dateModifiedParsed);
                 } else {
-                    $dateStandards = array(DateTime::RSS, DateTime::RFC822,
-                                           DateTime::RFC2822, null);
+                    $dateStandards = [DateTime::RSS, DateTime::RFC822,
+                                           DateTime::RFC2822, null];
                     foreach ($dateStandards as $standard) {
                         try {
                             $date = DateTime::createFromFormat($standard, $dateModified);
@@ -265,8 +265,8 @@ class Rss extends AbstractFeed
                 if ($lastBuildDateParsed) {
                     $date = new DateTime('@' . $lastBuildDateParsed);
                 } else {
-                    $dateStandards = array(DateTime::RSS, DateTime::RFC822,
-                                           DateTime::RFC2822, null);
+                    $dateStandards = [DateTime::RSS, DateTime::RFC822,
+                                           DateTime::RFC2822, null];
                     foreach ($dateStandards as $standard) {
                         try {
                             $date = DateTime::createFromFormat($standard, $lastBuildDateParsed);
@@ -391,7 +391,7 @@ class Rss extends AbstractFeed
             $prefix = '/rdf:RDF/rss:channel/rss:image[1]';
         }
         if ($list->length > 0) {
-            $image = array();
+            $image = [];
             $value = $this->xpath->evaluate('string(' . $prefix . '/url)');
             if ($value) {
                 $image['uri'] = $value;
@@ -637,11 +637,11 @@ class Rss extends AbstractFeed
         if ($list->length) {
             $categoryCollection = new Collection\Category;
             foreach ($list as $category) {
-                $categoryCollection[] = array(
+                $categoryCollection[] = [
                     'term' => $category->nodeValue,
                     'scheme' => $category->getAttribute('domain'),
                     'label' => $category->nodeValue,
-                );
+                ];
             }
         } else {
             $categoryCollection = $this->getExtension('DublinCore')->getCategories();

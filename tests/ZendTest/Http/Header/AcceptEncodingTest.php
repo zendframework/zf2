@@ -53,13 +53,13 @@ class AcceptEncodingTest extends \PHPUnit_Framework_TestCase
     public function testPrioritizesValuesBasedOnQParameter()
     {
         $header   = AcceptEncoding::fromString('Accept-Encoding: compress;q=0.8,gzip,*;q=0.4');
-        $expected = array(
+        $expected = [
             'gzip',
             'compress',
             '*'
-        );
+        ];
 
-        $test = array();
+        $test = [];
         foreach ($header->getPrioritized() as $type) {
             $this->assertEquals(array_shift($expected), $type->getEncoding());
         }

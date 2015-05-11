@@ -104,10 +104,10 @@ class Connection extends AbstractConnection
             return;
         };
 
-        $hostname = $findParameterValue(array('hostname', 'host'));
-        $username = $findParameterValue(array('username', 'user'));
-        $password = $findParameterValue(array('password', 'passwd', 'pw'));
-        $database = $findParameterValue(array('database', 'dbname', 'db', 'schema'));
+        $hostname = $findParameterValue(['hostname', 'host']);
+        $username = $findParameterValue(['username', 'user']);
+        $password = $findParameterValue(['password', 'passwd', 'pw']);
+        $database = $findParameterValue(['database', 'dbname', 'db', 'schema']);
         $port     = (isset($p['port'])) ? (int) $p['port'] : null;
         $socket   = (isset($p['socket'])) ? $p['socket'] : null;
 

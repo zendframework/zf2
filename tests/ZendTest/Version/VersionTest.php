@@ -27,7 +27,7 @@ class VersionTest extends \PHPUnit_Framework_TestCase
         for ($i=0; $i < 2; $i++) {
             for ($j=0; $j < 12; $j++) {
                 for ($k=0; $k < 20; $k++) {
-                    foreach (array('dev', 'pr', 'PR', 'alpha', 'a1', 'a2', 'beta', 'b1', 'b2', 'RC', 'RC1', 'RC2', 'RC3', '', 'pl1', 'PL1') as $rel) {
+                    foreach (['dev', 'pr', 'PR', 'alpha', 'a1', 'a2', 'beta', 'b1', 'b2', 'RC', 'RC1', 'RC2', 'RC3', '', 'pl1', 'PL1'] as $rel) {
                         $ver = "$i.$j.$k$rel";
                         $normalizedVersion = strtolower(Version::VERSION);
                         if (strtolower($ver) === $normalizedVersion
@@ -142,9 +142,9 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
         $httpClient = new Http\Client(
             'http://example.com',
-            array(
+            [
                 'sslverifypeer' => false,
-            )
+            ]
         );
 
         $actual = Version::getLatest(Version::VERSION_SERVICE_GITHUB, $httpClient);
@@ -170,10 +170,10 @@ class VersionTest extends \PHPUnit_Framework_TestCase
 
         $httpClient = new Http\Client(
             'http://example.com',
-            array(
+            [
                 'sslcapath' => '/dev/null',
                 'sslverifypeer' => true,
-            )
+            ]
         );
 
         $actual = Version::getLatest(Version::VERSION_SERVICE_GITHUB, $httpClient);

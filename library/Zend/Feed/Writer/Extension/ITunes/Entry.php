@@ -23,7 +23,7 @@ class Entry
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Encoding of all text values
@@ -116,7 +116,7 @@ class Entry
             . ' contain a maximum of 255 characters each');
         }
         if (!isset($this->data['authors'])) {
-            $this->data['authors'] = array();
+            $this->data['authors'] = [];
         }
         $this->data['authors'][] = $value;
         return $this;
@@ -152,7 +152,7 @@ class Entry
      */
     public function setItunesExplicit($value)
     {
-        if (!in_array($value, array('yes', 'no', 'clean'))) {
+        if (!in_array($value, ['yes', 'no', 'clean'])) {
             throw new Writer\Exception\InvalidArgumentException('invalid parameter: "explicit" may only'
             . ' be one of "yes", "no" or "clean"');
         }

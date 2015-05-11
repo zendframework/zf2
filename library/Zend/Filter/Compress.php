@@ -25,7 +25,7 @@ class Compress extends AbstractFilter
     /**
      * Compression adapter constructor options
      */
-    protected $adapterOptions = array();
+    protected $adapterOptions = [];
 
     /**
      * Class constructor
@@ -188,7 +188,7 @@ class Compress extends AbstractFilter
             throw new Exception\BadMethodCallException("Unknown method '{$method}'");
         }
 
-        return call_user_func_array(array($adapter, $method), $options);
+        return call_user_func_array([$adapter, $method], $options);
     }
 
     /**

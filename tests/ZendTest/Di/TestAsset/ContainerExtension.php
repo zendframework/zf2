@@ -16,10 +16,10 @@ class ContainerExtension extends ServiceLocator
     public $foo;
     public $params;
 
-    protected $map = array(
+    protected $map = [
         'foo'    => 'getFoo',
         'params' => 'getParams',
-    );
+    ];
 
     public function getFoo()
     {

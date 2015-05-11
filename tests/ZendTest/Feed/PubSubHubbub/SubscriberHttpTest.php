@@ -100,7 +100,7 @@ class SubscriberHttpTest extends \PHPUnit_Framework_TestCase
     {
         $class = new \ReflectionClass($className);
         $methods = $class->getMethods();
-        $stubMethods = array();
+        $stubMethods = [];
         foreach ($methods as $method) {
             if ($method->isPublic() || ($method->isProtected()
             && $method->isAbstract())) {

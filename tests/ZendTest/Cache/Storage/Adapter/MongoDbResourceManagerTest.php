@@ -54,7 +54,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $id     = 'foo';
         $server = 'mongodb://test:1234';
 
-        $this->object->setResource($id, array('server' => $server));
+        $this->object->setResource($id, ['server' => $server]);
 
         $this->assertSame($server, $this->object->getServer($id));
     }
@@ -79,7 +79,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $id = 'foo';
 
-        $this->object->setResource($id, array('foo' => 'bar'));
+        $this->object->setResource($id, ['foo' => 'bar']);
 
         $this->assertTrue($this->object->hasResource($id));
     }
@@ -111,7 +111,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $id                = 'foo';
         $server            = TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING;
-        $connectionOptions = array('connectTimeoutMS' => 5);
+        $connectionOptions = ['connectTimeoutMS' => 5];
         $database          = TESTS_ZEND_CACHE_MONGODB_DATABASE;
         $collection        = TESTS_ZEND_CACHE_MONGODB_COLLECTION;
 
@@ -127,7 +127,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $id                = 'foo';
         $server            = 'mongodb://unknown.unknown';
-        $connectionOptions = array('connectTimeoutMS' => 5);
+        $connectionOptions = ['connectTimeoutMS' => 5];
         $database          = TESTS_ZEND_CACHE_MONGODB_DATABASE;
         $collection        = TESTS_ZEND_CACHE_MONGODB_COLLECTION;
 

@@ -55,7 +55,7 @@ class Sendmail implements TransportInterface
         if ($parameters !== null) {
             $this->setParameters($parameters);
         }
-        $this->callable = array($this, 'mailHandler');
+        $this->callable = [$this, 'mailHandler'];
     }
 
     /**
@@ -166,7 +166,7 @@ class Sendmail implements TransportInterface
         }
 
         // Otherwise, return list of emails
-        $addresses = array();
+        $addresses = [];
         foreach ($list as $address) {
             $addresses[] = $address->getEmail();
         }
@@ -275,7 +275,7 @@ class Sendmail implements TransportInterface
      */
     public function mailHandler($to, $subject, $message, $headers, $parameters)
     {
-        set_error_handler(array($this, 'handleMailErrors'));
+        set_error_handler([$this, 'handleMailErrors']);
         if ($parameters === null) {
             $result = mail($to, $subject, $message, $headers);
         } else {

@@ -98,20 +98,20 @@ class IsbnTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitialization()
     {
-        $options = array('type'      => Isbn::AUTO,
-                         'separator' => ' ');
+        $options = ['type'      => Isbn::AUTO,
+                         'separator' => ' '];
         $validator = new Isbn($options);
         $this->assertEquals(Isbn::AUTO, $validator->getType());
         $this->assertEquals(' ', $validator->getSeparator());
 
-        $options = array('type'      => Isbn::ISBN10,
-                         'separator' => '-');
+        $options = ['type'      => Isbn::ISBN10,
+                         'separator' => '-'];
         $validator = new Isbn($options);
         $this->assertEquals(Isbn::ISBN10, $validator->getType());
         $this->assertEquals('-', $validator->getSeparator());
 
-        $options = array('type'      => Isbn::ISBN13,
-                         'separator' => '');
+        $options = ['type'      => Isbn::ISBN13,
+                         'separator' => ''];
         $validator = new Isbn($options);
         $this->assertEquals(Isbn::ISBN13, $validator->getType());
         $this->assertEquals('', $validator->getSeparator());

@@ -50,7 +50,7 @@ class Request
      * Request parameters
      * @var array
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * JSON-RPC version of request
@@ -119,7 +119,7 @@ class Request
      */
     public function setParams(array $params)
     {
-        $this->params = array();
+        $this->params = [];
         return $this->addParams($params);
     }
 
@@ -265,9 +265,9 @@ class Request
      */
     public function toJson()
     {
-        $jsonArray = array(
+        $jsonArray = [
             'method' => $this->getMethod()
-        );
+        ];
         if (null !== ($id = $this->getId())) {
             $jsonArray['id'] = $id;
         }

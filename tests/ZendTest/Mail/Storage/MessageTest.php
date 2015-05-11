@@ -31,7 +31,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testInvalidFile()
     {
         try {
-            $message = new Message(array('file' => '/this/file/does/not/exists'));
+            $message = new Message(['file' => '/this/file/does/not/exists']);
         } catch (\Exception $e) {
             return; // ok
         }
@@ -41,50 +41,50 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testIsMultipart()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $this->assertTrue($message->isMultipart());
     }
 
     public function testGetHeader()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $this->assertEquals($message->subject, 'multipart');
     }
 
     public function testGetDecodedHeader()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $this->assertEquals('Peter Müller <peter-mueller@example.com>', $message->from);
     }
 
     public function testGetHeaderAsArray()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
-        $this->assertEquals($message->getHeader('subject', 'array'), array('multipart'));
+        $this->assertEquals($message->getHeader('subject', 'array'), ['multipart']);
     }
 
     public function testGetHeaderFromOpenFile()
     {
         $fh = fopen($this->_file, 'r');
-        $message = new Message(array('file' => $fh));
+        $message = new Message(['file' => $fh]);
 
         $this->assertEquals($message->subject, 'multipart');
     }
 
     public function testGetFirstPart()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $this->assertEquals(substr($message->getPart(1)->getContent(), 0, 14), 'The first part');
     }
 
     public function testGetFirstPartTwice()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $message->getPart(1);
         $this->assertEquals(substr($message->getPart(1)->getContent(), 0, 14), 'The first part');
@@ -93,7 +93,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetWrongPart()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         try {
             $message->getPart(-1);
@@ -106,13 +106,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testNoHeaderMessage()
     {
-        $message = new Message(array('file' => __FILE__));
+        $message = new Message(['file' => __FILE__]);
 
         $this->assertEquals(substr($message->getContent(), 0, 5), '<?php');
 
         $raw = file_get_contents(__FILE__);
         $raw = "\t" . $raw;
-        $message = new Message(array('raw' => $raw));
+        $message = new Message(['raw' => $raw]);
 
         $this->assertEquals(substr($message->getContent(), 0, 6), "\t<?php");
     }
@@ -121,21 +121,21 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $raw = file_get_contents($this->_file);
         $raw = "sUBject: test\nSubJect: test2\n" . $raw;
-        $message = new Message(array('raw' => $raw));
+        $message = new Message(['raw' => $raw]);
 
         $this->assertEquals('test' . Mime\Mime::LINEEND . 'test2' . Mime\Mime::LINEEND . 'multipart',
                             $message->getHeader('subject', 'string'));
 
-        $this->assertEquals(array('test', 'test2', 'multipart'),
+        $this->assertEquals(['test', 'test2', 'multipart'],
                             $message->getHeader('subject', 'array'));
     }
 
     public function testContentTypeDecode()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $this->assertEquals(Mime\Decode::splitContentType($message->ContentType),
-                            array('type' => 'multipart/alternative', 'boundary' => 'crazy-multipart'));
+                            ['type' => 'multipart/alternative', 'boundary' => 'crazy-multipart']);
     }
 
     public function testSplitEmptyMessage()
@@ -157,7 +157,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testInvalidMailHandler()
     {
         try {
-            $message = new Message(array('handler' => 1));
+            $message = new Message(['handler' => 1]);
         } catch (Exception\InvalidArgumentException $e) {
             return; // ok
         }
@@ -167,10 +167,10 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testMissingId()
     {
-        $mail = new Storage\Mbox(array('filename' => __DIR__ . '/../_files/test.mbox/INBOX'));
+        $mail = new Storage\Mbox(['filename' => __DIR__ . '/../_files/test.mbox/INBOX']);
 
         try {
-            $message = new Message(array('handler' => $mail));
+            $message = new Message(['handler' => $mail]);
         } catch (Exception\InvalidArgumentException $e) {
             return; // ok
         }
@@ -180,7 +180,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testIterator()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
         foreach (new \RecursiveIteratorIterator($message) as $num => $part) {
             if ($num == 1) {
                 // explicit call of __toString() needed for PHP < 5.2
@@ -199,7 +199,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testSplitHeader()
     {
         $header = 'foo; x=y; y="x"';
-        $this->assertEquals(Mime\Decode::splitHeaderField($header), array('foo', 'x' => 'y', 'y' => 'x'));
+        $this->assertEquals(Mime\Decode::splitHeaderField($header), ['foo', 'x' => 'y', 'y' => 'x']);
         $this->assertEquals(Mime\Decode::splitHeaderField($header, 'x'), 'y');
         $this->assertEquals(Mime\Decode::splitHeaderField($header, 'y'), 'x');
         $this->assertEquals(Mime\Decode::splitHeaderField($header, 'foo', 'foo'), 'foo');
@@ -222,7 +222,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $header = 'Test: test';
         $body   = 'body';
-        $newlines = array("\r\n", "\n\r", "\n", "\r");
+        $newlines = ["\r\n", "\n\r", "\n", "\r"];
 
         $decoded_body    = null; // "Declare" variable before first "read" usage to avoid IDEs warning
         $decoded_headers = null; // "Declare" variable before first "read" usage to avoid IDEs warning
@@ -231,7 +231,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             foreach ($newlines as $decodeEOL) {
                 $content = $header . $contentEOL . $contentEOL . $body;
                 Mime\Decode::splitMessage($content, $decoded_headers, $decoded_body, $decodeEOL);
-                $this->assertEquals(array('Test' => 'test'), $decoded_headers->toArray());
+                $this->assertEquals(['Test' => 'test'], $decoded_headers->toArray());
                 $this->assertEquals($body, $decoded_body);
             }
         }
@@ -239,13 +239,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testToplines()
     {
-        $message = new Message(array('headers' => file_get_contents($this->_file)));
+        $message = new Message(['headers' => file_get_contents($this->_file)]);
         $this->assertStringStartsWith('multipart message', $message->getToplines());
     }
 
     public function testNoContent()
     {
-        $message = new Message(array('raw' => 'Subject: test'));
+        $message = new Message(['raw' => 'Subject: test']);
 
         try {
             $message->getContent();
@@ -258,10 +258,10 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testEmptyHeader()
     {
-        $message = new Message(array());
-        $this->assertEquals(array(), $message->getHeaders()->toArray());
+        $message = new Message([]);
+        $this->assertEquals([], $message->getHeaders()->toArray());
 
-        $message = new Message(array());
+        $message = new Message([]);
         $subject = null;
 
         $this->setExpectedException('Zend\\Mail\\Exception\\InvalidArgumentException');
@@ -270,7 +270,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testEmptyBody()
     {
-        $message = new Message(array());
+        $message = new Message([]);
         $part = null;
         try {
             $part = $message->getPart(1);
@@ -281,7 +281,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             $this->fail('no exception raised while getting part from empty message');
         }
 
-        $message = new Message(array());
+        $message = new Message([]);
         $this->assertEquals(0, $message->countParts());
     }
 
@@ -290,7 +290,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      */
     public function testCheckingHasHeaderFunctionality()
     {
-        $message = new Message(array('headers' => array('subject' => 'foo')));
+        $message = new Message(['headers' => ['subject' => 'foo']]);
 
         $this->assertTrue($message->getHeaders()->has('subject'));
         $this->assertTrue(isset($message->subject));
@@ -301,7 +301,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testWrongMultipart()
     {
-        $message = new Message(array('raw' => "Content-Type: multipart/mixed\r\n\r\ncontent"));
+        $message = new Message(['raw' => "Content-Type: multipart/mixed\r\n\r\ncontent"]);
 
         try {
             $message->getPart(1);
@@ -313,22 +313,22 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testLateFetch()
     {
-        $mail = new Storage\Mbox(array('filename' => __DIR__ . '/../_files/test.mbox/INBOX'));
+        $mail = new Storage\Mbox(['filename' => __DIR__ . '/../_files/test.mbox/INBOX']);
 
-        $message = new Message(array('handler' => $mail, 'id' => 5));
+        $message = new Message(['handler' => $mail, 'id' => 5]);
         $this->assertEquals($message->countParts(), 2);
         $this->assertEquals($message->countParts(), 2);
 
-        $message = new Message(array('handler' => $mail, 'id' => 5));
+        $message = new Message(['handler' => $mail, 'id' => 5]);
         $this->assertEquals($message->subject, 'multipart');
 
-        $message = new Message(array('handler' => $mail, 'id' => 5));
+        $message = new Message(['handler' => $mail, 'id' => 5]);
         $this->assertStringStartsWith('multipart message', $message->getContent());
     }
 
     public function testManualIterator()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
 
         $this->assertTrue($message->valid());
         $this->assertEquals($message->getChildren(), $message->current());
@@ -350,45 +350,45 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testMessageFlagsAreSet()
     {
-        $origFlags = array(
+        $origFlags = [
             'foo' => 'bar',
             'baz' => 'bat'
-        );
-        $message = new Message(array('flags' => $origFlags));
+        ];
+        $message = new Message(['flags' => $origFlags]);
 
         $messageFlags = $message->getFlags();
         $this->assertTrue($message->hasFlag('bar'), var_export($messageFlags, 1));
         $this->assertTrue($message->hasFlag('bat'), var_export($messageFlags, 1));
-        $this->assertEquals(array('bar' => 'bar', 'bat' => 'bat'), $messageFlags);
+        $this->assertEquals(['bar' => 'bar', 'bat' => 'bat'], $messageFlags);
     }
 
     public function testGetHeaderFieldSingle()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
         $this->assertEquals($message->getHeaderField('subject'), 'multipart');
     }
 
     public function testGetHeaderFieldDefault()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
         $this->assertEquals($message->getHeaderField('content-type'), 'multipart/alternative');
     }
 
     public function testGetHeaderFieldNamed()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
         $this->assertEquals($message->getHeaderField('content-type', 'boundary'), 'crazy-multipart');
     }
 
     public function testGetHeaderFieldMissing()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
         $this->assertNull($message->getHeaderField('content-type', 'foo'));
     }
 
     public function testGetHeaderFieldInvalid()
     {
-        $message = new Message(array('file' => $this->_file));
+        $message = new Message(['file' => $this->_file]);
         try {
             $message->getHeaderField('fake-header-name', 'foo');
         } catch (MailException\ExceptionInterface $e) {
@@ -399,7 +399,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
     public function testCaseInsensitiveMultipart()
     {
-        $message = new Message(array('raw' => "coNTent-TYpe: muLTIpaRT/x-empty\r\n\r\n"));
+        $message = new Message(['raw' => "coNTent-TYpe: muLTIpaRT/x-empty\r\n\r\n"]);
         $this->assertTrue($message->isMultipart());
     }
 
@@ -426,6 +426,6 @@ class MessageTest extends \PHPUnit_Framework_TestCase
 
         $raw = file_get_contents($this->_file);
         $raw = "From foo@example.com  Sun Jan 01 00:00:00 2000\n" . $raw;
-        $message = new Message(array('raw' => $raw, 'strict' => true));
+        $message = new Message(['raw' => $raw, 'strict' => true]);
     }
 }

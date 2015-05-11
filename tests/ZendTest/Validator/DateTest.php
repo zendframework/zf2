@@ -42,50 +42,50 @@ class DateTest extends \PHPUnit_Framework_TestCase
 
     public function datesDataProvider()
     {
-        return array(
+        return [
             //    date                       format             isValid
-            array('2007-01-01',              null,              true),
-            array('2007-02-28',              null,              true),
-            array('2007-02-29',              null,              false),
-            array('2008-02-29',              null,              true),
-            array('2007-02-30',              null,              false),
-            array('2007-02-99',              null,              false),
-            array('2007-02-99',              'Y-m-d',           false),
-            array('9999-99-99',              null,              false),
-            array('9999-99-99',              'Y-m-d',           false),
-            array('Jan 1 2007',              null,              false),
-            array('Jan 1 2007',              'M j Y',           true),
-            array('asdasda',                 null,              false),
-            array('sdgsdg',                  null,              false),
-            array('2007-01-01something',     null,              false),
-            array('something2007-01-01',     null,              false),
-            array('10.01.2008',              'd.m.Y',           true),
-            array('01 2010',                 'm Y',             true),
-            array('2008/10/22',              'd/m/Y',           false),
-            array('22/10/08',                'd/m/y',           true),
-            array('22/10',                   'd/m/Y',           false),
+            ['2007-01-01',              null,              true],
+            ['2007-02-28',              null,              true],
+            ['2007-02-29',              null,              false],
+            ['2008-02-29',              null,              true],
+            ['2007-02-30',              null,              false],
+            ['2007-02-99',              null,              false],
+            ['2007-02-99',              'Y-m-d',           false],
+            ['9999-99-99',              null,              false],
+            ['9999-99-99',              'Y-m-d',           false],
+            ['Jan 1 2007',              null,              false],
+            ['Jan 1 2007',              'M j Y',           true],
+            ['asdasda',                 null,              false],
+            ['sdgsdg',                  null,              false],
+            ['2007-01-01something',     null,              false],
+            ['something2007-01-01',     null,              false],
+            ['10.01.2008',              'd.m.Y',           true],
+            ['01 2010',                 'm Y',             true],
+            ['2008/10/22',              'd/m/Y',           false],
+            ['22/10/08',                'd/m/y',           true],
+            ['22/10',                   'd/m/Y',           false],
             // time
-            array('2007-01-01T12:02:55Z',    DateTime::ISO8601, true),
-            array('12:02:55',                'H:i:s',           true),
-            array('25:02:55',                'H:i:s',           false),
+            ['2007-01-01T12:02:55Z',    DateTime::ISO8601, true],
+            ['12:02:55',                'H:i:s',           true],
+            ['25:02:55',                'H:i:s',           false],
             // int
-            array(0,                         null,              true),
-            array(1340677235,                null,              true),
+            [0,                         null,              true],
+            [1340677235,                null,              true],
             // 32bit version of php will convert this to double
-            array(999999999999,              null,              true),
+            [999999999999,              null,              true],
             // double
-            array(12.12,                     null,              false),
+            [12.12,                     null,              false],
             // array
-            array(array('2012', '06', '25'), null,              true),
+            [['2012', '06', '25'], null,              true],
             // 0012-06-25 is a valid date, if you want 2012, use 'y' instead of 'Y'
-            array(array('12', '06', '25'),   null,              true),
-            array(array('2012', '06', '33'), null,              false),
-            array(array(1 => 1),             null,              false),
+            [['12', '06', '25'],   null,              true],
+            [['2012', '06', '33'], null,              false],
+            [[1 => 1],             null,              false],
             // DateTime
-            array(new DateTime(),            null,              true),
+            [new DateTime(),            null,              true],
             // invalid obj
-            array(new stdClass(),           null,              false),
-        );
+            [new stdClass(),           null,              false],
+        ];
     }
 
     /**
@@ -115,7 +115,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**

@@ -18,17 +18,17 @@ class LinksFieldset extends Fieldset implements  InputFilterProviderInterface
     public function __construct()
     {
         parent::__construct('link');
-        $this->add(array(
+        $this->add([
             'name' => 'foobar',
-        ));
+        ]);
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'email' => array(
+        return [
+            'email' => [
                 'required' => false,
-            ),
-        );
+            ],
+        ];
     }
 }

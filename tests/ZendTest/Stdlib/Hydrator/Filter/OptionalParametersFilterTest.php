@@ -74,13 +74,13 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function methodProvider()
     {
-        return array(
-            array(__CLASS__ . '::' . 'methodWithoutParameters', true),
-            array(__CLASS__ . '::' . 'methodWithSingleMandatoryParameter', false),
-            array(__CLASS__ . '::' . 'methodWithSingleOptionalParameter', true),
-            array(__CLASS__ . '::' . 'methodWithMultipleMandatoryParameters', false),
-            array(__CLASS__ . '::' . 'methodWithMultipleOptionalParameters', true),
-        );
+        return [
+            [__CLASS__ . '::' . 'methodWithoutParameters', true],
+            [__CLASS__ . '::' . 'methodWithSingleMandatoryParameter', false],
+            [__CLASS__ . '::' . 'methodWithSingleOptionalParameter', true],
+            [__CLASS__ . '::' . 'methodWithMultipleMandatoryParameters', false],
+            [__CLASS__ . '::' . 'methodWithMultipleOptionalParameters', true],
+        ];
     }
 
     /**

@@ -35,7 +35,7 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
         $mockDriver->expects($this->any())->method('getConnection')->will($this->returnValue($mockConnection));
 
         // setup mock adapter
-        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        $this->mockAdapter = $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
     }
 
     /**
@@ -119,7 +119,7 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
      */
     public function testTableAsAliasedTableIdentifierObject()
     {
-        $aliasedTI = array('foo' => new TableIdentifier('fooTable', 'barSchema'));
+        $aliasedTI = ['foo' => new TableIdentifier('fooTable', 'barSchema')];
         // constructor with only required args
         $table = new TableGateway(
             $aliasedTI,
@@ -132,10 +132,10 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
     public function aliasedTables()
     {
         $identifier = new TableIdentifier('Users');
-        return array(
-            'simple-alias'     => array(array('U' => 'Users'), 'Users'),
-            'identifier-alias' => array(array('U' => $identifier), $identifier),
-        );
+        return [
+            'simple-alias'     => [['U' => 'Users'], 'Users'],
+            'identifier-alias' => [['U' => $identifier], $identifier],
+        ];
     }
 
     /**
@@ -189,9 +189,9 @@ class TableGatewayTest extends \PHPUnit_Framework_TestCase
             $sql
         );
 
-        $result = $table->insert(array(
+        $result = $table->insert([
             'foo' => 'FOO',
-        ));
+        ]);
 
         $state = $insert->getRawState();
         $this->assertInternalType('array', $state['table']);

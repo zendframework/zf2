@@ -34,13 +34,13 @@ class HttpMethodListenerTest extends TestCase
 
     public function testConstructor()
     {
-        $methods = array('foo', 'bar');
+        $methods = ['foo', 'bar'];
         $listener = new HttpMethodListener(false, $methods);
 
         $this->assertFalse($listener->isEnabled());
-        $this->assertSame(array('FOO', 'BAR'), $listener->getAllowedMethods());
+        $this->assertSame(['FOO', 'BAR'], $listener->getAllowedMethods());
 
-        $listener = new HttpMethodListener(true, array());
+        $listener = new HttpMethodListener(true, []);
         $this->assertNotEmpty($listener->getAllowedMethods());
     }
 
@@ -86,7 +86,7 @@ class HttpMethodListenerTest extends TestCase
         $event->setRequest($request);
         $event->setResponse(new HttpResponse());
 
-        $this->listener->setAllowedMethods(array('foo'));
+        $this->listener->setAllowedMethods(['foo']);
 
         $this->assertNull($this->listener->onRoute($event));
     }

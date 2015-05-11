@@ -25,7 +25,7 @@ class CacheControl implements HeaderInterface
      *
      * @var array
      */
-    protected $directives = array();
+    protected $directives = [];
 
     /**
      * Creates a CacheControl object from a headerLine
@@ -138,7 +138,7 @@ class CacheControl implements HeaderInterface
      */
     public function getFieldValue()
     {
-        $parts = array();
+        $parts = [];
         ksort($this->directives);
         foreach ($this->directives as $key => $value) {
             if (true === $value) {
@@ -175,7 +175,7 @@ class CacheControl implements HeaderInterface
     {
         $value = trim($value);
 
-        $directives = array();
+        $directives = [];
 
         // handle empty string early so we don't need a separate start state
         if ($value == '') {
@@ -185,7 +185,7 @@ class CacheControl implements HeaderInterface
         $lastMatch = null;
 
         state_directive:
-        switch (static::match(array('[a-zA-Z][a-zA-Z_-]*'), $value, $lastMatch)) {
+        switch (static::match(['[a-zA-Z][a-zA-Z_-]*'], $value, $lastMatch)) {
             case 0:
                 $directive = $lastMatch;
                 goto state_value;
@@ -196,7 +196,7 @@ class CacheControl implements HeaderInterface
         }
 
         state_value:
-        switch (static::match(array('="[^"]*"', '=[^",\s;]*'), $value, $lastMatch)) {
+        switch (static::match(['="[^"]*"', '=[^",\s;]*'], $value, $lastMatch)) {
             case 0:
                 $directives[$directive] = substr($lastMatch, 2, -1);
                 goto state_separator;
@@ -213,7 +213,7 @@ class CacheControl implements HeaderInterface
         }
 
         state_separator:
-        switch (static::match(array('\s*,\s*', '$'), $value, $lastMatch)) {
+        switch (static::match(['\s*,\s*', '$'], $value, $lastMatch)) {
             case 0:
                 goto state_directive;
                 // intentional fall-through

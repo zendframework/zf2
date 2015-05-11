@@ -35,7 +35,7 @@ class DiAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $instanceManager = new \Zend\Di\InstanceManager();
         $instanceManager->addSharedInstance($this->fooInstance = new \stdClass(), 'foo');
-        $this->mockDi = $this->getMock('Zend\Di\Di', array(), array(null, $instanceManager));
+        $this->mockDi = $this->getMock('Zend\Di\Di', [], [null, $instanceManager]);
         $this->mockServiceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $this->diAbstractServiceFactory = new DiAbstractServiceFactory(
             $this->mockDi
@@ -98,12 +98,12 @@ class DiAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         // will check instance configurations
         $this->assertFalse($instance->canCreateServiceWithName($locator, __NAMESPACE__ . '\Non\Existing', __NAMESPACE__ . '\Non\Existing'));
-        $im->setConfig(__NAMESPACE__ . '\Non\Existing', array('parameters' => array('a' => 'b')));
+        $im->setConfig(__NAMESPACE__ . '\Non\Existing', ['parameters' => ['a' => 'b']]);
         $this->assertTrue($instance->canCreateServiceWithName($locator, __NAMESPACE__ . '\Non\Existing', __NAMESPACE__ . '\Non\Existing'));
 
         // will check preferences for abstract types
         $this->assertFalse($instance->canCreateServiceWithName($locator, __NAMESPACE__ . '\AbstractClass', __NAMESPACE__ . '\AbstractClass'));
-        $im->setTypePreference(__NAMESPACE__ . '\AbstractClass', array(__NAMESPACE__ . '\Non\Existing'));
+        $im->setTypePreference(__NAMESPACE__ . '\AbstractClass', [__NAMESPACE__ . '\Non\Existing']);
         $this->assertTrue($instance->canCreateServiceWithName($locator, __NAMESPACE__ . '\AbstractClass', __NAMESPACE__ . '\AbstractClass'));
 
         // will check definitions
@@ -118,7 +118,7 @@ class DiAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $classDefinition
             ->expects($this->any())
             ->method('getClasses')
-            ->will($this->returnValue(array(__NAMESPACE__ . '\Other\Non\Existing')));
+            ->will($this->returnValue([__NAMESPACE__ . '\Other\Non\Existing']));
         $def->addDefinition($classDefinition);
         $this->assertTrue($instance->canCreateServiceWithName($locator, __NAMESPACE__ . '\Other\Non\Existing', __NAMESPACE__ . '\Other\Non\Existing'));
     }

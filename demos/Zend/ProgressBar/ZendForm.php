@@ -20,12 +20,12 @@ use Zend\ProgressBar\Adapter\JsPull;
  */
 
 require_once dirname(dirname(dirname(__DIR__))) . '/library/Zend/Loader/StandardAutoloader.php';
-$loader = new StandardAutoloader(array('autoregister_zf' => true));
+$loader = new StandardAutoloader(['autoregister_zf' => true]);
 $loader->register();
 
 if (isset($_GET['progress_key'])) {
     $adapter = new JsPull();
-    Http::getProgress(array('progress' => $adapter));
+    Http::getProgress(['progress' => $adapter]);
     die;
 }
 ?>
@@ -196,12 +196,12 @@ $submit  = new Element\Submit('submit');
 $submit->setValue('Upload!');
 
 $form = new Form("ZendForm");
-$form->setAttributes(array(
+$form->setAttributes([
     'enctype'  => 'multipart/form-data',
     'action'   => 'ZendForm.php',
     'target'   => 'uploadTarget',
     'onsubmit' => 'observeProgress();'
-));
+]);
 
 $form->prepare();
 

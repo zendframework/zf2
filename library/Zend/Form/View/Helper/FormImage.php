@@ -19,7 +19,7 @@ class FormImage extends FormInput
      *
      * @var array
      */
-    protected $validTagAttributes = array(
+    protected $validTagAttributes = [
         'name'           => true,
         'alt'            => true,
         'autofocus'      => true,
@@ -34,7 +34,7 @@ class FormImage extends FormInput
         'src'            => true,
         'type'           => true,
         'width'          => true,
-    );
+    ];
 
     /**
      * Render a form <input> element from the provided $element

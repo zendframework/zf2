@@ -37,10 +37,10 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
     public function testAssignMergesValuesWithObject()
     {
         $this->vars['foo'] = 'bar';
-        $this->vars->assign(array(
+        $this->vars->assign([
             'bar' => 'baz',
             'baz' => 'foo',
-        ));
+        ]);
         $this->assertEquals('bar', $this->vars['foo']);
         $this->assertEquals('baz', $this->vars['bar']);
         $this->assertEquals('foo', $this->vars['baz']);
@@ -59,10 +59,10 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
 
     public function testAssignCallsToArrayWhenPresentBeforeMerging()
     {
-        $vars = array(
+        $vars = [
             'foo' => 'bar',
             'bar' => 'baz',
-        );
+        ];
         $config = new Config($vars);
         $this->vars->assign($config);
         $this->assertEquals('bar', $this->vars['foo']);
@@ -82,7 +82,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
     public function testRetrievingUndefinedVariableRaisesErrorWhenStrictVarsIsRequested()
     {
         $this->vars->setStrictVars(true);
-        set_error_handler(array($this, 'handleErrors'), E_USER_NOTICE);
+        set_error_handler([$this, 'handleErrors'], E_USER_NOTICE);
         $this->assertNull($this->vars['foo']);
         restore_error_handler();
         $this->assertContains('does not exist', $this->error);
@@ -90,18 +90,18 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
 
     public function values()
     {
-        return array(
-            array('foo', 'bar'),
-            array('xss', '<tag id="foo">\'value\'</tag>'),
-        );
+        return [
+            ['foo', 'bar'],
+            ['xss', '<tag id="foo">\'value\'</tag>'],
+        ];
     }
 
     public function testCallingClearEmptiesObject()
     {
-        $this->vars->assign(array(
+        $this->vars->assign([
             'bar' => 'baz',
             'baz' => 'foo',
-        ));
+        ]);
         $this->assertEquals(2, count($this->vars));
         $this->vars->clear();
         $this->assertEquals(0, count($this->vars));

@@ -58,7 +58,7 @@ class Sitemap extends AbstractHelper
      *
      * @var array
      */
-    protected $urls = array();
+    protected $urls = [];
 
     /**
      * Whether sitemap should be validated using Zend\Validate\Sitemap\*
@@ -134,7 +134,7 @@ class Sitemap extends AbstractHelper
     public function getDomSitemap(AbstractContainer $container = null)
     {
         // Reset the urls
-        $this->urls = array();
+        $this->urls = [];
 
         if (null === $container) {
             $container = $this->getContainer();

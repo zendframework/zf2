@@ -54,90 +54,90 @@ class FormAbstractServiceFactoryTest extends TestCase
 
     public function testMissingFormServicePrefixIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array());
+        $this->services->setService('Config', []);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'foo', 'foo'));
     }
 
     public function testMissingFormManagerConfigIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array());
+        $this->services->setService('Config', []);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'Form\Foo', 'Form\Foo'));
     }
 
     public function testInvalidFormManagerConfigIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array('forms' => 'string'));
+        $this->services->setService('Config', ['forms' => 'string']);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'Form\Foo', 'Form\Foo'));
     }
 
     public function testEmptyFormManagerConfigIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array('forms' => array()));
+        $this->services->setService('Config', ['forms' => []]);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'Form\Foo', 'Form\Foo'));
     }
 
     public function testMissingFormConfigIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array(
-            'forms' => array(
-                'Bar' => array(),
-            ),
-        ));
+        $this->services->setService('Config', [
+            'forms' => [
+                'Bar' => [],
+            ],
+        ]);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'Form\Foo', 'Form\Foo'));
     }
 
     public function testInvalidFormConfigIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array(
-            'forms' => array(
+        $this->services->setService('Config', [
+            'forms' => [
                 'Foo' => 'string',
-            ),
-        ));
+            ],
+        ]);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'Foo', 'Foo'));
     }
 
     public function testEmptyFormConfigIndicatesCannotCreateForm()
     {
-        $this->services->setService('Config', array(
-            'forms' => array(
-                'Foo' => array(),
-            ),
-        ));
+        $this->services->setService('Config', [
+            'forms' => [
+                'Foo' => [],
+            ],
+        ]);
         $this->assertFalse($this->forms->canCreateServiceWithName($this->services, 'Foo', 'Foo'));
     }
 
     public function testPopulatedFormConfigIndicatesFormCanBeCreated()
     {
-        $this->services->setService('Config', array(
-            'forms' => array(
-                'Foo' => array(
+        $this->services->setService('Config', [
+            'forms' => [
+                'Foo' => [
                     'type'     => 'Zend\Form\Form',
-                    'elements' => array(),
-                ),
-            ),
-        ));
+                    'elements' => [],
+                ],
+            ],
+        ]);
         $this->assertTrue($this->forms->canCreateServiceWithName($this->services, 'Foo', 'Foo'));
     }
 
     public function testFormCanBeCreatedViaInteractionOfAllManagers()
     {
-        $formConfig = array(
+        $formConfig = [
             'hydrator' => 'ObjectProperty',
             'type'     => 'Zend\Form\Form',
-            'elements' => array(
-                array(
-                    'spec' => array(
+            'elements' => [
+                [
+                    'spec' => [
                         'type' => 'Zend\Form\Element\Email',
                         'name' => 'email',
-                        'options' => array(
+                        'options' => [
                             'label' => 'Your email address',
-                        )
-                    ),
-                ),
-            ),
+                        ]
+                    ],
+                ],
+            ],
             'input_filter' => 'FooInputFilter',
-        );
-        $config = array('forms' => array('Foo' => $formConfig));
+        ];
+        $config = ['forms' => ['Foo' => $formConfig]];
         $this->services->setService('Config', $config);
         $form = $this->forms->createServiceWithName($this->services, 'Foo', 'Foo');
         $this->assertInstanceOf('Zend\Form\Form', $form);
@@ -158,37 +158,37 @@ class FormAbstractServiceFactoryTest extends TestCase
 
     public function testFormCanBeCreatedViaInteractionOfAllManagersExceptInputFilterManager()
     {
-        $formConfig = array(
+        $formConfig = [
             'hydrator' => 'ObjectProperty',
             'type'     => 'Zend\Form\Form',
-            'elements' => array(
-                array(
-                    'spec' => array(
+            'elements' => [
+                [
+                    'spec' => [
                         'type' => 'Zend\Form\Element\Email',
                         'name' => 'email',
-                        'options' => array(
+                        'options' => [
                             'label' => 'Your email address',
-                        )
-                    ),
-                ),
-            ),
-            'input_filter' => array(
-                'email' => array(
+                        ]
+                    ],
+                ],
+            ],
+            'input_filter' => [
+                'email' => [
                     'required'   => true,
-                    'filters'    => array(
-                        array(
+                    'filters'    => [
+                        [
                             'name' => 'string_trim',
-                        ),
-                    ),
-                    'validators' => array(
-                        array(
+                        ],
+                    ],
+                    'validators' => [
+                        [
                             'name' => 'email_address',
-                        ),
-                    ),
-                ),
-            ),
-        );
-        $config = array('forms' => array('Foo' => $formConfig));
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $config = ['forms' => ['Foo' => $formConfig]];
         $this->services->setService('Config', $config);
         $form = $this->forms->createServiceWithName($this->services, 'Foo', 'Foo');
         $this->assertInstanceOf('Zend\Form\Form', $form);

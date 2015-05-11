@@ -35,10 +35,10 @@ class FormLabelTest extends CommonTestCase
 
     public function testPassingArrayToOpenTagRendersAttributes()
     {
-        $attributes = array(
+        $attributes = [
             'class'     => 'email-label',
             'data-type' => 'label',
-        );
+        ];
         $markup = $this->helper->openTag($attributes);
 
         foreach ($attributes as $key => $value) {
@@ -129,7 +129,7 @@ class FormLabelTest extends CommonTestCase
     {
         $element = new Element('foo');
         $element->setLabel('The value for foo:');
-        $element->setLabelAttributes(array('id' => 'bar'));
+        $element->setLabelAttributes(['id' => 'bar']);
         $markup = $this->helper->__invoke($element, '<input type="text" id="foo" />', FormLabelHelper::APPEND);
         $this->assertContains('"foo" />The value for foo:</label>', $markup);
         $this->assertContains('id="bar" for="foo"', $markup);
@@ -196,7 +196,7 @@ class FormLabelTest extends CommonTestCase
     {
         $element = new Element('foo');
         $element->setLabel('The value <a>for</a> foo:');
-        $element->setLabelOptions(array('disable_html_escape' => true));
+        $element->setLabelOptions(['disable_html_escape' => true]);
         $markup = $this->helper->__invoke($element);
         $this->assertContains('<a>for</a>', $markup);
     }

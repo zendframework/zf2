@@ -29,19 +29,19 @@ class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function dataSetTypeSetValueGenerate()
     {
-        return array(
-            array('string', 'foo', "'foo';"),
-            array('int', 1, "1;"),
-            array('integer', 1, "1;"),
-            array('bool', true, "true;"),
-            array('bool', false, "false;"),
-            array('boolean', true, "true;"),
-            array('number', 1, '1;'),
-            array('float', 1.23, '1.23;'),
-            array('double', 1.23, '1.23;'),
-            array('constant', 'FOO', 'FOO;'),
-            array('null', null, 'null;'),
-        );
+        return [
+            ['string', 'foo', "'foo';"],
+            ['int', 1, "1;"],
+            ['integer', 1, "1;"],
+            ['bool', true, "true;"],
+            ['bool', false, "false;"],
+            ['boolean', true, "true;"],
+            ['number', 1, '1;'],
+            ['float', 1.23, '1.23;'],
+            ['double', 1.23, '1.23;'],
+            ['constant', 'FOO', 'FOO;'],
+            ['null', null, 'null;'],
+        ];
     }
 
     /**
@@ -87,14 +87,14 @@ class PropertyGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testPropertyMultilineValue()
     {
-        $targetValue = array(
+        $targetValue = [
             5,
             'one' => 1,
             'two' => '2',
             'null' => null,
             'true' => true,
             "bar's" => "bar's",
-        );
+        ];
 
         $expectedSource = <<<EOS
     public \$myFoo = array(
@@ -152,7 +152,7 @@ EOS;
         $cgProp = PropertyGenerator::fromReflection($reflProp);
 
         $this->assertEquals('_bazProperty', $cgProp->getName());
-        $this->assertEquals(array(true, false, true), $cgProp->getDefaultValue()->getValue());
+        $this->assertEquals([true, false, true], $cgProp->getDefaultValue()->getValue());
         $this->assertEquals('private', $cgProp->getVisibility());
 
         $reflProp = $reflectionClass->getProperty('_bazStaticProperty');
@@ -215,18 +215,18 @@ EOS;
 
     public function testCreateFromArray()
     {
-        $propertyGenerator = PropertyGenerator::fromArray(array(
+        $propertyGenerator = PropertyGenerator::fromArray([
             'name'         => 'SampleProperty',
             'const'        => true,
             'defaultvalue' => 'foo',
-            'docblock'     => array(
+            'docblock'     => [
                 'shortdescription' => 'foo',
-            ),
+            ],
             'abstract'     => true,
             'final'        => true,
             'static'       => true,
             'visibility'   => PropertyGenerator::VISIBILITY_PROTECTED,
-        ));
+        ]);
 
         $this->assertEquals('SampleProperty', $propertyGenerator->getName());
         $this->assertTrue($propertyGenerator->isConst());

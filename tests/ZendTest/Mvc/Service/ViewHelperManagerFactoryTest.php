@@ -27,11 +27,11 @@ class ViewHelperManagerFactoryTest extends TestCase
      */
     public function emptyConfiguration()
     {
-        return array(
-            'no-config'                => array(array()),
-            'view-manager-config-only' => array(array('view_manager' => array())),
-            'empty-doctype-config'     => array(array('view_manager' => array('doctype' => null))),
-        );
+        return [
+            'no-config'                => [[]],
+            'view-manager-config-only' => [['view_manager' => []]],
+            'empty-doctype-config'     => [['view_manager' => ['doctype' => null]]],
+        ];
     }
 
     /**
@@ -50,7 +50,7 @@ class ViewHelperManagerFactoryTest extends TestCase
 
     public function testConsoleRequestsResultInSilentFailure()
     {
-        $this->services->setService('Config', array());
+        $this->services->setService('Config', []);
         $this->services->setService('Request', new ConsoleRequest());
 
         $manager = $this->factory->createService($this->services);
@@ -68,11 +68,11 @@ class ViewHelperManagerFactoryTest extends TestCase
     public function testConsoleRequestWithBasePathConsole()
     {
         $this->services->setService('Config',
-            array(
-                'view_manager' => array(
+            [
+                'view_manager' => [
                     'base_path_console' => 'http://test.com'
-                )
-            )
+                ]
+            ]
         );
         $this->services->setService('Request', new ConsoleRequest());
 

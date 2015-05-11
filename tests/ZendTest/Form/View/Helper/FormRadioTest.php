@@ -23,11 +23,11 @@ class FormRadioTest extends CommonTestCase
     public function getElement()
     {
         $element = new RadioElement('foo');
-        $options = array(
+        $options = [
             'value1' => 'This is the first label',
             'value2' => 'This is the second label',
             'value3' => 'This is the third label',
-        );
+        ];
         $element->setValueOptions($options);
         return $element;
     }
@@ -35,17 +35,17 @@ class FormRadioTest extends CommonTestCase
     public function getElementWithOptionSpec()
     {
         $element = new RadioElement('foo');
-        $options = array(
+        $options = [
             'value1' => 'This is the first label',
-            1 => array(
+            1 => [
                 'value'           => 'value2',
                 'label'           => 'This is the second label (overridden)',
                 'disabled'        => false,
-                'label_attributes' => array('class' => 'label-class'),
-                'attributes'      => array('class' => 'input-class'),
-            ),
+                'label_attributes' => ['class' => 'label-class'],
+                'attributes'      => ['class' => 'input-class'],
+            ],
             'value3' => 'This is the third label',
-        );
+        ];
         $element->setValueOptions($options);
         return $element;
     }
@@ -120,7 +120,7 @@ class FormRadioTest extends CommonTestCase
     public function testUsesElementValueToDetermineRadioStatus()
     {
         $element = $this->getElement();
-        $element->setAttribute('value', array('value1', 'value3'));
+        $element->setAttribute('value', ['value1', 'value3']);
         $markup  = $this->helper->render($element);
 
         $this->assertRegexp('#value="value1"\s+checked="checked"#', $markup);
@@ -167,7 +167,7 @@ class FormRadioTest extends CommonTestCase
         $element = $this->getElement();
 
         $markup  = $this->helper
-            ->setLabelAttributes(array('class' => 'radio'))
+            ->setLabelAttributes(['class' => 'radio'])
             ->render($element);
 
         $this->assertEquals(3, substr_count($markup, '<label class="radio"'));
@@ -176,7 +176,7 @@ class FormRadioTest extends CommonTestCase
     public function testAllowsSpecifyingLabelAttributesInElementAttributes()
     {
         $element = $this->getElement();
-        $element->setLabelAttributes(array('class' => 'radio'));
+        $element->setLabelAttributes(['class' => 'radio']);
 
         $markup  = $this->helper->render($element);
 
@@ -209,12 +209,12 @@ class FormRadioTest extends CommonTestCase
     public function testCanTranslateContent()
     {
         $element = new RadioElement('foo');
-        $element->setValueOptions(array(
-            array(
+        $element->setValueOptions([
+            [
                 'label' => 'label1',
                 'value' => 'value1',
-            ),
-        ));
+            ],
+        ]);
         $markup = $this->helper->render($element);
 
         $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');

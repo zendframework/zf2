@@ -24,10 +24,10 @@ class StorageCacheFactoryTest extends \PHPUnit_Framework_TestCase
         Cache\StorageFactory::resetAdapterPluginManager();
         Cache\StorageFactory::resetPluginManager();
         $this->sm = new ServiceManager();
-        $this->sm->setService('Config', array('cache' => array(
+        $this->sm->setService('Config', ['cache' => [
             'adapter' => 'Memory',
-            'plugins' => array('Serializer', 'ClearExpiredByFactor'),
-        )));
+            'plugins' => ['Serializer', 'ClearExpiredByFactor'],
+        ]]);
         $this->sm->setFactory('CacheFactory', 'Zend\Cache\Service\StorageCacheFactory');
     }
 

@@ -112,14 +112,14 @@ class FormDateTimeSelectTest extends CommonTestCase
     public function testNoMinutesDelimiterIfSecondsNotShown()
     {
         $element  = new DateTimeSelect('foo');
-        $element->setValue(array(
+        $element->setValue([
             'year'   => '2012',
             'month'  => '09',
             'day'    => '24',
             'hour'   => '03',
             'minute' => '04',
             'second' => '59',
-        ));
+        ]);
 
         $element->setShouldShowSeconds(false);
         $element->shouldRenderDelimiters(true);

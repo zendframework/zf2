@@ -52,9 +52,9 @@ class StaticEventManagerTest extends TestCase
     public function testCanAttachCallbackToEvent()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('foo', 'bar', array($this, __FUNCTION__));
+        $events->attach('foo', 'bar', [$this, __FUNCTION__]);
         $this->assertContains('bar', $events->getEvents('foo'));
-        $expected  = array($this, __FUNCTION__);
+        $expected  = [$this, __FUNCTION__];
         $found     = false;
         $listeners = $events->getListeners('foo', 'bar');
         $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $listeners);
@@ -71,11 +71,11 @@ class StaticEventManagerTest extends TestCase
     public function testCanAttachCallbackToMultipleEventsAtOnce()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('bar', array('foo', 'test'), array($this, __FUNCTION__));
+        $events->attach('bar', ['foo', 'test'], [$this, __FUNCTION__]);
         $this->assertContains('foo', $events->getEvents('bar'));
         $this->assertContains('test', $events->getEvents('bar'));
-        $expected = array($this, __FUNCTION__);
-        foreach (array('foo', 'test') as $event) {
+        $expected = [$this, __FUNCTION__];
+        foreach (['foo', 'test'] as $event) {
             $found     = false;
             $listeners = $events->getListeners('bar', $event);
             $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $listeners);
@@ -93,11 +93,11 @@ class StaticEventManagerTest extends TestCase
     public function testCanAttachSameEventToMultipleResourcesAtOnce()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach(array('foo', 'test'), 'bar', array($this, __FUNCTION__));
+        $events->attach(['foo', 'test'], 'bar', [$this, __FUNCTION__]);
         $this->assertContains('bar', $events->getEvents('foo'));
         $this->assertContains('bar', $events->getEvents('test'));
-        $expected = array($this, __FUNCTION__);
-        foreach (array('foo', 'test') as $id) {
+        $expected = [$this, __FUNCTION__];
+        foreach (['foo', 'test'] as $id) {
             $found     = false;
             $listeners = $events->getListeners($id, 'bar');
             $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $listeners);
@@ -115,12 +115,12 @@ class StaticEventManagerTest extends TestCase
     public function testCanAttachCallbackToMultipleEventsOnMultipleResourcesAtOnce()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach(array('bar', 'baz'), array('foo', 'test'), array($this, __FUNCTION__));
+        $events->attach(['bar', 'baz'], ['foo', 'test'], [$this, __FUNCTION__]);
         $this->assertContains('foo', $events->getEvents('bar'));
         $this->assertContains('test', $events->getEvents('bar'));
-        $expected = array($this, __FUNCTION__);
-        foreach (array('bar', 'baz') as $resource) {
-            foreach (array('foo', 'test') as $event) {
+        $expected = [$this, __FUNCTION__];
+        foreach (['bar', 'baz'] as $resource) {
+            foreach (['foo', 'test'] as $event) {
                 $found     = false;
                 $listeners = $events->getListeners($resource, $event);
                 $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $listeners);
@@ -139,7 +139,7 @@ class StaticEventManagerTest extends TestCase
     public function testListenersAttachedUsingWildcardEventWillBeTriggeredByResource()
     {
         $test     = new stdClass;
-        $test->events = array();
+        $test->events = [];
         $callback = function ($e) use ($test) {
             $test->events[] = $e->getName();
         };
@@ -150,7 +150,7 @@ class StaticEventManagerTest extends TestCase
         $events = new EventManager('bar');
         $events->setSharedManager($staticEvents);
 
-        foreach (array('foo', 'bar', 'baz') as $event) {
+        foreach (['foo', 'bar', 'baz'] as $event) {
             $events->trigger($event);
             $this->assertContains($event, $test->events);
         }
@@ -159,7 +159,7 @@ class StaticEventManagerTest extends TestCase
     public function testCanDetachListenerFromResource()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('foo', 'bar', array($this, __FUNCTION__));
+        $events->attach('foo', 'bar', [$this, __FUNCTION__]);
         foreach ($events->getListeners('foo', 'bar') as $listener) {
             // only one; retrieving it so we can detach
         }
@@ -171,21 +171,21 @@ class StaticEventManagerTest extends TestCase
     public function testCanGetEventsByResource()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('foo', 'bar', array($this, __FUNCTION__));
-        $this->assertEquals(array('bar'), $events->getEvents('foo'));
+        $events->attach('foo', 'bar', [$this, __FUNCTION__]);
+        $this->assertEquals(['bar'], $events->getEvents('foo'));
     }
 
     public function testCanGetEventsByWildcard()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('*', 'bar', array($this, __FUNCTION__));
-        $this->assertEquals(array('bar'), $events->getEvents('foo'));
+        $events->attach('*', 'bar', [$this, __FUNCTION__]);
+        $this->assertEquals(['bar'], $events->getEvents('foo'));
     }
 
     public function testCanGetListenersByResourceAndEvent()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('foo', 'bar', array($this, __FUNCTION__));
+        $events->attach('foo', 'bar', [$this, __FUNCTION__]);
         $listeners = $events->getListeners('foo', 'bar');
         $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $listeners);
         $this->assertEquals(1, count($listeners));
@@ -194,7 +194,7 @@ class StaticEventManagerTest extends TestCase
     public function testCanNotGetListenersByResourceAndEventWithWildcard()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('*', 'bar', array($this, __FUNCTION__));
+        $events->attach('*', 'bar', [$this, __FUNCTION__]);
         $listeners = $events->getListeners('foo', 'bar');
         $this->assertFalse($listeners);
     }
@@ -202,7 +202,7 @@ class StaticEventManagerTest extends TestCase
     public function testCanGetListenersByWildcardAndEvent()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('*', 'bar', array($this, __FUNCTION__));
+        $events->attach('*', 'bar', [$this, __FUNCTION__]);
         $listeners = $events->getListeners('*', 'bar');
         $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $listeners);
         $this->assertEquals(1, count($listeners));
@@ -211,8 +211,8 @@ class StaticEventManagerTest extends TestCase
     public function testCanClearListenersByResource()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('foo', 'bar', array($this, __FUNCTION__));
-        $events->attach('foo', 'baz', array($this, __FUNCTION__));
+        $events->attach('foo', 'bar', [$this, __FUNCTION__]);
+        $events->attach('foo', 'baz', [$this, __FUNCTION__]);
         $events->clearListeners('foo');
         $this->assertFalse($events->getListeners('foo', 'bar'));
         $this->assertFalse($events->getListeners('foo', 'baz'));
@@ -221,9 +221,9 @@ class StaticEventManagerTest extends TestCase
     public function testCanClearListenersByResourceAndEvent()
     {
         $events = StaticEventManager::getInstance();
-        $events->attach('foo', 'bar', array($this, __FUNCTION__));
-        $events->attach('foo', 'baz', array($this, __FUNCTION__));
-        $events->attach('foo', 'bat', array($this, __FUNCTION__));
+        $events->attach('foo', 'bar', [$this, __FUNCTION__]);
+        $events->attach('foo', 'baz', [$this, __FUNCTION__]);
+        $events->attach('foo', 'bat', [$this, __FUNCTION__]);
         $events->clearListeners('foo', 'baz');
         $this->assertInstanceOf('Zend\Stdlib\PriorityQueue', $events->getListeners('foo', 'baz'));
         $this->assertEquals(0, count($events->getListeners('foo', 'baz')));
@@ -235,13 +235,13 @@ class StaticEventManagerTest extends TestCase
 
     public function testCanPassArrayOfIdentifiersToConstructor()
     {
-        $identifiers = array('foo', 'bar');
+        $identifiers = ['foo', 'bar'];
         $manager = new EventManager($identifiers);
     }
 
     public function testListenersAttachedToAnyIdentifierProvidedToEventManagerWillBeTriggered()
     {
-        $identifiers = array('foo', 'bar');
+        $identifiers = ['foo', 'bar'];
         $events  = StaticEventManager::getInstance();
         $manager = new EventManager($identifiers);
         $manager->setSharedManager($events);
@@ -254,13 +254,13 @@ class StaticEventManagerTest extends TestCase
         $events->attach('bar', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
-        $manager->trigger('bar', $this, array());
+        $manager->trigger('bar', $this, []);
         $this->assertEquals(2, $test->triggered);
     }
 
     public function testListenersAttachedToWildcardsWillBeTriggered()
     {
-        $identifiers = array('foo', 'bar');
+        $identifiers = ['foo', 'bar'];
         $events  = StaticEventManager::getInstance();
         $manager = new EventManager($identifiers);
         $manager->setSharedManager($events);
@@ -274,13 +274,13 @@ class StaticEventManagerTest extends TestCase
         $events->attach('*', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
-        $manager->trigger('bar', $this, array());
+        $manager->trigger('bar', $this, []);
         $this->assertEquals(2, $test->triggered);
     }
 
     public function testListenersAttachedToAnyIdentifierProvidedToEventManagerOrWildcardsWillBeTriggered()
     {
-        $identifiers = array('foo', 'bar');
+        $identifiers = ['foo', 'bar'];
         $events  = StaticEventManager::getInstance();
         $manager = new EventManager($identifiers);
         $manager->setSharedManager($events);
@@ -300,7 +300,7 @@ class StaticEventManagerTest extends TestCase
         $events->attach('*', 'bar', function ($e) use ($test) {
             $test->triggered++;
         });
-        $manager->trigger('bar', $this, array());
+        $manager->trigger('bar', $this, []);
         $this->assertEquals(4, $test->triggered);
     }
 

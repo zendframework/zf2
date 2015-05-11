@@ -13,7 +13,7 @@ use Zend\Log\Writer\FirePhp\FirePhpInterface;
 
 class MockFirePhp implements FirePhpInterface
 {
-    public $calls = array();
+    public $calls = [];
 
     protected $enabled;
 

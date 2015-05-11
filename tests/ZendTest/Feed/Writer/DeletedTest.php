@@ -106,29 +106,29 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
     public function testAddsByNameFromArray()
     {
         $entry = new Writer\Deleted;
-        $entry->setBy(array('name'=>'Joe'));
-        $this->assertEquals(array('name'=>'Joe'), $entry->getBy());
+        $entry->setBy(['name'=>'Joe']);
+        $this->assertEquals(['name'=>'Joe'], $entry->getBy());
     }
 
     public function testAddsByEmailFromArray()
     {
         $entry = new Writer\Deleted;
-        $entry->setBy(array('name'=>'Joe', 'email'=>'joe@example.com'));
-        $this->assertEquals(array('name'=>'Joe', 'email' => 'joe@example.com'), $entry->getBy());
+        $entry->setBy(['name'=>'Joe', 'email'=>'joe@example.com']);
+        $this->assertEquals(['name'=>'Joe', 'email' => 'joe@example.com'], $entry->getBy());
     }
 
     public function testAddsByUriFromArray()
     {
         $entry = new Writer\Deleted;
-        $entry->setBy(array('name'=>'Joe', 'uri'=>'http://www.example.com'));
-        $this->assertEquals(array('name'=>'Joe', 'uri' => 'http://www.example.com'), $entry->getBy());
+        $entry->setBy(['name'=>'Joe', 'uri'=>'http://www.example.com']);
+        $this->assertEquals(['name'=>'Joe', 'uri' => 'http://www.example.com'], $entry->getBy());
     }
 
     public function testAddByThrowsExceptionOnInvalidNameFromArray()
     {
         $entry = new Writer\Deleted;
         try {
-            $entry->setBy(array('name'=>''));
+            $entry->setBy(['name'=>'']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -138,7 +138,7 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Deleted;
         try {
-            $entry->setBy(array('name'=>'Joe', 'email'=>''));
+            $entry->setBy(['name'=>'Joe', 'email'=>'']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -149,7 +149,7 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
         $this->markTestIncomplete('Pending Zend\URI fix for validation');
         $entry = new Writer\Deleted;
         try {
-            $entry->setBy(array('name'=>'Joe', 'uri'=>'notauri'));
+            $entry->setBy(['name'=>'Joe', 'uri'=>'notauri']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -159,7 +159,7 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
     {
         $entry = new Writer\Deleted;
         try {
-            $entry->setBy(array('uri'=>'notauri'));
+            $entry->setBy(['uri'=>'notauri']);
             $this->fail();
         } catch (Writer\Exception\ExceptionInterface $e) {
         }
@@ -175,8 +175,8 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
         $by = $entry->getBy();
         $this->assertNull($by);
 
-        $entry->setBy(array('name'=>'Joe', 'email'=>'joe@example.com'));
-        $this->assertEquals(array('name'=>'Joe', 'email' => 'joe@example.com'), $entry->getBy());
+        $entry->setBy(['name'=>'Joe', 'email'=>'joe@example.com']);
+        $this->assertEquals(['name'=>'Joe', 'email' => 'joe@example.com'], $entry->getBy());
     }
 
 
@@ -186,7 +186,7 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Zend\Feed\Writer\Exception\InvalidArgumentException',
             'Invalid parameter: "uri" array value must be a non-empty string and valid URI/IRI');
-        $entry->setBy(array('name' => 'joe', 'email'=>'joe@example.com', 'uri'=> ''));
+        $entry->setBy(['name' => 'joe', 'email'=>'joe@example.com', 'uri'=> '']);
     }
 
     /**
@@ -247,7 +247,7 @@ class DeletedTest extends \PHPUnit_Framework_TestCase
         $entry = new Writer\Deleted;
 
         $result = $entry->setType('type')
-                        ->setBy(array('name' => 'foo'))
+                        ->setBy(['name' => 'foo'])
                         ->setComment('comment')
                         ->setEncoding('utf-8')
                         ->setReference('foo')

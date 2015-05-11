@@ -1,6 +1,6 @@
 <?php
-return array(
-    'all' => array(
+return [
+    'all' => [
         'php' => 'yes'
-    ),
-);
+    ],
+];

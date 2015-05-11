@@ -24,20 +24,20 @@ class SessionConfigFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatesSessionConfigByDefault()
     {
-        $this->services->setService('Config', array(
-            'session_config' => array(),
-        ));
+        $this->services->setService('Config', [
+            'session_config' => [],
+        ]);
         $config = $this->services->get('Zend\Session\Config\ConfigInterface');
         $this->assertInstanceOf('Zend\Session\Config\SessionConfig', $config);
     }
 
     public function testCanCreateAlternateSessionConfigTypeViaConfigClassKey()
     {
-        $this->services->setService('Config', array(
-            'session_config' => array(
+        $this->services->setService('Config', [
+            'session_config' => [
                 'config_class' => 'Zend\Session\Config\StandardConfig',
-            ),
-        ));
+            ],
+        ]);
         $config = $this->services->get('Zend\Session\Config\ConfigInterface');
         $this->assertInstanceOf('Zend\Session\Config\StandardConfig', $config);
         // Since SessionConfig extends StandardConfig, need to test that it's not that
@@ -46,12 +46,12 @@ class SessionConfigFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testServiceReceivesConfiguration()
     {
-        $this->services->setService('Config', array(
-            'session_config' => array(
+        $this->services->setService('Config', [
+            'session_config' => [
                 'config_class' => 'Zend\Session\Config\StandardConfig',
                 'name'         => 'zf2',
-            ),
-        ));
+            ],
+        ]);
         $config = $this->services->get('Zend\Session\Config\ConfigInterface');
         $this->assertEquals('zf2', $config->getName());
     }

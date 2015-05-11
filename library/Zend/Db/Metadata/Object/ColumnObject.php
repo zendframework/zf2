@@ -87,7 +87,7 @@ class ColumnObject
      *
      * @var array
      */
-    protected $errata = array();
+    protected $errata = [];
 
     /**
      * Constructor

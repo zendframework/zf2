@@ -26,13 +26,13 @@ class ExtractEventTest extends PHPUnit_Framework_TestCase
         $target    = new stdClass();
         $object1   = new stdClass();
         $event     = new ExtractEvent($target, $object1);
-        $data2     = array('maintainer' => 'Marvin');
+        $data2     = ['maintainer' => 'Marvin'];
         $object2   = new stdClass();
 
         $this->assertSame(ExtractEvent::EVENT_EXTRACT, $event->getName());
         $this->assertSame($target, $event->getTarget());
         $this->assertSame($object1, $event->getExtractionObject());
-        $this->assertSame(array(), $event->getExtractedData());
+        $this->assertSame([], $event->getExtractedData());
 
         $event->setExtractedData($data2);
 
@@ -43,7 +43,7 @@ class ExtractEventTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame($object2, $event->getExtractionObject());
 
-        $event->mergeExtractedData(array('president' => 'Zaphod'));
+        $event->mergeExtractedData(['president' => 'Zaphod']);
 
         $extracted = $event->getExtractedData();
 

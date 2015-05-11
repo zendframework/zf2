@@ -32,7 +32,7 @@ abstract class AbstractDbaTest extends CommonAdapterTest
 
         if (!in_array($this->handler, dba_handlers())) {
             try {
-                new Cache\Storage\Adapter\DbaOptions(array('handler' => $this->handler));
+                new Cache\Storage\Adapter\DbaOptions(['handler' => $this->handler]);
                 $this->fail("Expected exception Zend\Cache\Exception\ExtensionNotLoadedException");
             } catch (Cache\Exception\ExtensionNotLoadedException $e) {
                 $this->markTestSkipped("Missing ext/dba handler '{$this->handler}'");
@@ -40,10 +40,10 @@ abstract class AbstractDbaTest extends CommonAdapterTest
         }
 
         $this->temporaryDbaFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('zfcache_dba_') . '.' . $this->handler;
-        $this->_options = new Cache\Storage\Adapter\DbaOptions(array(
+        $this->_options = new Cache\Storage\Adapter\DbaOptions([
             'pathname' => $this->temporaryDbaFile,
             'handler'  => $this->handler,
-        ));
+        ]);
 
         $this->_storage = new Cache\Storage\Adapter\Dba();
         $this->_storage->setOptions($this->_options);

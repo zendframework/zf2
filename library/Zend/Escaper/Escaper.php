@@ -24,12 +24,12 @@ class Escaper
      *
      * @var array
      */
-    protected static $htmlNamedEntityMap = array(
+    protected static $htmlNamedEntityMap = [
         34 => 'quot',         // quotation mark
         38 => 'amp',          // ampersand
         60 => 'lt',           // less-than sign
         62 => 'gt',           // greater-than sign
-    );
+    ];
 
     /**
      * Current encoding for escaping. If not UTF-8, we convert strings from this encoding
@@ -75,7 +75,7 @@ class Escaper
      *
      * @var array
      */
-    protected $supportedEncodings = array(
+    protected $supportedEncodings = [
         'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
         'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
         'ibm866',       '866',          'cp1251',       'windows-1251',
@@ -85,7 +85,7 @@ class Escaper
         'big5-hkscs',   'shift_jis',    'sjis',         'sjis-win',
         'cp932',        '932',          'euc-jp',       'eucjp',
         'eucjp-win',    'macroman'
-    );
+    ];
 
     /**
      * Constructor: Single parameter allows setting of global encoding for use by
@@ -121,9 +121,9 @@ class Escaper
         }
 
         // set matcher callbacks
-        $this->htmlAttrMatcher = array($this, 'htmlAttrMatcher');
-        $this->jsMatcher       = array($this, 'jsMatcher');
-        $this->cssMatcher      = array($this, 'cssMatcher');
+        $this->htmlAttrMatcher = [$this, 'htmlAttrMatcher'];
+        $this->jsMatcher       = [$this, 'jsMatcher'];
+        $this->cssMatcher      = [$this, 'cssMatcher'];
     }
 
     /**

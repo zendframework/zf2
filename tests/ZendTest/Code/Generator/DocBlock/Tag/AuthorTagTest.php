@@ -64,10 +64,10 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorWithOptions()
     {
-        $this->tag->setOptions(array(
+        $this->tag->setOptions([
             'authorEmail' => 'string',
             'authorName' => 'foo',
-        ));
+        ]);
         $tagWithOptionsFromConstructor = new AuthorTag('foo', 'string');
         $this->assertEquals($this->tag->generate(), $tagWithOptionsFromConstructor->generate());
     }

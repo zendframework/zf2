@@ -18,7 +18,7 @@ class Hidden extends Element
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'hidden',
-    );
+    ];
 }

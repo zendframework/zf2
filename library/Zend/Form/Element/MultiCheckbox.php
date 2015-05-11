@@ -22,9 +22,9 @@ class MultiCheckbox extends Checkbox
      *
      * @var array
      */
-    protected $attributes = array(
+    protected $attributes = [
         'type' => 'multi_checkbox',
-    );
+    ];
 
     /**
      * @var bool
@@ -44,7 +44,7 @@ class MultiCheckbox extends Checkbox
     /**
      * @var array
      */
-    protected $valueOptions = array();
+    protected $valueOptions = [];
 
     /**
      * @return array
@@ -160,14 +160,14 @@ class MultiCheckbox extends Checkbox
     protected function getValidator()
     {
         if (null === $this->validator && !$this->disableInArrayValidator()) {
-            $inArrayValidator = new InArrayValidator(array(
+            $inArrayValidator = new InArrayValidator([
                 'haystack'  => $this->getValueOptionsValues(),
                 'strict'    => false,
-            ));
-            $this->validator = new ExplodeValidator(array(
+            ]);
+            $this->validator = new ExplodeValidator([
                 'validator'      => $inArrayValidator,
                 'valueDelimiter' => null, // skip explode if only one value
-            ));
+            ]);
         }
         return $this->validator;
     }
@@ -179,7 +179,7 @@ class MultiCheckbox extends Checkbox
      */
     protected function getValueOptionsValues()
     {
-        $values = array();
+        $values = [];
         $options = $this->getValueOptions();
         foreach ($options as $key => $optionSpec) {
             $value = (is_array($optionSpec)) ? $optionSpec['value'] : $key;

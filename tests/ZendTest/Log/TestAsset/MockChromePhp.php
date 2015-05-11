@@ -13,7 +13,7 @@ use Zend\Log\Writer\ChromePhp\ChromePhpInterface;
 
 class MockChromePhp implements ChromePhpInterface
 {
-    public $calls = array();
+    public $calls = [];
 
     protected $enabled;
 

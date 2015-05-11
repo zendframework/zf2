@@ -31,7 +31,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
         Debug::setSapi('cli');
         $data = 'string';
         $result = Debug::Dump($data, null, false);
-        $result = str_replace(array(PHP_EOL, "\n"), '_', $result);
+        $result = str_replace([PHP_EOL, "\n"], '_', $result);
         $expected = "__string(6) \"string\"__";
         $this->assertEquals($expected, $result);
     }
@@ -44,10 +44,10 @@ class DebugTest extends \PHPUnit_Framework_TestCase
 
         // Has to check for two strings, because xdebug internally handles CLI vs Web
         $this->assertContains($result,
-            array(
+            [
                 "<pre>string(6) \"string\"\n</pre>",
                 "<pre>string(6) &quot;string&quot;\n</pre>",
-            )
+            ]
         );
     }
 
@@ -71,7 +71,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
         $data = 'string';
         $label = 'LABEL';
         $result = Debug::Dump($data, $label, false);
-        $result = str_replace(array(PHP_EOL, "\n"), '_', $result);
+        $result = str_replace([PHP_EOL, "\n"], '_', $result);
         $expected = "_{$label} _string(6) \"string\"__";
         $this->assertEquals($expected, $result);
     }
@@ -87,7 +87,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
         }
 
         Debug::setSapi('apache');
-        $a = array("a" => "b");
+        $a = ["a" => "b"];
 
         $result = Debug::dump($a, "LABEL", false);
         $this->assertContains("<pre>", $result);
@@ -101,7 +101,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
         $escaper = new Escaper;
         Debug::setEscaper($escaper);
 
-        $a = array("a" => "<script type=\"text/javascript\"");
+        $a = ["a" => "<script type=\"text/javascript\""];
         $result = Debug::dump($a, "LABEL", false);
         $this->assertContains("&lt;script type=&quot;text/javascript&quot;&quot;", $result);
     }

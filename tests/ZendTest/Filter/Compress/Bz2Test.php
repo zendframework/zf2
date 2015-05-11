@@ -54,19 +54,19 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
     public function testBz2GetSetOptions()
     {
         $filter = new Bz2Compression();
-        $this->assertEquals(array('blocksize' => 4, 'archive' => null), $filter->getOptions());
+        $this->assertEquals(['blocksize' => 4, 'archive' => null], $filter->getOptions());
 
         $this->assertEquals(4, $filter->getOptions('blocksize'));
 
         $this->assertNull($filter->getOptions('nooption'));
 
-        $filter->setOptions(array('blocksize' => 6));
+        $filter->setOptions(['blocksize' => 6]);
         $this->assertEquals(6, $filter->getOptions('blocksize'));
 
-        $filter->setOptions(array('archive' => 'test.txt'));
+        $filter->setOptions(['archive' => 'test.txt']);
         $this->assertEquals('test.txt', $filter->getOptions('archive'));
 
-        $filter->setOptions(array('nooption' => 0));
+        $filter->setOptions(['nooption' => 0]);
         $this->assertNull($filter->getOptions('nooption'));
     }
 
@@ -77,8 +77,8 @@ class Bz2Test extends \PHPUnit_Framework_TestCase
      */
     public function testBz2GetSetOptionsInConstructor()
     {
-        $filter2= new Bz2Compression(array('blocksize' => 8));
-        $this->assertEquals(array('blocksize' => 8, 'archive' => null), $filter2->getOptions());
+        $filter2= new Bz2Compression(['blocksize' => 8]);
+        $this->assertEquals(['blocksize' => 8, 'archive' => null], $filter2->getOptions());
     }
 
     /**

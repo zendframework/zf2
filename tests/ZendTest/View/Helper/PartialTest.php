@@ -76,7 +76,7 @@ class PartialTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $view->vars()->message = 'This should never be read';
         $this->helper->setView($view);
-        $return = $this->helper->__invoke('partialThree.phtml', array('message' => 'This message should be read'));
+        $return = $this->helper->__invoke('partialThree.phtml', ['message' => 'This message should be read']);
         $this->assertNotContains('This should never be read', $return);
         $this->assertContains('This message should be read', $return, $return);
     }
@@ -131,10 +131,10 @@ class PartialTest extends TestCase
 
     public function testCanPassViewModelAsSecondArgument()
     {
-        $model = new ViewModel(array(
+        $model = new ViewModel([
             'foo' => 'bar',
             'bar' => 'baz',
-        ));
+        ]);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -149,10 +149,10 @@ class PartialTest extends TestCase
 
     public function testCanPassViewModelAsSoleArgument()
     {
-        $model = new ViewModel(array(
+        $model = new ViewModel([
             'foo' => 'bar',
             'bar' => 'baz',
-        ));
+        ]);
         $model->setTemplate('partialVars.phtml');
 
         $view = new View();
@@ -169,10 +169,10 @@ class PartialTest extends TestCase
 
 class Aggregate
 {
-    public $vars = array(
+    public $vars = [
         'foo' => 'bar',
         'bar' => 'baz'
-    );
+    ];
 
     public function toArray()
     {

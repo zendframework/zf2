@@ -261,14 +261,14 @@ class Connection extends AbstractConnection
             return;
         };
 
-        $connectionParameters = array(
-            'host'     => $findParameterValue(array('hostname', 'host')),
-            'user'     => $findParameterValue(array('username', 'user')),
-            'password' => $findParameterValue(array('password', 'passwd', 'pw')),
-            'dbname'   => $findParameterValue(array('database', 'dbname', 'db', 'schema')),
+        $connectionParameters = [
+            'host'     => $findParameterValue(['hostname', 'host']),
+            'user'     => $findParameterValue(['username', 'user']),
+            'password' => $findParameterValue(['password', 'passwd', 'pw']),
+            'dbname'   => $findParameterValue(['database', 'dbname', 'db', 'schema']),
             'port'     => isset($p['port']) ? (int) $p['port'] : null,
             'socket'   => isset($p['socket']) ? $p['socket'] : null,
-        );
+        ];
 
         return urldecode(http_build_query(array_filter($connectionParameters), null, ' '));
     }

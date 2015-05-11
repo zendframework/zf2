@@ -20,7 +20,7 @@ class DatetimeTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Datetime('foo');
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'DATETIME'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'DATETIME'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

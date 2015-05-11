@@ -42,7 +42,7 @@ class Server implements ZendServerServer
      * Arguments to pass to {@link $class} constructor
      * @var array
      */
-    protected $classArgs = array();
+    protected $classArgs = [];
 
     /**
      * Array of SOAP type => PHP class pairings for handling return/incoming values
@@ -60,7 +60,7 @@ class Server implements ZendServerServer
      * Registered fault exceptions
      * @var array
      */
-    protected $faultExceptions = array();
+    protected $faultExceptions = [];
 
     /**
      * Container for caught exception during business code execution
@@ -78,7 +78,7 @@ class Server implements ZendServerServer
      * Functions registered with this server; may be either an array or the SOAP_FUNCTIONS_ALL constant
      * @var array|int
      */
-    protected $functions = array();
+    protected $functions = [];
 
     /**
      * Object registered with this server
@@ -244,7 +244,7 @@ class Server implements ZendServerServer
      */
     public function getOptions()
     {
-        $options = array();
+        $options = [];
         if (null !== $this->actor) {
             $options['actor'] = $this->getActor();
         }
@@ -316,7 +316,7 @@ class Server implements ZendServerServer
      */
     public function setSoapVersion($version)
     {
-        if (!in_array($version, array(SOAP_1_1, SOAP_1_2))) {
+        if (!in_array($version, [SOAP_1_1, SOAP_1_2])) {
             throw new Exception\InvalidArgumentException('Invalid soap version specified');
         }
 
@@ -664,7 +664,7 @@ class Server implements ZendServerServer
      */
     public function getFunctions()
     {
-        $functions = array();
+        $functions = [];
         if (null !== $this->class) {
             $functions = get_class_methods($this->class);
         } elseif (null !== $this->object) {
@@ -694,7 +694,7 @@ class Server implements ZendServerServer
      */
     public function setPersistence($mode)
     {
-        if (!in_array($mode, array(SOAP_PERSISTENCE_SESSION, SOAP_PERSISTENCE_REQUEST))) {
+        if (!in_array($mode, [SOAP_PERSISTENCE_SESSION, SOAP_PERSISTENCE_REQUEST])) {
             throw new Exception\InvalidArgumentException('Invalid persistence mode specified');
         }
 
@@ -839,7 +839,7 @@ class Server implements ZendServerServer
         if (!empty($this->class)) {
             $args = $this->classArgs;
             array_unshift($args, $this->class);
-            call_user_func_array(array($server, 'setClass'), $args);
+            call_user_func_array([$server, 'setClass'], $args);
         }
 
         if (!empty($this->object)) {
@@ -953,7 +953,7 @@ class Server implements ZendServerServer
     {
         $displayErrorsOriginalState = ini_get('display_errors');
         ini_set('display_errors', '0');
-        set_error_handler(array($this, 'handlePhpErrors'), E_USER_ERROR);
+        set_error_handler([$this, 'handlePhpErrors'], E_USER_ERROR);
         return $displayErrorsOriginalState;
     }
 
@@ -1086,14 +1086,14 @@ class Server implements ZendServerServer
             $message = 'Unknown error';
         }
 
-        $allowedFaultModes = array(
+        $allowedFaultModes = [
             'VersionMismatch',
             'MustUnderstand',
             'DataEncodingUnknown',
             'Sender',
             'Receiver',
             'Server'
-        );
+        ];
         if (!in_array($code, $allowedFaultModes)) {
             $code = 'Receiver';
         }

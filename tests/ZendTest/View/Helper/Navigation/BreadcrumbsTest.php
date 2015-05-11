@@ -134,17 +134,17 @@ class BreadcrumbsTest extends AbstractTest
         $rendered1 = $this->_getExpected('bc/default.html');
         $rendered2 = 'Site 2';
 
-        $expected = array(
+        $expected = [
             'registered'       => $rendered1,
             'supplied'         => $rendered2,
             'registered_again' => $rendered1
-        );
+        ];
 
-        $actual = array(
+        $actual = [
             'registered'       => $this->_helper->render(),
             'supplied'         => $this->_helper->render($this->_nav2),
             'registered_again' => $this->_helper->render()
-        );
+        ];
 
         $this->assertEquals($expected, $actual);
     }
@@ -226,7 +226,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testRenderingPartialBySpecifyingAnArrayAsPartial()
     {
-        $this->_helper->setPartial(array('bc.phtml', 'application'));
+        $this->_helper->setPartial(['bc.phtml', 'application']);
 
         $expected = $this->_getExpected('bc/partial.html');
         $this->assertEquals($expected, $this->_helper->render());
@@ -234,7 +234,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testRenderingPartialShouldFailOnInvalidPartialArray()
     {
-        $this->_helper->setPartial(array('bc.phtml'));
+        $this->_helper->setPartial(['bc.phtml']);
 
         try {
             $this->_helper->render();
@@ -246,13 +246,13 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testLastBreadcrumbShouldBeEscaped()
     {
-        $container = new Navigation(array(
-            array(
+        $container = new Navigation([
+            [
                 'label'  => 'Live & Learn',
                 'uri'    => '#',
                 'active' => true
-            )
-        ));
+            ]
+        ]);
 
         $expected = 'Live &amp; Learn';
         $actual = $this->_helper->setMinDepth(0)->render($container);

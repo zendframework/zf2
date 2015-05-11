@@ -18,7 +18,7 @@ class KeyListIteratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testCount()
     {
-        $keys = array('key1', 'key2', 'key3');
+        $keys = ['key1', 'key2', 'key3'];
         $storage = $this->getMock('Zend\Cache\Storage\StorageInterface');
         $iterator = new KeyListIterator($storage, $keys);
         $this->assertEquals(3, $iterator->count());

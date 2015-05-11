@@ -32,12 +32,12 @@ class MimeVersionTest extends \PHPUnit_Framework_TestCase
 
     public function headerLines()
     {
-        return array(
-            'newline'      => array("MIME-Version: 5.0\nbar"),
-            'cr-lf'        => array("MIME-Version: 2.0\r\n"),
-            'cr-lf-wsp'    => array("MIME-Version: 3\r\n\r\n.1"),
-            'multiline'    => array("MIME-Version: baz\r\nbar\r\nbau"),
-        );
+        return [
+            'newline'      => ["MIME-Version: 5.0\nbar"],
+            'cr-lf'        => ["MIME-Version: 2.0\r\n"],
+            'cr-lf-wsp'    => ["MIME-Version: 3\r\n\r\n.1"],
+            'multiline'    => ["MIME-Version: baz\r\nbar\r\nbau"],
+        ];
     }
 
     /**
@@ -52,12 +52,12 @@ class MimeVersionTest extends \PHPUnit_Framework_TestCase
 
     public function invalidVersions()
     {
-        return array(
-            'no-decimal'    => array('1'),
-            'multi-decimal' => array('1.0.0'),
-            'alpha'         => array('X.Y'),
-            'non-alnum'     => array('Version 1.0'),
-        );
+        return [
+            'no-decimal'    => ['1'],
+            'multi-decimal' => ['1.0.0'],
+            'alpha'         => ['X.Y'],
+            'non-alnum'     => ['Version 1.0'],
+        ];
     }
 
     /**

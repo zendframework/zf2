@@ -64,12 +64,12 @@ class CallbackCacheTest extends CommonPatternTest
 
     public function setUp()
     {
-        $this->_storage = new Cache\Storage\Adapter\Memory(array(
+        $this->_storage = new Cache\Storage\Adapter\Memory([
             'memory_limit' => 0
-        ));
-        $this->_options = new Cache\Pattern\PatternOptions(array(
+        ]);
+        $this->_options = new Cache\Pattern\PatternOptions([
             'storage' => $this->_storage,
-        ));
+        ]);
         $this->_pattern = new Cache\Pattern\CallbackCache();
         $this->_pattern->setOptions($this->_options);
 
@@ -85,7 +85,7 @@ class CallbackCacheTest extends CommonPatternTest
     {
         $this->_testCall(
             __NAMESPACE__ . '\TestCallbackCache::bar',
-            array('testCallEnabledCacheOutputByDefault', 'arg2')
+            ['testCallEnabledCacheOutputByDefault', 'arg2']
         );
     }
 
@@ -95,7 +95,7 @@ class CallbackCacheTest extends CommonPatternTest
         $options->setCacheOutput(false);
         $this->_testCall(
             __NAMESPACE__ . '\TestCallbackCache::bar',
-            array('testCallDisabledCacheOutput', 'arg2')
+            ['testCallDisabledCacheOutput', 'arg2']
         );
     }
 
@@ -103,14 +103,14 @@ class CallbackCacheTest extends CommonPatternTest
     {
         $this->_testCall(
             __NAMESPACE__ . '\bar',
-            array('testMagicFunctionCall', 'arg2')
+            ['testMagicFunctionCall', 'arg2']
         );
     }
 
     public function testGenerateKey()
     {
         $callback = __NAMESPACE__ . '\TestCallbackCache::emptyMethod';
-        $args     = array('arg1', 2, 3.33, null);
+        $args     = ['arg1', 2, 3.33, null];
 
         $generatedKey = $this->_pattern->generateKey($callback, $args);
         $usedKey      = null;
@@ -177,8 +177,8 @@ class CallbackCacheTest extends CommonPatternTest
     public function testCallCanReturnCachedNullValues()
     {
         $callback = new FailableCallback();
-        $key      = $this->_pattern->generateKey($callback, array());
-        $this->_storage->setItem($key, array(null));
+        $key      = $this->_pattern->generateKey($callback, []);
+        $this->_storage->setItem($key, [null]);
         $value    = $this->_pattern->call($callback);
         $this->assertNull($value);
     }

@@ -52,23 +52,23 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function basicProvider()
     {
-        return array(
-            array('word', true),
-            array('', false),
-            array('    ', false),
-            array('  word  ', true),
-            array('0', true),
-            array(1, true),
-            array(0, true),
-            array(true, true),
-            array(false, false),
-            array(null, false),
-            array(array(), false),
-            array(array(5), true),
-            array(0.0, false),
-            array(1.0, true),
-            array(new stdClass(), true),
-        );
+        return [
+            ['word', true],
+            ['', false],
+            ['    ', false],
+            ['  word  ', true],
+            ['0', true],
+            [1, true],
+            [0, true],
+            [true, true],
+            [false, false],
+            [null, false],
+            [[], false],
+            [[5], true],
+            [0.0, false],
+            [1.0, true],
+            [new stdClass(), true],
+        ];
     }
 
     /**
@@ -94,21 +94,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function booleanProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -134,21 +134,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function integerOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, false),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, false],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -174,21 +174,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function floatOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, false),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, false],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -214,21 +214,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function stringOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
     /**
      * Ensures that the validator follows expected behavior
@@ -253,21 +253,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function zeroOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -293,21 +293,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function arrayOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), false),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], false],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -333,21 +333,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function nullOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, false),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, false],
+        ];
     }
 
     /**
@@ -373,21 +373,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function phpOnlyProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, false),
-            array(1, true),
-            array(0.0, false),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), false),
-            array(array('xxx'), true),
-            array(null, false),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, false],
+            [1, true],
+            [0.0, false],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], false],
+            [['xxx'], true],
+            [null, false],
+        ];
     }
 
     /**
@@ -413,21 +413,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function spaceOnlyProvider()
     {
-        return array(
-            array(false, true),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, true],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -453,21 +453,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function onlyAllProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, false),
-            array(1, true),
-            array(0.0, false),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), false),
-            array(array('xxx'), true),
-            array(null, false),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, false],
+            [1, true],
+            [0.0, false],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], false],
+            [['xxx'], true],
+            [null, false],
+        ];
     }
 
     /**
@@ -483,13 +483,13 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
     public function testArrayConstantNotation($value, $valid)
     {
         $this->validator = new NotEmpty(
-            array(
-                'type' => array(
+            [
+                'type' => [
                     NotEmpty::ZERO,
                     NotEmpty::STRING,
                     NotEmpty::BOOLEAN
-                )
-            )
+                ]
+            ]
         );
 
         $this->checkValidationValue($value, $valid);
@@ -502,21 +502,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function arrayConstantNotationProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -532,13 +532,13 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
     public function testArrayConfigNotation($value, $valid)
     {
         $this->validator = new NotEmpty(
-            array(
-                'type' => array(
+            [
+                'type' => [
                     NotEmpty::ZERO,
                     NotEmpty::STRING,
-                    NotEmpty::BOOLEAN),
+                    NotEmpty::BOOLEAN],
                 'test' => false
-            )
+            ]
         );
 
         $this->checkValidationValue($value, $valid);
@@ -551,21 +551,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function arrayConfigNotationProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -613,21 +613,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function multiConstantNotationProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
     /**
      * Ensures that the validator follows expected behavior
@@ -642,9 +642,9 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
     public function testStringNotation($value, $valid)
     {
         $this->validator = new NotEmpty(
-            array(
-                'type' => array('zero', 'string', 'boolean')
-            )
+            [
+                'type' => ['zero', 'string', 'boolean']
+            ]
         );
 
         $this->checkValidationValue($value, $valid);
@@ -657,21 +657,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function stringNotationProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
 
@@ -688,7 +688,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function testStringNotationWithDuplicate($string, $expected)
     {
-        $type = array($string, $string);
+        $type = [$string, $string];
         $this->validator->setType($type);
 
         $this->assertEquals($expected, $this->validator->getType());
@@ -702,21 +702,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function duplicateStringSettingProvider()
     {
-        return array(
-            array('boolean',      NotEmpty::BOOLEAN),
-            array('integer',      NotEmpty::INTEGER),
-            array('float',        NotEmpty::FLOAT),
-            array('string',       NotEmpty::STRING),
-            array('zero',         NotEmpty::ZERO),
-            array('array',        NotEmpty::EMPTY_ARRAY),
-            array('null',         NotEmpty::NULL),
-            array('php',          NotEmpty::PHP),
-            array('space',        NotEmpty::SPACE),
-            array('object',       NotEmpty::OBJECT),
-            array('objectstring', NotEmpty::OBJECT_STRING),
-            array('objectcount',  NotEmpty::OBJECT_COUNT),
-            array('all',          NotEmpty::ALL),
-        );
+        return [
+            ['boolean',      NotEmpty::BOOLEAN],
+            ['integer',      NotEmpty::INTEGER],
+            ['float',        NotEmpty::FLOAT],
+            ['string',       NotEmpty::STRING],
+            ['zero',         NotEmpty::ZERO],
+            ['array',        NotEmpty::EMPTY_ARRAY],
+            ['null',         NotEmpty::NULL],
+            ['php',          NotEmpty::PHP],
+            ['space',        NotEmpty::SPACE],
+            ['object',       NotEmpty::OBJECT],
+            ['objectstring', NotEmpty::OBJECT_STRING],
+            ['objectcount',  NotEmpty::OBJECT_COUNT],
+            ['all',          NotEmpty::ALL],
+        ];
     }
 
     /**
@@ -744,21 +744,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function singleStringNotationProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', true),
-            array('abc', true),
-            array('0', true),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', true],
+            ['abc', true],
+            ['0', true],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     /**
@@ -773,7 +773,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigObject($value, $valid)
     {
-        $options = array('type' => 'all');
+        $options = ['type' => 'all'];
         $config  = new \Zend\Config\Config($options);
 
         $this->validator = new NotEmpty(
@@ -790,21 +790,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function configObjectProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, false),
-            array(1, true),
-            array(0.0, false),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), false),
-            array(array('xxx'), true),
-            array(null, false),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, false],
+            [1, true],
+            [0.0, false],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], false],
+            [['xxx'], true],
+            [null, false],
+        ];
     }
 
     /**
@@ -843,7 +843,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -892,7 +892,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
         $valid = new NotEmpty(NotEmpty::STRING);
 
         $object = $this->getMockBuilder('\stdClass')
-            ->setMethods(array('__toString'))
+            ->setMethods(['__toString'])
             ->getMock();
 
         $object->expects($this->atLeastOnce())
@@ -905,7 +905,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($valid->isValid($object));
 
         $object = $this->getMockBuilder('\stdClass')
-            ->setMethods(array('__toString'))
+            ->setMethods(['__toString'])
             ->getMock();
         $object->expects($this->atLeastOnce())
             ->method('__toString')
@@ -925,7 +925,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
     public function testArrayConfigNotationWithoutKey($value, $valid)
     {
         $this->validator = new NotEmpty(
-            array('zero', 'string', 'boolean')
+            ['zero', 'string', 'boolean']
         );
 
         $this->checkValidationValue($value, $valid);
@@ -938,21 +938,21 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
      */
     public function arrayConfigNotationWithoutKeyProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, true),
-            array(1, true),
-            array(0.0, true),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), true),
-            array(array('xxx'), true),
-            array(null, true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, true],
+            [1, true],
+            [0.0, true],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], true],
+            [['xxx'], true],
+            [null, true],
+        ];
     }
 
     public function testEqualsMessageTemplates()
@@ -967,7 +967,7 @@ class NotEmptyTest extends \PHPUnit_Framework_TestCase
 
     public function testTypeAutoDetectionHasNoSideEffect()
     {
-        $validator = new NotEmpty(array('translatorEnabled' => true));
+        $validator = new NotEmpty(['translatorEnabled' => true]);
         $this->assertEquals($validator->getDefaultType(), $validator->getType());
     }
 

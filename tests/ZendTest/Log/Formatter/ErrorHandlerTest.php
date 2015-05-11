@@ -23,18 +23,18 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $date = new DateTime();
 
-        $event = array(
+        $event = [
             'timestamp'    => $date,
             'message'      => 'test',
             'priority'     => 1,
             'priorityName' => 'CRIT',
-            'extra' => array(
+            'extra' => [
                 'errno' => 1,
                 'file'  => 'test.php',
                 'line'  => 1,
-                'context' => array('object' => new DateTime(), 'string' => 'test')
-            )
-        );
+                'context' => ['object' => new DateTime(), 'string' => 'test']
+            ]
+        ];
         $formatter = new ErrorHandler();
         $output = $formatter->format($event);
 
@@ -54,25 +54,25 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $date = new DateTime();
         $stringObject = new StringObject();
-        $event = array(
+        $event = [
                 'timestamp' => $date,
                 'message' => 'test',
                 'priority' => 1,
                 'priorityName' => 'CRIT',
-                'extra' => array(
+                'extra' => [
                         'errno' => 1,
                         'file' => 'test.php',
                         'line' => 1,
-                        'context' => array(
+                        'context' => [
                                 'object1' => new StringObject(),
                                 'object2' => new NotStringObject(),
                                 'string' => 'test1',
-                                'array' => array(
+                                'array' => [
                                         'key' => 'test2'
-                                )
-                        )
-                )
-        );
+                                ]
+                        ]
+                ]
+        ];
         $formatString = '%extra[context][object1]% %extra[context][object2]% %extra[context][string]% %extra[context][array]% %extra[context][array][key]%';
         $formatter = new ErrorHandler($formatString);
         $output = $formatter->format($event);

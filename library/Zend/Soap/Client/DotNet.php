@@ -45,7 +45,7 @@ class DotNet extends SOAPClient
      * SOAP client options.
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Should NTLM authentication be used?
@@ -87,12 +87,12 @@ class DotNet extends SOAPClient
         $curlClient = $this->getCurlClient();
 
         // @todo persistent connection ?
-        $headers    = array(
+        $headers    = [
             'Content-Type' => 'text/xml; charset=utf-8',
             'Method'       => 'POST',
             'SOAPAction'   => '"' . $action . '"',
             'User-Agent'   => 'PHP-SOAP-CURL',
-        );
+        ];
         $uri = new HttpUri($location);
 
         // @todo use parent set* options for ssl certificate authorization

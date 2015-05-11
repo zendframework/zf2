@@ -70,13 +70,13 @@ class OracleRowCounterTest extends PHPUnit_Framework_TestCase
     protected function getMockStatement($sql, $returnValue)
     {
         /** @var \Zend\Db\Adapter\Driver\Pdo\Statement|\PHPUnit_Framework_MockObject_MockObject $statement */
-        $statement = $this->getMock('Zend\Db\Adapter\Driver\Pdo\Statement', array('prepare', 'execute'), array(), '', false);
+        $statement = $this->getMock('Zend\Db\Adapter\Driver\Pdo\Statement', ['prepare', 'execute'], [], '', false);
 
         // mock PDOStatement with stdClass
-        $resource = $this->getMock('stdClass', array('fetch'));
+        $resource = $this->getMock('stdClass', ['fetch']);
         $resource->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue(array('count' => $returnValue)));
+            ->will($this->returnValue(['count' => $returnValue]));
 
         // mock the result
         $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
@@ -94,12 +94,12 @@ class OracleRowCounterTest extends PHPUnit_Framework_TestCase
 
     protected function getMockDriver($returnValue)
     {
-        $pdoStatement = $this->getMock('stdClass', array('fetch'), array(), '', false); // stdClass can be used here
+        $pdoStatement = $this->getMock('stdClass', ['fetch'], [], '', false); // stdClass can be used here
         $pdoStatement->expects($this->once())
             ->method('fetch')
-            ->will($this->returnValue(array('count' => $returnValue)));
+            ->will($this->returnValue(['count' => $returnValue]));
 
-        $pdoConnection = $this->getMock('stdClass', array('query'));
+        $pdoConnection = $this->getMock('stdClass', ['query']);
         $pdoConnection->expects($this->once())
             ->method('query')
             ->will($this->returnValue($pdoStatement));
@@ -109,7 +109,7 @@ class OracleRowCounterTest extends PHPUnit_Framework_TestCase
             ->method('getResource')
             ->will($this->returnValue($pdoConnection));
 
-        $driver = $this->getMock('Zend\Db\Adapter\Driver\Pdo\Pdo', array('getConnection'), array(), '', false);
+        $driver = $this->getMock('Zend\Db\Adapter\Driver\Pdo\Pdo', ['getConnection'], [], '', false);
         $driver->expects($this->once())
             ->method('getConnection')
             ->will($this->returnValue($connection));

@@ -23,21 +23,21 @@ class SuppressFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testSuppressIsInitiallyOff()
     {
-        $this->assertTrue($this->filter->filter(array()));
+        $this->assertTrue($this->filter->filter([]));
     }
 
     public function testSuppressByConstructorBoolean()
     {
         $this->filter = new SuppressFilter(true);
-        $this->assertFalse($this->filter->filter(array()));
-        $this->assertFalse($this->filter->filter(array()));
+        $this->assertFalse($this->filter->filter([]));
+        $this->assertFalse($this->filter->filter([]));
     }
 
     public function testSuppressByConstructorArray()
     {
-        $this->filter = new SuppressFilter(array('suppress' => true));
-        $this->assertFalse($this->filter->filter(array()));
-        $this->assertFalse($this->filter->filter(array()));
+        $this->filter = new SuppressFilter(['suppress' => true]);
+        $this->assertFalse($this->filter->filter([]));
+        $this->assertFalse($this->filter->filter([]));
     }
 
     public function testConstructorThrowsOnInvalidSuppressValue()
@@ -49,24 +49,24 @@ class SuppressFilterTest extends \PHPUnit_Framework_TestCase
     public function testSuppressOn()
     {
         $this->filter->suppress(true);
-        $this->assertFalse($this->filter->filter(array()));
-        $this->assertFalse($this->filter->filter(array()));
+        $this->assertFalse($this->filter->filter([]));
+        $this->assertFalse($this->filter->filter([]));
     }
 
     public function testSuppressOff()
     {
         $this->filter->suppress(false);
-        $this->assertTrue($this->filter->filter(array()));
-        $this->assertTrue($this->filter->filter(array()));
+        $this->assertTrue($this->filter->filter([]));
+        $this->assertTrue($this->filter->filter([]));
     }
 
     public function testSuppressCanBeReset()
     {
         $this->filter->suppress(true);
-        $this->assertFalse($this->filter->filter(array()));
+        $this->assertFalse($this->filter->filter([]));
         $this->filter->suppress(false);
-        $this->assertTrue($this->filter->filter(array()));
+        $this->assertTrue($this->filter->filter([]));
         $this->filter->suppress(true);
-        $this->assertFalse($this->filter->filter(array()));
+        $this->assertFalse($this->filter->filter([]));
     }
 }

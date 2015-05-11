@@ -42,7 +42,7 @@ class ClassCache extends CallbackCache
      * @throws Exception\RuntimeException
      * @throws \Exception
      */
-    public function call($method, array $args = array())
+    public function call($method, array $args = [])
     {
         $options   = $this->getOptions();
         $classname = $options->getClass();
@@ -76,7 +76,7 @@ class ClassCache extends CallbackCache
      * @return string
      * @throws Exception\RuntimeException
      */
-    public function generateKey($method, array $args = array())
+    public function generateKey($method, array $args = [])
     {
         return $this->generateCallbackKey(
             $this->getOptions()->getClass() . '::' . $method,

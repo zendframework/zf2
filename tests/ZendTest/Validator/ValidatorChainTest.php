@@ -62,7 +62,7 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmpty()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
         $this->assertTrue($this->validator->isValid('something'));
     }
 
@@ -75,7 +75,7 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->attach($this->getValidatorTrue());
         $this->assertTrue($this->validator->isValid(null));
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -87,7 +87,7 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator->attach($this->getValidatorFalse());
         $this->assertFalse($this->validator->isValid(null));
-        $this->assertEquals(array('error' => 'validation failed'), $this->validator->getMessages());
+        $this->assertEquals(['error' => 'validation failed'], $this->validator->getMessages());
     }
 
     /**
@@ -100,7 +100,7 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
         $this->validator->attach($this->getValidatorFalse(), true)
             ->attach($this->getValidatorFalse());
         $this->assertFalse($this->validator->isValid(null));
-        $this->assertEquals(array('error' => 'validation failed'), $this->validator->getMessages());
+        $this->assertEquals(['error' => 'validation failed'], $this->validator->getMessages());
     }
 
     /**
@@ -120,8 +120,8 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
 
     public function testIsValidWithParameters()
     {
-        $this->assertTrue(StaticValidator::execute(5, 'Between', array(1, 10)));
-        $this->assertTrue(StaticValidator::execute(5, 'Between', array('min' => 1, 'max' => 10)));
+        $this->assertTrue(StaticValidator::execute(5, 'Between', [1, 10]));
+        $this->assertTrue(StaticValidator::execute(5, 'Between', ['min' => 1, 'max' => 10]));
     }
 
     public function testSetGetMessageLengthLimitation()
@@ -154,7 +154,7 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
     public function testAllowsPrependingValidatorsByName()
     {
         $this->validator->attach($this->getValidatorTrue())
-            ->prependByName('NotEmpty', array(), true);
+            ->prependByName('NotEmpty', [], true);
         $this->assertFalse($this->validator->isValid(''));
         $messages = $this->validator->getMessages();
         $this->assertArrayHasKey('isEmpty', $messages);
@@ -281,7 +281,7 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
         $validator->expects($this->any())
             ->method('getMessages')
-            ->will($this->returnValue(array('error' => 'validation failed')));
+            ->will($this->returnValue(['error' => 'validation failed']));
         return $validator;
     }
 
@@ -290,22 +290,22 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanAttachMultipleValidatorsOfTheSameTypeAsDiscreteInstances()
     {
-        $this->validator->attachByName('Callback', array(
+        $this->validator->attachByName('Callback', [
             'callback' => function ($value) {
                 return true;
             },
-            'messages' => array(
+            'messages' => [
                 'callbackValue' => 'This should not be seen in the messages',
-            ),
-        ));
-        $this->validator->attachByName('Callback', array(
+            ],
+        ]);
+        $this->validator->attachByName('Callback', [
             'callback' => function ($value) {
                 return false;
             },
-            'messages' => array(
+            'messages' => [
                 'callbackValue' => 'Second callback trapped',
-            ),
-        ));
+            ],
+        ]);
 
         $this->assertEquals(2, count($this->validator));
         $validators = $this->validator->getValidators();
@@ -346,10 +346,10 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
 
     public function breakChainFlags()
     {
-        return array(
-            'underscores' => array('break_chain_on_failure'),
-            'no_underscores' => array('breakchainonfailure'),
-        );
+        return [
+            'underscores' => ['break_chain_on_failure'],
+            'no_underscores' => ['breakchainonfailure'],
+        ];
     }
 
     /**
@@ -358,10 +358,10 @@ class ValidatorChainTest extends \PHPUnit_Framework_TestCase
      */
     public function testAttachByNameAllowsSpecifyingBreakChainOnFailureFlagViaOptions($option)
     {
-        $this->validator->attachByName('GreaterThan', array(
+        $this->validator->attachByName('GreaterThan', [
             $option => true,
             'min' => 1,
-        ));
+        ]);
         $this->assertEquals(1, count($this->validator));
         $validators = $this->validator->getValidators();
         $spec       = array_shift($validators);

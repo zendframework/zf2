@@ -47,12 +47,12 @@ class DocBlockScanner implements ScannerInterface
     /**
      * @var array
      */
-    protected $tags = array();
+    protected $tags = [];
 
     /**
      * @var array
      */
-    protected $annotations = array();
+    protected $annotations = [];
 
     /**
      * @param  string $docComment
@@ -147,8 +147,8 @@ class DocBlockScanner implements ScannerInterface
                 }
                 //gotos no break needed
             case 'DOCBLOCK_TAG':
-                array_push($this->tags, array('name'  => $token[1],
-                                              'value' => ''));
+                array_push($this->tags, ['name'  => $token[1],
+                                              'value' => '']);
                 end($this->tags);
                 $tagIndex = key($this->tags);
                 $mode     = 3;
@@ -184,7 +184,7 @@ class DocBlockScanner implements ScannerInterface
         $context     = 0x00;
         $stream      = $this->docComment;
         $streamIndex = null;
-        $tokens      = array();
+        $tokens      = [];
         $tokenIndex  = null;
         $currentChar = null;
         $currentWord = null;
@@ -199,7 +199,7 @@ class DocBlockScanner implements ScannerInterface
                 return false;
             }
             $currentChar = $stream[$streamIndex];
-            $matches     = array();
+            $matches     = [];
             $currentLine = (preg_match('#(.*?)\r?\n#', $stream, $matches, null, $streamIndex) === 1) ? $matches[1] : substr($stream, $streamIndex);
             if ($currentChar === ' ') {
                 $currentWord = (preg_match('#( +)#', $currentLine, $matches) === 1) ? $matches[1] : $currentLine;
@@ -217,7 +217,7 @@ class DocBlockScanner implements ScannerInterface
         };
         $MACRO_TOKEN_ADVANCE             = function () use (&$tokenIndex, &$tokens) {
             $tokenIndex          = ($tokenIndex === null) ? 0 : $tokenIndex + 1;
-            $tokens[$tokenIndex] = array('DOCBLOCK_UNKNOWN', '');
+            $tokens[$tokenIndex] = ['DOCBLOCK_UNKNOWN', ''];
         };
         $MACRO_TOKEN_SET_TYPE            = function ($type) use (&$tokenIndex, &$tokens) {
             $tokens[$tokenIndex][0] = $type;

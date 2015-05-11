@@ -42,14 +42,14 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasic()
     {
-        $valuesExpected = array(
+        $valuesExpected = [
             'string' => 'string',
             '<'      => '&lt;',
             '>'      => '&gt;',
             '\''     => '&#039;',
             '"'      => '&quot;',
             '&'      => '&amp;'
-            );
+            ];
         $filter = $this->_filter;
         foreach ($valuesExpected as $input => $output) {
             $this->assertEquals($output, $filter($input));
@@ -136,7 +136,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigObject()
     {
-        $options = array('quotestyle' => 5, 'encoding' => 'ISO-8859-1');
+        $options = ['quotestyle' => 5, 'encoding' => 'ISO-8859-1'];
         $config  = new \Zend\Config\Config($options);
 
         $filter = new HtmlEntitiesFilter(
@@ -205,7 +205,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
 
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
-        set_error_handler(array($this, 'errorHandler'), E_NOTICE | E_WARNING);
+        set_error_handler([$this, 'errorHandler'], E_NOTICE | E_WARNING);
         $result = $this->_filter->filter($string);
         restore_error_handler();
 
@@ -225,7 +225,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
 
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
-        set_error_handler(array($this, 'errorHandler'), E_NOTICE | E_WARNING);
+        set_error_handler([$this, 'errorHandler'], E_NOTICE | E_WARNING);
         $result = $this->_filter->filter($string);
         restore_error_handler();
 
@@ -246,7 +246,7 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
         // restore_error_handler can emit an E_WARNING; let's ignore that, as
         // we want to test the returned value
         // Also, explicit try, so that we don't mess up PHPUnit error handlers
-        set_error_handler(array($this, 'errorHandler'), E_NOTICE | E_WARNING);
+        set_error_handler([$this, 'errorHandler'], E_NOTICE | E_WARNING);
         try {
             $result = $this->_filter->filter($string);
             $this->fail('Expected exception from single non-utf-8 character');
@@ -257,14 +257,14 @@ class HtmlEntitiesTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 '<',
                 '>'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**

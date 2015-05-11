@@ -88,7 +88,7 @@ class Maildir extends Storage\Maildir implements FolderInterface
         if (!$dh) {
             throw new Exception\RuntimeException("can't read folders in maildir", 0, $error);
         }
-        $dirs = array();
+        $dirs = [];
 
         while (($entry = readdir($dh)) !== false) {
             // maildir++ defines folders must start with .
@@ -103,8 +103,8 @@ class Maildir extends Storage\Maildir implements FolderInterface
         closedir($dh);
 
         sort($dirs);
-        $stack = array(null);
-        $folderStack = array(null);
+        $stack = [null];
+        $folderStack = [null];
         $parentFolder = $this->rootFolder;
         $parent = '.';
 

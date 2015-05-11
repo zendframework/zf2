@@ -36,17 +36,17 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      *
      * @var array
      */
-    protected $optionalAttributes = array('lang', 'title', 'media', 'dir');
+    protected $optionalAttributes = ['lang', 'title', 'media', 'dir'];
 
     /**
      * Allowed media types
      *
      * @var array
      */
-    protected $mediaTypes = array(
+    protected $mediaTypes = [
         'all', 'aural', 'braille', 'handheld', 'print',
         'projection', 'screen', 'tty', 'tv'
-    );
+    ];
 
     /**
      * Capture type and/or attributes (used for hinting during capture)
@@ -91,7 +91,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @param  string|array $attributes Optional attributes to utilize
      * @return HeadStyle
      */
-    public function __invoke($content = null, $placement = 'APPEND', $attributes = array())
+    public function __invoke($content = null, $placement = 'APPEND', $attributes = [])
     {
         if ((null !== $content) && is_string($content)) {
             switch (strtoupper($placement)) {
@@ -142,7 +142,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             }
 
             $content = $args[0];
-            $attrs   = array();
+            $attrs   = [];
             if (isset($args[1])) {
                 $attrs = (array) $args[1];
             }
@@ -173,7 +173,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             ? $this->getWhitespace($indent)
             : $this->getIndent();
 
-        $items = array();
+        $items = [];
         $this->getContainer()->ksort();
         foreach ($this as $item) {
             if (!$this->isValid($item)) {

@@ -17,7 +17,7 @@ class MessageFactory
      * @param array|Traversable $options
      * @return Message
      */
-    public static function getInstance($options = array())
+    public static function getInstance($options = [])
     {
         if (! is_array($options) && ! $options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -54,10 +54,10 @@ class MessageFactory
                 ucwords(
                     strtr(
                         $key,
-                        array(
+                        [
                             '-' => ' ',
                             '_' => ' ',
-                        )
+                        ]
                     )
                 )
             );

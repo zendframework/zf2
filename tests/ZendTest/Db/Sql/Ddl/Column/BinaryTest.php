@@ -20,7 +20,7 @@ class BinaryTest extends \PHPUnit_Framework_TestCase
     {
         $column = new Binary('foo', 10000000);
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'BINARY(10000000)'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'BINARY(10000000)'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

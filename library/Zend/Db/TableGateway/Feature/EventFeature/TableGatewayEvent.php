@@ -27,7 +27,7 @@ class TableGatewayEvent implements EventInterface
     /**
      * @var array|\ArrayAccess
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * Get event name

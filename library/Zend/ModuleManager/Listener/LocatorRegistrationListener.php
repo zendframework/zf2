@@ -25,12 +25,12 @@ class LocatorRegistrationListener extends AbstractListener implements
     /**
      * @var array
      */
-    protected $modules = array();
+    protected $modules = [];
 
     /**
      * @var array
      */
-    protected $callbacks = array();
+    protected $callbacks = [];
 
     /**
      * loadModule
@@ -83,7 +83,7 @@ class LocatorRegistrationListener extends AbstractListener implements
         }
 
         // Attach to the bootstrap event if there are modules we need to process
-        $events->attach('Zend\Mvc\Application', ModuleManager::EVENT_BOOTSTRAP, array($this, 'onBootstrap'), 1000);
+        $events->attach('Zend\Mvc\Application', ModuleManager::EVENT_BOOTSTRAP, [$this, 'onBootstrap'], 1000);
     }
 
     /**
@@ -115,8 +115,8 @@ class LocatorRegistrationListener extends AbstractListener implements
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
-        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, array($this, 'onLoadModules'), -1000);
+        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, [$this, 'onLoadModule']);
+        $this->callbacks[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES, [$this, 'onLoadModules'], -1000);
         return $this;
     }
 

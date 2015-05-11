@@ -18,7 +18,7 @@ class AggregateObject
     /**
      * @var array
      */
-    public $arrayData  = array('president' => 'Zaphod');
+    public $arrayData  = ['president' => 'Zaphod'];
 
     /**
      * @var string

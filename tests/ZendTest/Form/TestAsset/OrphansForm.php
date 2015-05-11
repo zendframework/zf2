@@ -23,37 +23,37 @@ class OrphansForm extends Form
 
         //adds a collection of 2
         $this->add(
-            array(
+            [
                 'type' => '\Zend\Form\Element\Collection',
                 'name' => 'test',
-                'options' => array(
+                'options' => [
                     'use_as_base_fieldset' => true,
                     'count' => 2,
                     'should_create_template' => true,
                     'allow_add' => true,
-                    'target_element' => array(
+                    'target_element' => [
                         'type' => '\ZendTest\Form\TestAsset\OrphansFieldset'
-                    ),
-                )
-            )
+                    ],
+                ]
+            ]
         );
 
         $this->add(
-            array(
+            [
                 'name' => 'submit',
-                'attributes' => array(
+                'attributes' => [
                     'type' => 'submit',
                     'value' => 'Send'
-                )
-            )
+                ]
+            ]
         );
 
         $this->setValidationGroup(
-            array(
-                'test' => array(
+            [
+                'test' => [
                     'name',
-                ),
-            )
+                ],
+            ]
         );
     }
 }

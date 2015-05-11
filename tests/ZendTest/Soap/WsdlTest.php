@@ -95,20 +95,20 @@ class WsdlTest extends WsdlTestHelper
      */
     public function dataProviderForURITesting()
     {
-        return array(
-            array('http://localhost/MyService.php',                 'http://localhost/MyService.php'),
-            array('http://localhost/MyNewService.php',              'http://localhost/MyNewService.php'),
-            array(new Uri('http://localhost/MyService.php'),        'http://localhost/MyService.php'),
+        return [
+            ['http://localhost/MyService.php',                 'http://localhost/MyService.php'],
+            ['http://localhost/MyNewService.php',              'http://localhost/MyNewService.php'],
+            [new Uri('http://localhost/MyService.php'),        'http://localhost/MyService.php'],
             /**
              * @bug ZF-5736
              */
-            array('http://localhost/MyService.php?a=b&amp;b=c',     'http://localhost/MyService.php?a=b&amp;b=c'),
+            ['http://localhost/MyService.php?a=b&amp;b=c',     'http://localhost/MyService.php?a=b&amp;b=c'],
 
             /**
              * @bug ZF-5736
              */
-            array('http://localhost/MyService.php?a=b&b=c',         'http://localhost/MyService.php?a=b&amp;b=c'),
-        );
+            ['http://localhost/MyService.php?a=b&b=c',         'http://localhost/MyService.php?a=b&amp;b=c'],
+        ];
     }
 
     /**
@@ -118,7 +118,7 @@ class WsdlTest extends WsdlTestHelper
      */
     public function testAddMessage($parameters)
     {
-        $messageParts = array();
+        $messageParts = [];
         foreach ($parameters as $i => $parameter) {
             $messageParts['parameter'.$i] = $this->wsdl->getType($parameter);
         }
@@ -147,12 +147,12 @@ class WsdlTest extends WsdlTestHelper
      */
     public function testAddComplexMessage($parameters)
     {
-        $messageParts = array();
+        $messageParts = [];
         foreach ($parameters as $i => $parameter) {
-            $messageParts['parameter'.$i] = array(
+            $messageParts['parameter'.$i] = [
                 'type'      => $this->wsdl->getType($parameter),
                 'name'      => 'parameter'.$i
-            );
+            ];
         }
 
         $messageName = 'myMessage';
@@ -176,13 +176,13 @@ class WsdlTest extends WsdlTestHelper
      */
     public function dataProviderForAddMessage()
     {
-        return array(
-            array(array('int', 'int', 'int')),
-            array(array('string', 'string', 'string', 'string')),
-            array(array('mixed')),
-            array(array('int', 'int', 'string', 'string')),
-            array(array('int', 'string', 'int', 'string')),
-        );
+        return [
+            [['int', 'int', 'int']],
+            [['string', 'string', 'string', 'string']],
+            [['mixed']],
+            [['int', 'int', 'string', 'string']],
+            [['int', 'string', 'int', 'string']],
+        ];
     }
 
     public function testAddPortType()
@@ -244,15 +244,15 @@ class WsdlTest extends WsdlTestHelper
 
     public function dataProviderForAddPortOperation()
     {
-        return array(
-            array('operation'),
-            array('operation', 'tns:operationRequest', 'tns:operationResponse'),
-            array('operation', 'tns:operationRequest', 'tns:operationResponse', 'tns:operationFault'),
-            array('operation', 'tns:operationRequest', null, 'tns:operationFault'),
-            array('operation', null, null, 'tns:operationFault'),
-            array('operation', null, 'tns:operationResponse', 'tns:operationFault'),
-            array('operation', null, 'tns:operationResponse'),
-        );
+        return [
+            ['operation'],
+            ['operation', 'tns:operationRequest', 'tns:operationResponse'],
+            ['operation', 'tns:operationRequest', 'tns:operationResponse', 'tns:operationFault'],
+            ['operation', 'tns:operationRequest', null, 'tns:operationFault'],
+            ['operation', null, null, 'tns:operationFault'],
+            ['operation', null, 'tns:operationResponse', 'tns:operationFault'],
+            ['operation', null, 'tns:operationResponse'],
+        ];
     }
 
     public function testAddBinding()
@@ -290,19 +290,19 @@ class WsdlTest extends WsdlTestHelper
     {
         $binding = $this->wsdl->addBinding('MyServiceBinding', 'myPortType');
 
-        $inputArray = array();
+        $inputArray = [];
         if (!empty($input) and !empty($inputEncoding)) {
-            $inputArray = array('use' => $input,     'encodingStyle' => $inputEncoding);
+            $inputArray = ['use' => $input,     'encodingStyle' => $inputEncoding];
         }
 
-        $outputArray = array();
+        $outputArray = [];
         if (!empty($output) and !empty($outputEncoding)) {
-            $outputArray = array('use' => $output, 'encodingStyle' => $outputEncoding);
+            $outputArray = ['use' => $output, 'encodingStyle' => $outputEncoding];
         }
 
-        $faultArray = array();
+        $faultArray = [];
         if (!empty($fault) and !empty($faultEncoding) and !empty($faultName)) {
-            $faultArray = array('use' => $fault,     'encodingStyle' => $faultEncoding,     'name'=>$faultName);
+            $faultArray = ['use' => $fault,     'encodingStyle' => $faultEncoding,     'name'=>$faultName];
         }
 
         $this->wsdl->addBindingOperation($binding,
@@ -328,11 +328,11 @@ class WsdlTest extends WsdlTestHelper
             $this->assertFalse($operationNodes->item(0)->hasChildNodes());
         }
 
-        foreach (array(
+        foreach ([
             '//wsdl:input/soap:body'    => $inputArray,
             '//wsdl:output/soap:body'   => $outputArray,
             '//wsdl:fault'              => $faultArray
-                 ) as $query => $ar) {
+                 ] as $query => $ar) {
             if (!empty($ar)) {
                 $nodes = $this->xpath->query($query);
 
@@ -350,16 +350,16 @@ class WsdlTest extends WsdlTestHelper
     {
         $enc = 'http://schemas.xmlsoap.org/soap/encoding/';
 
-        return array(
-            array('operation'),
-            array('operation', 'encoded', $enc, 'encoded', $enc, 'encoded', $enc, 'myFaultName'),
-            array('operation', null, null, 'encoded', $enc, 'encoded', $enc, 'myFaultName'),
-            array('operation', null, null, 'encoded', $enc, 'encoded'),
-            array('operation', 'encoded', $enc),
-            array('operation', null, null, null, null, 'encoded', $enc, 'myFaultName'),
-            array('operation', 'encoded1', $enc.'1', 'encoded2', $enc.'2', 'encoded3', $enc.'3', 'myFaultName'),
+        return [
+            ['operation'],
+            ['operation', 'encoded', $enc, 'encoded', $enc, 'encoded', $enc, 'myFaultName'],
+            ['operation', null, null, 'encoded', $enc, 'encoded', $enc, 'myFaultName'],
+            ['operation', null, null, 'encoded', $enc, 'encoded'],
+            ['operation', 'encoded', $enc],
+            ['operation', null, null, null, null, 'encoded', $enc, 'myFaultName'],
+            ['operation', 'encoded1', $enc.'1', 'encoded2', $enc.'2', 'encoded3', $enc.'3', 'myFaultName'],
 
-        );
+        ];
     }
 
     /**
@@ -382,10 +382,10 @@ class WsdlTest extends WsdlTestHelper
 
     public function dataProviderForSoapBindingStyle()
     {
-        return array(
-            array('document'),
-            array('rpc'),
-        );
+        return [
+            ['document'],
+            ['rpc'],
+        ];
     }
 
     /**
@@ -407,10 +407,10 @@ class WsdlTest extends WsdlTestHelper
 
     public function dataProviderForAddSoapOperation()
     {
-        return array(
-            array('http://localhost/MyService.php#myOperation'),
-            array(new Uri('http://localhost/MyService.php#myOperation'))
-        );
+        return [
+            ['http://localhost/MyService.php#myOperation'],
+            [new Uri('http://localhost/MyService.php#myOperation')]
+        ];
     }
 
     /**
@@ -436,10 +436,10 @@ class WsdlTest extends WsdlTestHelper
      */
     public function dataProviderForAddService()
     {
-        return array(
-            array('http://localhost/MyService.php'),
-            array(new Uri('http://localhost/MyService.php'))
-        );
+        return [
+            ['http://localhost/MyService.php'],
+            [new Uri('http://localhost/MyService.php')]
+        ];
     }
 
     /**
@@ -453,9 +453,9 @@ class WsdlTest extends WsdlTestHelper
         $this->wsdl->addBindingOperation(
             $binding,
             'operation1',
-            array('use' => 'encoded', 'encodingStyle' => $actualUrl),
-            array('use' => 'encoded', 'encodingStyle' => $actualUrl),
-            array('name' => 'MyFault', 'use' => 'encoded', 'encodingStyle' => $actualUrl)
+            ['use' => 'encoded', 'encodingStyle' => $actualUrl],
+            ['use' => 'encoded', 'encodingStyle' => $actualUrl],
+            ['name' => 'MyFault', 'use' => 'encoded', 'encodingStyle' => $actualUrl]
         );
 
         $nodes = $this->xpath->query('//wsdl:binding[@type="myPortType" and @name="MyServiceBinding"]/wsdl:operation[@name="operation1"]/wsdl:input/soap:body');
@@ -500,20 +500,20 @@ class WsdlTest extends WsdlTestHelper
 
     public function ampersandInUrlDataProvider()
     {
-        return array(
-            'Decoded ampersand' => array(
+        return [
+            'Decoded ampersand' => [
                 'http://localhost/MyService.php?foo=bar&baz=qux',
                 'http://localhost/MyService.php?foo=bar&amp;baz=qux',
-            ),
-            'Encoded ampersand' => array(
+            ],
+            'Encoded ampersand' => [
                 'http://localhost/MyService.php?foo=bar&amp;baz=qux',
                 'http://localhost/MyService.php?foo=bar&amp;baz=qux',
-            ),
-            'Encoded and decoded ampersand' => array(
+            ],
+            'Encoded and decoded ampersand' => [
                 'http://localhost/MyService.php?foo=bar&&amp;baz=qux',
                 'http://localhost/MyService.php?foo=bar&amp;&amp;baz=qux',
-            ),
-        );
+            ],
+        ];
     }
 
     public function testAddDocumentation()
@@ -544,7 +544,7 @@ class WsdlTest extends WsdlTestHelper
 
     public function testAddDocumentationToSetInsertsBefore()
     {
-        $messageParts = array();
+        $messageParts = [];
         $messageParts['parameter1'] = $this->wsdl->getType('int');
         $messageParts['parameter2'] = $this->wsdl->getType('string');
         $messageParts['parameter3'] = $this->wsdl->getType('mixed');
@@ -643,9 +643,9 @@ class WsdlTest extends WsdlTestHelper
         $types = $this->wsdl->getTypes();
         $this->assertEquals(1, count($types));
         $this->assertEquals(
-            array(
+            [
                 '\ZendTest\Soap\TestAsset\WsdlTestClass' => 'tns:SomeTypeName'
-            ),
+            ],
             $types
         );
 
@@ -656,17 +656,17 @@ class WsdlTest extends WsdlTestHelper
     {
         $this->wsdl->addComplexType('\ZendTest\Soap\TestAsset\WsdlTestClass');
         $this->assertEquals(
-            array(
+            [
                 'ZendTest\Soap\TestAsset\WsdlTestClass' => 'tns:WsdlTestClass'
-            ),
+            ],
             $this->wsdl->getTypes()
         );
 
         $this->wsdl->addComplexType('\ZendTest\Soap\TestAsset\WsdlTestClass');
         $this->assertEquals(
-            array(
+            [
                 'ZendTest\Soap\TestAsset\WsdlTestClass' => 'tns:WsdlTestClass'
-            ),
+            ],
             $this->wsdl->getTypes()
         );
 
@@ -719,9 +719,9 @@ class WsdlTest extends WsdlTestHelper
 
     public function testTranslateTypeFromClassMap()
     {
-        $this->wsdl->setClassMap(array(
+        $this->wsdl->setClassMap([
             'SomeType'=>'SomeOtherType'
-        ));
+        ]);
 
         $this->assertEquals('SomeOtherType', $this->wsdl->translateType('SomeType'));
     }
@@ -739,14 +739,14 @@ class WsdlTest extends WsdlTestHelper
      */
     public function dataProviderForTranslateType()
     {
-        return array(
-            array('\\SomeType','SomeType'),
-            array('SomeType\\','SomeType'),
-            array('\\SomeType\\','SomeType'),
-            array('\\SomeNamespace\SomeType\\','SomeType'),
-            array('\\SomeNamespace\SomeType\\SomeOtherType','SomeOtherType'),
-            array('\\SomeNamespace\SomeType\\SomeOtherType\\YetAnotherType','YetAnotherType'),
-        );
+        return [
+            ['\\SomeType','SomeType'],
+            ['SomeType\\','SomeType'],
+            ['\\SomeType\\','SomeType'],
+            ['\\SomeNamespace\SomeType\\','SomeType'],
+            ['\\SomeNamespace\SomeType\\SomeOtherType','SomeOtherType'],
+            ['\\SomeNamespace\SomeType\\SomeOtherType\\YetAnotherType','YetAnotherType'],
+        ];
     }
 
 
@@ -789,7 +789,7 @@ class WsdlTest extends WsdlTestHelper
 
     public function testClassMap()
     {
-        $this->wsdl->setClassMap(array('foo'=>'bar'));
+        $this->wsdl->setClassMap(['foo'=>'bar']);
 
         $this->assertArrayHasKey('foo', $this->wsdl->getClassMap());
     }
@@ -804,13 +804,13 @@ class WsdlTest extends WsdlTestHelper
 
     public function testAddElement()
     {
-        $element = array(
+        $element = [
             'name'      => 'MyElement',
-            'sequence'  => array(
-                array('name' => 'myString', 'type' => 'string'),
-                array('name' => 'myInt',    'type' => 'int')
-            )
-        );
+            'sequence'  => [
+                ['name' => 'myString', 'type' => 'string'],
+                ['name' => 'myInt',    'type' => 'int']
+            ]
+        ];
 
         $newElementName = $this->wsdl->addElement($element);
 

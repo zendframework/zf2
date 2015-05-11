@@ -14,6 +14,6 @@ class AbstractContainer extends \Zend\Navigation\AbstractContainer
     public function addPage($page)
     {
         parent::addPage($page);
-        $this->pages = array();
+        $this->pages = [];
     }
 }

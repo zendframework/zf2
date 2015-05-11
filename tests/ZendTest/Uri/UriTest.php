@@ -230,11 +230,11 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $url = new Uri('http://example.com/foo/?test=a&var[]=1&var[]=2&some[thing]=3');
         $this->assertEquals('test=a&var[]=1&var[]=2&some[thing]=3', $url->getQuery());
 
-        $exp = array(
+        $exp = [
             'test' => 'a',
-            'var'  => array(1, 2),
-            'some' => array('thing' => 3)
-        );
+            'var'  => [1, 2],
+            'some' => ['thing' => 3]
+        ];
 
         $this->assertEquals($exp, $url->getQueryAsArray());
     }
@@ -773,7 +773,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     public function testFluentInterface($method, $params)
     {
         $uri = new Uri;
-        $ret = call_user_func_array(array($uri, $method), $params);
+        $ret = call_user_func_array([$uri, $method], $params);
         $this->assertSame($uri, $ret);
     }
 
@@ -783,25 +783,25 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
     public function validUserInfoProvider()
     {
-        return array(
-            array('user:'),
-            array(':password'),
-            array('user:password'),
-            array(':'),
-            array('my-user'),
-            array('one:two:three:four'),
-            array('my-user-has-%3A-colon:pass'),
-            array('a_.!~*\'(-)n0123Di%25%26:pass;:&=+$,word')
-        );
+        return [
+            ['user:'],
+            [':password'],
+            ['user:password'],
+            [':'],
+            ['my-user'],
+            ['one:two:three:four'],
+            ['my-user-has-%3A-colon:pass'],
+            ['a_.!~*\'(-)n0123Di%25%26:pass;:&=+$,word']
+        ];
     }
 
     public function invalidUserInfoProvider()
     {
-        return array(
-            array('an`di:password',    'an%60di:password'),
-            array('user name',         'user%20name'),
-            array('shahar.e@zend.com', 'shahar.e%40zend.com')
-        );
+        return [
+            ['an`di:password',    'an%60di:password'],
+            ['user name',         'user%20name'],
+            ['shahar.e@zend.com', 'shahar.e%40zend.com']
+        ];
     }
 
     /**
@@ -811,37 +811,37 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function validUriStringProvider()
     {
-        return array(
-            array('a:b'),
-            array('http://www.zend.com'),
-            array('https://example.com:10082/foo/bar?query'),
-            array('../relative/path'),
-            array('?queryOnly'),
-            array('#fragmentOnly'),
-            array('mailto:bob@example.com'),
-            array('bob@example.com'),
-            array('http://a_.!~*\'(-)n0123Di%25%26:pass;:&=+$,word@www.zend.com'),
-            array('http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html'),
-            array('http://[1080::8:800:200C:417A]/foo'),
-            array('http://[::192.9.5.5]/ipng'),
-            array('http://[::FFFF:129.144.52.38]:80/index.html'),
-            array('http://[2620:0:1cfe:face:b00c::3]/'),
-            array('http://[2010:836B:4179::836B:4179]'),
-            array('http'),
-            array('www.example.org:80'),
-            array('www.example.org'),
-            array('http://foo'),
-            array('ftp://user:pass@example.org/'),
-            array('www.fi/'),
-            array('http://1.1.1.1/'),
-            array('1.1.1.1'),
-            array('1.256.1.1'), // Hostnames can be only numbers
-            array('http://[::1]/'),
-            array('file:/'), // schema without host
-            array('http:///'), // host empty
-            array('http:::/foo'), // schema + path
-            array('2620:0:1cfe:face:b00c::3'), // Not IPv6, is Path
-        );
+        return [
+            ['a:b'],
+            ['http://www.zend.com'],
+            ['https://example.com:10082/foo/bar?query'],
+            ['../relative/path'],
+            ['?queryOnly'],
+            ['#fragmentOnly'],
+            ['mailto:bob@example.com'],
+            ['bob@example.com'],
+            ['http://a_.!~*\'(-)n0123Di%25%26:pass;:&=+$,word@www.zend.com'],
+            ['http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html'],
+            ['http://[1080::8:800:200C:417A]/foo'],
+            ['http://[::192.9.5.5]/ipng'],
+            ['http://[::FFFF:129.144.52.38]:80/index.html'],
+            ['http://[2620:0:1cfe:face:b00c::3]/'],
+            ['http://[2010:836B:4179::836B:4179]'],
+            ['http'],
+            ['www.example.org:80'],
+            ['www.example.org'],
+            ['http://foo'],
+            ['ftp://user:pass@example.org/'],
+            ['www.fi/'],
+            ['http://1.1.1.1/'],
+            ['1.1.1.1'],
+            ['1.256.1.1'], // Hostnames can be only numbers
+            ['http://[::1]/'],
+            ['file:/'], // schema without host
+            ['http:///'], // host empty
+            ['http:::/foo'], // schema + path
+            ['2620:0:1cfe:face:b00c::3'], // Not IPv6, is Path
+        ];
     }
 
     /**
@@ -851,12 +851,12 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function validRelativeUriStringProvider()
     {
-        return array(
-            array('foo/bar?query'),
-            array('../relative/path'),
-            array('?queryOnly'),
-            array('#fragmentOnly'),
-        );
+        return [
+            ['foo/bar?query'],
+            ['../relative/path'],
+            ['?queryOnly'],
+            ['#fragmentOnly'],
+        ];
     }
 
     /**
@@ -866,16 +866,16 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function validSchemeProvider()
     {
-        return array(
+        return [
             // Valid schemes
-            array('http'),
-            array('HTTP'),
-            array('File'),
-            array('h'),
-            array('h2'),
-            array('a+b'),
-            array('k-'),
-         );
+            ['http'],
+            ['HTTP'],
+            ['File'],
+            ['h'],
+            ['h2'],
+            ['a+b'],
+            ['k-'],
+         ];
     }
 
     /**
@@ -885,13 +885,13 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidSchemeProvider()
     {
-        return array(
-            array('ht tp'),
-            array('htp_p'),
-            array('-tp'),
-            array('22c'),
-            array('h%acp'),
-        );
+        return [
+            ['ht tp'],
+            ['htp_p'],
+            ['-tp'],
+            ['22c'],
+            ['h%acp'],
+        ];
     }
 
     /**
@@ -904,12 +904,12 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function validQueryFragmentProvider()
     {
-        return array(
-            array('a=1&b=2&c=3&d=4'),
-            array('with?questionmark/andslash'),
-            array('id=123&url=http://example.com/?bar=foo+baz'),
-            array('with%20%0Aline%20break'),
-        );
+        return [
+            ['a=1&b=2&c=3&d=4'],
+            ['with?questionmark/andslash'],
+            ['id=123&url=http://example.com/?bar=foo+baz'],
+            ['with%20%0Aline%20break'],
+        ];
     }
 
     /**
@@ -922,13 +922,13 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidQueryFragmentProvider()
     {
-        return array(
-            array('with#pound', 'with%23pound'),
-            array('with space', 'with%20space'),
-            array('test=a&var[]=1&var[]=2&some[thing]=3', 'test=a&var%5B%5D=1&var%5B%5D=2&some%5Bthing%5D=3'),
-            array("with \nline break", "with%20%0Aline%20break"),
-            array("with%percent", "with%25percent"),
-        );
+        return [
+            ['with#pound', 'with%23pound'],
+            ['with space', 'with%20space'],
+            ['test=a&var[]=1&var[]=2&some[thing]=3', 'test=a&var%5B%5D=1&var%5B%5D=2&some%5Bthing%5D=3'],
+            ["with \nline break", "with%20%0Aline%20break"],
+            ["with%percent", "with%25percent"],
+        ];
     }
 
     /**
@@ -953,12 +953,12 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $obj4 = new Uri;
         $obj4->setUserInfo('shahar:password');
 
-        return array(
-            array($obj1),
-            array($obj2),
-            array($obj3),
-            array($obj4)
-        );
+        return [
+            [$obj1],
+            [$obj2],
+            [$obj3],
+            [$obj4]
+        ];
     }
 
     /**
@@ -991,14 +991,14 @@ class UriTest extends \PHPUnit_Framework_TestCase
         $obj6 = new Uri;
         $obj6->setHost('example.com');
 
-        return array(
-            array($obj1),
-            array($obj2),
-            array($obj3),
-            array($obj4),
-            array($obj5),
-            array($obj6)
-        );
+        return [
+            [$obj1],
+            [$obj2],
+            [$obj3],
+            [$obj4],
+            [$obj5],
+            [$obj6]
+        ];
     }
 
 
@@ -1009,40 +1009,40 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function uriWithPartsProvider()
     {
-        return array(
-            array('ht-tp://server/path?query', array(
+        return [
+            ['ht-tp://server/path?query', [
                 'scheme'   => 'ht-tp',
                 'host'     => 'server',
                 'path'     => '/path',
                 'query'    => 'query',
-            )),
-            array('file:///foo/bar', array(
+            ]],
+            ['file:///foo/bar', [
                 'scheme'   => 'file',
                 'host'     => '',
                 'path'     => '/foo/bar',
-            )),
-            array('http://dude:lebowski@example.com/#fr/ag?me.nt', array(
+            ]],
+            ['http://dude:lebowski@example.com/#fr/ag?me.nt', [
                 'scheme'   => 'http',
                 'userInfo' => 'dude:lebowski',
                 'host'     => 'example.com',
                 'path'     => '/',
                 'fragment' => 'fr/ag?me.nt'
-            )),
-            array('/relative/path', array(
+            ]],
+            ['/relative/path', [
                 'path' => '/relative/path'
-            )),
-            array('ftp://example.com:5555', array(
+            ]],
+            ['ftp://example.com:5555', [
                 'scheme' => 'ftp',
                 'host'   => 'example.com',
                 'port'   => 5555,
                 'path'   => ''
-            )),
-            array('http://example.com/foo//bar/baz//fob/', array(
+            ]],
+            ['http://example.com/foo//bar/baz//fob/', [
                 'scheme' => 'http',
                 'host'   => 'example.com',
                 'path'   => '/foo//bar/baz//fob/'
-            ))
-        );
+            ]]
+        ];
     }
 
     /**
@@ -1052,13 +1052,13 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function validPortProvider()
     {
-        return array(
-            array(null),
-            array(1),
-            array(0xffff),
-            array(80),
-            array('443')
-        );
+        return [
+            [null],
+            [1],
+            [0xffff],
+            [80],
+            ['443']
+        ];
     }
 
     /**
@@ -1068,91 +1068,91 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidPortProvider()
     {
-        return array(
-            array(0),
-            array(-1),
-            array(0x10000),
-            array('foo'),
-            array('0xf'),
-            array('-'),
-            array(':'),
-            array('/')
-        );
+        return [
+            [0],
+            [-1],
+            [0x10000],
+            ['foo'],
+            ['0xf'],
+            ['-'],
+            [':'],
+            ['/']
+        ];
     }
 
     public function validHostProvider()
     {
-        return array(
+        return [
             // IPv4 addresses
-            array('10.1.2.3'),
-            array('127.0.0.1'),
-            array('0.0.0.0'),
-            array('255.255.255.255'),
+            ['10.1.2.3'],
+            ['127.0.0.1'],
+            ['0.0.0.0'],
+            ['255.255.255.255'],
 
             // IPv6 addresses
             // Examples from http://en.wikipedia.org/wiki/IPv6_address
-            array('[2001:0db8:85a3:0000:0000:8a2e:0370:7334]'),
-            array('[2001:db8:85a3:0:0:8a2e:370:7334]'),
-            array('[2001:db8:85a3::8a2e:370:7334]'),
-            array('[0:0:0:0:0:0:0:1]'),
-            array('[::1]'),
-            array('[2001:0db8:85a3:08d3:1319:8a2e:0370:7348]'),
+            ['[2001:0db8:85a3:0000:0000:8a2e:0370:7334]'],
+            ['[2001:db8:85a3:0:0:8a2e:370:7334]'],
+            ['[2001:db8:85a3::8a2e:370:7334]'],
+            ['[0:0:0:0:0:0:0:1]'],
+            ['[::1]'],
+            ['[2001:0db8:85a3:08d3:1319:8a2e:0370:7348]'],
 
             // Internet and local DNS names
-            array('www.example.com'),
-            array('zend.com'),
-            array('php-israel.org'),
-            array('arr.gr'),
-            array('localhost'),
-            array('loca.host'),
-            array('zend-framework.test'),
-            array('a.b.c.d'),
-            array('a1.b2.c3.d4'),
-            array('some-domain-with-dashes'),
+            ['www.example.com'],
+            ['zend.com'],
+            ['php-israel.org'],
+            ['arr.gr'],
+            ['localhost'],
+            ['loca.host'],
+            ['zend-framework.test'],
+            ['a.b.c.d'],
+            ['a1.b2.c3.d4'],
+            ['some-domain-with-dashes'],
 
             // Registered name (other than DNS names)
-            array('some~unre_served.ch4r5'),
-            array('pct.%D7%A9%D7%97%D7%A8%20%D7%94%D7%92%D7%93%D7%95%D7%9C.co.il'),
-            array('sub-delims-!$&\'()*+,;=.are.ok'),
-            array('%2F%3A')
-        );
+            ['some~unre_served.ch4r5'],
+            ['pct.%D7%A9%D7%97%D7%A8%20%D7%94%D7%92%D7%93%D7%95%D7%9C.co.il'],
+            ['sub-delims-!$&\'()*+,;=.are.ok'],
+            ['%2F%3A']
+        ];
     }
 
     public function invalidHostProvider()
     {
-        return array(
-            array('with space'),
-            array('[]'),
-            array('[12:34'),
-        );
+        return [
+            ['with space'],
+            ['[]'],
+            ['[12:34'],
+        ];
     }
 
     public function validPathProvider()
     {
-        return array(
-            array(''),
-            array('/'),
-            array(':'),
-            array('/foo/bar'),
-            array('foo/bar'),
-            array('/foo;arg2=1&arg2=2/bar;baz/bla'),
-            array('foo'),
-            array('example.com'),
-            array('some-path'),
-            array('foo:bar'),
-            array('C:/Program%20Files/Zend'),
-        );
+        return [
+            [''],
+            ['/'],
+            [':'],
+            ['/foo/bar'],
+            ['foo/bar'],
+            ['/foo;arg2=1&arg2=2/bar;baz/bla'],
+            ['foo'],
+            ['example.com'],
+            ['some-path'],
+            ['foo:bar'],
+            ['C:/Program%20Files/Zend'],
+        ];
     }
 
     public function invalidPathProvider()
     {
-        return array(
-            array('?', '%3F'),
-            array('/#', '/%23'),
+        return [
+            ['?', '%3F'],
+            ['/#', '/%23'],
 
             // See http://framework.zend.com/issues/browse/ZF-11286
-            array('Giri%C5%9F Sayfas%C4%B1.aspx', 'Giri%C5%9F%20Sayfas%C4%B1.aspx')
-        );
+            ['Giri%C5%9F Sayfas%C4%B1.aspx', 'Giri%C5%9F%20Sayfas%C4%B1.aspx']
+        ];
     }
 
     /**
@@ -1163,18 +1163,18 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function fluentInterfaceMethodProvider()
     {
-        return array(
-            array('setScheme',    array('file')),
-            array('setUserInfo',  array('userInfo')),
-            array('setHost',      array('example.com')),
-            array('setPort',      array(80)),
-            array('setPath',      array('/baz/baz')),
-            array('setQuery',     array('foo=bar')),
-            array('setFragment',  array('part2')),
-            array('makeRelative', array('http://foo.bar/')),
-            array('resolve',      array('http://foo.bar/')),
-            array('normalize',    array())
-        );
+        return [
+            ['setScheme',    ['file']],
+            ['setUserInfo',  ['userInfo']],
+            ['setHost',      ['example.com']],
+            ['setPort',      [80]],
+            ['setPath',      ['/baz/baz']],
+            ['setQuery',     ['foo=bar']],
+            ['setFragment',  ['part2']],
+            ['makeRelative', ['http://foo.bar/']],
+            ['resolve',      ['http://foo.bar/']],
+            ['normalize',    []]
+        ];
     }
 
     /**
@@ -1187,49 +1187,49 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function resolvedAbsoluteUriProvider()
     {
-        return array(
+        return [
             // Normal examples
-            array('http://a/b/c/d;p?q', 'g:h',     'g:h'),
-            array('http://a/b/c/d;p?q', 'g',       'http://a/b/c/g'),
-            array('http://a/b/c/d;p?q', './g',     'http://a/b/c/g'),
-            array('http://a/b/c/d;p?q', 'g/',      'http://a/b/c/g/'),
-            array('http://a/b/c/d;p?q', '/g',      'http://a/g'),
-            array('http://a/b/c/d;p?q', '//g',     'http://g'),
-            array('http://a/b/c/d;p?q', '?y',      'http://a/b/c/d;p?y'),
-            array('http://a/b/c/d;p?q', 'g?y',     'http://a/b/c/g?y'),
-            array('http://a/b/c/d;p?q', '#s',      'http://a/b/c/d;p?q#s'),
-            array('http://a/b/c/d;p?q', 'g#s',     'http://a/b/c/g#s'),
-            array('http://a/b/c/d;p?q', 'g?y#s',   'http://a/b/c/g?y#s'),
-            array('http://a/b/c/d;p?q', ';x',      'http://a/b/c/;x'),
-            array('http://a/b/c/d;p?q', 'g;x',     'http://a/b/c/g;x'),
-            array('http://a/b/c/d;p?q', 'g;x?y#s', 'http://a/b/c/g;x?y#s'),
-            array('http://a/b/c/d;p?q', '',        'http://a/b/c/d;p?q'),
-            array('http://a/b/c/d;p?q', '.',       'http://a/b/c/'),
-            array('http://a/b/c/d;p?q', './',      'http://a/b/c/'),
-            array('http://a/b/c/d;p?q', '..',      'http://a/b/'),
-            array('http://a/b/c/d;p?q', '../',     'http://a/b/'),
-            array('http://a/b/c/d;p?q', '../g',    'http://a/b/g'),
-            array('http://a/b/c/d;p?q', '../..',   'http://a/'),
-            array('http://a/b/c/d;p?q', '../../',  'http://a/'),
-            array('http://a/b/c/d;p?q', '../../g', 'http://a/g'),
+            ['http://a/b/c/d;p?q', 'g:h',     'g:h'],
+            ['http://a/b/c/d;p?q', 'g',       'http://a/b/c/g'],
+            ['http://a/b/c/d;p?q', './g',     'http://a/b/c/g'],
+            ['http://a/b/c/d;p?q', 'g/',      'http://a/b/c/g/'],
+            ['http://a/b/c/d;p?q', '/g',      'http://a/g'],
+            ['http://a/b/c/d;p?q', '//g',     'http://g'],
+            ['http://a/b/c/d;p?q', '?y',      'http://a/b/c/d;p?y'],
+            ['http://a/b/c/d;p?q', 'g?y',     'http://a/b/c/g?y'],
+            ['http://a/b/c/d;p?q', '#s',      'http://a/b/c/d;p?q#s'],
+            ['http://a/b/c/d;p?q', 'g#s',     'http://a/b/c/g#s'],
+            ['http://a/b/c/d;p?q', 'g?y#s',   'http://a/b/c/g?y#s'],
+            ['http://a/b/c/d;p?q', ';x',      'http://a/b/c/;x'],
+            ['http://a/b/c/d;p?q', 'g;x',     'http://a/b/c/g;x'],
+            ['http://a/b/c/d;p?q', 'g;x?y#s', 'http://a/b/c/g;x?y#s'],
+            ['http://a/b/c/d;p?q', '',        'http://a/b/c/d;p?q'],
+            ['http://a/b/c/d;p?q', '.',       'http://a/b/c/'],
+            ['http://a/b/c/d;p?q', './',      'http://a/b/c/'],
+            ['http://a/b/c/d;p?q', '..',      'http://a/b/'],
+            ['http://a/b/c/d;p?q', '../',     'http://a/b/'],
+            ['http://a/b/c/d;p?q', '../g',    'http://a/b/g'],
+            ['http://a/b/c/d;p?q', '../..',   'http://a/'],
+            ['http://a/b/c/d;p?q', '../../',  'http://a/'],
+            ['http://a/b/c/d;p?q', '../../g', 'http://a/g'],
 
             // Abnormal examples
-            array('http://a/b/c/d;p?q', '../../../g',    'http://a/g'),
-            array('http://a/b/c/d;p?q', '../../../../g', 'http://a/g'),
-            array('http://a/b/c/d;p?q', '/./g',          'http://a/g'),
-            array('http://a/b/c/d;p?q', '/../g',         'http://a/g'),
-            array('http://a/b/c/d;p?q', 'g.',            'http://a/b/c/g.'),
-            array('http://a/b/c/d;p?q', '.g',            'http://a/b/c/.g'),
-            array('http://a/b/c/d;p?q', 'g..',           'http://a/b/c/g..'),
-            array('http://a/b/c/d;p?q', '..g',           'http://a/b/c/..g'),
-            array('http://a/b/c/d;p?q', './../g',        'http://a/b/g'),
-            array('http://a/b/c/d;p?q', './g/.',         'http://a/b/c/g/'),
-            array('http://a/b/c/d;p?q', 'g/./h',         'http://a/b/c/g/h'),
-            array('http://a/b/c/d;p?q', 'g/../h',        'http://a/b/c/h'),
-            array('http://a/b/c/d;p?q', 'g;x=1/./y',     'http://a/b/c/g;x=1/y'),
-            array('http://a/b/c/d;p?q', 'g;x=1/../y',    'http://a/b/c/y'),
-            array('http://a/b/c/d;p?q', 'http:g',        'http:g'),
-        );
+            ['http://a/b/c/d;p?q', '../../../g',    'http://a/g'],
+            ['http://a/b/c/d;p?q', '../../../../g', 'http://a/g'],
+            ['http://a/b/c/d;p?q', '/./g',          'http://a/g'],
+            ['http://a/b/c/d;p?q', '/../g',         'http://a/g'],
+            ['http://a/b/c/d;p?q', 'g.',            'http://a/b/c/g.'],
+            ['http://a/b/c/d;p?q', '.g',            'http://a/b/c/.g'],
+            ['http://a/b/c/d;p?q', 'g..',           'http://a/b/c/g..'],
+            ['http://a/b/c/d;p?q', '..g',           'http://a/b/c/..g'],
+            ['http://a/b/c/d;p?q', './../g',        'http://a/b/g'],
+            ['http://a/b/c/d;p?q', './g/.',         'http://a/b/c/g/'],
+            ['http://a/b/c/d;p?q', 'g/./h',         'http://a/b/c/g/h'],
+            ['http://a/b/c/d;p?q', 'g/../h',        'http://a/b/c/h'],
+            ['http://a/b/c/d;p?q', 'g;x=1/./y',     'http://a/b/c/g;x=1/y'],
+            ['http://a/b/c/d;p?q', 'g;x=1/../y',    'http://a/b/c/y'],
+            ['http://a/b/c/d;p?q', 'http:g',        'http:g'],
+        ];
     }
 
     /**
@@ -1240,20 +1240,20 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function queryParamsArrayProvider()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'foo' => 'bar',
                 'baz' => 'waka'
-            ), 'foo=bar&baz=waka'),
-            array(array(
+            ], 'foo=bar&baz=waka'],
+            [[
                 'some key' => 'some crazy value?!#[]&=%+',
                 '1'        => ''
-            ), 'some%20key=some%20crazy%20value%3F%21%23%5B%5D%26%3D%25%2B&1='),
-            array(array(
-                'array'        => array('foo', 'bar', 'baz'),
+            ], 'some%20key=some%20crazy%20value%3F%21%23%5B%5D%26%3D%25%2B&1='],
+            [[
+                'array'        => ['foo', 'bar', 'baz'],
                 'otherstuff[]' => 1234
-            ), 'array%5B0%5D=foo&array%5B1%5D=bar&array%5B2%5D=baz&otherstuff%5B%5D=1234')
-        );
+            ], 'array%5B0%5D=foo&array%5B1%5D=bar&array%5B2%5D=baz&otherstuff%5B%5D=1234']
+        ];
     }
 
     /**
@@ -1263,40 +1263,40 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function pathWithDotSegmentProvider()
     {
-        return array(
-            array('/a/b/c/./../../g',   '/a/g'),
-            array('mid/content=5/../6', 'mid/6')
-        );
+        return [
+            ['/a/b/c/./../../g',   '/a/g'],
+            ['mid/content=5/../6', 'mid/6']
+        ];
     }
 
     public function normalizedUrlsProvider()
     {
-        return array(
-            array('hTtp://example.com', 'http://example.com/'),
-            array('https://EXAMPLE.COM/FOO/BAR', 'https://example.com/FOO/BAR'),
-            array('FOO:/bar/with space?que%3fry#frag%ment#', 'foo:/bar/with%20space?que?ry#frag%25ment%23'),
-            array('/path/%68%65%6c%6c%6f/world', '/path/hello/world'),
-            array('/foo/bar?url=http%3A%2F%2Fwww.example.com%2Fbaz', '/foo/bar?url=http://www.example.com/baz'),
+        return [
+            ['hTtp://example.com', 'http://example.com/'],
+            ['https://EXAMPLE.COM/FOO/BAR', 'https://example.com/FOO/BAR'],
+            ['FOO:/bar/with space?que%3fry#frag%ment#', 'foo:/bar/with%20space?que?ry#frag%25ment%23'],
+            ['/path/%68%65%6c%6c%6f/world', '/path/hello/world'],
+            ['/foo/bar?url=http%3A%2F%2Fwww.example.com%2Fbaz', '/foo/bar?url=http://www.example.com/baz'],
 
-            array('/urlencoded/params?chars=' . urlencode('+&=;%20#'), '/urlencoded/params?chars=%2B%26%3D%3B%2520%23'),
-            array('File:///SitePages/fi%6ce%20has%20spaces', 'file:///SitePages/file%20has%20spaces'),
-            array('/foo/bar/../baz?do=action#showFragment', '/foo/baz?do=action#showFragment'),
+            ['/urlencoded/params?chars=' . urlencode('+&=;%20#'), '/urlencoded/params?chars=%2B%26%3D%3B%2520%23'],
+            ['File:///SitePages/fi%6ce%20has%20spaces', 'file:///SitePages/file%20has%20spaces'],
+            ['/foo/bar/../baz?do=action#showFragment', '/foo/baz?do=action#showFragment'],
 
             //  RFC 3986 Capitalizing letters in escape sequences.
-            array('http://www.example.com/a%c2%b1b', 'http://www.example.com/a%C2%B1b'),
+            ['http://www.example.com/a%c2%b1b', 'http://www.example.com/a%C2%B1b'],
 
             // This should be left unchanged, at least for the generic Uri class
-            array('http://example.com:80/file?query=bar', 'http://example.com:80/file?query=bar'),
-        );
+            ['http://example.com:80/file?query=bar', 'http://example.com:80/file?query=bar'],
+        ];
     }
 
     public function commonBaseUriProvider()
     {
-        return array(
-             array('http://example.com/dir/subdir/', 'http://example.com/dir/subdir/more/file1.txt', 'more/file1.txt'),
-             array('http://example.com/dir/subdir/', 'http://example.com/dir/otherdir/file2.txt',    '../otherdir/file2.txt'),
-             array('http://example.com/dir/subdir/', 'http://otherhost.com/dir/subdir/file3.txt',    'http://otherhost.com/dir/subdir/file3.txt'),
-        );
+        return [
+             ['http://example.com/dir/subdir/', 'http://example.com/dir/subdir/more/file1.txt', 'more/file1.txt'],
+             ['http://example.com/dir/subdir/', 'http://example.com/dir/otherdir/file2.txt',    '../otherdir/file2.txt'],
+             ['http://example.com/dir/subdir/', 'http://otherhost.com/dir/subdir/file3.txt',    'http://otherhost.com/dir/subdir/file3.txt'],
+        ];
     }
 
 
@@ -1307,13 +1307,13 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidConstructorInputProvider()
     {
-        return array(
-            array(new \stdClass()),
-            array(false),
-            array(true),
-            array(array('scheme' => 'http')),
-            array(12)
-        );
+        return [
+            [new \stdClass()],
+            [false],
+            [true],
+            [['scheme' => 'http']],
+            [12]
+        ];
     }
 
     /**
@@ -1326,12 +1326,12 @@ class UriTest extends \PHPUnit_Framework_TestCase
      */
     public function notStringInputProvider()
     {
-        return array(
-            array(new Uri('http://foo.bar')),
-            array(null),
-            array(12),
-            array(array('scheme' => 'http', 'host' => 'example.com'))
-        );
+        return [
+            [new Uri('http://foo.bar')],
+            [null],
+            [12],
+            [['scheme' => 'http', 'host' => 'example.com']]
+        ];
     }
 
     public function testParseTwice()

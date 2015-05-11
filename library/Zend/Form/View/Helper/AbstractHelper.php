@@ -25,25 +25,25 @@ abstract class AbstractHelper extends BaseAbstractHelper
      *
      * @var array
      */
-    protected $booleanAttributes = array(
-        'autofocus'    => array('on' => 'autofocus', 'off' => ''),
-        'checked'      => array('on' => 'checked',   'off' => ''),
-        'disabled'     => array('on' => 'disabled',  'off' => ''),
-        'multiple'     => array('on' => 'multiple',  'off' => ''),
-        'readonly'     => array('on' => 'readonly',  'off' => ''),
-        'required'     => array('on' => 'required',  'off' => ''),
-        'selected'     => array('on' => 'selected',  'off' => ''),
-    );
+    protected $booleanAttributes = [
+        'autofocus'    => ['on' => 'autofocus', 'off' => ''],
+        'checked'      => ['on' => 'checked',   'off' => ''],
+        'disabled'     => ['on' => 'disabled',  'off' => ''],
+        'multiple'     => ['on' => 'multiple',  'off' => ''],
+        'readonly'     => ['on' => 'readonly',  'off' => ''],
+        'required'     => ['on' => 'required',  'off' => ''],
+        'selected'     => ['on' => 'selected',  'off' => ''],
+    ];
 
     /**
      * Translatable attributes
      *
      * @var array
      */
-    protected $translatableAttributes = array(
+    protected $translatableAttributes = [
         'placeholder' => true,
         'title' => true,
-    );
+    ];
 
     /**
      * @var Doctype
@@ -65,7 +65,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
      *
      * @var array
      */
-    protected $validGlobalAttributes = array(
+    protected $validGlobalAttributes = [
         'accesskey'          => true,
         'class'              => true,
         'contenteditable'    => true,
@@ -139,7 +139,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
         'xml:base'           => true,
         'xml:lang'           => true,
         'xml:space'          => true,
-    );
+    ];
 
     /**
      * Attributes valid for the tag represented by this helper
@@ -148,8 +148,8 @@ abstract class AbstractHelper extends BaseAbstractHelper
      *
      * @var array
      */
-    protected $validTagAttributes = array(
-    );
+    protected $validTagAttributes = [
+    ];
 
     /**
      * Set value for doctype
@@ -209,7 +209,7 @@ abstract class AbstractHelper extends BaseAbstractHelper
         $attributes = $this->prepareAttributes($attributes);
         $escape     = $this->getEscapeHtmlHelper();
         $escapeAttr = $this->getEscapeHtmlAttrHelper();
-        $strings    = array();
+        $strings    = [];
 
         foreach ($attributes as $key => $value) {
             $key = strtolower($key);

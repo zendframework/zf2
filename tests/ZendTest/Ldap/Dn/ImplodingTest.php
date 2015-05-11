@@ -28,12 +28,12 @@ class ImplodingTest extends \PHPUnit_Framework_TestCase
     public function testImplodeDn()
     {
         $expected = 'cn=name1,cn=name2,dc=example,dc=org';
-        $dnArray  = array(
-            array("cn" => "name1"),
-            array("cn" => "name2"),
-            array("dc" => "example"),
-            array("dc" => "org")
-        );
+        $dnArray  = [
+            ["cn" => "name1"],
+            ["cn" => "name2"],
+            ["dc" => "example"],
+            ["dc" => "org"]
+        ];
         $dn       = Ldap\Dn::implodeDn($dnArray);
         $this->assertEquals($expected, $dn);
 
@@ -44,47 +44,47 @@ class ImplodingTest extends \PHPUnit_Framework_TestCase
     public function testImplodeDnWithUtf8Characters()
     {
         $expected = 'uid=rogasawara,ou=営業部,o=Airius';
-        $dnArray  = array(
-            array("uid" => "rogasawara"),
-            array("ou" => "営業部"),
-            array("o" => "Airius"),
-        );
+        $dnArray  = [
+            ["uid" => "rogasawara"],
+            ["ou" => "営業部"],
+            ["o" => "Airius"],
+        ];
         $dn       = Ldap\Dn::implodeDn($dnArray);
         $this->assertEquals($expected, $dn);
     }
 
     public function testImplodeRdn()
     {
-        $a        = array('cn' => 'value');
+        $a        = ['cn' => 'value'];
         $expected = 'cn=value';
         $this->assertEquals($expected, Ldap\Dn::implodeRdn($a));
     }
 
     public function testImplodeRdnMultiValuedRdn()
     {
-        $a        = array('cn'  => 'value',
-                          'uid' => 'testUser');
+        $a        = ['cn'  => 'value',
+                          'uid' => 'testUser'];
         $expected = 'cn=value+uid=testUser';
         $this->assertEquals($expected, Ldap\Dn::implodeRdn($a));
     }
 
     public function testImplodeRdnMultiValuedRdn2()
     {
-        $a        = array('cn'  => 'value',
+        $a        = ['cn'  => 'value',
                           'uid' => 'testUser',
-                          'ou'  => 'myDep');
+                          'ou'  => 'myDep'];
         $expected = 'cn=value+ou=myDep+uid=testUser';
         $this->assertEquals($expected, Ldap\Dn::implodeRdn($a));
     }
 
     public function testImplodeRdnCaseFold()
     {
-        $a        = array('cn' => 'value');
+        $a        = ['cn' => 'value'];
         $expected = 'CN=value';
         $this->assertEquals($expected,
             Ldap\Dn::implodeRdn($a, Ldap\Dn::ATTR_CASEFOLD_UPPER)
         );
-        $a        = array('CN' => 'value');
+        $a        = ['CN' => 'value'];
         $expected = 'cn=value';
         $this->assertEquals($expected,
             Ldap\Dn::implodeRdn($a, Ldap\Dn::ATTR_CASEFOLD_LOWER)
@@ -93,16 +93,16 @@ class ImplodingTest extends \PHPUnit_Framework_TestCase
 
     public function testImplodeRdnMultiValuedRdnCaseFold()
     {
-        $a        = array('cn'  => 'value',
+        $a        = ['cn'  => 'value',
                           'uid' => 'testUser',
-                          'ou'  => 'myDep');
+                          'ou'  => 'myDep'];
         $expected = 'CN=value+OU=myDep+UID=testUser';
         $this->assertEquals($expected,
             Ldap\Dn::implodeRdn($a, Ldap\Dn::ATTR_CASEFOLD_UPPER)
         );
-        $a        = array('CN'  => 'value',
+        $a        = ['CN'  => 'value',
                           'uID' => 'testUser',
-                          'ou'  => 'myDep');
+                          'ou'  => 'myDep'];
         $expected = 'cn=value+ou=myDep+uid=testUser';
         $this->assertEquals($expected,
             Ldap\Dn::implodeRdn($a, Ldap\Dn::ATTR_CASEFOLD_LOWER)
@@ -114,7 +114,7 @@ class ImplodingTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplodeRdnInvalidOne()
     {
-        $a = array('cn');
+        $a = ['cn'];
         Ldap\Dn::implodeRdn($a);
     }
 
@@ -123,7 +123,7 @@ class ImplodingTest extends \PHPUnit_Framework_TestCase
      */
     public function testImplodeRdnInvalidThree()
     {
-        $a = array('cn' => 'value', 'ou');
+        $a = ['cn' => 'value', 'ou'];
         Ldap\Dn::implodeRdn($a);
     }
 }

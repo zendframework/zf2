@@ -24,13 +24,13 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      *
      * @var array
      */
-    protected $classMessages = array(
+    protected $classMessages = [
         PluginFlashMessenger::NAMESPACE_INFO => 'info',
         PluginFlashMessenger::NAMESPACE_ERROR => 'error',
         PluginFlashMessenger::NAMESPACE_SUCCESS => 'success',
         PluginFlashMessenger::NAMESPACE_DEFAULT => 'default',
         PluginFlashMessenger::NAMESPACE_WARNING => 'warning',
-    );
+    ];
 
     /**
      * Templates for the open/close/separators for message tags
@@ -95,7 +95,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
     public function __call($method, $argv)
     {
         $flashMessenger = $this->getPluginFlashMessenger();
-        return call_user_func_array(array($flashMessenger, $method), $argv);
+        return call_user_func_array([$flashMessenger, $method], $argv);
     }
 
     /**
@@ -106,7 +106,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * @param  null|bool $autoEscape
      * @return string
      */
-    public function render($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = array(), $autoEscape = null)
+    public function render($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = [], $autoEscape = null)
     {
         $flashMessenger = $this->getPluginFlashMessenger();
         $messages = $flashMessenger->getMessagesFromNamespace($namespace);
@@ -121,7 +121,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * @param  bool|null $autoEscape
      * @return string
      */
-    public function renderCurrent($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = array(), $autoEscape = null)
+    public function renderCurrent($namespace = PluginFlashMessenger::NAMESPACE_DEFAULT, array $classes = [], $autoEscape = null)
     {
         $flashMessenger = $this->getPluginFlashMessenger();
         $messages = $flashMessenger->getCurrentMessagesFromNamespace($namespace);
@@ -139,8 +139,8 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      */
     protected function renderMessages(
         $namespace = PluginFlashMessenger::NAMESPACE_DEFAULT,
-        array $messages = array(),
-        array $classes = array(),
+        array $messages = [],
+        array $classes = [],
         $autoEscape = null
     ) {
         // Prepare classes for opening tag
@@ -150,7 +150,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
             } else {
                 $classes = $this->classMessages[PluginFlashMessenger::NAMESPACE_DEFAULT];
             }
-            $classes = array($classes);
+            $classes = [$classes];
         }
 
         if (null === $autoEscape) {
@@ -159,7 +159,7 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
 
         // Flatten message array
         $escapeHtml      = $this->getEscapeHtmlHelper();
-        $messagesToPrint = array();
+        $messagesToPrint = [];
         $translator = $this->getTranslator();
         $translatorTextDomain = $this->getTranslatorTextDomain();
         array_walk_recursive(

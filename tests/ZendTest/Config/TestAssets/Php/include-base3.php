@@ -1,6 +1,6 @@
 <?php
-return array(
-    'last' => array(
+return [
+    'last' => [
         'bar' => 'baz',
-    ),
-);
+    ],
+];

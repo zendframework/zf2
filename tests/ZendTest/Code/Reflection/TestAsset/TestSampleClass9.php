@@ -27,7 +27,7 @@ class TestSampleClass9
 
     public function getIterator()
     {
-        return array();
+        return [];
     }
 
 }

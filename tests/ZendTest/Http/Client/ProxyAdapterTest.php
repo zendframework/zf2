@@ -68,13 +68,13 @@ class ProxyAdapterTest extends SocketTest
             }
 
 
-            $this->config = array(
+            $this->config = [
                 'adapter'    => '\Zend\Http\Client\Adapter\Proxy',
                 'proxy_host' => $host,
                 'proxy_port' => $port,
                 'proxy_user' => $user,
                 'proxy_pass' => $pass,
-            );
+            ];
 
             parent::setUp();
         } else {
@@ -87,9 +87,9 @@ class ProxyAdapterTest extends SocketTest
      */
     public function testFallbackToSocket()
     {
-        $this->_adapter->setOptions(array(
+        $this->_adapter->setOptions([
             'proxy_host' => null,
-        ));
+        ]);
 
         $this->client->setUri($this->baseuri . 'testGetLastRequest.php');
         $res = $this->client->setMethod(\Zend\Http\Request::METHOD_TRACE)->send();

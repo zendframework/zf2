@@ -21,7 +21,7 @@ class ServiceListener implements ServiceListenerInterface
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
-    protected $listeners = array();
+    protected $listeners = [];
 
     /**
      * Default service manager used to fulfill other SMs that need to be lazy loaded
@@ -38,7 +38,7 @@ class ServiceListener implements ServiceListenerInterface
     /**
      * @var array
      */
-    protected $serviceManagers = array();
+    protected $serviceManagers = [];
 
     /**
      * @param ServiceManager $serviceManager
@@ -85,13 +85,13 @@ class ServiceListener implements ServiceListenerInterface
             ));
         }
 
-        $this->serviceManagers[$smKey] = array(
+        $this->serviceManagers[$smKey] = [
             'service_manager'        => $serviceManager,
             'config_key'             => $key,
             'module_class_interface' => $moduleInterface,
             'module_class_method'    => $method,
-            'configuration'          => array(),
-        );
+            'configuration'          => [],
+        ];
 
         if ($key === 'service_manager' && $this->defaultServiceConfig) {
             $this->serviceManagers[$smKey]['configuration']['default_config'] = $this->defaultServiceConfig;
@@ -106,8 +106,8 @@ class ServiceListener implements ServiceListenerInterface
      */
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, array($this, 'onLoadModule'));
-        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, array($this, 'onLoadModulesPost'));
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULE, [$this, 'onLoadModule']);
+        $this->listeners[] = $events->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, [$this, 'onLoadModulesPost']);
         return $this;
     }
 
@@ -198,7 +198,7 @@ class ServiceListener implements ServiceListenerInterface
             }
 
             // Merge all of the things!
-            $smConfig = array();
+            $smConfig = [];
             foreach ($this->serviceManagers[$key]['configuration'] as $configs) {
                 if (isset($configs['configuration_classes'])) {
                     foreach ($configs['configuration_classes'] as $class) {
@@ -247,7 +247,7 @@ class ServiceListener implements ServiceListenerInterface
             ));
         }
 
-        return array(
+        return [
             'abstract_factories' => $config->getAbstractFactories(),
             'aliases'            => $config->getAliases(),
             'initializers'       => $config->getInitializers(),
@@ -255,6 +255,6 @@ class ServiceListener implements ServiceListenerInterface
             'invokables'         => $config->getInvokables(),
             'services'           => $config->getServices(),
             'shared'             => $config->getShared(),
-        );
+        ];
     }
 }

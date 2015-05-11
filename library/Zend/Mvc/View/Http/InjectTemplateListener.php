@@ -30,7 +30,7 @@ class InjectTemplateListener extends AbstractListenerAggregate
      *
      * @var array
      */
-    protected $controllerMap = array();
+    protected $controllerMap = [];
 
     /**
      * Flag to force the use of the route match controller param
@@ -44,7 +44,7 @@ class InjectTemplateListener extends AbstractListenerAggregate
      */
     public function attach(Events $events)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'injectTemplate'), -90);
+        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, [$this, 'injectTemplate'], -90);
     }
 
     /**
@@ -156,7 +156,7 @@ class InjectTemplateListener extends AbstractListenerAggregate
             //strip Controller namespace(s) (but not classname)
             $parts = explode('\\', $controller);
             array_pop($parts);
-            $parts = array_diff($parts, array('Controller'));
+            $parts = array_diff($parts, ['Controller']);
             //strip trailing Controller in class name
             $parts[] = $this->deriveControllerClass($controller);
             $controller = implode('/', $parts);

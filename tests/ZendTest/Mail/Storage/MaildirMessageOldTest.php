@@ -64,7 +64,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
         $this->_maildir = $this->_tmpdir;
 
-        foreach (array('cur', 'new') as $dir) {
+        foreach (['cur', 'new'] as $dir) {
             mkdir($this->_tmpdir . $dir);
             $dh = opendir($this->_originalMaildir . $dir);
             while (($entry = readdir($dh)) !== false) {
@@ -80,7 +80,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        foreach (array('cur', 'new') as $dir) {
+        foreach (['cur', 'new'] as $dir) {
             if (!is_dir($this->_tmpdir . $dir)) {
                 continue;
             }
@@ -100,7 +100,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchHeader()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -117,7 +117,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 */
     public function testFetchMessageHeader()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
 
         $subject = $mail->getMessage(1)->subject;
         $this->assertEquals('Simple Message', $subject);
@@ -125,7 +125,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchMessageBody()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
 
         $content = $mail->getMessage(3)->getContent();
         list($content) = explode("\n", $content, 2);
@@ -134,7 +134,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testHasFlag()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
 
         $this->assertFalse($mail->getMessage(5)->hasFlag(Storage::FLAG_SEEN));
         $this->assertTrue($mail->getMessage(5)->hasFlag(Storage::FLAG_RECENT));
@@ -144,7 +144,7 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testGetFlags()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
 
         $flags = $mail->getMessage(1)->getFlags();
         $this->assertTrue(isset($flags[Storage::FLAG_SEEN]));
@@ -153,13 +153,13 @@ class MaildirMessageOldTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchPart()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
         $this->assertEquals($mail->getMessage(4)->getPart(2)->contentType, 'text/x-vertical');
     }
 
     public function testPartSize()
     {
-        $mail = new MaildirOldMessage(array('dirname' => $this->_maildir));
+        $mail = new MaildirOldMessage(['dirname' => $this->_maildir]);
         $this->assertEquals($mail->getMessage(4)->getPart(2)->getSize(), 80);
     }
 }

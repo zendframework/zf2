@@ -35,18 +35,18 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($subscription->hasSubscription($id));
         $this->assertFalse($subscription->getSubscription($id));
         $this->assertFalse($subscription->deleteSubscription($id));
-        $this->assertTrue($subscription->setSubscription(array('id' => $id)));
+        $this->assertTrue($subscription->setSubscription(['id' => $id]));
 
         $this->assertTrue($subscription->hasSubscription($id));
         $dataSubscription = $subscription->getSubscription($id);
         $this->assertInternalType('array', $dataSubscription);
-        $keys = array('id', 'topic_url', 'hub_url',
+        $keys = ['id', 'topic_url', 'hub_url',
                       'created_time', 'lease_seconds',
                       'verify_token', 'secret',
-                      'expiration_time', 'subscription_state');
+                      'expiration_time', 'subscription_state'];
 
         $this->assertSame($keys, array_keys($dataSubscription));
-        $this->assertFalse($subscription->setSubscription(array('id' => $id)));
+        $this->assertFalse($subscription->setSubscription(['id' => $id]));
         $this->assertTrue($subscription->deleteSubscription($id));
     }
 
@@ -72,7 +72,7 @@ class SubscriptionTest extends \PHPUnit_Framework_TestCase
         ) {
             $this->markTestSkipped('Test only with pdo_sqlite');
         }
-        $db = new DbAdapter(array('driver' => 'pdo_sqlite', 'dsn' => 'sqlite::memory:'));
+        $db = new DbAdapter(['driver' => 'pdo_sqlite', 'dsn' => 'sqlite::memory:']);
         $this->createTable($db);
 
         return $db;

@@ -448,7 +448,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
     {
         $this->getRequest()
             ->setMethod('GET')
-            ->setQuery(new Parameters(array('num_get' => 5)));
+            ->setQuery(new Parameters(['num_get' => 5]));
         $this->dispatch('/tests');
         $this->assertQueryCount('div.get', 5);
         $this->assertXpathQueryCount('//div[@class="get"]', 5);
@@ -458,7 +458,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testAssertQueryWithDynamicQueryParamsInDispatchMethod()
     {
-        $this->dispatch('/tests', 'GET', array('num_get' => 5));
+        $this->dispatch('/tests', 'GET', ['num_get' => 5]);
         $this->assertQueryCount('div.get', 5);
         $this->assertXpathQueryCount('//div[@class="get"]', 5);
         $this->assertQueryCount('div.post', 0);
@@ -476,7 +476,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testAssertQueryWithDynamicQueryParamsInUrlAnsPostInParams()
     {
-        $this->dispatch('/tests?foo=bar&num_get=5', 'POST', array('num_post' => 5));
+        $this->dispatch('/tests?foo=bar&num_get=5', 'POST', ['num_post' => 5]);
         $this->assertQueryCount('div.get', 5);
         $this->assertXpathQueryCount('//div[@class="get"]', 5);
         $this->assertQueryCount('div.post', 5);
@@ -487,7 +487,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
     {
         $this->getRequest()
             ->setMethod('POST')
-            ->setPost(new Parameters(array('num_post' => 5)));
+            ->setPost(new Parameters(['num_post' => 5]));
         $this->dispatch('/tests');
         $this->assertQueryCount('div.post', 5);
         $this->assertXpathQueryCount('//div[@class="post"]', 5);
@@ -497,7 +497,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testAssertQueryWithDynamicPostParamsInDispatchMethod()
     {
-        $this->dispatch('/tests', 'POST', array('num_post' => 5));
+        $this->dispatch('/tests', 'POST', ['num_post' => 5]);
         $request = $this->getRequest();
         $this->assertEquals($request->getMethod(), 'POST');
         $this->assertQueryCount('div.post', 5);
@@ -508,7 +508,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
     public function testAssertQueryWithDynamicPutParamsInDispatchMethod()
     {
-        $this->dispatch('/tests', 'PUT', array('num_post' => 5, 'foo' => 'bar'));
+        $this->dispatch('/tests', 'PUT', ['num_post' => 5, 'foo' => 'bar']);
         $request = $this->getRequest();
         $this->assertEquals($request->getMethod(), 'PUT');
         $this->assertEquals('num_post=5&foo=bar', $request->getContent());
@@ -726,7 +726,7 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $request = $this->getRequest();
         $this->assertFalse($request->isXmlHttpRequest());
 
-        $this->dispatch('/test', 'GET', array(), true);
+        $this->dispatch('/test', 'GET', [], true);
 
         $request = $this->getRequest();
         $this->assertTrue($request->isXmlHttpRequest());

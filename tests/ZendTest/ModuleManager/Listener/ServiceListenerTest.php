@@ -20,7 +20,7 @@ use Zend\ServiceManager\ServiceManager;
 
 class ServiceListenerTest extends TestCase
 {
-    protected $serviceManagerProps = array(
+    protected $serviceManagerProps = [
         'invokableClasses',
         'factories',
         'abstractFactories',
@@ -29,7 +29,7 @@ class ServiceListenerTest extends TestCase
         'aliases',
         'initializers',
         'peeringServiceManagers',
-    );
+    ];
 
     public function setUp()
     {
@@ -48,7 +48,7 @@ class ServiceListenerTest extends TestCase
         $this->listener->onLoadModule($this->event);
 
         foreach ($this->serviceManagerProps as $prop) {
-            $this->assertAttributeEquals(array(), $prop, $this->services);
+            $this->assertAttributeEquals([], $prop, $this->services);
         }
     }
 
@@ -59,28 +59,28 @@ class ServiceListenerTest extends TestCase
         $this->listener->onLoadModule($this->event);
 
         foreach ($this->serviceManagerProps as $prop) {
-            $this->assertAttributeEquals(array(), $prop, $this->services);
+            $this->assertAttributeEquals([], $prop, $this->services);
         }
     }
 
     public function getServiceConfig()
     {
-        return array(
-            'invokables' => array(__CLASS__ => __CLASS__),
-            'factories' => array(
+        return [
+            'invokables' => [__CLASS__ => __CLASS__],
+            'factories' => [
                 'foo' => function ($sm) { },
-            ),
-            'abstract_factories' => array(
+            ],
+            'abstract_factories' => [
                 new \Zend\ServiceManager\Di\DiAbstractServiceFactory(new \Zend\Di\Di()),
-            ),
-            'shared' => array(
+            ],
+            'shared' => [
                 'foo' => false,
                 'zendtestmodulemanagerlistenerservicelistenertest' => true,
-            ),
-            'aliases'  => array(
+            ],
+            'aliases'  => [
                 'bar' => 'foo',
-            ),
-        );
+            ],
+        ];
     }
 
     public function assertServiceManagerIsConfigured()
@@ -91,7 +91,7 @@ class ServiceListenerTest extends TestCase
                 $prop = 'invokableClasses';
                 foreach ($expected as $key => $value) {
                     $normalized = strtolower($key);
-                    $normalized = str_replace(array('\\', '_'), '', $normalized);
+                    $normalized = str_replace(['\\', '_'], '', $normalized);
                     unset($expected[$key]);
                     $expected[$normalized] = $value;
                 }
@@ -124,9 +124,9 @@ class ServiceListenerTest extends TestCase
 
     public function testModuleServiceConfigOverridesGlobalConfig()
     {
-        $this->listener = new ServiceListener($this->services, array('aliases' => array('foo' => 'bar')));
+        $this->listener = new ServiceListener($this->services, ['aliases' => ['foo' => 'bar']]);
         $this->listener->addServiceManager($this->services, 'service_manager', 'Zend\ModuleManager\Feature\ServiceProviderInterface', 'getServiceConfig');
-        $config = array('aliases' => array('foo' => 'baz'));
+        $config = ['aliases' => ['foo' => 'baz']];
         $module = new TestAsset\ServiceProviderModule($config);
         $this->event->setModule($module);
         $this->listener->onLoadModule($this->event);
@@ -146,7 +146,7 @@ class ServiceListenerTest extends TestCase
 
     public function testMergedConfigContainingServiceManagerKeyWillConfigureServiceManagerPostLoadModules()
     {
-        $config = array('service_manager' => $this->getServiceConfig());
+        $config = ['service_manager' => $this->getServiceConfig()];
         $configListener = new ConfigListener();
         $configListener->setMergedConfig($config);
         $this->event->setConfigListener($configListener);

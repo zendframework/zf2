@@ -25,10 +25,10 @@ class FactoryTest extends PHPUnit_Framework_TestCase
 
     public function invalidSpecTypeProvider()
     {
-        return array(
-            array('spec'),
-            array(new \stdClass()),
-        );
+        return [
+            ['spec'],
+            [new \stdClass()],
+        ];
     }
 
     /**
@@ -51,9 +51,9 @@ class FactoryTest extends PHPUnit_Framework_TestCase
             // skip deprecation notices
             return;
         }, E_USER_DEPRECATED);
-        $transport = Factory::create(array(
+        $transport = Factory::create([
             'type' => $type,
-        ));
+        ]);
         restore_error_handler();
 
         $this->assertInstanceOf($type, $transport);
@@ -61,15 +61,15 @@ class FactoryTest extends PHPUnit_Framework_TestCase
 
     public function typeProvider()
     {
-        $types = array(
-            array('Zend\Mail\Transport\File'),
-            array('Zend\Mail\Transport\InMemory'),
-            array('Zend\Mail\Transport\Sendmail'),
-            array('Zend\Mail\Transport\Smtp'),
-        );
+        $types = [
+            ['Zend\Mail\Transport\File'],
+            ['Zend\Mail\Transport\InMemory'],
+            ['Zend\Mail\Transport\Sendmail'],
+            ['Zend\Mail\Transport\Smtp'],
+        ];
 
         if (version_compare(PHP_VERSION, '7.0', '<')) {
-            $types[] = array('Zend\Mail\Transport\Null');
+            $types[] = ['Zend\Mail\Transport\Null'];
         }
 
         return $types;
@@ -82,31 +82,31 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCanCreateClassFromTypeAlias($type, $expectedClass)
     {
-        $transport = Factory::create(array(
+        $transport = Factory::create([
             'type' => $type,
-        ));
+        ]);
 
         $this->assertInstanceOf($expectedClass, $transport);
     }
 
     public function typeAliasProvider()
     {
-        return array(
-            array('file', 'Zend\Mail\Transport\File'),
-            array('null', 'Zend\Mail\Transport\InMemory'),
-            array('memory', 'Zend\Mail\Transport\InMemory'),
-            array('inmemory', 'Zend\Mail\Transport\InMemory'),
-            array('InMemory', 'Zend\Mail\Transport\InMemory'),
-            array('sendmail', 'Zend\Mail\Transport\Sendmail'),
-            array('smtp', 'Zend\Mail\Transport\Smtp'),
-            array('File', 'Zend\Mail\Transport\File'),
-            array('Null', 'Zend\Mail\Transport\InMemory'),
-            array('NULL', 'Zend\Mail\Transport\InMemory'),
-            array('Sendmail', 'Zend\Mail\Transport\Sendmail'),
-            array('SendMail', 'Zend\Mail\Transport\Sendmail'),
-            array('Smtp', 'Zend\Mail\Transport\Smtp'),
-            array('SMTP', 'Zend\Mail\Transport\Smtp'),
-        );
+        return [
+            ['file', 'Zend\Mail\Transport\File'],
+            ['null', 'Zend\Mail\Transport\InMemory'],
+            ['memory', 'Zend\Mail\Transport\InMemory'],
+            ['inmemory', 'Zend\Mail\Transport\InMemory'],
+            ['InMemory', 'Zend\Mail\Transport\InMemory'],
+            ['sendmail', 'Zend\Mail\Transport\Sendmail'],
+            ['smtp', 'Zend\Mail\Transport\Smtp'],
+            ['File', 'Zend\Mail\Transport\File'],
+            ['Null', 'Zend\Mail\Transport\InMemory'],
+            ['NULL', 'Zend\Mail\Transport\InMemory'],
+            ['Sendmail', 'Zend\Mail\Transport\Sendmail'],
+            ['SendMail', 'Zend\Mail\Transport\Sendmail'],
+            ['Smtp', 'Zend\Mail\Transport\Smtp'],
+            ['SMTP', 'Zend\Mail\Transport\Smtp'],
+        ];
     }
 
     /**
@@ -114,9 +114,9 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCanUseTraversableAsSpec()
     {
-        $spec = new ArrayObject(array(
+        $spec = new ArrayObject([
             'type' => 'null'
-        ));
+        ]);
 
         $transport = Factory::create($spec);
 
@@ -130,17 +130,17 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidClassThrowsDomainException($class)
     {
-        Factory::create(array(
+        Factory::create([
             'type' => $class
-        ));
+        ]);
     }
 
     public function invalidClassProvider()
     {
-        return array(
-            array('stdClass'),
-            array('non-existent-class'),
-        );
+        return [
+            ['stdClass'],
+            ['non-existent-class'],
+        ];
     }
 
     /**
@@ -148,12 +148,12 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCanCreateSmtpTransportWithOptions()
     {
-        $transport = Factory::create(array(
+        $transport = Factory::create([
             'type' => 'smtp',
-            'options' => array(
+            'options' => [
                 'host' => 'somehost',
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals($transport->getOptions()->getHost(), 'somehost');
     }
@@ -163,12 +163,12 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCanCreateFileTransportWithOptions()
     {
-        $transport = Factory::create(array(
+        $transport = Factory::create([
             'type' => 'file',
-            'options' => array(
+            'options' => [
                 'path' => __DIR__,
-            )
-        ));
+            ]
+        ]);
 
         $this->assertEquals($transport->getOptions()->getPath(), __DIR__);
     }

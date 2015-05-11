@@ -33,18 +33,18 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $this->validWriter->setDateModified(1234567890);
         $this->validWriter->setLink('http://www.example.com');
         $this->validWriter->setFeedLink('http://www.example.com/atom', 'atom');
-        $this->validWriter->addAuthor(array('name' => 'Joe',
+        $this->validWriter->addAuthor(['name' => 'Joe',
                                              'email'=> 'joe@example.com',
-                                             'uri'  => 'http://www.example.com/joe'));
+                                             'uri'  => 'http://www.example.com/joe']);
         $this->validEntry = $this->validWriter->createEntry();
         $this->validEntry->setTitle('This is a test entry.');
         $this->validEntry->setDescription('This is a test entry description.');
         $this->validEntry->setDateModified(1234567890);
         $this->validEntry->setDateCreated(1234567000);
         $this->validEntry->setLink('http://www.example.com/1');
-        $this->validEntry->addAuthor(array('name' => 'Jane',
+        $this->validEntry->addAuthor(['name' => 'Jane',
                                             'email'=> 'jane@example.com',
-                                            'uri'  => 'http://www.example.com/jane'));
+                                            'uri'  => 'http://www.example.com/jane']);
         $this->validEntry->setContent('<p class="xhtml:">This is test content for <em>xhtml:</em></p>');
         $this->validWriter->addEntry($this->validEntry);
     }
@@ -166,20 +166,20 @@ class AtomTest extends \PHPUnit_Framework_TestCase
         $feed     = Reader\Reader::importString($renderer->render()->saveXml());
         $entry    = $feed->current();
         $author   = $entry->getAuthor();
-        $this->assertEquals(array(
+        $this->assertEquals([
                                  'name' => 'Jane',
                                  'email'=> 'jane@example.com',
-                                 'uri'  => 'http://www.example.com/jane'), $entry->getAuthor());
+                                 'uri'  => 'http://www.example.com/jane'], $entry->getAuthor());
     }
 
     public function testEntryHoldsAnyEnclosureAdded()
     {
         $renderer = new Renderer\Feed\Atom($this->validWriter);
-        $this->validEntry->setEnclosure(array(
+        $this->validEntry->setEnclosure([
                                               'type'   => 'audio/mpeg',
                                               'length' => '1337',
                                               'uri'    => 'http://example.com/audio.mp3'
-                                         ));
+                                         ]);
         $feed  = Reader\Reader::importString($renderer->render()->saveXml());
         $entry = $feed->current();
         $enc   = $entry->getEnclosure();
@@ -268,36 +268,36 @@ class AtomTest extends \PHPUnit_Framework_TestCase
 
     public function testCategoriesCanBeSet()
     {
-        $this->validEntry->addCategories(array(
-                                               array('term'   => 'cat_dog',
+        $this->validEntry->addCategories([
+                                               ['term'   => 'cat_dog',
                                                      'label'  => 'Cats & Dogs',
-                                                     'scheme' => 'http://example.com/schema1'),
-                                               array('term'=> 'cat_dog2')
-                                          ));
+                                                     'scheme' => 'http://example.com/schema1'],
+                                               ['term'=> 'cat_dog2']
+                                          ]);
         $atomFeed = new Renderer\Feed\Atom($this->validWriter);
         $atomFeed->render();
         $feed     = Reader\Reader::importString($atomFeed->saveXml());
         $entry    = $feed->current();
-        $expected = array(
-            array('term'   => 'cat_dog',
+        $expected = [
+            ['term'   => 'cat_dog',
                   'label'  => 'Cats & Dogs',
-                  'scheme' => 'http://example.com/schema1'),
-            array('term'   => 'cat_dog2',
+                  'scheme' => 'http://example.com/schema1'],
+            ['term'   => 'cat_dog2',
                   'label'  => 'cat_dog2',
-                  'scheme' => null)
-        );
+                  'scheme' => null]
+        ];
         $this->assertEquals($expected, (array) $entry->getCategories());
     }
 
     public function testCommentFeedLinksRendered()
     {
         $renderer = new Renderer\Feed\Atom($this->validWriter);
-        $this->validEntry->setCommentFeedLinks(array(
-                                                     array('uri' => 'http://www.example.com/atom/id/1',
-                                                           'type'=> 'atom'),
-                                                     array('uri' => 'http://www.example.com/rss/id/1',
-                                                           'type'=> 'rss'),
-                                                ));
+        $this->validEntry->setCommentFeedLinks([
+                                                     ['uri' => 'http://www.example.com/atom/id/1',
+                                                           'type'=> 'atom'],
+                                                     ['uri' => 'http://www.example.com/rss/id/1',
+                                                           'type'=> 'rss'],
+                                                ]);
         $feed  = Reader\Reader::importString($renderer->render()->saveXml());
         $entry = $feed->current();
         // Skipped over due to ZFR bug (detects Atom in error when RSS requested)

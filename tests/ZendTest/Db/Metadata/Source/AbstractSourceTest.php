@@ -20,7 +20,7 @@ class AbstractSourceTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->abstractSourceMock = $this->getMockForAbstractClass('Zend\Db\Metadata\Source\AbstractSource', array(), '', false);
+        $this->abstractSourceMock = $this->getMockForAbstractClass('Zend\Db\Metadata\Source\AbstractSource', [], '', false);
     }
 
     public function testGetConstraintKeys()
@@ -29,29 +29,29 @@ class AbstractSourceTest extends \PHPUnit_Framework_TestCase
         $refProp->setAccessible(true);
 
         // internal data
-        $data = array(
-            'constraint_references' => array(
-                'foo_schema' => array(
-                    array(
+        $data = [
+            'constraint_references' => [
+                'foo_schema' => [
+                    [
                         'constraint_name' => 'bam_constraint',
                         'update_rule' => 'UP',
                         'delete_rule' => 'DOWN',
                         'referenced_table_name' => 'another_table',
                         'referenced_column_name' => 'another_column'
-                    )
-                )
-            ),
-            'constraint_keys' => array(
-                'foo_schema' => array(
-                    array(
+                    ]
+                ]
+            ],
+            'constraint_keys' => [
+                'foo_schema' => [
+                    [
                         'table_name'=> 'bar_table',
                         'constraint_name' => 'bam_constraint',
                         'column_name' => 'a',
                         'ordinal_position' => 1,
-                    )
-                )
-            )
-        );
+                    ]
+                ]
+            ]
+        ];
 
         $refProp->setValue($this->abstractSourceMock, $data);
         $constraints = $this->abstractSourceMock->getConstraintKeys('bam_constraint', 'bar_table', 'foo_schema');

@@ -29,12 +29,12 @@ class AuthenticationTest extends \PHPUnit_Framework_TestCase
 
     public function testOptions()
     {
-        $auth = new AuthenticationValidator(array(
+        $auth = new AuthenticationValidator([
             'adapter' => $this->authAdapter,
             'service' => $this->authService,
             'identity' => 'username',
             'credential' => 'password',
-        ));
+        ]);
         $this->assertSame($auth->getAdapter(), $this->authAdapter);
         $this->assertSame($auth->getService(), $this->authService);
         $this->assertSame($auth->getIdentity(), 'username');
@@ -98,10 +98,10 @@ class AuthenticationTest extends \PHPUnit_Framework_TestCase
         $this->validator->setAdapter($this->authAdapter);
         $this->validator->setService($this->authService);
         $this->validator->setIdentity('username');
-        $this->validator->isValid('password', array(
+        $this->validator->isValid('password', [
             'username' => 'myusername',
             'password' => 'mypassword',
-        ));
+        ]);
         $adapter = $this->validator->getAdapter();
         $this->assertEquals('myusername', $adapter->getIdentity());
         $this->assertEquals('mypassword', $adapter->getCredential());

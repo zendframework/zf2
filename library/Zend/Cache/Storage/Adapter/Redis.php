@@ -173,7 +173,7 @@ class Redis extends AbstractAdapter implements
     {
         $redis = $this->getRedisResource();
 
-        $namespacedKeys = array();
+        $namespacedKeys = [];
         foreach ($normalizedKeys as $normalizedKey) {
             $namespacedKeys[] = $this->namespacePrefix . $normalizedKey;
         }
@@ -253,7 +253,7 @@ class Redis extends AbstractAdapter implements
         $redis = $this->getRedisResource();
         $ttl   = $this->getOptions()->getTtl();
 
-        $namespacedKeyValuePairs = array();
+        $namespacedKeyValuePairs = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = $value;
         }
@@ -279,7 +279,7 @@ class Redis extends AbstractAdapter implements
             throw new Exception\RuntimeException($redis->getLastError());
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -432,8 +432,8 @@ class Redis extends AbstractAdapter implements
             $this->capabilities     = new Capabilities(
                 $this,
                 $this->capabilityMarker,
-                array(
-                    'supportedDatatypes' => array(
+                [
+                    'supportedDatatypes' => [
                         'NULL'     => 'string',
                         'boolean'  => 'string',
                         'integer'  => 'string',
@@ -442,8 +442,8 @@ class Redis extends AbstractAdapter implements
                         'array'    => false,
                         'object'   => false,
                         'resource' => false,
-                    ),
-                    'supportedMetadata'  => array(),
+                    ],
+                    'supportedMetadata'  => [],
                     'minTtl'             => $minTtl,
                     'maxTtl'             => 0,
                     'staticTtl'          => true,
@@ -452,7 +452,7 @@ class Redis extends AbstractAdapter implements
                     'expiredRead'        => false,
                     'maxKeyLength'       => 255,
                     'namespaceIsPrefix'  => true,
-                )
+                ]
             );
         }
 

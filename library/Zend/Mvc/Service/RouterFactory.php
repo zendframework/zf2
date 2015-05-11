@@ -29,11 +29,11 @@ class RouterFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator, $cName = null, $rName = null)
     {
-        $config             = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : array();
+        $config             = $serviceLocator->has('Config') ? $serviceLocator->get('Config') : [];
 
         // Defaults
         $routerClass        = 'Zend\Mvc\Router\Http\TreeRouteStack';
-        $routerConfig       = isset($config['router']) ? $config['router'] : array();
+        $routerConfig       = isset($config['router']) ? $config['router'] : [];
 
         // Console environment?
         if ($rName === 'ConsoleRouter'                       // force console router
@@ -41,7 +41,7 @@ class RouterFactory implements FactoryInterface
         ) {
             // We are in a console, use console router defaults.
             $routerClass = 'Zend\Mvc\Router\Console\SimpleRouteStack';
-            $routerConfig = isset($config['console']['router']) ? $config['console']['router'] : array();
+            $routerConfig = isset($config['console']['router']) ? $config['console']['router'] : [];
         }
 
         // Obtain the configured router class, if any

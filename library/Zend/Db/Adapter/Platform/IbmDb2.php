@@ -19,7 +19,7 @@ class IbmDb2 extends AbstractPlatform
     /**
      * @param array $options
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (isset($options['quote_identifiers'])
             && ($options['quote_identifiers'] == false

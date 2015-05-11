@@ -20,6 +20,6 @@ class Module
 
     public function getConfig()
     {
-        return array('loaded' => 'oh, yeah baby!');
+        return ['loaded' => 'oh, yeah baby!'];
     }
 }

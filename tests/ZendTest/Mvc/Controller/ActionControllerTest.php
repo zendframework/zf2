@@ -32,7 +32,7 @@ class ActionControllerTest extends TestCase
         $this->controller = new TestAsset\SampleController();
         $this->request    = new Request();
         $this->response   = null;
-        $this->routeMatch = new RouteMatch(array('controller' => 'controller-sample'));
+        $this->routeMatch = new RouteMatch(['controller' => 'controller-sample']);
         $this->event      = new MvcEvent();
         $this->event->setRouteMatch($this->routeMatch);
         $this->controller->setEvent($this->event);

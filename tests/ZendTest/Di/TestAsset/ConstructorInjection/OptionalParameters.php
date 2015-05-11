@@ -34,7 +34,7 @@ class OptionalParameters
      * @param mixed $b
      * @param mixed $c
      */
-    public function __construct($a = null, $b = 'defaultConstruct', $c = array())
+    public function __construct($a = null, $b = 'defaultConstruct', $c = [])
     {
         $this->a = $a;
         $this->b = $b;

@@ -108,10 +108,10 @@ class MongoDB implements SaveHandlerInterface
      */
     public function read($id)
     {
-        $session = $this->mongoCollection->findOne(array(
+        $session = $this->mongoCollection->findOne([
             '_id' => $id,
             $this->options->getNameField() => $this->sessionName,
-        ));
+        ]);
 
         if (null !== $session) {
             if ($session[$this->options->getModifiedField()] instanceof MongoDate &&
@@ -136,19 +136,19 @@ class MongoDB implements SaveHandlerInterface
     {
         $saveOptions = array_replace(
             $this->options->getSaveOptions(),
-            array('upsert' => true, 'multiple' => false)
+            ['upsert' => true, 'multiple' => false]
         );
 
-        $criteria = array(
+        $criteria = [
             '_id' => $id,
             $this->options->getNameField() => $this->sessionName,
-        );
+        ];
 
-        $newObj = array('$set' => array(
+        $newObj = ['$set' => [
             $this->options->getDataField() => (string) $data,
             $this->options->getLifetimeField() => $this->lifetime,
             $this->options->getModifiedField() => new MongoDate(),
-        ));
+        ]];
 
         /* Note: a MongoCursorException will be thrown if a record with this ID
          * already exists with a different session name, since the upsert query
@@ -169,10 +169,10 @@ class MongoDB implements SaveHandlerInterface
      */
     public function destroy($id)
     {
-        $result = $this->mongoCollection->remove(array(
+        $result = $this->mongoCollection->remove([
             '_id' => $id,
             $this->options->getNameField() => $this->sessionName,
-        ), $this->options->getSaveOptions());
+        ], $this->options->getSaveOptions());
 
         return (bool) (isset($result['ok']) ? $result['ok'] : $result);
     }
@@ -196,9 +196,9 @@ class MongoDB implements SaveHandlerInterface
          * each document. Doing so would require a $where query to work with the
          * computed value (modified + lifetime) and be very inefficient.
          */
-        $result = $this->mongoCollection->remove(array(
-            $this->options->getModifiedField() => array('$lt' => new MongoDate(time() - $maxlifetime)),
-        ), $this->options->getSaveOptions());
+        $result = $this->mongoCollection->remove([
+            $this->options->getModifiedField() => ['$lt' => new MongoDate(time() - $maxlifetime)],
+        ], $this->options->getSaveOptions());
 
         return (bool) (isset($result['ok']) ? $result['ok'] : $result);
     }

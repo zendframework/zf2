@@ -25,7 +25,7 @@ trait LabelAwareTrait
      *
      * @var array
      */
-    protected $labelOptions = array();
+    protected $labelOptions = [];
 
     /**
      * Set the attributes to use with the label
@@ -90,7 +90,7 @@ trait LabelAwareTrait
      */
     public function clearLabelOptions()
     {
-        $this->labelOptions = array();
+        $this->labelOptions = [];
         return $this;
     }
 

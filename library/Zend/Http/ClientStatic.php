@@ -43,7 +43,7 @@ class ClientStatic
      * @param  array|Traversable $clientOptions
      * @return Response|bool
      */
-    public static function get($url, $query = array(), $headers = array(), $body = null, $clientOptions = null)
+    public static function get($url, $query = [], $headers = [], $body = null, $clientOptions = null)
     {
         if (empty($url)) {
             return false;
@@ -79,7 +79,7 @@ class ClientStatic
      * @throws Exception\InvalidArgumentException
      * @return Response|bool
      */
-    public static function post($url, $params, $headers = array(), $body = null, $clientOptions = null)
+    public static function post($url, $params, $headers = [], $body = null, $clientOptions = null)
     {
         if (empty($url)) {
             return false;

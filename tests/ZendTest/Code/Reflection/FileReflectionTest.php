@@ -171,11 +171,11 @@ class FileReflectionTest extends \PHPUnit_Framework_TestCase
         $fileToReflect = __DIR__ . '/TestAsset/TestSampleClass8.php';
         include_once $fileToReflect;
         $reflectionFile = new FileReflection($fileToReflect);
-        $expected = array(
-            array('use' => 'Zend\Config', 'as' => 'ZendConfig'),
-            array('use' => 'FooBar\Foo\Bar', 'as' => null),
-            array('use' => 'One\Two\Three\Four\Five', 'as' => 'ottff')
-            );
+        $expected = [
+            ['use' => 'Zend\Config', 'as' => 'ZendConfig'],
+            ['use' => 'FooBar\Foo\Bar', 'as' => null],
+            ['use' => 'One\Two\Three\Four\Five', 'as' => 'ottff']
+            ];
         $this->assertSame($expected, $reflectionFile->getUses());
     }
 }

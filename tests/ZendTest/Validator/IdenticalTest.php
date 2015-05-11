@@ -92,25 +92,25 @@ class IdenticalTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->validator->isValid(true));
         $this->assertFalse($this->validator->isValid(1));
 
-        $this->validator->setToken(array('one' => 'two', 'three'));
-        $this->assertTrue($this->validator->isValid(array('one' => 'two', 'three')));
-        $this->assertFalse($this->validator->isValid(array()));
+        $this->validator->setToken(['one' => 'two', 'three']);
+        $this->assertTrue($this->validator->isValid(['one' => 'two', 'three']));
+        $this->assertFalse($this->validator->isValid([]));
     }
 
     public function testValidatingTokenArray()
     {
-        $validator = new Identical(array('token' => 123));
+        $validator = new Identical(['token' => 123]);
         $this->assertTrue($validator->isValid(123));
-        $this->assertFalse($validator->isValid(array('token' => 123)));
+        $this->assertFalse($validator->isValid(['token' => 123]));
     }
 
     public function testValidatingNonStrictToken()
     {
-        $validator = new Identical(array('token' => 123, 'strict' => false));
+        $validator = new Identical(['token' => 123, 'strict' => false]);
         $this->assertTrue($validator->isValid('123'));
 
         $validator->setStrict(true);
-        $this->assertFalse($validator->isValid(array('token' => '123')));
+        $this->assertFalse($validator->isValid(['token' => '123']));
     }
 
     public function testEqualsMessageTemplates()
@@ -133,97 +133,97 @@ class IdenticalTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->validator->isValid(
             'john@doe.com',
-            array('email' => 'john@doe.com')
+            ['email' => 'john@doe.com']
         ));
 
         $this->assertFalse($this->validator->isValid(
             'john@doe.com',
-            array('email' => 'harry@hoe.com')
+            ['email' => 'harry@hoe.com']
         ));
 
         $this->assertFalse($this->validator->isValid(
             'harry@hoe.com',
-            array('email' => 'john@doe.com')
+            ['email' => 'john@doe.com']
         ));
 
         $this->assertTrue($this->validator->isValid(
             'john@doe.com',
-            new Parameters(array('email' => 'john@doe.com'))
+            new Parameters(['email' => 'john@doe.com'])
         ));
 
         $this->assertFalse($this->validator->isValid(
             'john@doe.com',
-            new Parameters(array('email' => 'harry@hoe.com'))
+            new Parameters(['email' => 'harry@hoe.com'])
         ));
 
         $this->assertFalse($this->validator->isValid(
             'harry@hoe.com',
-            new Parameters(array('email' => 'john@doe.com'))
+            new Parameters(['email' => 'john@doe.com'])
         ));
     }
 
     public function testValidatingArrayTokenInContext()
     {
-        $this->validator->setToken(array('user' => 'email'));
+        $this->validator->setToken(['user' => 'email']);
 
         $this->assertTrue($this->validator->isValid(
             'john@doe.com',
-            array(
-                'user' => array(
+            [
+                'user' => [
                     'email' => 'john@doe.com'
-                )
-            )
+                ]
+            ]
         ));
 
         $this->assertFalse($this->validator->isValid(
             'john@doe.com',
-            array(
-                'user' => array(
+            [
+                'user' => [
                     'email' => 'harry@hoe.com'
-                )
-            )
+                ]
+            ]
         ));
 
         $this->assertFalse($this->validator->isValid(
             'harry@hoe.com',
-            array(
-                'user' => array(
+            [
+                'user' => [
                     'email' => 'john@doe.com'
-                )
-            )
+                ]
+            ]
         ));
 
         $this->assertTrue($this->validator->isValid(
             'john@doe.com',
-            new Parameters(array(
-                'user' => array(
+            new Parameters([
+                'user' => [
                     'email' => 'john@doe.com'
-                )
-            ))
+                ]
+            ])
         ));
 
         $this->assertFalse($this->validator->isValid(
             'john@doe.com',
-            new Parameters(array(
-                'user' => array(
+            new Parameters([
+                'user' => [
                     'email' => 'harry@hoe.com'
-                )
-            ))
+                ]
+            ])
         ));
 
         $this->assertFalse($this->validator->isValid(
             'harry@hoe.com',
-            new Parameters(array(
-                'user' => array(
+            new Parameters([
+                'user' => [
                     'email' => 'john@doe.com'
-                )
-            ))
+                ]
+            ])
         ));
     }
 
     public function testCanSetLiteralParameterThroughConstructor()
     {
-        $validator = new Identical(array('token' => 'foo', 'literal' => true));
+        $validator = new Identical(['token' => 'foo', 'literal' => true]);
         // Default is false
         $validator->setLiteral(true);
         $this->assertTrue($validator->getLiteral());
@@ -231,23 +231,23 @@ class IdenticalTest extends \PHPUnit_Framework_TestCase
 
     public function testLiteralParameterDoesNotAffectValidationWhenNoContextIsProvided()
     {
-        $this->validator->setToken(array('foo' => 'bar'));
+        $this->validator->setToken(['foo' => 'bar']);
 
         $this->validator->setLiteral(false);
-        $this->assertTrue($this->validator->isValid(array('foo' => 'bar')));
+        $this->assertTrue($this->validator->isValid(['foo' => 'bar']));
 
         $this->validator->setLiteral(true);
-        $this->assertTrue($this->validator->isValid(array('foo' => 'bar')));
+        $this->assertTrue($this->validator->isValid(['foo' => 'bar']));
     }
 
     public function testLiteralParameterWorksWhenContextIsProvided()
     {
-        $this->validator->setToken(array('foo' => 'bar'));
+        $this->validator->setToken(['foo' => 'bar']);
         $this->validator->setLiteral(true);
 
         $this->assertTrue($this->validator->isValid(
-            array('foo' => 'bar'),
-            array('foo' => 'baz') // Provide a context to make sure the literal parameter will work
+            ['foo' => 'bar'],
+            ['foo' => 'baz'] // Provide a context to make sure the literal parameter will work
         ));
     }
 
@@ -268,10 +268,10 @@ class IdenticalTest extends \PHPUnit_Framework_TestCase
      */
     public function invalidContextProvider()
     {
-        return array(
-            array(false),
-            array(new \stdClass()),
-            array('dummy'),
-        );
+        return [
+            [false],
+            [new \stdClass()],
+            ['dummy'],
+        ];
     }
 }

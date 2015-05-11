@@ -66,11 +66,11 @@ class CombineTest extends \PHPUnit_Framework_TestCase
 
     public function testGetSqlStringFromArray()
     {
-        $this->combine->combine(array(
-            array(new Select('t1')),
-            array(new Select('t2'), Combine::COMBINE_INTERSECT, 'ALL'),
-            array(new Select('t3'), Combine::COMBINE_EXCEPT),
-        ));
+        $this->combine->combine([
+            [new Select('t1')],
+            [new Select('t2'), Combine::COMBINE_INTERSECT, 'ALL'],
+            [new Select('t3'), Combine::COMBINE_EXCEPT],
+        ]);
 
         $this->assertEquals(
             '(SELECT "t1".* FROM "t1") INTERSECT ALL (SELECT "t2".* FROM "t2") EXCEPT (SELECT "t3".* FROM "t3")',
@@ -78,11 +78,11 @@ class CombineTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->combine = new Combine();
-        $this->combine->combine(array(
+        $this->combine->combine([
             new Select('t1'),
             new Select('t2'),
             new Select('t3'),
-        ));
+        ]);
 
         $this->assertEquals(
             '(SELECT "t1".* FROM "t1") UNION (SELECT "t2".* FROM "t2") UNION (SELECT "t3".* FROM "t3")',
@@ -101,14 +101,14 @@ class CombineTest extends \PHPUnit_Framework_TestCase
     public function testPrepareStatementWithModifier()
     {
         $select1 = new Select('t1');
-        $select1->where(array('x1'=>10));
+        $select1->where(['x1'=>10]);
         $select2 = new Select('t2');
-        $select2->where(array('x2'=>20));
+        $select2->where(['x2'=>20]);
 
-        $this->combine->combine(array(
+        $this->combine->combine([
             $select1,
             $select2
-        ));
+        ]);
 
         $adapter = $this->getMockAdapter();
 
@@ -123,35 +123,35 @@ class CombineTest extends \PHPUnit_Framework_TestCase
     public function testAlignColumns()
     {
         $select1 = new Select('t1');
-        $select1->columns(array(
+        $select1->columns([
             'c0' => 'c0',
             'c1' => 'c1',
-        ));
+        ]);
         $select2 = new Select('t2');
-        $select2->columns(array(
+        $select2->columns([
             'c1' => 'c1',
             'c2' => 'c2',
-        ));
+        ]);
 
         $this->combine
-                ->union(array($select1, $select2))
+                ->union([$select1, $select2])
                 ->alignColumns();
 
         $this->assertEquals(
-            array(
+            [
                 'c0' => 'c0',
                 'c1' => 'c1',
                 'c2' => new Expression('NULL'),
-            ),
+            ],
             $select1->getRawState('columns')
         );
 
         $this->assertEquals(
-            array(
+            [
                 'c0' => new Expression('NULL'),
                 'c1' => 'c1',
                 'c2' => 'c2',
-            ),
+            ],
             $select2->getRawState('columns')
         );
     }
@@ -161,18 +161,18 @@ class CombineTest extends \PHPUnit_Framework_TestCase
         $select = new Select('t1');
         $this->combine->combine($select);
         $this->assertSame(
-            array(
-                'combine' => array(
-                    array(
+            [
+                'combine' => [
+                    [
                         'select'   => $select,
                         'type'     => Combine::COMBINE_UNION,
                         'modifier' => ''
-                    ),
-                ),
-                'columns' => array(
+                    ],
+                ],
+                'columns' => [
                     '0' => '*',
-                ),
-            ),
+                ],
+            ],
             $this->combine->getRawState()
         );
     }
@@ -204,6 +204,6 @@ class CombineTest extends \PHPUnit_Framework_TestCase
         $mockDriver->expects($this->any())->method('formatParameterName')->will($this->returnValue('?'));
         $mockDriver->expects($this->any())->method('createStatement')->will($this->returnValue($mockStatement));
 
-        return $this->getMock('Zend\Db\Adapter\Adapter', null, array($mockDriver));
+        return $this->getMock('Zend\Db\Adapter\Adapter', null, [$mockDriver]);
     }
 }

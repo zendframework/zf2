@@ -139,8 +139,8 @@ class Db extends AbstractWriter
     {
         $keys = array_keys($fields);
         $sql = 'INSERT INTO ' . $db->platform->quoteIdentifier($tableName) . ' (' .
-            implode(",", array_map(array($db->platform, 'quoteIdentifier'), $keys)) . ') VALUES (' .
-            implode(",", array_map(array($db->driver, 'formatParameterName'), $keys)) . ')';
+            implode(",", array_map([$db->platform, 'quoteIdentifier'], $keys)) . ') VALUES (' .
+            implode(",", array_map([$db->driver, 'formatParameterName'], $keys)) . ')';
 
         return $sql;
     }
@@ -155,10 +155,10 @@ class Db extends AbstractWriter
     protected function mapEventIntoColumn(array $event, array $columnMap = null)
     {
         if (empty($event)) {
-            return array();
+            return [];
         }
 
-        $data = array();
+        $data = [];
         foreach ($event as $name => $value) {
             if (is_array($value)) {
                 foreach ($value as $key => $subvalue) {
@@ -187,10 +187,10 @@ class Db extends AbstractWriter
     protected function eventIntoColumn(array $event)
     {
         if (empty($event)) {
-            return array();
+            return [];
         }
 
-        $data = array();
+        $data = [];
         foreach ($event as $name => $value) {
             if (is_array($value)) {
                 foreach ($value as $key => $subvalue) {

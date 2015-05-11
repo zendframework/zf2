@@ -54,48 +54,48 @@ class ViewManagerTest extends TestCase
      */
     public function viewManagerConfiguration()
     {
-        return array(
-            'standard' => array(
-                array(
-                    'view_manager' => array(
+        return [
+            'standard' => [
+                [
+                    'view_manager' => [
                         'display_exceptions' => false,
                         'display_not_found_reason' => false,
-                    ),
-                )
-            ),
-            'with-console' => array(
-                array(
-                    'view_manager' => array(
+                    ],
+                ]
+            ],
+            'with-console' => [
+                [
+                    'view_manager' => [
                         'display_exceptions' => true,
                         'display_not_found_reason' => true
-                    ),
-                    'console' => array(
-                        'view_manager' => array(
+                    ],
+                    'console' => [
+                        'view_manager' => [
                             'display_exceptions' => false,
                             'display_not_found_reason' => false,
-                        )
-                    )
-                )
-            ),
-            'without-console' => array(
-                array(
-                    'view_manager' => array(
+                        ]
+                    ]
+                ]
+            ],
+            'without-console' => [
+                [
+                    'view_manager' => [
                         'display_exceptions' => false,
                         'display_not_found_reason' => false
-                    ),
-                )
-            ),
-            'console-only' => array(
-                array(
-                    'console' => array(
-                        'view_manager' => array(
+                    ],
+                ]
+            ],
+            'console-only' => [
+                [
+                    'console' => [
+                        'view_manager' => [
                             'display_exceptions' => false,
                             'display_not_found_reason' => false
-                        )
-                    ),
-                )
-            ),
-        );
+                        ]
+                    ],
+                ]
+            ],
+        ];
     }
 
     /**
@@ -135,14 +135,14 @@ class ViewManagerTest extends TestCase
         $eventManager = new EventManager();
         $eventManager->setSharedManager(new SharedEventManager());
 
-        $this->services->setService('Config', array());
+        $this->services->setService('Config', []);
         $this->services->setService('Request', new ConsoleRequest());
         $this->services->setService('EventManager', $eventManager);
         $this->services->setService('Response', new ConsoleResponse());
 
         $manager = $this->factory->createService($this->services);
 
-        $application = new Application(array(), $this->services);
+        $application = new Application([], $this->services);
 
         $event = new MvcEvent();
         $event->setApplication($application);

@@ -42,13 +42,13 @@ class NotLikeTest extends \PHPUnit_Framework_TestCase
     {
         $notLike = new NotLike('bar', 'Foo%');
         $this->assertEquals(
-            array(
-                array(
+            [
+                [
                     '%1$s NOT LIKE %2$s',
-                    array('bar', 'Foo%'),
-                    array($notLike::TYPE_IDENTIFIER, $notLike::TYPE_VALUE)
-                )
-            ),
+                    ['bar', 'Foo%'],
+                    [$notLike::TYPE_IDENTIFIER, $notLike::TYPE_VALUE]
+                ]
+            ],
             $notLike->getExpressionData()
         );
     }

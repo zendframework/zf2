@@ -14,16 +14,16 @@ namespace ZendTest\Stdlib\TestAsset;
  */
 class ArraySerializable implements \Zend\Stdlib\ArraySerializableInterface
 {
-    protected $data = array();
+    protected $data = [];
 
     public function __construct()
     {
-        $this->data = array(
+        $this->data = [
             "foo" => "bar",
             "bar" => "foo",
             "blubb" => "baz",
             "quo" => "blubb"
-        );
+        ];
     }
 
     /**

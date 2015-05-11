@@ -19,10 +19,10 @@ class MockTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $writer = new MockWriter();
-        $this->assertSame(array(), $writer->events);
+        $this->assertSame([], $writer->events);
 
-        $fields = array('foo' => 'bar');
+        $fields = ['foo' => 'bar'];
         $writer->write($fields);
-        $this->assertSame(array($fields), $writer->events);
+        $this->assertSame([$fields], $writer->events);
     }
 }

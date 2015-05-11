@@ -53,7 +53,7 @@ class Xml implements FormatterInterface
      * @param array|Traversable $options
      * @return Xml
      */
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -62,9 +62,9 @@ class Xml implements FormatterInterface
         if (!is_array($options)) {
             $args = func_get_args();
 
-            $options = array(
+            $options = [
                 'rootElement' => array_shift($args)
-            );
+            ];
 
             if (count($args)) {
                 $options['elementMap'] = array_shift($args);
@@ -163,7 +163,7 @@ class Xml implements FormatterInterface
         $dataToInsert = $event;
 
         if (null !== $this->elementMap) {
-            $dataToInsert = array();
+            $dataToInsert = [];
 
             foreach ($this->elementMap as $elementName => $fieldKey) {
                 $dataToInsert[$elementName] = $event[$fieldKey];

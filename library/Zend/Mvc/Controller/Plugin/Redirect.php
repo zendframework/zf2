@@ -33,7 +33,7 @@ class Redirect extends AbstractPlugin
      * @throws Exception\DomainException if composed controller does not implement InjectApplicationEventInterface, or
      *         router cannot be found in controller event
      */
-    public function toRoute($route = null, $params = array(), $options = array(), $reuseMatchedParams = false)
+    public function toRoute($route = null, $params = [], $options = [], $reuseMatchedParams = false)
     {
         $controller = $this->getController();
         if (!$controller || !method_exists($controller, 'plugin')) {
@@ -72,7 +72,7 @@ class Redirect extends AbstractPlugin
      */
     public function refresh()
     {
-        return $this->toRoute(null, array(), array(), true);
+        return $this->toRoute(null, [], [], true);
     }
 
     /**

@@ -84,13 +84,13 @@ class PriorityListTest extends TestCase
         $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
         $this->list->insert('baz', new TestAsset\DummyRoute(), 0);
 
-        $order = array();
+        $order = [];
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
         }
 
-        $this->assertEquals(array('baz', 'bar', 'foo'), $orders);
+        $this->assertEquals(['baz', 'bar', 'foo'], $orders);
     }
 
     public function testPriorityOnly()
@@ -99,13 +99,13 @@ class PriorityListTest extends TestCase
         $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
         $this->list->insert('baz', new TestAsset\DummyRoute(), 2);
 
-        $order = array();
+        $order = [];
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
         }
 
-        $this->assertEquals(array('baz', 'foo', 'bar'), $orders);
+        $this->assertEquals(['baz', 'foo', 'bar'], $orders);
     }
 
     public function testLIFOWithPriority()
@@ -114,13 +114,13 @@ class PriorityListTest extends TestCase
         $this->list->insert('bar', new TestAsset\DummyRoute(), 0);
         $this->list->insert('baz', new TestAsset\DummyRoute(), 1);
 
-        $order = array();
+        $order = [];
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
         }
 
-        $this->assertEquals(array('baz', 'bar', 'foo'), $orders);
+        $this->assertEquals(['baz', 'bar', 'foo'], $orders);
     }
 
     public function testPriorityWithNegativesAndNull()
@@ -129,12 +129,12 @@ class PriorityListTest extends TestCase
         $this->list->insert('bar', new TestAsset\DummyRoute(), 1);
         $this->list->insert('baz', new TestAsset\DummyRoute(), -1);
 
-        $order = array();
+        $order = [];
 
         foreach ($this->list as $key => $value) {
             $orders[] = $key;
         }
 
-        $this->assertEquals(array('bar', 'foo', 'baz'), $orders);
+        $this->assertEquals(['bar', 'foo', 'baz'], $orders);
     }
 }

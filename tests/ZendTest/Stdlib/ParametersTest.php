@@ -26,22 +26,22 @@ class ParametersTest extends \PHPUnit_Framework_TestCase
 
     public function testParametersPersistNameAndValues()
     {
-        $parameters = new Parameters(array('foo' => 'bar'));
+        $parameters = new Parameters(['foo' => 'bar']);
         $this->assertEquals('bar', $parameters['foo']);
         $this->assertEquals('bar', $parameters->foo);
         $parameters->offsetSet('baz', 5);
         $this->assertEquals(5, $parameters->baz);
 
-        $parameters->fromArray(array('bar' => 'foo'));
+        $parameters->fromArray(['bar' => 'foo']);
         $this->assertEquals('foo', $parameters->bar);
 
         $parameters->fromString('bar=foo&five=5');
         $this->assertEquals('foo', $parameters->bar);
         $this->assertEquals('5', $parameters->five);
-        $this->assertEquals(array('bar' => 'foo', 'five' => '5'), $parameters->toArray());
+        $this->assertEquals(['bar' => 'foo', 'five' => '5'], $parameters->toArray());
         $this->assertEquals('bar=foo&five=5', $parameters->toString());
 
-        $parameters->fromArray(array());
+        $parameters->fromArray([]);
         $parameters->set('foof', 'barf');
         $this->assertEquals('barf', $parameters->get('foof'));
         $this->assertEquals('barf', $parameters->foof);

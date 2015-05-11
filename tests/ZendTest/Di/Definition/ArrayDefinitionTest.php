@@ -46,13 +46,13 @@ class ArrayDefinitionTest extends TestCase
 
     public function testArrayDefinitionCanGetClassses()
     {
-        $list = array(
+        $list = [
             'My\DbAdapter',
             'My\EntityA',
             'My\Mapper',
             'My\RepositoryA',
             'My\RepositoryB'
-        );
+        ];
 
         $classes = $this->definition->getClasses();
 
@@ -63,7 +63,7 @@ class ArrayDefinitionTest extends TestCase
 
     public function testArrayDefinitionCanGetClassSupertypes()
     {
-        $this->assertEquals(array(), $this->definition->getClassSupertypes('My\EntityA'));
+        $this->assertEquals([], $this->definition->getClassSupertypes('My\EntityA'));
         $this->assertContains('My\RepositoryA', $this->definition->getClassSupertypes('My\RepositoryB'));
     }
 

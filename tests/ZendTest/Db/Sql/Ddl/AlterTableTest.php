@@ -35,7 +35,7 @@ class AlterTableTest extends \PHPUnit_Framework_TestCase
         /** @var \Zend\Db\Sql\Ddl\Column\ColumnInterface $colMock */
         $colMock = $this->getMock('Zend\Db\Sql\Ddl\Column\ColumnInterface');
         $this->assertSame($at, $at->addColumn($colMock));
-        $this->assertEquals(array($colMock), $at->getRawState($at::ADD_COLUMNS));
+        $this->assertEquals([$colMock], $at->getRawState($at::ADD_COLUMNS));
     }
 
     /**
@@ -47,7 +47,7 @@ class AlterTableTest extends \PHPUnit_Framework_TestCase
         /** @var \Zend\Db\Sql\Ddl\Column\ColumnInterface $colMock */
         $colMock = $this->getMock('Zend\Db\Sql\Ddl\Column\ColumnInterface');
         $this->assertSame($at, $at->changeColumn('newname', $colMock));
-        $this->assertEquals(array('newname' => $colMock), $at->getRawState($at::CHANGE_COLUMNS));
+        $this->assertEquals(['newname' => $colMock], $at->getRawState($at::CHANGE_COLUMNS));
     }
 
     /**
@@ -57,7 +57,7 @@ class AlterTableTest extends \PHPUnit_Framework_TestCase
     {
         $at = new AlterTable();
         $this->assertSame($at, $at->dropColumn('foo'));
-        $this->assertEquals(array('foo'), $at->getRawState($at::DROP_COLUMNS));
+        $this->assertEquals(['foo'], $at->getRawState($at::DROP_COLUMNS));
     }
 
     /**
@@ -67,7 +67,7 @@ class AlterTableTest extends \PHPUnit_Framework_TestCase
     {
         $at = new AlterTable();
         $this->assertSame($at, $at->dropConstraint('foo'));
-        $this->assertEquals(array('foo'), $at->getRawState($at::DROP_CONSTRAINTS));
+        $this->assertEquals(['foo'], $at->getRawState($at::DROP_CONSTRAINTS));
     }
 
     /**
@@ -79,7 +79,7 @@ class AlterTableTest extends \PHPUnit_Framework_TestCase
         /** @var \Zend\Db\Sql\Ddl\Constraint\ConstraintInterface $conMock */
         $conMock = $this->getMock('Zend\Db\Sql\Ddl\Constraint\ConstraintInterface');
         $this->assertSame($at, $at->addConstraint($conMock));
-        $this->assertEquals(array($conMock), $at->getRawState($at::ADD_CONSTRAINTS));
+        $this->assertEquals([$conMock], $at->getRawState($at::ADD_CONSTRAINTS));
     }
 
     /**
@@ -105,8 +105,8 @@ EOS;
 
         $actual = $at->getSqlString();
         $this->assertEquals(
-            str_replace(array("\r", "\n"), "", $expected),
-            str_replace(array("\r", "\n"), "", $actual)
+            str_replace(["\r", "\n"], "", $expected),
+            str_replace(["\r", "\n"], "", $actual)
         );
     }
 }

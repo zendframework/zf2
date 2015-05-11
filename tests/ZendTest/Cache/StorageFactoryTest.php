@@ -78,9 +78,9 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFactoryAdapterAsString()
     {
-        $cache = Cache\StorageFactory::factory(array(
+        $cache = Cache\StorageFactory::factory([
             'adapter' => 'Memory',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
     }
 
@@ -89,12 +89,12 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFactoryWithAdapterAsStringAndOptions()
     {
-        $cache = Cache\StorageFactory::factory(array(
+        $cache = Cache\StorageFactory::factory([
             'adapter' => 'Memory',
-            'options' => array(
+            'options' => [
                 'namespace' => 'test'
-            ),
-        ));
+            ],
+        ]);
 
         $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
         $this->assertSame('test', $cache->getOptions()->getNamespace());
@@ -102,23 +102,23 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testFactoryAdapterAsArray()
     {
-        $cache = Cache\StorageFactory::factory(array(
-            'adapter' => array(
+        $cache = Cache\StorageFactory::factory([
+            'adapter' => [
                 'name' => 'Memory',
-            )
-        ));
+            ]
+        ]);
         $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
     }
 
     public function testFactoryWithPlugins()
     {
         $adapter = 'Memory';
-        $plugins = array('Serializer', 'ClearExpiredByFactor');
+        $plugins = ['Serializer', 'ClearExpiredByFactor'];
 
-        $cache = Cache\StorageFactory::factory(array(
+        $cache = Cache\StorageFactory::factory([
             'adapter' => $adapter,
             'plugins' => $plugins,
-        ));
+        ]);
 
         // test adapter
         $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Memory', $cache);
@@ -134,44 +134,44 @@ class StorageFactoryTest extends \PHPUnit_Framework_TestCase
     {
         // The BlackHole adapter doesn't implement EventsCapableInterface
         $this->setExpectedException('Zend\Cache\Exception\RuntimeException');
-        Cache\StorageFactory::factory(array(
+        Cache\StorageFactory::factory([
             'adapter' => 'blackhole',
-            'plugins' => array('Serializer'),
-        ));
+            'plugins' => ['Serializer'],
+        ]);
     }
 
     public function testFactoryWithPluginsAndOptionsArray()
     {
-        $factory = array(
-            'adapter' => array(
+        $factory = [
+            'adapter' => [
                  'name' => 'Memory',
-                 'options' => array(
+                 'options' => [
                      'ttl' => 123,
                      'namespace' => 'willBeOverwritten'
-                 ),
-            ),
-            'plugins' => array(
+                 ],
+            ],
+            'plugins' => [
                 // plugin as a simple string entry
                 'Serializer',
 
                 // plugin as name-options pair
-                'ClearExpiredByFactor' => array(
+                'ClearExpiredByFactor' => [
                     'clearing_factor' => 1,
-                ),
+                ],
 
                 // plugin with full definition
-                array(
+                [
                     'name'     => 'IgnoreUserAbort',
                     'priority' => 100,
-                    'options'  => array(
+                    'options'  => [
                         'exit_on_abort' => false,
-                    ),
-                ),
-            ),
-            'options' => array(
+                    ],
+                ],
+            ],
+            'options' => [
                 'namespace' => 'test',
-            )
-        );
+            ]
+        ];
         $storage = Cache\StorageFactory::factory($factory);
 
         // test adapter

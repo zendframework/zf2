@@ -20,7 +20,7 @@ class MockSelfReturningDelegatorFactory implements DelegatorFactoryInterface
     /**
      * @var mixed[]
      */
-    public $instances = array();
+    public $instances = [];
 
     /**
      * {@inheritDoc}

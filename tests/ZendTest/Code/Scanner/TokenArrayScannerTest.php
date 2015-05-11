@@ -28,7 +28,7 @@ class TokenArrayScannerTest extends TestCase
         $tokenScanner = new TokenArrayScanner(token_get_all(file_get_contents((__DIR__ . '/../TestAsset/FooBarClass.php'))));
         $uses = $tokenScanner->getUses();
         $this->assertInternalType('array', $uses);
-        $foundUses = array();
+        $foundUses = [];
         foreach ($uses as $use) {
             $foundUses[] = $use['use'];
         }

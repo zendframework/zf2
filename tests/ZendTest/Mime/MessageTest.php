@@ -29,7 +29,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $p);
         $this->assertEmpty($p);
 
-        $p2 = array();
+        $p2 = [];
         $p2[] = new Mime\Part('This is a test');
         $p2[] = new Mime\Part('This is another test');
         $msg->setParts($p2);
@@ -130,7 +130,7 @@ EOD;
     public function testPassEmptyArrayIntoSetPartsShouldReturnEmptyString()
     {
         $mimeMessage = new Mime\Message();
-        $mimeMessage->setParts(array());
+        $mimeMessage->setParts([]);
 
         $this->assertEquals('', $mimeMessage->generateMessage());
     }

@@ -232,10 +232,10 @@ class FormCollectionTest extends TestCase
     public function testCanRenderFieldsetWithAttributes()
     {
         $form = $this->getForm();
-        $form->setAttributes(array(
+        $form->setAttributes([
             'id'    => 'foo-id',
             'class' => 'foo',
-        ));
+        ]);
         $html = $this->helper->render($form);
         $this->assertRegexp('#<fieldset( [a-zA-Z]+\="[^"]+")+>#', $html);
         $this->assertContains('id="foo-id"', $html);
@@ -398,7 +398,7 @@ class FormCollectionTest extends TestCase
         $form = $this->getForm();
         $collection = $form->get('colors');
         $collection->setLabel('<strong>Some label</strong>');
-        $collection->setLabelOptions(array('disable_html_escape' => true));
+        $collection->setLabelOptions(['disable_html_escape' => true]);
         $markup = $this->helper->render($collection);
         $this->assertRegexp('#<fieldset(.*?)><legend><strong>Some label</strong><\/legend>(.*?)<\/fieldset>#', $markup);
     }

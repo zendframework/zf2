@@ -50,12 +50,12 @@ class PodcastRss2Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath)
         );
-        $this->assertEquals(array(
-            'Technology' => array(
+        $this->assertEquals([
+            'Technology' => [
                 'Gadgets' => null
-            ),
+            ],
             'TV & Film' => null
-        ), $feed->getItunesCategories());
+        ], $feed->getItunesCategories());
     }
 
     public function testGetsTitle()

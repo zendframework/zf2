@@ -31,15 +31,15 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
          *      - expected validation result
          *      - array of test input values
          */
-        $valuesExpected = array(
-            array(1, 100, true, true, array(1, 10, 100)),
-            array(1, 100, true, false, array(0, 0.99, 100.01, 101)),
-            array(1, 100, false, false, array(0, 1, 100, 101)),
-            array('a', 'z', true, true, array('a', 'b', 'y', 'z')),
-            array('a', 'z', false, false, array('!', 'a', 'z'))
-            );
+        $valuesExpected = [
+            [1, 100, true, true, [1, 10, 100]],
+            [1, 100, true, false, [0, 0.99, 100.01, 101]],
+            [1, 100, false, false, [0, 1, 100, 101]],
+            ['a', 'z', true, true, ['a', 'b', 'y', 'z']],
+            ['a', 'z', false, false, ['!', 'a', 'z']]
+            ];
         foreach ($valuesExpected as $element) {
-            $validator = new Between(array('min' => $element[0], 'max' => $element[1], 'inclusive' => $element[2]));
+            $validator = new Between(['min' => $element[0], 'max' => $element[1], 'inclusive' => $element[2]]);
             foreach ($element[4] as $input) {
                 $this->assertEquals($element[3], $validator->isValid($input),
                 'Failed values: ' . $input . ":" . implode("\n", $validator->getMessages()));
@@ -54,8 +54,8 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $validator = new Between(array('min' => 1, 'max' => 10));
-        $this->assertEquals(array(), $validator->getMessages());
+        $validator = new Between(['min' => 1, 'max' => 10]);
+        $this->assertEquals([], $validator->getMessages());
     }
 
     /**
@@ -65,7 +65,7 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMin()
     {
-        $validator = new Between(array('min' => 1, 'max' => 10));
+        $validator = new Between(['min' => 1, 'max' => 10]);
         $this->assertEquals(1, $validator->getMin());
     }
 
@@ -76,7 +76,7 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMax()
     {
-        $validator = new Between(array('min' => 1, 'max' => 10));
+        $validator = new Between(['min' => 1, 'max' => 10]);
         $this->assertEquals(10, $validator->getMax());
     }
 
@@ -87,19 +87,19 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInclusive()
     {
-        $validator = new Between(array('min' => 1, 'max' => 10));
+        $validator = new Between(['min' => 1, 'max' => 10]);
         $this->assertEquals(true, $validator->getInclusive());
     }
 
     public function testEqualsMessageTemplates()
     {
-        $validator = new Between(array('min' => 1, 'max' => 10));
+        $validator = new Between(['min' => 1, 'max' => 10]);
         $this->assertAttributeEquals($validator->getOption('messageTemplates'), 'messageTemplates', $validator);
     }
 
     public function testEqualsMessageVariables()
     {
-        $validator = new Between(array('min' => 1, 'max' => 10));
+        $validator = new Between(['min' => 1, 'max' => 10]);
         $this->assertAttributeEquals($validator->getOption('messageVariables'), 'messageVariables', $validator);
     }
 
@@ -121,13 +121,13 @@ class BetweenTest extends \PHPUnit_Framework_TestCase
 
     public function constructBetweenValidatorInvalidDataProvider()
     {
-        return array(
-            array(
-                array('min' => 1),
-            ),
-            array(
-                array('max' => 5),
-            ),
-        );
+        return [
+            [
+                ['min' => 1],
+            ],
+            [
+                ['max' => 5],
+            ],
+        ];
     }
 }

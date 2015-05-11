@@ -44,7 +44,7 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $usedSaveHandlers = array();
+    protected $usedSaveHandlers = [];
 
     /**
      * Setup performed prior to each test method
@@ -57,16 +57,16 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Zend\Session\SaveHandler\DbTableGateway tests are not enabled due to missing PDO_Sqlite extension');
         }
 
-        $this->options = new DbTableGatewayOptions(array(
+        $this->options = new DbTableGatewayOptions([
             'nameColumn' => 'name',
             'idColumn'   => 'id',
             'dataColumn' => 'data',
             'modifiedColumn' => 'modified',
             'lifetimeColumn' => 'lifetime',
-        ));
+        ]);
 
         $this->setupDb($this->options);
-        $this->testArray = array('foo' => 'bar', 'bar' => array('foo' => 'bar'));
+        $this->testArray = ['foo' => 'bar', 'bar' => ['foo' => 'bar']];
     }
 
     /**
@@ -130,10 +130,10 @@ class DbTableGatewayTest extends \PHPUnit_Framework_TestCase
      */
     protected function setupDb(DbTableGatewayOptions $options)
     {
-        $this->adapter = new Adapter(array(
+        $this->adapter = new Adapter([
             'driver' => 'pdo_sqlite',
             'database' => ':memory:',
-        ));
+        ]);
 
 
         $query = <<<EOD

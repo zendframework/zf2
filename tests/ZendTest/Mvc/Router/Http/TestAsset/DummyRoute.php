@@ -29,7 +29,7 @@ class DummyRoute implements RouteInterface
      */
     public function match(RequestInterface $request, $pathOffset = null)
     {
-        return new RouteMatch(array('offset' => $pathOffset), -4);
+        return new RouteMatch(['offset' => $pathOffset], -4);
     }
 
     /**
@@ -51,7 +51,7 @@ class DummyRoute implements RouteInterface
      * @param  array|Traversable $options
      * @return DummyRoute
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         return new static();
     }
@@ -64,6 +64,6 @@ class DummyRoute implements RouteInterface
      */
     public function getAssembledParams()
     {
-        return array();
+        return [];
     }
 }

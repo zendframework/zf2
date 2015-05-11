@@ -34,7 +34,7 @@ class Attribute
     public static function setAttribute(array &$data, $attribName, $value, $append = false)
     {
         $attribName = strtolower($attribName);
-        $valArray   = array();
+        $valArray   = [];
         if (is_array($value) || ($value instanceof \Traversable)) {
             foreach ($value as $v) {
                 $v = self::valueToLdap($v);
@@ -51,7 +51,7 @@ class Attribute
 
         if ($append === true && isset($data[$attribName])) {
             if (is_string($data[$attribName])) {
-                $data[$attribName] = array($data[$attribName]);
+                $data[$attribName] = [$data[$attribName]];
             }
             $data[$attribName] = array_merge($data[$attribName], $valArray);
         } else {
@@ -72,9 +72,9 @@ class Attribute
         $attribName = strtolower($attribName);
         if ($index === null) {
             if (!isset($data[$attribName])) {
-                return array();
+                return [];
             }
-            $retArray = array();
+            $retArray = [];
             foreach ($data[$attribName] as $v) {
                 $retArray[] = self::valueFromLdap($v);
             }
@@ -108,7 +108,7 @@ class Attribute
         }
 
         if (is_scalar($value)) {
-            $value = array($value);
+            $value = [$value];
         }
 
         foreach ($value as $v) {
@@ -153,10 +153,10 @@ class Attribute
         }
 
         if (is_scalar($value)) {
-            $value = array($value);
+            $value = [$value];
         }
 
-        $valArray = array();
+        $valArray = [];
         foreach ($value as $v) {
             $v = self::valueToLdap($v);
             if ($v !== null) {
@@ -290,7 +290,7 @@ class Attribute
         array &$data, $attribName, $value, $utc = false,
         $append = false
     ) {
-        $convertedValues = array();
+        $convertedValues = [];
         if (is_array($value) || ($value instanceof \Traversable)) {
             foreach ($value as $v) {
                 $v = self::valueToLdapDateTime($v, $utc);

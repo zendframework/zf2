@@ -17,7 +17,7 @@ class ServiceListenerFactoryTest extends TestCase
     public function setUp()
     {
         $sm = $this->sm = $this->getMockBuilder('Zend\ServiceManager\ServiceManager')
-                               ->setMethods(array('get'))
+                               ->setMethods(['get'])
                                ->getMock();
 
         $this->factory  = new ServiceListenerFactory();
@@ -31,7 +31,7 @@ class ServiceListenerFactoryTest extends TestCase
     {
         $this->sm->expects($this->once())
                  ->method('get')
-                 ->will($this->returnValue(array('service_listener_options' => 'string')));
+                 ->will($this->returnValue(['service_listener_options' => 'string']));
 
         $this->factory->createService($this->sm);
     }

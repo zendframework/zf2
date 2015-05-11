@@ -41,18 +41,18 @@ class PluralTest extends \PHPUnit_Framework_TestCase
      */
     public function pluralsTestProvider()
     {
-        return array(
-            array('nplurals=1; plural=0', 'かさ', 0, 'かさ'),
-            array('nplurals=1; plural=0', 'かさ', 10, 'かさ'),
+        return [
+            ['nplurals=1; plural=0', 'かさ', 0, 'かさ'],
+            ['nplurals=1; plural=0', 'かさ', 10, 'かさ'],
 
-            array('nplurals=2; plural=(n==1 ? 0 : 1)', array('umbrella', 'umbrellas'), 0, 'umbrellas'),
-            array('nplurals=2; plural=(n==1 ? 0 : 1)', array('umbrella', 'umbrellas'), 1, 'umbrella'),
-            array('nplurals=2; plural=(n==1 ? 0 : 1)', array('umbrella', 'umbrellas'), 2, 'umbrellas'),
+            ['nplurals=2; plural=(n==1 ? 0 : 1)', ['umbrella', 'umbrellas'], 0, 'umbrellas'],
+            ['nplurals=2; plural=(n==1 ? 0 : 1)', ['umbrella', 'umbrellas'], 1, 'umbrella'],
+            ['nplurals=2; plural=(n==1 ? 0 : 1)', ['umbrella', 'umbrellas'], 2, 'umbrellas'],
 
-            array('nplurals=2; plural=(n==0 || n==1 ? 0 : 1)', array('parapluie', 'parapluies'), 0, 'parapluie'),
-            array('nplurals=2; plural=(n==0 || n==1 ? 0 : 1)', array('parapluie', 'parapluies'), 1, 'parapluie'),
-            array('nplurals=2; plural=(n==0 || n==1 ? 0 : 1)', array('parapluie', 'parapluies'), 2, 'parapluies'),
-        );
+            ['nplurals=2; plural=(n==0 || n==1 ? 0 : 1)', ['parapluie', 'parapluies'], 0, 'parapluie'],
+            ['nplurals=2; plural=(n==0 || n==1 ? 0 : 1)', ['parapluie', 'parapluies'], 1, 'parapluie'],
+            ['nplurals=2; plural=(n==0 || n==1 ? 0 : 1)', ['parapluie', 'parapluies'], 2, 'parapluies'],
+        ];
     }
 
     /**

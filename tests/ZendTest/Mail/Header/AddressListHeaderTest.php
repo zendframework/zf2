@@ -24,13 +24,13 @@ class AddressListHeaderTest extends \PHPUnit_Framework_TestCase
 {
     public static function getHeaderInstances()
     {
-        return array(
-            array(new Bcc(), 'Bcc'),
-            array(new Cc(), 'Cc'),
-            array(new From(), 'From'),
-            array(new ReplyTo(), 'Reply-To'),
-            array(new To(), 'To'),
-        );
+        return [
+            [new Bcc(), 'Bcc'],
+            [new Cc(), 'Cc'],
+            [new From(), 'From'],
+            [new ReplyTo(), 'Reply-To'],
+            [new To(), 'To'],
+        ];
     }
 
     /**
@@ -100,13 +100,13 @@ class AddressListHeaderTest extends \PHPUnit_Framework_TestCase
     public function getStringHeaders()
     {
         $value = $this->getExpectedFieldValue();
-        return array(
-            'cc'       => array('Cc: ' . $value, 'Zend\Mail\Header\Cc'),
-            'bcc'      => array('Bcc: ' . $value, 'Zend\Mail\Header\Bcc'),
-            'from'     => array('From: ' . $value, 'Zend\Mail\Header\From'),
-            'reply-to' => array('Reply-To: ' . $value, 'Zend\Mail\Header\ReplyTo'),
-            'to'       => array('To: ' . $value, 'Zend\Mail\Header\To'),
-        );
+        return [
+            'cc'       => ['Cc: ' . $value, 'Zend\Mail\Header\Cc'],
+            'bcc'      => ['Bcc: ' . $value, 'Zend\Mail\Header\Bcc'],
+            'from'     => ['From: ' . $value, 'Zend\Mail\Header\From'],
+            'reply-to' => ['Reply-To: ' . $value, 'Zend\Mail\Header\ReplyTo'],
+            'to'       => ['To: ' . $value, 'Zend\Mail\Header\To'],
+        ];
     }
 
     /**
@@ -136,13 +136,13 @@ class AddressListHeaderTest extends \PHPUnit_Framework_TestCase
     public function getStringHeadersWithNoWhitespaceSeparator()
     {
         $value = $this->getExpectedFieldValue();
-        return array(
-            'cc'       => array('Cc:' . $value, 'Zend\Mail\Header\Cc'),
-            'bcc'      => array('Bcc:' . $value, 'Zend\Mail\Header\Bcc'),
-            'from'     => array('From:' . $value, 'Zend\Mail\Header\From'),
-            'reply-to' => array('Reply-To:' . $value, 'Zend\Mail\Header\ReplyTo'),
-            'to'       => array('To:' . $value, 'Zend\Mail\Header\To'),
-        );
+        return [
+            'cc'       => ['Cc:' . $value, 'Zend\Mail\Header\Cc'],
+            'bcc'      => ['Bcc:' . $value, 'Zend\Mail\Header\Bcc'],
+            'from'     => ['From:' . $value, 'Zend\Mail\Header\From'],
+            'reply-to' => ['Reply-To:' . $value, 'Zend\Mail\Header\ReplyTo'],
+            'to'       => ['To:' . $value, 'Zend\Mail\Header\To'],
+        ];
     }
 
     /**

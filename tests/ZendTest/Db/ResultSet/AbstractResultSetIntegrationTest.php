@@ -32,7 +32,7 @@ class AbstractResultSetIntegrationTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
         $this->resultSet->initialize($result);
-        $result->expects($this->exactly(3))->method('current')->will($this->returnValue(array('foo' => 'bar')));
+        $result->expects($this->exactly(3))->method('current')->will($this->returnValue(['foo' => 'bar']));
         $value1 = $this->resultSet->current();
         $value2 = $this->resultSet->current();
         $this->resultSet->current();
@@ -47,7 +47,7 @@ class AbstractResultSetIntegrationTest extends \PHPUnit_Framework_TestCase
         $result = $this->getMock('Zend\Db\Adapter\Driver\ResultInterface');
         $this->resultSet->buffer();
         $this->resultSet->initialize($result);
-        $result->expects($this->once())->method('current')->will($this->returnValue(array('foo' => 'bar')));
+        $result->expects($this->once())->method('current')->will($this->returnValue(['foo' => 'bar']));
         $value1 = $this->resultSet->current();
         $value2 = $this->resultSet->current();
         $this->resultSet->current();

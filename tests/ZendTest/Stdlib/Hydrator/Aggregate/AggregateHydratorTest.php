@@ -68,7 +68,7 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
             ->method('trigger')
             ->with($this->isInstanceOf('Zend\Stdlib\Hydrator\Aggregate\HydrateEvent'));
 
-        $this->assertSame($object, $this->hydrator->hydrate(array('foo' => 'bar'), $object));
+        $this->assertSame($object, $this->hydrator->hydrate(['foo' => 'bar'], $object));
     }
 
     /**
@@ -84,7 +84,7 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
             ->method('trigger')
             ->with($this->isInstanceOf('Zend\Stdlib\Hydrator\Aggregate\ExtractEvent'));
 
-        $this->assertSame(array(), $this->hydrator->extract($object));
+        $this->assertSame([], $this->hydrator->extract($object));
     }
 
     /**
@@ -102,10 +102,10 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('setIdentifiers')
             ->with(
-                array(
+                [
                      'Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator',
                      'Zend\Stdlib\Hydrator\Aggregate\AggregateHydrator',
-                )
+                ]
             );
 
         $hydrator->setEventManager($eventManager);

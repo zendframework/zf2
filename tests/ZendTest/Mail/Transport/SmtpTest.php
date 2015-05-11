@@ -39,16 +39,16 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
         $message->addTo('zf-devteam@zend.com', 'ZF DevTeam')
                 ->addCc('matthew@zend.com')
                 ->addBcc('zf-crteam@lists.zend.com', 'CR-Team, ZF Project')
-                ->addFrom(array(
+                ->addFrom([
                     'zf-devteam@zend.com',
                     'matthew@zend.com' => 'Matthew',
-                ))
+                ])
                 ->setSender('ralph.schindler@zend.com', 'Ralph Schindler')
                 ->setSubject('Testing Zend\Mail\Transport\Sendmail')
                 ->setBody('This is only a test.');
-        $message->getHeaders()->addHeaders(array(
+        $message->getHeaders()->addHeaders([
             'X-Foo-Bar' => 'Matthew',
-        ));
+        ]);
         return $message;
     }
 
@@ -83,9 +83,9 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
     public function testSendMailWithEnvelopeFrom()
     {
         $message = $this->getMessage();
-        $envelope = new Envelope(array(
+        $envelope = new Envelope([
             'from' => 'mailer@lists.zend.com',
-        ));
+        ]);
         $this->transport->setEnvelope($envelope);
         $this->transport->send($message);
 
@@ -99,9 +99,9 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
     public function testSendMailWithEnvelopeTo()
     {
         $message = $this->getMessage();
-        $envelope = new Envelope(array(
+        $envelope = new Envelope([
             'to' => 'users@lists.zend.com',
-        ));
+        ]);
         $this->transport->setEnvelope($envelope);
         $this->transport->send($message);
 
@@ -114,11 +114,11 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
     public function testSendMailWithEnvelope()
     {
         $message = $this->getMessage();
-        $to = array('users@lists.zend.com', 'dev@lists.zend.com');
-        $envelope = new Envelope(array(
+        $to = ['users@lists.zend.com', 'dev@lists.zend.com'];
+        $envelope = new Envelope([
             'from' => 'mailer@lists.zend.com',
             'to' => $to,
-        ));
+        ]);
         $this->transport->setEnvelope($envelope);
         $this->transport->send($message);
 
@@ -157,7 +157,7 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
         $message = $this->getMessage();
         $this->transport->send($message);
 
-        $expectedRecipients = array('zf-devteam@zend.com', 'matthew@zend.com', 'zf-crteam@lists.zend.com');
+        $expectedRecipients = ['zf-devteam@zend.com', 'matthew@zend.com', 'zf-crteam@lists.zend.com'];
         $this->assertEquals($expectedRecipients, $this->connection->getRecipients());
 
         $data = $this->connection->getLog();
@@ -174,15 +174,15 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
 
     public function testCanUseAuthenticationExtensionsViaPluginManager()
     {
-        $options    = new SmtpOptions(array(
+        $options    = new SmtpOptions([
             'connection_class' => 'login',
-        ));
+        ]);
         $transport  = new Smtp($options);
-        $connection = $transport->plugin($options->getConnectionClass(), array(
+        $connection = $transport->plugin($options->getConnectionClass(), [
             'username' => 'matthew',
             'password' => 'password',
             'host'     => 'localhost',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Mail\Protocol\Smtp\Auth\Login', $connection);
         $this->assertEquals('matthew', $connection->getUsername());
         $this->assertEquals('password', $connection->getPassword());

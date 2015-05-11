@@ -20,7 +20,7 @@ class Postnet extends AbstractObject
      * - 1 = complete bar
      * @var array
      */
-    protected $codingMap = array(
+    protected $codingMap = [
         0 => "11000",
         1 => "00011",
         2 => "00101",
@@ -31,7 +31,7 @@ class Postnet extends AbstractObject
         7 => "10001",
         8 => "10010",
         9 => "10100"
-    );
+    ];
 
     /**
      * Default options for Postnet barcode
@@ -73,24 +73,24 @@ class Postnet extends AbstractObject
      */
     protected function prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
 
         // Start character (1)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
 
         // Text to encode
         $textTable = str_split($this->getText());
         foreach ($textTable as $char) {
             $bars = str_split($this->codingMap[$char]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array(1, $this->barThinWidth, 0.5 - $b * 0.5, 1);
-                $barcodeTable[] = array(0, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [1, $this->barThinWidth, 0.5 - $b * 0.5, 1];
+                $barcodeTable[] = [0, $this->barThinWidth, 0, 1];
             }
         }
 
         // Stop character (1)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, 1);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, 1];
         return $barcodeTable;
     }
 

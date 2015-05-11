@@ -161,7 +161,7 @@ class CallbackCheckAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_adapter->setIdentity('my_username');
         $this->_adapter->setCredential('my_password');
         $this->_adapter->authenticate();
-        $resultRow = $this->_adapter->getResultRowObject(array('username', 'real_name'));
+        $resultRow = $this->_adapter->getResultRowObject(['username', 'real_name']);
         $this->assertEquals('O:8:"stdClass":2:{s:8:"username";s:11:"my_username";s:9:"real_name";s:12:"My Real Name";}',
                             serialize($resultRow));
     }
@@ -346,10 +346,10 @@ class CallbackCheckAdapterTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    protected function _setupDbAdapter($optionalParams = array())
+    protected function _setupDbAdapter($optionalParams = [])
     {
-        $params = array('driver' => 'pdo_sqlite',
-                        'dbname' => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE);
+        $params = ['driver' => 'pdo_sqlite',
+                        'dbname' => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE];
 
         if (!empty($optionalParams)) {
             $params['options'] = $optionalParams;

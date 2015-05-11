@@ -20,7 +20,7 @@ abstract class AbstractFeed
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * Parsed feed data in the shape of a DOMDocument

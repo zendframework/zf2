@@ -33,7 +33,7 @@ class DiServiceInitializerTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->mockDi = $this->getMock('Zend\Di\Di', array('injectDependencies'));
+        $this->mockDi = $this->getMock('Zend\Di\Di', ['injectDependencies']);
         $this->mockServiceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $this->mockDiInstanceManagerProxy = new DiInstanceManagerProxy(
             $this->mockDiInstanceManager = $this->getMock('Zend\Di\InstanceManager'),

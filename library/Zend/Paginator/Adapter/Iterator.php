@@ -53,7 +53,7 @@ class Iterator implements AdapterInterface
     public function getItems($offset, $itemCountPerPage)
     {
         if ($this->count == 0) {
-            return array();
+            return [];
         }
         return new Paginator\SerializableLimitIterator($this->iterator, $offset, $itemCountPerPage);
     }

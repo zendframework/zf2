@@ -52,10 +52,10 @@ class HtmlTagTest extends \PHPUnit_Framework_TestCase
 
     public function testAddingMultipleAttributes()
     {
-        $attribs = array(
+        $attribs = [
             'xmlns' => 'http://www.w3.org/1999/xhtml',
             'prefix' => 'og: http://ogp.me/ns#',
-        );
+        ];
         $this->helper->setAttributes($attribs);
 
         foreach ($attribs as $name => $value) {
@@ -67,10 +67,10 @@ class HtmlTagTest extends \PHPUnit_Framework_TestCase
     {
         $this->helper->setAttribute('prefix', 'foobar');
 
-        $attribs = array(
+        $attribs = [
             'xmlns' => 'http://www.w3.org/1999/xhtml',
             'prefix' => 'og: http://ogp.me/ns#',
-        );
+        ];
         $this->helper->setAttributes($attribs);
 
         $this->assertCount(2, $this->helper->getAttributes());
@@ -86,10 +86,10 @@ class HtmlTagTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderingOpenTagWithAttributes()
     {
-        $attribs = array(
+        $attribs = [
             'xmlns' => 'http://www.w3.org/1999/xhtml',
             'xmlns:og' => 'http://ogp.me/ns#',
-        );
+        ];
 
         $this->helper->setAttributes($attribs);
 
@@ -118,9 +118,9 @@ class HtmlTagTest extends \PHPUnit_Framework_TestCase
     {
         $this->view->plugin('doctype')->setDoctype('xhtml');
 
-        $attribs = array(
+        $attribs = [
             'prefix' => 'og: http://ogp.me/ns#',
-        );
+        ];
 
         $this->helper->setUseNamespaces(true)->setAttributes($attribs);
 

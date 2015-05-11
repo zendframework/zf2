@@ -46,7 +46,7 @@ class ErrorHandler extends Simple
      */
     protected function buildReplacementsFromArray($event, $key = null)
     {
-        $result = array();
+        $result = [];
         foreach ($event as $index => $value) {
             $nextIndex = $key === null ? $index : $key . '[' . $index . ']';
             if ($value === null) {

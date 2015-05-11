@@ -21,7 +21,7 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      *
      * @var array
      */
-    protected $contentPlaceholders = array('article', 'content');
+    protected $contentPlaceholders = ['article', 'content'];
 
     /**
      * @var PhpRenderer
@@ -75,8 +75,8 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, [$this, 'selectRenderer'], $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, [$this, 'injectResponse'], $priority);
     }
 
     /**

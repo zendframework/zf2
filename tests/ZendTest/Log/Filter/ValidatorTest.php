@@ -22,10 +22,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     public function testValidatorFilter()
     {
         $filter = new Validator(new DigitsFilter());
-        $this->assertTrue($filter->filter(array('message' => '123')));
-        $this->assertFalse($filter->filter(array('message' => 'test')));
-        $this->assertFalse($filter->filter(array('message' => 'test123')));
-        $this->assertFalse($filter->filter(array('message' => '(%$')));
+        $this->assertTrue($filter->filter(['message' => '123']));
+        $this->assertFalse($filter->filter(['message' => 'test']));
+        $this->assertFalse($filter->filter(['message' => 'test123']));
+        $this->assertFalse($filter->filter(['message' => '(%$']));
     }
 
     public function testValidatorChain()
@@ -34,7 +34,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $validatorChain->attach(new NotEmptyFilter());
         $validatorChain->attach(new DigitsFilter());
         $filter = new Validator($validatorChain);
-        $this->assertTrue($filter->filter(array('message' => '123')));
-        $this->assertFalse($filter->filter(array('message' => 'test')));
+        $this->assertTrue($filter->filter(['message' => '123']));
+        $this->assertFalse($filter->filter(['message' => 'test']));
     }
 }

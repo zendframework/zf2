@@ -30,10 +30,10 @@ class Priority extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::NOT_VALID => "The input is not a valid sitemap priority",
         self::INVALID   => "Invalid type given. Numeric string, integer or float expected",
-    );
+    ];
 
     /**
      * Validates if a string is valid as a sitemap priority

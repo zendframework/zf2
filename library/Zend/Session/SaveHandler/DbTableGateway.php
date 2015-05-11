@@ -94,10 +94,10 @@ class DbTableGateway implements SaveHandlerInterface
      */
     public function read($id)
     {
-        $rows = $this->tableGateway->select(array(
+        $rows = $this->tableGateway->select([
             $this->options->getIdColumn()   => $id,
             $this->options->getNameColumn() => $this->sessionName,
-        ));
+        ]);
 
         if ($row = $rows->current()) {
             if ($row->{$this->options->getModifiedColumn()} +
@@ -118,21 +118,21 @@ class DbTableGateway implements SaveHandlerInterface
      */
     public function write($id, $data)
     {
-        $data = array(
+        $data = [
             $this->options->getModifiedColumn() => time(),
             $this->options->getDataColumn()     => (string) $data,
-        );
+        ];
 
-        $rows = $this->tableGateway->select(array(
+        $rows = $this->tableGateway->select([
             $this->options->getIdColumn()   => $id,
             $this->options->getNameColumn() => $this->sessionName,
-        ));
+        ]);
 
         if ($rows->current()) {
-            return (bool) $this->tableGateway->update($data, array(
+            return (bool) $this->tableGateway->update($data, [
                 $this->options->getIdColumn()   => $id,
                 $this->options->getNameColumn() => $this->sessionName,
-            ));
+            ]);
         }
         $data[$this->options->getLifetimeColumn()] = $this->lifetime;
         $data[$this->options->getIdColumn()]       = $id;
@@ -149,10 +149,10 @@ class DbTableGateway implements SaveHandlerInterface
      */
     public function destroy($id)
     {
-        return (bool) $this->tableGateway->delete(array(
+        return (bool) $this->tableGateway->delete([
             $this->options->getIdColumn()   => $id,
             $this->options->getNameColumn() => $this->sessionName,
-        ));
+        ]);
     }
 
     /**

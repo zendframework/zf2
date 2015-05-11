@@ -38,8 +38,8 @@ class Posix extends AbstractAdapter
      *
      * @var array
      */
-    protected static $ansiColorMap = array(
-        'fg' => array(
+    protected static $ansiColorMap = [
+        'fg' => [
             Color::NORMAL        => '22;39',
             Color::RESET         => '22;39',
 
@@ -60,8 +60,8 @@ class Posix extends AbstractAdapter
             Color::LIGHT_MAGENTA => '1;35',
             Color::LIGHT_CYAN    => '1;36',
             Color::LIGHT_WHITE   => '1;37',
-        ),
-        'bg' => array(
+        ],
+        'bg' => [
             Color::NORMAL        => '0;49',
             Color::RESET         => '0;49',
 
@@ -82,8 +82,8 @@ class Posix extends AbstractAdapter
             Color::LIGHT_MAGENTA => '45',
             Color::LIGHT_CYAN    => '46',
             Color::LIGHT_WHITE   => '47',
-        ),
-    );
+        ],
+    ];
 
     /**
      * Last fetched TTY mode

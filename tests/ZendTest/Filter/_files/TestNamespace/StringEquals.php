@@ -24,9 +24,9 @@ class StringEquals extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::NOT_EQUALS => 'Not all strings in the argument are equal'
-    );
+    ];
 
     /**
      * Defined by Zend_Validate_Interface

@@ -35,9 +35,9 @@ class SocketTest extends CommonHttpTests
      *
      * @var array
      */
-    protected $config = array(
+    protected $config = [
         'adapter' => 'Zend\Http\Client\Adapter\Socket'
-    );
+    ];
 
     /**
      * Off-line common adapter tests
@@ -49,10 +49,10 @@ class SocketTest extends CommonHttpTests
      */
     public function testConfigSetAsArray()
     {
-        $config = array(
+        $config = [
             'timeout'    => 500,
             'someoption' => 'hasvalue'
-        );
+        ];
 
         $this->_adapter->setOptions($config);
 
@@ -71,7 +71,7 @@ class SocketTest extends CommonHttpTests
 
     public function testConnectingViaSslEnforcesDefaultSslOptionsOnContext()
     {
-        $config = array('timeout' => 30);
+        $config = ['timeout' => 30];
         $this->_adapter->setOptions($config);
         try {
             $this->_adapter->connect('localhost', 443, true);
@@ -93,10 +93,10 @@ class SocketTest extends CommonHttpTests
      */
     public function testConnectingViaSslUsesCertificateFileContext()
     {
-        $config = array(
+        $config = [
           'timeout' => 30,
           'sslcafile' => __DIR__ . '/_files/ca-bundle.crt',
-        );
+        ];
         $this->_adapter->setOptions($config);
         try {
             $this->_adapter->connect('localhost', 443, true);
@@ -116,12 +116,12 @@ class SocketTest extends CommonHttpTests
      */
     public function testConfigSetAsZendConfig()
     {
-        $config = new \Zend\Config\Config(array(
+        $config = new \Zend\Config\Config([
             'timeout'  => 400,
-            'nested'   => array(
+            'nested'   => [
                 'item' => 'value',
-            )
-        ));
+            ]
+        ]);
 
         $this->_adapter->setOptions($config);
 
@@ -172,16 +172,16 @@ class SocketTest extends CommonHttpTests
     {
         $adapterClass = $this->config['adapter'];
         $adapter = new $adapterClass;
-        $options = array(
-            'socket' => array(
+        $options = [
+            'socket' => [
                 'bindto' => '1.2.3.4:0'
-            ),
-            'ssl' => array(
+            ],
+            'ssl' => [
                 'capath'            => null,
                 'verify_peer'       => true,
                 'allow_self_signed' => false
-            )
-        );
+            ]
+        ];
 
         $adapter->setStreamContext($options);
 
@@ -212,12 +212,12 @@ class SocketTest extends CommonHttpTests
 
         $adapterClass = $this->config['adapter'];
         $adapter = new $adapterClass;
-        $adapter->setStreamContext(array(
-            'ssl' => array(
+        $adapter->setStreamContext([
+            'ssl' => [
                 'capture_peer_cert' => true,
                 'capture_peer_chain' => true
-            )
-        ));
+            ]
+        ]);
 
         $this->client->setAdapter($adapter);
         $this->client->setUri($this->baseuri . '/testSimpleRequests.php');
@@ -235,7 +235,7 @@ class SocketTest extends CommonHttpTests
     public function testExceptionOnReadTimeout()
     {
         // Set 1 second timeout
-        $this->client->setOptions(array('timeout' => 1));
+        $this->client->setOptions(['timeout' => 1]);
 
         $start = microtime(true);
 
@@ -277,7 +277,7 @@ class SocketTest extends CommonHttpTests
     {
         $this->_adapter->connect('localhost');
         require_once __DIR__ . '/_files/fwrite.php';
-        $this->_adapter->write('GET', new Uri('tcp://localhost:80/'), '1.1', array(), 'test body');
+        $this->_adapter->write('GET', new Uri('tcp://localhost:80/'), '1.1', [], 'test body');
     }
 
     /**
@@ -291,11 +291,11 @@ class SocketTest extends CommonHttpTests
      */
     public static function invalidContextProvider()
     {
-        return array(
-            array(new \stdClass()),
-            array(fopen('data://text/plain,', 'r')),
-            array(false),
-            array(null)
-        );
+        return [
+            [new \stdClass()],
+            [fopen('data://text/plain,', 'r')],
+            [false],
+            [null]
+        ];
     }
 }

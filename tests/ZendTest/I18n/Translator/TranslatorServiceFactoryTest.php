@@ -16,7 +16,7 @@ class TranslatorServiceFactoryTest extends TestCase
 {
     public function testCreateServiceWithNoTranslatorKeyDefined()
     {
-        $slContents = array(array('Configuration', array()));
+        $slContents = [['Configuration', []]];
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator->expects($this->once())
                        ->method('get')

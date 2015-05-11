@@ -55,7 +55,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testShouldBeAbleToBindCallbackToServer()
     {
         try {
-            $this->server->addFunction(array($this, 'setUp'));
+            $this->server->addFunction([$this, 'setUp']);
         } catch (\Zend\Server\Reflection\Exception\RuntimeException $e) {
             $this->markTestIncomplete('PHPUnit docblocks may be incorrect');
         }
@@ -242,7 +242,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(true, 'foo', 'bar'))
+                ->setParams([true, 'foo', 'bar'])
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertInstanceOf('Zend\Json\Server\Response', $response);
@@ -263,7 +263,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(true, null, 'bar'))
+                ->setParams([true, null, 'bar'])
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertInstanceOf('Zend\Json\Server\Response', $response);
@@ -276,7 +276,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(true))
+                ->setParams([true])
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertInstanceOf('Zend\Json\Server\Response', $response);
@@ -294,7 +294,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array('one' => true))
+                ->setParams(['one' => true])
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertInstanceOf('Zend\Json\Server\Response', $response);
@@ -312,7 +312,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(true, 'foo', 'bar', 'baz'))
+                ->setParams([true, 'foo', 'bar', 'baz'])
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertInstanceOf('Zend\Json\Server\Response', $response);
@@ -330,11 +330,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(
+                ->setParams([
                     'three' => 3,
                     'two'   => 2,
                     'one'   => 1
-                ))
+                ])
                 ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
@@ -351,11 +351,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(
+                ->setParams([
                     'three' => 3,
                     'one'   => 1,
                     'two'   => 2,
-                ))
+                ])
                 ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
@@ -372,10 +372,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(
+                ->setParams([
                     'three' => 3,
                     'two'   => 2,
-                 ))
+                 ])
                 ->setId('foo');
         $response = $this->server->handle();
 
@@ -426,7 +426,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->server->setClass('ZendTest\Json\TestAsset\Foo');
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(true, 'foo', 'bar'))
+                ->setParams([true, 'foo', 'bar'])
                 ->setId('foo');
         ob_start();
         $this->server->handle();
@@ -447,7 +447,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->server->setClass('ZendTest\Json\TestAsset\Foo');
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(true, 'foo', 'bar'));
+                ->setParams([true, 'foo', 'bar']);
         ob_start();
         $this->server->handle();
         $buffer = ob_get_clean();
@@ -471,11 +471,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $bar = new TestAsset\Bar('unique');
 
-        $this->server->addFunction(array($bar, 'foo'));
+        $this->server->addFunction([$bar, 'foo']);
 
         $request = $this->server->getRequest();
         $request->setMethod('foo')
-            ->setParams(array(true, 'foo', 'bar'))
+            ->setParams([true, 'foo', 'bar'])
             ->setId('foo');
         ob_start();
         $this->server->handle();
@@ -502,10 +502,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(
+                ->setParams([
                     'two'   => 2,
                     'one'   => 1,
-                ))
+                ])
                 ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();
@@ -525,10 +525,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                      ->setReturnResponse(true);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
-                ->setParams(array(
+                ->setParams([
                     'three' => 3,
                     'one'   => 1,
-                ))
+                ])
                 ->setId('foo');
         $response = $this->server->handle();
         $result = $response->getResult();

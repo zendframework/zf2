@@ -40,12 +40,12 @@ abstract class AbstractOnlineTestCase extends AbstractTestCase
             $this->markTestSkipped("Zend_Ldap online tests are not enabled");
         }
 
-        $options = array(
+        $options = [
             'host'     => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
             'password' => TESTS_ZEND_LDAP_PASSWORD,
             'baseDn'   => TESTS_ZEND_LDAP_WRITEABLE_SUBTREE,
-        );
+        ];
         if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
             $options['port'] = TESTS_ZEND_LDAP_PORT;
         }
@@ -92,38 +92,38 @@ abstract class AbstractOnlineTestCase extends AbstractTestCase
 
     protected function prepareLDAPServer()
     {
-        $this->nodes = array(
+        $this->nodes = [
             $this->createDn('ou=Node,')          =>
-            array("objectClass" => "organizationalUnit",
+            ["objectClass" => "organizationalUnit",
                   "ou"          => "Node",
-                  "postalCode"  => "1234"),
+                  "postalCode"  => "1234"],
             $this->createDn('ou=Test1,ou=Node,') =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Test1"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Test1"],
             $this->createDn('ou=Test2,ou=Node,') =>
-            array("objectClass" => "organizationalUnit",
-                  "ou"          => "Test2"),
+            ["objectClass" => "organizationalUnit",
+                  "ou"          => "Test2"],
             $this->createDn('ou=Test1,')         =>
-            array("objectClass" => "organizationalUnit",
+            ["objectClass" => "organizationalUnit",
                   "ou"          => "Test1",
-                  "l"           => "e"),
+                  "l"           => "e"],
             $this->createDn('ou=Test2,')         =>
-            array("objectClass" => "organizationalUnit",
+            ["objectClass" => "organizationalUnit",
                   "ou"          => "Test2",
-                  "l"           => "d"),
+                  "l"           => "d"],
             $this->createDn('ou=Test3,')         =>
-            array("objectClass" => "organizationalUnit",
+            ["objectClass" => "organizationalUnit",
                   "ou"          => "Test3",
-                  "l"           => "c"),
+                  "l"           => "c"],
             $this->createDn('ou=Test4,')         =>
-            array("objectClass" => "organizationalUnit",
+            ["objectClass" => "organizationalUnit",
                   "ou"          => "Test4",
-                  "l"           => "b"),
+                  "l"           => "b"],
             $this->createDn('ou=Test5,')         =>
-            array("objectClass" => "organizationalUnit",
+            ["objectClass" => "organizationalUnit",
                   "ou"          => "Test5",
-                  "l"           => "a"),
-        );
+                  "l"           => "a"],
+        ];
 
         $ldap = $this->ldap->getResource();
         foreach ($this->nodes as $dn => $entry) {

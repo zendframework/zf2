@@ -17,16 +17,16 @@ class ProductCategoriesFieldset extends ProductFieldset
 
         $template = new CategoryFieldset();
 
-        $this->add(array(
+        $this->add([
             'name' => 'categories',
             'type' => 'collection',
-            'options' => array(
+            'options' => [
                 'label' => 'Categories',
                 'should_create_template' => true,
                 'allow_add' => true,
                 'count' => 0,
                 'target_element' => $template,
-            ),
-        ));
+            ],
+        ]);
     }
 }

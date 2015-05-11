@@ -39,11 +39,11 @@ class FaultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(411, $fault->getCode());
         Server\Fault::detachFaultException('ZendTest\\XmlRpc\\Server\\Exception');
 
-        $exceptions = array(
+        $exceptions = [
             'ZendTest\\XmlRpc\\Server\\Exception',
             'ZendTest\\XmlRpc\\Server\\Exception2',
             'ZendTest\\XmlRpc\\Server\\Exception3',
-        );
+        ];
         Server\Fault::attachFaultException($exceptions);
         foreach ($exceptions as $class) {
             $e = new $class('test exception', 411);
@@ -84,11 +84,11 @@ class FaultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(404, $fault->getCode());
 
 
-        $exceptions = array(
+        $exceptions = [
             'ZendTest\\XmlRpc\\Server\\Exception',
             'ZendTest\\XmlRpc\\Server\\Exception2',
             'ZendTest\\XmlRpc\\Server\\Exception3'
-        );
+        ];
         Server\Fault::attachFaultException($exceptions);
         foreach ($exceptions as $class) {
             $e = new $class('test exception', 411);
@@ -226,7 +226,7 @@ class Observer
 {
     private static $_instance = false;
 
-    public $observed = array();
+    public $observed = [];
 
     private function __construct()
     {
@@ -248,7 +248,7 @@ class Observer
 
     public static function clearObserved()
     {
-        self::getInstance()->observed = array();
+        self::getInstance()->observed = [];
     }
 
     public static function getObserved()

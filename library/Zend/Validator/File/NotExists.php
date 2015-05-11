@@ -24,9 +24,9 @@ class NotExists extends Exists
     /**
      * @var array Error message templates
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::DOES_EXIST => "File exists",
-    );
+    ];
 
     /**
      * Returns true if and only if the file does not exist in the set destinations

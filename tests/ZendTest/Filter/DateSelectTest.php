@@ -28,13 +28,13 @@ class DateSelectTest extends \PHPUnit_Framework_TestCase
 
     public function provideFilter()
     {
-        return array(
-            array(array(), array('year' => '2014', 'month' => '10', 'day' => '26'), '2014-10-26'),
-            array(array('nullOnEmpty' => true), array('year' => null, 'month' => '10', 'day' => '26'), null),
-            array(array('null_on_empty' => true), array('year' => null, 'month' => '10', 'day' => '26'), null),
-            array(array('nullOnAllEmpty' => true), array('year' => null, 'month' => null, 'day' => null), null),
-            array(array('null_on_all_empty' => true), array('year' => null, 'month' => null, 'day' => null), null),
-        );
+        return [
+            [[], ['year' => '2014', 'month' => '10', 'day' => '26'], '2014-10-26'],
+            [['nullOnEmpty' => true], ['year' => null, 'month' => '10', 'day' => '26'], null],
+            [['null_on_empty' => true], ['year' => null, 'month' => '10', 'day' => '26'], null],
+            [['nullOnAllEmpty' => true], ['year' => null, 'month' => null, 'day' => null], null],
+            [['null_on_all_empty' => true], ['year' => null, 'month' => null, 'day' => null], null],
+        ];
     }
 
     /**
@@ -43,6 +43,6 @@ class DateSelectTest extends \PHPUnit_Framework_TestCase
     public function testInvalidInput()
     {
         $sut = new DateSelectFilter();
-        $sut->filter(array('year' => '2120', 'month' => '07'));
+        $sut->filter(['year' => '2120', 'month' => '07']);
     }
 }

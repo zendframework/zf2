@@ -86,7 +86,7 @@ class StandardConfig implements ConfigInterface
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Set many options at once
@@ -759,7 +759,7 @@ class StandardConfig implements ConfigInterface
      */
     public function toArray()
     {
-        $extraOpts = array(
+        $extraOpts = [
             'cookie_domain'       => $this->getCookieDomain(),
             'cookie_httponly'     => $this->getCookieHttpOnly(),
             'cookie_lifetime'     => $this->getCookieLifetime(),
@@ -769,7 +769,7 @@ class StandardConfig implements ConfigInterface
             'remember_me_seconds' => $this->getRememberMeSeconds(),
             'save_path'           => $this->getSavePath(),
             'use_cookies'         => $this->getUseCookies(),
-        );
+        ];
         return array_merge($this->options, $extraOpts);
     }
 

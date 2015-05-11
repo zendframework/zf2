@@ -28,7 +28,7 @@ class XmlTest extends AbstractWriterTestCase
 
     public function testToString()
     {
-        $config = new Config(array('test' => 'foo', 'bar' => array(0 => 'baz', 1 => 'foo')));
+        $config = new Config(['test' => 'foo', 'bar' => [0 => 'baz', 1 => 'foo']]);
 
         $configString = $this->writer->toString($config);
 
@@ -47,12 +47,12 @@ ECS;
 
     public function testSectionsToString()
     {
-        $config = new Config(array(), true);
-        $config->production = array();
+        $config = new Config([], true);
+        $config->production = [];
 
         $config->production->webhost = 'www.example.com';
-        $config->production->database = array();
-        $config->production->database->params = array();
+        $config->production->database = [];
+        $config->production->database->params = [];
         $config->production->database->params->host = 'localhost';
         $config->production->database->params->username = 'production';
         $config->production->database->params->password = 'secret';
@@ -87,8 +87,8 @@ ECS;
      */
     public function testAddBranchProperyConstructsSubBranchesOfTypeNumeric()
     {
-        $config = new Config(array(), true);
-        $config->production = array(array('foo'), array('bar'));
+        $config = new Config([], true);
+        $config->production = [['foo'], ['bar']];
 
         $configString = $this->writer->toString($config);
 

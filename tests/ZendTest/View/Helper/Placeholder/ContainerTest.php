@@ -30,7 +30,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->container = new \Zend\View\Helper\Placeholder\Container(array());
+        $this->container = new \Zend\View\Helper\Placeholder\Container([]);
     }
 
     /**
@@ -75,7 +75,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->container['foo'] = 'bar';
         $this->container['bar'] = 'baz';
-        $expected = array('foo' => 'bar', 'bar' => 'baz');
+        $expected = ['foo' => 'bar', 'bar' => 'baz'];
         $return   = $this->container->getValue();
         $this->assertEquals($expected, $return);
     }
@@ -409,7 +409,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->container['foo'] = 'bar';
         $this->container->prepend('baz');
 
-        $expected = array('baz', 'foo' => 'bar');
+        $expected = ['baz', 'foo' => 'bar'];
         $array = $this->container->getArrayCopy();
         $this->assertSame($expected, $array);
     }

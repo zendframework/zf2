@@ -12,8 +12,8 @@ namespace ZendTest\Di\TestAsset\ConstructorInjection;
 class C
 {
     public $a = null;
-    public $params = array();
-    public function __construct(A $a, array $params = array())
+    public $params = [];
+    public function __construct(A $a, array $params = [])
     {
         $this->a = $a;
         $this->params = $params;

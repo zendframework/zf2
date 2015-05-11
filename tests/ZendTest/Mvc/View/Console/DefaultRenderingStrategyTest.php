@@ -34,7 +34,7 @@ class DefaultRenderingStrategyTest extends TestCase
         $events->attachAggregate($this->strategy);
         $listeners = $events->getListeners(MvcEvent::EVENT_RENDER);
 
-        $expectedCallback = array($this->strategy, 'render');
+        $expectedCallback = [$this->strategy, 'render'];
         $expectedPriority = -10000;
         $found            = false;
         foreach ($listeners as $listener) {
@@ -71,7 +71,7 @@ class DefaultRenderingStrategyTest extends TestCase
         $event    = new MvcEvent();
         $event->setApplication($mockApplication);
 
-        $model    = new Model\ViewModel(array('content' => 'Page not found'));
+        $model    = new Model\ViewModel(['content' => 'Page not found']);
         $response = new Response();
         $event->setResult($model);
         $event->setResponse($response);

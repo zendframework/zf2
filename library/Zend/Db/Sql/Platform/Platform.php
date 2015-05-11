@@ -119,7 +119,7 @@ class Platform extends AbstractPlatform
     protected function resolvePlatformName($adapterOrPlatform)
     {
         $platformName = $this->resolvePlatform($adapterOrPlatform)->getName();
-        return str_replace(array(' ', '_'), '', strtolower($platformName));
+        return str_replace([' ', '_'], '', strtolower($platformName));
     }
     /**
      * @param null|PlatformInterface|AdapterInterface $adapterOrPlatform

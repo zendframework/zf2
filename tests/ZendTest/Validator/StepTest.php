@@ -41,18 +41,18 @@ class StepTest extends \PHPUnit_Framework_TestCase
     public function testBasic()
     {
         // By default, baseValue == 0 and step == 1
-        $valuesExpected = array(
-            array(1.00, true),
-            array(0.00, true),
-            array(2, true),
-            array(3, true),
-            array(2.1, false),
-            array('2', true),
-            array('1', true),
-            array('1.2', false),
-            array(1.01, false),
-            array('not a scalar', false)
-        );
+        $valuesExpected = [
+            [1.00, true],
+            [0.00, true],
+            [2, true],
+            [3, true],
+            [2.1, false],
+            ['2', true],
+            ['1', true],
+            ['1.2', false],
+            [1.01, false],
+            ['not a scalar', false]
+        ];
 
         foreach ($valuesExpected as $element) {
             $this->assertEquals($element[1], $this->_validator->isValid($element[0]),
@@ -62,21 +62,21 @@ class StepTest extends \PHPUnit_Framework_TestCase
 
     public function testDecimalBaseValue()
     {
-        $valuesExpected = array(
-            array(1.1, false),
-            array(0.1, true),
-            array(2.1, true),
-            array(3.1, false),
-            array('2.1', true),
-            array('1.1', false),
-            array(1.11, false),
-            array('not a scalar', false)
-        );
+        $valuesExpected = [
+            [1.1, false],
+            [0.1, true],
+            [2.1, true],
+            [3.1, false],
+            ['2.1', true],
+            ['1.1', false],
+            [1.11, false],
+            ['not a scalar', false]
+        ];
 
-        $validator = new Validator\Step(array(
+        $validator = new Validator\Step([
             'baseValue' => 0.1,
             'step'      => 2
-        ));
+        ]);
 
         foreach ($valuesExpected as $element) {
             $this->assertEquals($element[1], $validator->isValid($element[0]),
@@ -86,30 +86,30 @@ class StepTest extends \PHPUnit_Framework_TestCase
 
     public function testDecimalStep()
     {
-        $valuesExpected = array(
-            array(1.1, false),
-            array(0.1, false),
-            array(2.1, true),
-            array(3.1, false),
-            array(4.2, true),
-            array(6.3, true),
-            array(8.4, true),
-            array(10.5, true),
-            array(12.6, true),
-            array(14.7, true),
-            array(16.8, true),
-            array(18.9, true),
-            array(21.0, true),
-            array('2.1', true),
-            array('1.1', false),
-            array(1.11, false),
-            array('not a scalar', false)
-        );
+        $valuesExpected = [
+            [1.1, false],
+            [0.1, false],
+            [2.1, true],
+            [3.1, false],
+            [4.2, true],
+            [6.3, true],
+            [8.4, true],
+            [10.5, true],
+            [12.6, true],
+            [14.7, true],
+            [16.8, true],
+            [18.9, true],
+            [21.0, true],
+            ['2.1', true],
+            ['1.1', false],
+            [1.11, false],
+            ['not a scalar', false]
+        ];
 
-        $validator = new Validator\Step(array(
+        $validator = new Validator\Step([
             'baseValue' => 0,
             'step'      => 2.1
-        ));
+        ]);
 
         foreach ($valuesExpected as $element) {
             $this->assertEquals($element[1], $validator->isValid($element[0]),
@@ -119,31 +119,31 @@ class StepTest extends \PHPUnit_Framework_TestCase
 
     public function testDecimalStep2()
     {
-        $valuesExpected = array(
-            array(0.01, true),
-            array(0.02, true),
-            array(0.03, true),
-            array(0.04, true),
-            array(0.05, true),
-            array(0.06, true),
-            array(0.07, true),
-            array(0.08, true),
-            array(0.09, true),
-            array(0.001, false),
-            array(0.002, false),
-            array(0.003, false),
-            array(0.004, false),
-            array(0.005, false),
-            array(0.006, false),
-            array(0.007, false),
-            array(0.008, false),
-            array(0.009, false)
-        );
+        $valuesExpected = [
+            [0.01, true],
+            [0.02, true],
+            [0.03, true],
+            [0.04, true],
+            [0.05, true],
+            [0.06, true],
+            [0.07, true],
+            [0.08, true],
+            [0.09, true],
+            [0.001, false],
+            [0.002, false],
+            [0.003, false],
+            [0.004, false],
+            [0.005, false],
+            [0.006, false],
+            [0.007, false],
+            [0.008, false],
+            [0.009, false]
+        ];
 
-        $validator = new Validator\Step(array(
+        $validator = new Validator\Step([
             'baseValue' => 0,
             'step'      => 0.01
-        ));
+        ]);
 
         foreach ($valuesExpected as $element) {
             $this->assertEquals($element[1], $validator->isValid($element[0]),
@@ -158,7 +158,7 @@ class StepTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->_validator->getMessages());
+        $this->assertEquals([], $this->_validator->getMessages());
     }
 
     /**

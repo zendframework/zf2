@@ -14,7 +14,7 @@ class SeparatorToSeparatorFactory implements
     /**
      * @var array
      */
-    protected $creationOptions = array();
+    protected $creationOptions = [];
 
     /**
      * Set creation options

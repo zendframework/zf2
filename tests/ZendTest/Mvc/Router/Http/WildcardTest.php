@@ -19,69 +19,69 @@ class WildcardTest extends TestCase
 {
     public static function routeProvider()
     {
-        return array(
-            'simple-match' => array(
+        return [
+            'simple-match' => [
                 new Wildcard(),
                 '/foo/bar/baz/bat',
                 null,
-                array('foo' => 'bar', 'baz' => 'bat')
-            ),
-            'empty-match' => array(
+                ['foo' => 'bar', 'baz' => 'bat']
+            ],
+            'empty-match' => [
                 new Wildcard(),
                 '',
                 null,
-                array()
-            ),
-            'no-match-without-leading-delimiter' => array(
+                []
+            ],
+            'no-match-without-leading-delimiter' => [
                 new Wildcard(),
                 '/foo/foo/bar/baz/bat',
                 5,
                 null
-            ),
-            'no-match-with-trailing-slash' => array(
+            ],
+            'no-match-with-trailing-slash' => [
                 new Wildcard(),
                 '/foo/bar/baz/bat/',
                 null,
                 null
-            ),
-            'match-overrides-default' => array(
-                new Wildcard('/', '/', array('foo' => 'baz')),
+            ],
+            'match-overrides-default' => [
+                new Wildcard('/', '/', ['foo' => 'baz']),
                 '/foo/bat',
                 null,
-                array('foo' => 'bat')
-            ),
-            'offset-skips-beginning' => array(
+                ['foo' => 'bat']
+            ],
+            'offset-skips-beginning' => [
                 new Wildcard(),
                 '/bat/foo/bar',
                 4,
-                array('foo' => 'bar')
-            ),
-            'non-standard-key-value-delimiter' => array(
+                ['foo' => 'bar']
+            ],
+            'non-standard-key-value-delimiter' => [
                 new Wildcard('-'),
                 '/foo-bar/baz-bat',
                 null,
-                array('foo' => 'bar', 'baz' => 'bat')
-            ),
-            'non-standard-parameter-delimiter' => array(
+                ['foo' => 'bar', 'baz' => 'bat']
+            ],
+            'non-standard-parameter-delimiter' => [
                 new Wildcard('/', '-'),
                 '/foo/-foo/bar-baz/bat',
                 5,
-                array('foo' => 'bar', 'baz' => 'bat')
-            ),
-            'empty-values-with-non-standard-key-value-delimiter-are-omitted' => array(
+                ['foo' => 'bar', 'baz' => 'bat']
+            ],
+            'empty-values-with-non-standard-key-value-delimiter-are-omitted' => [
                 new Wildcard('-'),
                 '/foo',
                 null,
-                array(),
+                [],
                 true
-            ),
-            'url-encoded-parameters-are-decoded' => array(
+            ],
+            'url-encoded-parameters-are-decoded' => [
                 new Wildcard(),
                 '/foo/foo%20bar',
                 null,
-                array('foo' => 'foo bar')
-            ),
-        );
+                ['foo' => 'foo bar']
+            ],
+        ];
     }
 
     /**
@@ -147,9 +147,9 @@ class WildcardTest extends TestCase
     public function testGetAssembledParams()
     {
         $route = new Wildcard();
-        $route->assemble(array('foo' => 'bar'));
+        $route->assemble(['foo' => 'bar']);
 
-        $this->assertEquals(array('foo'), $route->getAssembledParams());
+        $this->assertEquals(['foo'], $route->getAssembledParams());
     }
 
     public function testFactory()
@@ -157,8 +157,8 @@ class WildcardTest extends TestCase
         $tester = new FactoryTester($this);
         $tester->testFactory(
             'Zend\Mvc\Router\Http\Wildcard',
-            array(),
-            array()
+            [],
+            []
         );
     }
 

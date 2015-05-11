@@ -35,111 +35,111 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         // Arrays representing common config configurations
-        $this->nested = array(
+        $this->nested = [
             'a' => 1,
             'b' => 2,
-            'c' => array(
+            'c' => [
                 'ca' => 3,
                 'cb' => 4,
                 'cc' => 5,
-                'cd' => array(
+                'cd' => [
                     'cda' => 6,
                     'cdb' => 7
-                ),
-            ),
-            'd' => array(
+                ],
+            ],
+            'd' => [
                 'da' => 8,
                 'db' => 9
-            ),
+            ],
             'e' => 10
-        );
+        ];
 
-        $this->tokenBare = array(
+        $this->tokenBare = [
             'simple' => 'BARETOKEN',
             'inside' => 'some text with BARETOKEN inside',
-            'nested' => array(
+            'nested' => [
                 'simple' => 'BARETOKEN',
                 'inside' => 'some text with BARETOKEN inside',
-            ),
-        );
+            ],
+        ];
 
-        $this->tokenPrefix = array(
+        $this->tokenPrefix = [
             'simple' => '::TOKEN',
             'inside' => ':: some text with ::TOKEN inside ::',
-            'nested' => array(
+            'nested' => [
                 'simple' => '::TOKEN',
                 'inside' => ':: some text with ::TOKEN inside ::',
-            ),
-        );
+            ],
+        ];
 
-        $this->tokenSuffix = array(
+        $this->tokenSuffix = [
             'simple' => 'TOKEN::',
             'inside' => ':: some text with TOKEN:: inside ::',
-            'nested' => array(
+            'nested' => [
                 'simple' => 'TOKEN::',
                 'inside' => ':: some text with TOKEN:: inside ::',
-            ),
-        );
+            ],
+        ];
 
-        $this->tokenSurround = array(
+        $this->tokenSurround = [
             'simple' => '##TOKEN##',
             'inside' => '## some text with ##TOKEN## inside ##',
-            'nested' => array(
+            'nested' => [
                 'simple' => '##TOKEN##',
                 'inside' => '## some text with ##TOKEN## inside ##',
-            ),
-        );
+            ],
+        ];
 
-        $this->tokenSurroundMixed = array(
+        $this->tokenSurroundMixed = [
             'simple' => '##TOKEN##',
             'inside' => '## some text with ##TOKEN## inside ##',
-            'nested' => array(
+            'nested' => [
                 'simple' => '@@TOKEN@@',
                 'inside' => '@@ some text with @@TOKEN@@ inside @@',
-            ),
-        );
+            ],
+        ];
 
-        $this->translatorData = array(
-            'pages' => array(
-                array(
+        $this->translatorData = [
+            'pages' => [
+                [
                     'id' => 'oneDog',
                     'label' => 'one dog',
                     'route' => 'app-one-dog'
-                ),
-                array(
+                ],
+                [
                     'id' => 'twoDogs',
                     'label' => 'two dogs',
                     'route' => 'app-two-dogs'
-                ),
-            )
-        );
+                ],
+            ]
+        ];
 
         $this->translatorFile = realpath(__DIR__ . '/_files/translations-de_DE.php');
 
-        $this->filter = array(
+        $this->filter = [
             'simple' => 'some MixedCase VALue',
-            'nested' => array(
+            'nested' => [
                 'simple' => 'OTHER mixed Case Value',
-            ),
-        );
+            ],
+        ];
 
-        $this->userConstants = array(
+        $this->userConstants = [
             'simple' => 'SOME_USERLAND_CONSTANT',
             'inside' => 'some text with SOME_USERLAND_CONSTANT inside',
-            'nested' => array(
+            'nested' => [
                 'simple' => 'SOME_USERLAND_CONSTANT',
                 'inside' => 'some text with SOME_USERLAND_CONSTANT inside',
-            ),
-        );
+            ],
+        ];
 
-        $this->phpConstants = array(
+        $this->phpConstants = [
             'phpVersion' => 'PHP_VERSION',
             'phpVersionInside' => 'Current PHP version is: PHP_VERSION',
-            'nested' => array(
+            'nested' => [
                 'phpVersion' => 'PHP_VERSION',
                 'phpVersionInside' => 'Current PHP version is: PHP_VERSION',
-            ),
-        );
+            ],
+        ];
     }
 
     public function testProcessorsQueue()
@@ -163,7 +163,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
         $processor->addToken('BARETOKEN', 'some replaced value');
         $processor->process($config);
 
-        $this->assertEquals(array('BARETOKEN' => 'some replaced value'), $processor->getTokens());
+        $this->assertEquals(['BARETOKEN' => 'some replaced value'], $processor->getTokens());
         $this->assertEquals('some replaced value', $config->simple);
         $this->assertEquals('some text with some replaced value inside', $config->inside);
         $this->assertEquals('some replaced value', $config->nested->simple);
@@ -174,8 +174,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $processor = new TokenProcessor();
         $this->setExpectedException('Zend\Config\Exception\InvalidArgumentException',
-                                    'Cannot use ' . gettype(array()) . ' as token name.');
-        $processor->addToken(array(), 'bar');
+                                    'Cannot use ' . gettype([]) . ' as token name.');
+        $processor->addToken([], 'bar');
     }
 
     public function testSingleValueToken()
@@ -201,7 +201,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTokenPrefix()
     {
         $config = new Config($this->tokenPrefix, true);
-        $processor = new TokenProcessor(array('TOKEN' => 'some replaced value'), '::');
+        $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '::');
         $processor->process($config);
 
         $this->assertEquals('some replaced value', $config->simple);
@@ -213,7 +213,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTokenSuffix()
     {
         $config = new Config($this->tokenSuffix, true);
-        $processor = new TokenProcessor(array('TOKEN' => 'some replaced value'), '', '::');
+        $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '', '::');
         $processor->process($config);
 
         $this->assertEquals('some replaced value', $config->simple);
@@ -229,7 +229,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTokenSurround()
     {
         $config = new Config($this->tokenSurround, true);
-        $processor = new TokenProcessor(array('TOKEN' => 'some replaced value'), '##', '##');
+        $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '##', '##');
         $processor->process($config);
 
         $this->assertEquals('some replaced value', $config->simple);
@@ -244,7 +244,7 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTokenChangeParams()
     {
         $config = new Config($this->tokenSurroundMixed, true);
-        $processor = new TokenProcessor(array('TOKEN' => 'some replaced value'), '##', '##');
+        $processor = new TokenProcessor(['TOKEN' => 'some replaced value'], '##', '##');
         $processor->process($config);
         $this->assertEquals('some replaced value', $config->simple);
         $this->assertEquals('## some text with some replaced value inside ##', $config->inside);
@@ -274,13 +274,13 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTokenChangeParamsRetainsType()
     {
         $config = new Config(
-            array(
+            [
                 'trueBoolKey' => true,
                 'falseBoolKey' => false,
                 'intKey' => 123,
                 'floatKey' => (float) 123.456,
                 'doubleKey' => (double) 456.789,
-            ),
+            ],
             true
         );
 
@@ -301,18 +301,18 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
     public function testTokenChangeParamsReplacesInNumerics()
     {
         $config = new Config(
-            array(
+            [
                 'foo' => 'bar1',
                 'trueBoolKey' => true,
                 'falseBoolKey' => false,
                 'intKey' => 123,
                 'floatKey' => (float) 123.456,
                 'doubleKey' => (double) 456.789,
-            ),
+            ],
             true
         );
 
-        $processor = new TokenProcessor(array('1' => 'R', '9' => 'R'));
+        $processor = new TokenProcessor(['1' => 'R', '9' => 'R']);
 
         $processor->process($config);
 
@@ -329,8 +329,8 @@ class ProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function testIgnoresEmptyStringReplacement()
     {
-        $config    = new Config(array('foo' => 'bar'), true);
-        $processor = new TokenProcessor(array('' => 'invalid'));
+        $config    = new Config(['foo' => 'bar'], true);
+        $processor = new TokenProcessor(['' => 'invalid']);
 
         $processor->process($config);
 

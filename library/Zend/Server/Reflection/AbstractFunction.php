@@ -36,7 +36,7 @@ abstract class AbstractFunction
      * Additional arguments to pass to method on invocation
      * @var array
      */
-    protected $argv = array();
+    protected $argv = [];
 
     /**
      * Used to store extra configuration for the method (typically done by the
@@ -45,7 +45,7 @@ abstract class AbstractFunction
      * {@link __set()}
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * Declaring class (needed for when serialization occurs)
@@ -69,7 +69,7 @@ abstract class AbstractFunction
      * Prototypes
      * @var array
      */
-    protected $prototypes = array();
+    protected $prototypes = [];
 
     private $return;
     private $returnDesc;
@@ -86,7 +86,7 @@ abstract class AbstractFunction
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
-    public function __construct(ReflectionFunctionAbstract $r, $namespace = null, $argv = array())
+    public function __construct(ReflectionFunctionAbstract $r, $namespace = null, $argv = [])
     {
         $this->reflection = $r;
 
@@ -145,7 +145,7 @@ abstract class AbstractFunction
      */
     protected function buildTree()
     {
-        $returnTree = array();
+        $returnTree = [];
         foreach ($this->return as $value) {
             $node = new Node($value);
             $this->addTree($node);
@@ -175,13 +175,13 @@ abstract class AbstractFunction
         $this->sigParams      = $paramTypes;
         $this->sigParamsDepth = count($paramTypes);
         $signatureTrees       = $this->buildTree();
-        $signatures           = array();
+        $signatures           = [];
 
-        $endPoints = array();
+        $endPoints = [];
         foreach ($signatureTrees as $root) {
             $tmp = $root->getEndPoints();
             if (empty($tmp)) {
-                $endPoints = array_merge($endPoints, array($root));
+                $endPoints = array_merge($endPoints, [$root]);
             } else {
                 $endPoints = array_merge($endPoints, $tmp);
             }
@@ -192,7 +192,7 @@ abstract class AbstractFunction
                 continue;
             }
 
-            $signature = array();
+            $signature = [];
             do {
                 array_unshift($signature, $node->getValue());
                 $node = $node->getParent();
@@ -205,7 +205,7 @@ abstract class AbstractFunction
         $params = $this->reflection->getParameters();
         foreach ($signatures as $signature) {
             $return = new ReflectionReturnValue(array_shift($signature), $this->returnDesc);
-            $tmp    = array();
+            $tmp    = [];
             foreach ($signature as $key => $type) {
                 $param = new ReflectionParameter($params[$key], $type, (isset($this->paramDesc[$key]) ? $this->paramDesc[$key] : null));
                 $param->setPosition($key);
@@ -247,25 +247,25 @@ abstract class AbstractFunction
         $this->setDescription($helpText);
 
         if ($returnTag) {
-            $return     = array();
+            $return     = [];
             $returnDesc = $returnTag->getDescription();
             foreach ($returnTag->getTypes() as $type) {
                 $return[] = $type;
             }
         } else {
-            $return     = array('void');
+            $return     = ['void'];
             $returnDesc = '';
         }
 
-        $paramTypesTmp = array();
-        $paramDesc     = array();
+        $paramTypesTmp = [];
+        $paramDesc     = [];
         if (empty($paramTags)) {
             foreach ($parameters as $param) {
-                $paramTypesTmp[] = array(($param->isArray()) ? 'array' : 'mixed');
+                $paramTypesTmp[] = [($param->isArray()) ? 'array' : 'mixed'];
                 $paramDesc[]     = '';
             }
         } else {
-            $paramDesc = array();
+            $paramDesc = [];
             foreach ($paramTags as $paramTag) {
                 $paramTypesTmp[] = $paramTag->getTypes();
                 $paramDesc[]     = ($paramTag->getDescription()) ? : '';
@@ -277,7 +277,7 @@ abstract class AbstractFunction
         if ($nParamTypesTmp < $paramCount) {
             $start = $paramCount - $nParamTypesTmp;
             for ($i = $start; $i < $paramCount; ++$i) {
-                $paramTypesTmp[$i] = array('mixed');
+                $paramTypesTmp[$i] = ['mixed'];
                 $paramDesc[$i]     = '';
             }
         } elseif ($nParamTypesTmp != $paramCount) {
@@ -287,7 +287,7 @@ abstract class AbstractFunction
             );
         }
 
-        $paramTypes = array();
+        $paramTypes = [];
         foreach ($paramTypesTmp as $i => $param) {
             if ($parameters[$i]->isOptional()) {
                 array_unshift($param, null);
@@ -309,7 +309,7 @@ abstract class AbstractFunction
     public function __call($method, $args)
     {
         if (method_exists($this->reflection, $method)) {
-            return call_user_func_array(array($this->reflection, $method), $args);
+            return call_user_func_array([$this->reflection, $method], $args);
         }
 
         throw new Exception\BadMethodCallException('Invalid reflection method ("' . $method . '")');

@@ -24,12 +24,12 @@ class CompilerDefinitionTest extends TestCase
 
         $this->assertTrue($definition->hasClass('ZendTest\Di\TestAsset\CompilerClasses\A'));
 
-        $assertClasses = array(
+        $assertClasses = [
             'ZendTest\Di\TestAsset\CompilerClasses\A',
             'ZendTest\Di\TestAsset\CompilerClasses\B',
             'ZendTest\Di\TestAsset\CompilerClasses\C',
             'ZendTest\Di\TestAsset\CompilerClasses\D',
-        );
+        ];
         $classes = $definition->getClasses();
         foreach ($assertClasses as $assertClass) {
             $this->assertContains($assertClass, $classes);
@@ -46,7 +46,7 @@ class CompilerDefinitionTest extends TestCase
         $this->assertTrue($definition->hasMethod('ZendTest\Di\TestAsset\CompilerClasses\C', 'setB'));
 
         $this->assertEquals(
-            array('ZendTest\Di\TestAsset\CompilerClasses\C::setB:0' => array('b', 'ZendTest\Di\TestAsset\CompilerClasses\B', true, null)),
+            ['ZendTest\Di\TestAsset\CompilerClasses\C::setB:0' => ['b', 'ZendTest\Di\TestAsset\CompilerClasses\B', true, null]],
             $definition->getMethodParameters('ZendTest\Di\TestAsset\CompilerClasses\C', 'setB')
         );
     }

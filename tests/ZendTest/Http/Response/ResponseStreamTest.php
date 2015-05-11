@@ -101,7 +101,7 @@ class ResponseStreamTest extends \PHPUnit_Framework_TestCase
 
         $data .= fread($stream, 100); //Should accept also part of body as text
 
-        $return = array();
+        $return = [];
         $return['stream'] = $stream;
         $return['data']   = $data;
 

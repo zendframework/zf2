@@ -57,11 +57,11 @@ abstract class AbstractDate implements HeaderInterface
      *
      * @var array
      */
-    protected static $dateFormats = array(
+    protected static $dateFormats = [
         self::DATE_RFC1123 => 'D, d M Y H:i:s \G\M\T',
         self::DATE_RFC1036 => 'D, d M y H:i:s \G\M\T',
         self::DATE_ANSIC   => 'D M j H:i:s Y',
-    );
+    ];
 
     /**
      * Create date-based header from string

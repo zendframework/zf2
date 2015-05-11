@@ -28,7 +28,7 @@ class ChangePasswordTest extends AbstractOnlineTestCase
         }
 
         $dn       = $this->createDn('uid=newuser,');
-        $data     = array();
+        $data     = [];
         $password = 'pa$$w0rd';
         Ldap\Attribute::setAttribute($data, 'uid', 'newuser', false);
         Ldap\Attribute::setAttribute($data, 'objectClass', 'account', true);
@@ -62,7 +62,7 @@ class ChangePasswordTest extends AbstractOnlineTestCase
         }
 
         $dn       = $this->createDn('uid=newuser,');
-        $data     = array();
+        $data     = [];
         $password = 'pa$$w0rd';
         Ldap\Attribute::setAttribute($data, 'uid', 'newuser', false);
         Ldap\Attribute::setAttribute($data, 'objectClass', 'account', true);
@@ -77,7 +77,7 @@ class ChangePasswordTest extends AbstractOnlineTestCase
             $this->getLDAP()->bind($dn, $password);
 
             $newPasswd = 'newpasswd';
-            $newData   = array();
+            $newData   = [];
             Ldap\Attribute::setPassword($newData, $newPasswd,
                 Ldap\Attribute::PASSWORD_HASH_SHA, 'userPassword'
             );
@@ -119,7 +119,7 @@ class ChangePasswordTest extends AbstractOnlineTestCase
         }
 
         $dn       = $this->createDn('cn=New User,');
-        $data     = array();
+        $data     = [];
         $password = 'pa$$w0rd';
         Ldap\Attribute::setAttribute($data, 'cn', 'New User', false);
         Ldap\Attribute::setAttribute($data, 'displayName', 'New User', false);
@@ -161,7 +161,7 @@ class ChangePasswordTest extends AbstractOnlineTestCase
         }
 
         $dn       = $this->createDn('cn=New User,');
-        $data     = array();
+        $data     = [];
         $password = 'pa$$w0rd';
         Ldap\Attribute::setAttribute($data, 'cn', 'New User', false);
         Ldap\Attribute::setAttribute($data, 'displayName', 'New User', false);
@@ -180,7 +180,7 @@ class ChangePasswordTest extends AbstractOnlineTestCase
             $this->getLDAP()->bind($dn, $password);
 
             $newPasswd = 'newpasswd';
-            $newData   = array();
+            $newData   = [];
             Ldap\Attribute::setPassword($newData, $newPasswd, Ldap\Attribute::PASSWORD_UNICODEPWD);
             $this->getLDAP()->update($dn, $newData);
 

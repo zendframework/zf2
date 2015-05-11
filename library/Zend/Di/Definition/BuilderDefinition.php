@@ -24,7 +24,7 @@ class BuilderDefinition implements DefinitionInterface
     /**
      * @var Builder\PhpClass[]
      */
-    protected $classes = array();
+    protected $classes = [];
 
     /**
      * Create classes from array
@@ -133,7 +133,7 @@ class BuilderDefinition implements DefinitionInterface
      */
     public function getClasses()
     {
-        $classNames = array();
+        $classNames = [];
 
         /* @var $class Builder\PhpClass */
         foreach ($this->classes as $class) {
@@ -227,7 +227,7 @@ class BuilderDefinition implements DefinitionInterface
             throw new Exception\RuntimeException('Cannot find class object in this builder definition.');
         }
         $methods = $class->getInjectionMethods();
-        $methodNames = array();
+        $methodNames = [];
 
         /* @var $methodObj Builder\InjectionMethod */
         foreach ($methods as $methodObj) {
@@ -309,7 +309,7 @@ class BuilderDefinition implements DefinitionInterface
             throw new Exception\RuntimeException('Cannot find method object for method ' . $method . ' in this builder definition.');
         }
 
-        $methodParameters = array();
+        $methodParameters = [];
 
         /* @var $method Builder\InjectionMethod */
         foreach ($method->getParameters() as $name => $info) {

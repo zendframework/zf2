@@ -27,7 +27,7 @@ class StripTags extends AbstractFilter
      *
      * @var array
      */
-    protected $tagsAllowed = array();
+    protected $tagsAllowed = [];
 
     /**
      * Array of allowed attributes for all allowed tags
@@ -36,7 +36,7 @@ class StripTags extends AbstractFilter
      *
      * @var array
      */
-    protected $attributesAllowed = array();
+    protected $attributesAllowed = [];
 
     /**
      * Sets the filter options
@@ -95,7 +95,7 @@ class StripTags extends AbstractFilter
     public function setTagsAllowed($tagsAllowed)
     {
         if (!is_array($tagsAllowed)) {
-            $tagsAllowed = array($tagsAllowed);
+            $tagsAllowed = [$tagsAllowed];
         }
 
         foreach ($tagsAllowed as $index => $element) {
@@ -104,17 +104,17 @@ class StripTags extends AbstractFilter
                 // Canonicalize the tag name
                 $tagName = strtolower($element);
                 // Store the tag as allowed with no attributes
-                $this->tagsAllowed[$tagName] = array();
+                $this->tagsAllowed[$tagName] = [];
             } elseif (is_string($index) && (is_array($element) || is_string($element))) {
                 // Otherwise, if a tag was provided with attributes
                 // Canonicalize the tag name
                 $tagName = strtolower($index);
                 // Canonicalize the attributes
                 if (is_string($element)) {
-                    $element = array($element);
+                    $element = [$element];
                 }
                 // Store the tag as allowed with the provided attributes
-                $this->tagsAllowed[$tagName] = array();
+                $this->tagsAllowed[$tagName] = [];
                 foreach ($element as $attribute) {
                     if (is_string($attribute)) {
                         // Canonicalize the attribute name
@@ -147,7 +147,7 @@ class StripTags extends AbstractFilter
     public function setAttributesAllowed($attributesAllowed)
     {
         if (!is_array($attributesAllowed)) {
-            $attributesAllowed = array($attributesAllowed);
+            $attributesAllowed = [$attributesAllowed];
         }
 
         // Store each attribute as allowed

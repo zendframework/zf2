@@ -24,36 +24,36 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $config = array(
-            'router' => array(
-                'routes' => array(
-                    'test' => array(
+        $config = [
+            'router' => [
+                'routes' => [
+                    'test' => [
                         'type' => 'Literal',
-                        'options' => array(
+                        'options' => [
                             'route' => '/test',
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => 'Test\Controller\Test',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            'console' => array(
-                'router' => array(
-                    'routes' => array(
-                        'test' => array(
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'console' => [
+                'router' => [
+                    'routes' => [
+                        'test' => [
                             'type' => 'Simple',
-                            'options' => array(
+                            'options' => [
                                 'route' => 'test this',
-                                'defaults' => array(
+                                'defaults' => [
                                     'controller' => 'Test\Controller\TestConsole',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $serviceConfig = $this->readAttribute(new ServiceListenerFactory, 'defaultServiceConfig');
 
@@ -88,7 +88,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         $request->setUri('http://example.com/test');
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
-        $test        = $urlHelper('test', array(), array('force_canonical' => true));
+        $test        = $urlHelper('test', [], ['force_canonical' => true]);
         $this->assertContains('/test', $test);
     }
 

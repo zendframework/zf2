@@ -22,11 +22,11 @@ class FormElementErrorsTest extends CommonTestCase
 
     public function getMessageList()
     {
-        return array(
+        return [
             'First error message',
             'Second error message',
             'Third error message',
-        );
+        ];
     }
 
     public function testLackOfMessagesResultsInEmptyMarkup()
@@ -52,7 +52,7 @@ class FormElementErrorsTest extends CommonTestCase
         $element  = new Element('foo');
         $element->setMessages($messages);
 
-        $markup = $this->helper->render($element, array('class' => 'error'));
+        $markup = $this->helper->render($element, ['class' => 'error']);
         $this->assertContains('ul class="error"', $markup);
     }
 
@@ -63,7 +63,7 @@ class FormElementErrorsTest extends CommonTestCase
         $element  = new Element('foo');
         $element->setMessages($messages);
 
-        $markup = $helper($element, array('class' => 'error'));
+        $markup = $helper($element, ['class' => 'error']);
         $this->assertContains('ul class="error"', $markup);
     }
 
@@ -76,7 +76,7 @@ class FormElementErrorsTest extends CommonTestCase
         $this->helper->setMessageOpenFormat('<div%s><span>')
                      ->setMessageCloseString('</span></div>')
                      ->setMessageSeparatorString('</span><span>')
-                     ->setAttributes(array('class' => 'error'));
+                     ->setAttributes(['class' => 'error']);
 
         $markup = $this->helper->render($element);
         $this->assertRegexp('#<div class="error">\s*<span>First error message</span>\s*<span>Second error message</span>\s*<span>Third error message</span>\s*</div>#s', $markup);
@@ -87,9 +87,9 @@ class FormElementErrorsTest extends CommonTestCase
         $messages = $this->getMessageList();
         $element  = new Element('foo');
         $element->setMessages($messages);
-        $element->setAttributes(array('class' => 'foo'));
+        $element->setAttributes(['class' => 'foo']);
 
-        $markup = $this->helper->render($element, array('class' => 'error'));
+        $markup = $this->helper->render($element, ['class' => 'error']);
         $this->assertContains('ul class="error"', $markup);
     }
 
@@ -99,28 +99,28 @@ class FormElementErrorsTest extends CommonTestCase
         $element  = new Element('foo');
         $element->setMessages($messages);
 
-        $this->helper->setAttributes(array('class' => 'error'));
+        $this->helper->setAttributes(['class' => 'error']);
 
         $this->helper->render($element);
 
-        $this->assertEquals(array('class' => 'error'), $this->helper->getAttributes());
+        $this->assertEquals(['class' => 'error'], $this->helper->getAttributes());
     }
 
     public function testRendersNestedMessageSetsAsAFlatList()
     {
-        $messages = array(
-            array(
+        $messages = [
+            [
                 'First validator message',
-            ),
-            array(
+            ],
+            [
                 'Second validator first message',
                 'Second validator second message',
-            ),
-        );
+            ],
+        ];
         $element  = new Element('foo');
         $element->setMessages($messages);
 
-        $markup = $this->helper->render($element, array('class' => 'error'));
+        $markup = $this->helper->render($element, ['class' => 'error']);
         $this->assertRegexp('#<ul class="error">\s*<li>First validator message</li>\s*<li>Second validator first message</li>\s*<li>Second validator second message</li>\s*</ul>#s', $markup);
     }
 

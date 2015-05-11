@@ -65,7 +65,7 @@ class Query
         $path = (string) $path;
         if (strstr($path, ',')) {
             $paths       = explode(',', $path);
-            $expressions = array();
+            $expressions = [];
             foreach ($paths as $path) {
                 $xpath = static::cssToXpath(trim($path));
                 if (is_string($xpath)) {
@@ -77,7 +77,7 @@ class Query
             return implode('|', $expressions);
         }
 
-        $paths    = array('//');
+        $paths    = ['//'];
         $path     = preg_replace('|\s+>\s+|', '>', $path);
         $segments = preg_split('/\s+/', $path);
         foreach ($segments as $key => $segment) {

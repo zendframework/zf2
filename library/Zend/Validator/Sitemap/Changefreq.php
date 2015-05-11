@@ -30,20 +30,20 @@ class Changefreq extends AbstractValidator
      *
      * @var array
      */
-    protected $messageTemplates = array(
+    protected $messageTemplates = [
         self::NOT_VALID => "The input is not a valid sitemap changefreq",
         self::INVALID   => "Invalid type given. String expected",
-    );
+    ];
 
     /**
      * Valid change frequencies
      *
      * @var array
      */
-    protected $changeFreqs = array(
+    protected $changeFreqs = [
         'always',  'hourly', 'daily', 'weekly',
         'monthly', 'yearly', 'never'
-    );
+    ];
 
     /**
      * Validates if a string is valid as a sitemap changefreq

@@ -1,5 +1,5 @@
 <?php
-return array(
+return [
     'one dog' => 'ein Hund',
     'two dogs' => 'zwei Hunde'
-);
+];

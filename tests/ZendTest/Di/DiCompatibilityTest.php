@@ -40,15 +40,15 @@ class DiCompatibilityTest extends \PHPUnit_Framework_TestCase
      */
     public function providesSimpleClasses()
     {
-        return array(
-            array('Zend\Di\Di'),
-            array('Zend\EventManager\EventManager'),
-            array('Zend\Filter\ToNull'),
-            array('Zend\Form\Form'),
-            array('Zend\Log\Logger'),
-            array('Zend\Stdlib\SplStack'),
-            array('Zend\View\Model\ViewModel'),
-        );
+        return [
+            ['Zend\Di\Di'],
+            ['Zend\EventManager\EventManager'],
+            ['Zend\Filter\ToNull'],
+            ['Zend\Form\Form'],
+            ['Zend\Log\Logger'],
+            ['Zend\Stdlib\SplStack'],
+            ['Zend\View\Model\ViewModel'],
+        ];
     }
 
     /**
@@ -128,10 +128,10 @@ class DiCompatibilityTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService('Request', new \stdClass);
         $serviceManager->setService('Response', new \stdClass);
 
-        return array(
-            array('Zend\Config\Config', array('array' => array())),
-            array('Zend\Db\Adapter\Adapter', array('driver' => array('driver' => 'Pdo_Sqlite'))),
-            array('Zend\Mvc\Application', array('configuration' => array(), 'serviceManager' => $serviceManager)),
-        );
+        return [
+            ['Zend\Config\Config', ['array' => []]],
+            ['Zend\Db\Adapter\Adapter', ['driver' => ['driver' => 'Pdo_Sqlite']]],
+            ['Zend\Mvc\Application', ['configuration' => [], 'serviceManager' => $serviceManager]],
+        ];
     }
 }

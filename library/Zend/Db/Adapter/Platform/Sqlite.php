@@ -18,7 +18,7 @@ class Sqlite extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
-    protected $quoteIdentifier = array('"','"');
+    protected $quoteIdentifier = ['"','"'];
 
     /**
      * {@inheritDoc}

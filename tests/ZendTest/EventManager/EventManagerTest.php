@@ -40,13 +40,13 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testAttachShouldReturnCallbackHandler()
     {
-        $listener = $this->events->attach('test', array($this, __METHOD__));
+        $listener = $this->events->attach('test', [$this, __METHOD__]);
         $this->assertInstanceOf('Zend\Stdlib\CallbackHandler', $listener);
     }
 
     public function testAttachShouldAddListenerToEvent()
     {
-        $listener  = $this->events->attach('test', array($this, __METHOD__));
+        $listener  = $this->events->attach('test', [$this, __METHOD__]);
         $listeners = $this->events->getListeners('test');
         $this->assertEquals(1, count($listeners));
         $this->assertContains($listener, $listeners);
@@ -56,7 +56,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     {
         $events = $this->events->getEvents();
         $this->assertEmpty($events, var_export($events, 1));
-        $listener = $this->events->attach('test', array($this, __METHOD__));
+        $listener = $this->events->attach('test', [$this, __METHOD__]);
         $events = $this->events->getEvents();
         $this->assertNotEmpty($events);
         $this->assertContains('test', $events);
@@ -67,9 +67,9 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $callback = function ($e) {
             return $e->getName();
         };
-        $this->events->attach(array('foo', 'bar'), $callback);
+        $this->events->attach(['foo', 'bar'], $callback);
 
-        foreach (array('foo', 'bar') as $event) {
+        foreach (['foo', 'bar'] as $event) {
             $listeners = $this->events->getListeners($event);
             $this->assertNotEmpty($listeners);
             foreach ($listeners as $listener) {
@@ -83,7 +83,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $callback = function ($e) {
             return $e->getName();
         };
-        $listeners = $this->events->attach(array('foo', 'bar'), $callback);
+        $listeners = $this->events->attach(['foo', 'bar'], $callback);
 
         $this->assertInternalType('array', $listeners);
 
@@ -95,7 +95,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testDetachShouldRemoveListenerFromEvent()
     {
-        $listener  = $this->events->attach('test', array($this, __METHOD__));
+        $listener  = $this->events->attach('test', [$this, __METHOD__]);
         $listeners = $this->events->getListeners('test');
         $this->assertContains($listener, $listeners);
         $this->events->detach($listener);
@@ -105,16 +105,16 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testDetachShouldReturnFalseIfEventDoesNotExist()
     {
-        $listener = $this->events->attach('test', array($this, __METHOD__));
+        $listener = $this->events->attach('test', [$this, __METHOD__]);
         $this->events->clearListeners('test');
         $this->assertFalse($this->events->detach($listener));
     }
 
     public function testDetachShouldReturnFalseIfListenerDoesNotExist()
     {
-        $listener1 = $this->events->attach('test', array($this, __METHOD__));
+        $listener1 = $this->events->attach('test', [$this, __METHOD__]);
         $this->events->clearListeners('test');
-        $listener2 = $this->events->attach('test', array($this, 'handleTestEvent'));
+        $listener2 = $this->events->attach('test', [$this, 'handleTestEvent']);
         $this->assertFalse($this->events->detach($listener1));
     }
 
@@ -126,8 +126,8 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testTriggerShouldTriggerAttachedListeners()
     {
-        $listener = $this->events->attach('test', array($this, 'handleTestEvent'));
-        $this->events->trigger('test', $this, array('message' => 'test message'));
+        $listener = $this->events->attach('test', [$this, 'handleTestEvent']);
+        $this->events->trigger('test', $this, ['message' => 'test message']);
         $this->assertEquals('test message', $this->message);
     }
 
@@ -141,7 +141,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
             $string = $e->getParam('string', '__NOT_FOUND__');
             return str_rot13($string);
         });
-        $responses = $this->events->trigger('string.transform', $this, array('string' => ' foo '));
+        $responses = $this->events->trigger('string.transform', $this, ['string' => ' foo ']);
         $this->assertInstanceOf('Zend\EventManager\ResponseCollection', $responses);
         $this->assertEquals(2, $responses->count());
         $this->assertEquals('foo', $responses->first());
@@ -163,8 +163,8 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $responses = $this->events->trigger(
             'foo.bar',
             $this,
-            array('string' => 'foo', 'search' => 'f'),
-            array($this, 'evaluateStringCallback')
+            ['string' => 'foo', 'search' => 'f'],
+            [$this, 'evaluateStringCallback']
         );
         $this->assertInstanceOf('Zend\EventManager\ResponseCollection', $responses);
         $this->assertSame(0, $responses->last());
@@ -180,7 +180,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
             $string = $e->getParam('string', '');
             return str_rot13($string);
         });
-        $responses = $this->events->trigger('string.transform', $this, array('string' => ' foo '));
+        $responses = $this->events->trigger('string.transform', $this, ['string' => ' foo ']);
         $this->assertTrue($responses->contains('foo'));
         $this->assertTrue($responses->contains(\str_rot13(' foo ')));
         $this->assertFalse($responses->contains(' foo '));
@@ -203,7 +203,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->events->attach('foo.bar', function () { return 'nada'; }, 3);
         $this->events->attach('foo.bar', function () { return 'found'; }, 2);
         $this->events->attach('foo.bar', function () { return 'zero'; }, 1);
-        $responses = $this->events->trigger('foo.bar', $this, array(), function ($result) {
+        $responses = $this->events->trigger('foo.bar', $this, [], function ($result) {
             return ($result === 'found');
         });
         $this->assertInstanceOf('Zend\EventManager\ResponseCollection', $responses);
@@ -219,7 +219,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->events->attach('foo.bar', function () { return 'nada'; });
         $this->events->attach('foo.bar', function () { return 'zero'; });
         $this->events->attach('foo.bar', function () { return 'found'; });
-        $responses = $this->events->trigger('foo.bar', $this, array(), function ($result) {
+        $responses = $this->events->trigger('foo.bar', $this, [], function ($result) {
             return ($result === 'found');
         });
         $this->assertInstanceOf('Zend\EventManager\ResponseCollection', $responses);
@@ -233,7 +233,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->events->attach('foo.bar', function () { return 'nada'; }, 3);
         $this->events->attach('foo.bar', function () { return 'found'; }, 2);
         $this->events->attach('foo.bar', function () { return 'zero'; }, 1);
-        $responses = $this->events->trigger('foo.bar', $this, array(), function ($result) {
+        $responses = $this->events->trigger('foo.bar', $this, [], function ($result) {
             return ($result === 'never found');
         });
         $this->assertInstanceOf('Zend\EventManager\ResponseCollection', $responses);
@@ -246,7 +246,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $aggregate = new TestAsset\MockAggregate();
         $this->events->attachAggregate($aggregate);
         $events = $this->events->getEvents();
-        foreach (array('foo.bar', 'foo.baz') as $event) {
+        foreach (['foo.bar', 'foo.baz'] as $event) {
             $this->assertContains($event, $events);
         }
     }
@@ -256,7 +256,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $aggregate = new TestAsset\MockAggregate();
         $this->events->attach($aggregate);
         $events = $this->events->getEvents();
-        foreach (array('foo.bar', 'foo.baz') as $event) {
+        foreach (['foo.bar', 'foo.baz'] as $event) {
             $this->assertContains($event, $events);
         }
     }
@@ -288,7 +288,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->events->attachAggregate($aggregate);
         $this->events->detachAggregate($aggregate);
         $events = $this->events->getEvents();
-        foreach (array('foo.bar', 'foo.baz', 'other') as $event) {
+        foreach (['foo.bar', 'foo.baz', 'other'] as $event) {
             $this->assertContains($event, $events);
         }
 
@@ -326,7 +326,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->events->attach($aggregate);
         $this->events->detach($aggregate);
         $events = $this->events->getEvents();
-        foreach (array('foo.bar', 'foo.baz', 'other') as $event) {
+        foreach (['foo.bar', 'foo.baz', 'other'] as $event) {
             $this->assertContains($event, $events);
         }
 
@@ -372,7 +372,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $this->events->attach('foo.bar', function ($e) { $e->stopPropagation(true); return 'nada'; }, 3);
         $this->events->attach('foo.bar', function ($e) { return 'found'; }, 2);
         $this->events->attach('foo.bar', function ($e) { return 'zero'; }, 1);
-        $responses = $this->events->trigger('foo.bar', $this, array());
+        $responses = $this->events->trigger('foo.bar', $this, []);
         $this->assertInstanceOf('Zend\EventManager\ResponseCollection', $responses);
         $this->assertTrue($responses->stopped());
         $this->assertEquals('nada', $responses->last());
@@ -390,13 +390,13 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
             $bar = $e->getParam('bar', '__NO_BAR__');
             return $foo . ":" . $bar;
         });
-        $responses = $this->events->trigger('foo.bar', $this, array());
+        $responses = $this->events->trigger('foo.bar', $this, []);
         $this->assertEquals('bar:baz', $responses->last());
     }
 
     public function testParametersArePassedToEventByReference()
     {
-        $params = array( 'foo' => 'bar', 'bar' => 'baz');
+        $params = [ 'foo' => 'bar', 'bar' => 'baz'];
         $args   = $this->events->prepareArgs($params);
         $this->events->attach('foo.bar', function ($e) { $e->setParam('foo', 'FOO'); });
         $this->events->attach('foo.bar', function ($e) { $e->setParam('bar', 'BAR'); });
@@ -407,7 +407,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCanPassObjectForEventParameters()
     {
-        $params = (object) array( 'foo' => 'bar', 'bar' => 'baz');
+        $params = (object) [ 'foo' => 'bar', 'bar' => 'baz'];
         $this->events->attach('foo.bar', function ($e) { $e->setParam('foo', 'FOO'); });
         $this->events->attach('foo.bar', function ($e) { $e->setParam('bar', 'BAR'); });
         $responses = $this->events->trigger('foo.bar', $this, $params);
@@ -420,7 +420,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $event = new Event();
         $event->setName(__FUNCTION__);
         $event->setTarget($this);
-        $event->setParams(array('foo' => 'bar'));
+        $event->setParams(['foo' => 'bar']);
         $this->events->attach(__FUNCTION__, function ($e) {
             return $e;
         });
@@ -432,7 +432,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     {
         $event = new Event();
         $event->setTarget($this);
-        $event->setParams(array('foo' => 'bar'));
+        $event->setParams(['foo' => 'bar']);
         $this->events->attach(__FUNCTION__, function ($e) {
             return $e;
         });
@@ -444,7 +444,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     public function testCanPassEventObjectAsArgvToTrigger()
     {
         $event = new Event();
-        $event->setParams(array('foo' => 'bar'));
+        $event->setParams(['foo' => 'bar']);
         $this->events->attach(__FUNCTION__, function ($e) {
             return $e;
         });
@@ -459,7 +459,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
         $event = new Event();
         $event->setName(__FUNCTION__);
         $event->setTarget($this);
-        $event->setParams(array('foo' => 'bar'));
+        $event->setParams(['foo' => 'bar']);
         $this->events->attach(__FUNCTION__, function ($e) {
             return $e;
         });
@@ -474,7 +474,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     {
         $event = new Event();
         $event->setTarget($this);
-        $event->setParams(array('foo' => 'bar'));
+        $event->setParams(['foo' => 'bar']);
         $this->events->attach(__FUNCTION__, function ($e) {
             return $e;
         });
@@ -489,7 +489,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     public function testCanPassEventObjectAsArgvToTriggerUntil()
     {
         $event = new Event();
-        $event->setParams(array('foo' => 'bar'));
+        $event->setParams(['foo' => 'bar']);
         $this->events->attach(__FUNCTION__, function ($e) {
             return $e;
         });
@@ -510,7 +510,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
         // Four scenarios:
         // First: normal signature:
-        $responses = $this->events->trigger(__FUNCTION__, $this, array(), function ($r) {
+        $responses = $this->events->trigger(__FUNCTION__, $this, [], function ($r) {
             return ($r instanceof EventInterface);
         });
         $this->assertTrue($responses->stopped());
@@ -542,7 +542,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testDuplicateIdentifiersAreNotRegistered()
     {
-        $events = new EventManager(array(__CLASS__, get_class($this)));
+        $events = new EventManager([__CLASS__, get_class($this)]);
         $identifiers = $events->getIdentifiers();
         $this->assertSame(count($identifiers), 1);
         $this->assertSame($identifiers[0], __CLASS__);
@@ -554,18 +554,18 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     public function testIdentifierGetterSettersWorkWithStrings()
     {
         $identifier1 = 'foo';
-        $identifiers = array($identifier1);
+        $identifiers = [$identifier1];
         $this->assertInstanceOf('Zend\EventManager\EventManager', $this->events->setIdentifiers($identifier1));
         $this->assertSame($this->events->getIdentifiers(), $identifiers);
         $identifier2 = 'baz';
-        $identifiers = array($identifier1, $identifier2);
+        $identifiers = [$identifier1, $identifier2];
         $this->assertInstanceOf('Zend\EventManager\EventManager', $this->events->addIdentifiers($identifier2));
         $this->assertSame($this->events->getIdentifiers(), $identifiers);
     }
 
     public function testIdentifierGetterSettersWorkWithArrays()
     {
-        $identifiers = array('foo', 'bar');
+        $identifiers = ['foo', 'bar'];
         $this->assertInstanceOf('Zend\EventManager\EventManager', $this->events->setIdentifiers($identifiers));
         $this->assertSame($this->events->getIdentifiers(), $identifiers);
         $identifiers[] = 'baz';
@@ -580,10 +580,10 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIdentifierGetterSettersWorkWithTraversables()
     {
-        $identifiers = new ArrayIterator(array('foo', 'bar'));
+        $identifiers = new ArrayIterator(['foo', 'bar']);
         $this->assertInstanceOf('Zend\EventManager\EventManager', $this->events->setIdentifiers($identifiers));
         $this->assertSame($this->events->getIdentifiers(), (array) $identifiers);
-        $identifiers = new ArrayIterator(array('foo', 'bar', 'baz'));
+        $identifiers = new ArrayIterator(['foo', 'bar', 'baz']);
         $this->assertInstanceOf('Zend\EventManager\EventManager', $this->events->addIdentifiers($identifiers));
 
         // This is done because the keys doesn't matter, just the values
@@ -597,13 +597,13 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
     public function testListenersAttachedWithWildcardAreTriggeredForAllEvents()
     {
         $test     = new stdClass;
-        $test->events = array();
+        $test->events = [];
         $callback = function ($e) use ($test) {
             $test->events[] = $e->getName();
         };
 
         $this->events->attach('*', $callback);
-        foreach (array('foo', 'bar', 'baz') as $event) {
+        foreach (['foo', 'bar', 'baz'] as $event) {
             $this->events->trigger($event);
             $this->assertContains($event, $test->events);
         }
@@ -638,7 +638,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testTriggerSetsStopPropagationFlagToFalse()
     {
-        $marker = (object) array('propagationIsStopped' => true);
+        $marker = (object) ['propagationIsStopped' => true];
         $this->events->attach('foo', function ($e) use ($marker) {
             $marker->propagationIsStopped = $e->propagationIsStopped();
         });
@@ -653,7 +653,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testTriggerUntilSetsStopPropagationFlagToFalse()
     {
-        $marker = (object) array('propagationIsStopped' => true);
+        $marker = (object) ['propagationIsStopped' => true];
         $this->events->attach('foo', function ($e) use ($marker) {
             $marker->propagationIsStopped = $e->propagationIsStopped();
         });
@@ -676,7 +676,7 @@ class EventManagerTest extends \PHPUnit_Framework_TestCase
             $deprecated = true;
         }, E_USER_DEPRECATED);
 
-        $this->events->triggerUntil('foo.bar', $this, array('foo' => 'bar'), function () {});
+        $this->events->triggerUntil('foo.bar', $this, ['foo' => 'bar'], function () {});
         restore_error_handler();
 
         $this->assertTrue($deprecated, 'EventManager::triggerUntil not marked as E_USER_DEPRECATED');

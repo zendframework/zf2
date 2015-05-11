@@ -37,12 +37,12 @@ class IpTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->validator = new Ip();
-        $this->options   = array(
+        $this->options   = [
             'allowipv4'      => false,
             'allowipv6'      => false,
             'allowipvfuture' => false,
             'allowliteral' => false,
-        );
+        ];
     }
 
     /**
@@ -95,12 +95,12 @@ class IpTest extends \PHPUnit_Framework_TestCase
 
     public function testLiteral()
     {
-        $this->options   = array(
+        $this->options   = [
             'allowipv4'      => true,
             'allowipv6'      => true,
             'allowipvfuture' => true,
             'allowliteral'   => true,
-        );
+        ];
         $this->validator->setOptions($this->options);
 
         $this->assertFalse($this->validator->isValid('[1.2.3.4]'));
@@ -152,7 +152,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
      */
     public function testIPv6addresses()
     {
-        $ips = array(
+        $ips = [
             '2001:0db8:0000:0000:0000:0000:1428:57ab'      => true,
             '2001:0DB8:0000:0000:0000:0000:1428:57AB'      => true,
             '[2001:0DB8:0000:0000:0000:0000:1428:57AB]'    => true,
@@ -233,7 +233,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
             'a:b:c:d:e:f::0'                               => true,
 
             'total gibberish'                              => false
-        );
+        ];
 
         foreach ($ips as $ip => $expectedOutcome) {
             if ($expectedOutcome) {
@@ -249,7 +249,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
      */
     public function testNonStringValidation()
     {
-        $this->assertFalse($this->validator->isValid(array(1 => 1)));
+        $this->assertFalse($this->validator->isValid([1 => 1]));
     }
 
     /**
@@ -265,7 +265,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
      */
     public function testIPv4AddressNotations()
     {
-        $ips = array(
+        $ips = [
             // binary notation
             '00000001.00000010.00000011.00000100'    => true,
             '10000000.02000000.00000000.00000001'    => false,
@@ -288,7 +288,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
             "001.002.003.004\n"                      => false,
             "a0.b0.c0.d0\n"                          => false,
 
-        );
+        ];
 
         foreach ($ips as $ip => $expectedOutcome) {
             if ($expectedOutcome) {
@@ -312,46 +312,46 @@ class IpTest extends \PHPUnit_Framework_TestCase
 
     public function iPvFutureAddressesProvider()
     {
-        return array(
-            array("[v1.09azAZ-._~!$&'()*+,;=:]:80", false),
-            array("[v1.09azAZ-._~!$&'()*+,;=:]", true),
-            array("[v1.09azAZ-._~!$&'()*+,;=:", false),
-            array("v1.09azAZ-._~!$&'()*+,;=:]", false),
-            array("v1.09azAZ-._~!$&'()*+,;=:", true),
-            array("v1.09azAZ-._~!$&'()*+,;=", true),
-            array("v1.09azAZ-._~!$&'()*+,;", true),
-            array("v1.09azAZ-._~!$&'()*+,", true),
-            array("v1.09azAZ-._~!$&'()*+", true),
-            array("v1.09azAZ-._~!$&'()*", true),
-            array("v1.09azAZ-._~!$&'()", true),
-            array("v1.09azAZ-._~!$&'(", true),
-            array("v1.09azAZ-._~!$&'", true),
-            array("v1.09azAZ-._~!$&", true),
-            array("v1.09azAZ-._~!$", true),
-            array("v1.09azAZ-._~!", true),
-            array("v1.09azAZ-._~", true),
-            array("v1.09azAZ-._", true),
-            array("v1.09azAZ-.", true),
-            array("v1.09azAZ-", true),
-            array("v1.09azAZ", true),
-            array("v1.09azA", true),
-            array("v1.09az", true),
-            array("v1.09a", true),
-            array("v1.09", true),
-            array("v1.0", true),
-            array("v1.", false),
-            array("v1", false),
-            array("v", false),
-            array("", false),
-            array("vFF.Z", true),
-            array("vFG./", false),
-            array("v1./", false),
-            array("v1.?", false),
-            array("v1.#", false),
-            array("v1.[", false),
-            array("v1.]", false),
-            array("v1.@", false),
-        );
+        return [
+            ["[v1.09azAZ-._~!$&'()*+,;=:]:80", false],
+            ["[v1.09azAZ-._~!$&'()*+,;=:]", true],
+            ["[v1.09azAZ-._~!$&'()*+,;=:", false],
+            ["v1.09azAZ-._~!$&'()*+,;=:]", false],
+            ["v1.09azAZ-._~!$&'()*+,;=:", true],
+            ["v1.09azAZ-._~!$&'()*+,;=", true],
+            ["v1.09azAZ-._~!$&'()*+,;", true],
+            ["v1.09azAZ-._~!$&'()*+,", true],
+            ["v1.09azAZ-._~!$&'()*+", true],
+            ["v1.09azAZ-._~!$&'()*", true],
+            ["v1.09azAZ-._~!$&'()", true],
+            ["v1.09azAZ-._~!$&'(", true],
+            ["v1.09azAZ-._~!$&'", true],
+            ["v1.09azAZ-._~!$&", true],
+            ["v1.09azAZ-._~!$", true],
+            ["v1.09azAZ-._~!", true],
+            ["v1.09azAZ-._~", true],
+            ["v1.09azAZ-._", true],
+            ["v1.09azAZ-.", true],
+            ["v1.09azAZ-", true],
+            ["v1.09azAZ", true],
+            ["v1.09azA", true],
+            ["v1.09az", true],
+            ["v1.09a", true],
+            ["v1.09", true],
+            ["v1.0", true],
+            ["v1.", false],
+            ["v1", false],
+            ["v", false],
+            ["", false],
+            ["vFF.Z", true],
+            ["vFG./", false],
+            ["v1./", false],
+            ["v1.?", false],
+            ["v1.#", false],
+            ["v1.[", false],
+            ["v1.]", false],
+            ["v1.@", false],
+        ];
     }
 
     /**
@@ -361,7 +361,7 @@ class IpTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     public function testEqualsMessageTemplates()

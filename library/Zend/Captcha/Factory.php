@@ -17,12 +17,12 @@ abstract class Factory
     /**
      * @var array Known captcha types
      */
-    protected static $classMap = array(
+    protected static $classMap = [
         'dumb'      => 'Zend\Captcha\Dumb',
         'figlet'    => 'Zend\Captcha\Figlet',
         'image'     => 'Zend\Captcha\Image',
         'recaptcha' => 'Zend\Captcha\ReCaptcha',
-    );
+    ];
 
     /**
      * Create a captcha adapter instance

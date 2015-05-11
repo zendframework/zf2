@@ -1,5 +1,5 @@
 <?php
-return array(
-    'indexed' => array('bar'),
+return [
+    'indexed' => ['bar'],
     'keyed'   => 'bar',
-);
+];

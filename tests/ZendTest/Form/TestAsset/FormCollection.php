@@ -20,23 +20,23 @@ class FormCollection extends Form
         $this->setInputFilter(new InputFilter());
 
         $element = new ColorElement('color');
-        $this->add(array(
+        $this->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'colors',
-            'options' => array(
+            'options' => [
                 'count' => 2,
                 'target_element' => $element
-            )
-        ));
+            ]
+        ]);
 
         $fieldset = new BasicFieldset();
-        $this->add(array(
+        $this->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'fieldsets',
-            'options' => array(
+            'options' => [
                 'count' => 2,
                 'target_element' => $fieldset
-            )
-        ));
+            ]
+        ]);
     }
 }

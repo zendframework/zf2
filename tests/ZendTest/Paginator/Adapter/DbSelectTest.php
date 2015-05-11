@@ -49,8 +49,8 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
 
         $this->mockSql = $this->getMock(
             'Zend\Db\Sql\Sql',
-            array('prepareStatementForSqlObject', 'execute'),
-            array($this->getMockForAbstractClass('Zend\Db\Adapter\Adapter', array($mockDriver, $mockPlatform)))
+            ['prepareStatementForSqlObject', 'execute'],
+            [$this->getMockForAbstractClass('Zend\Db\Adapter\Adapter', [$mockDriver, $mockPlatform])]
         );
 
         $this
@@ -70,12 +70,12 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
         $this->mockSelect->expects($this->once())->method('limit')->with($this->equalTo(10));
         $this->mockSelect->expects($this->once())->method('offset')->with($this->equalTo(2));
         $items = $this->dbSelect->getItems(2, 10);
-        $this->assertEquals(array(), $items);
+        $this->assertEquals([], $items);
     }
 
     public function testCount()
     {
-        $this->mockResult->expects($this->once())->method('current')->will($this->returnValue(array(DbSelect::ROW_COUNT_COLUMN_NAME => 5)));
+        $this->mockResult->expects($this->once())->method('current')->will($this->returnValue([DbSelect::ROW_COUNT_COLUMN_NAME => 5]));
 
         $this->mockSelect->expects($this->exactly(3))->method('reset'); // called for columns, limit, offset, order
 
@@ -86,7 +86,7 @@ class DbSelectTest extends \PHPUnit_Framework_TestCase
     public function testCustomCount()
     {
         $this->dbSelect = new DbSelect($this->mockSelect, $this->mockSql, null, $this->mockSelectCount);
-        $this->mockResult->expects($this->once())->method('current')->will($this->returnValue(array(DbSelect::ROW_COUNT_COLUMN_NAME => 7)));
+        $this->mockResult->expects($this->once())->method('current')->will($this->returnValue([DbSelect::ROW_COUNT_COLUMN_NAME => 7]));
 
         $count = $this->dbSelect->count();
         $this->assertEquals(7, $count);

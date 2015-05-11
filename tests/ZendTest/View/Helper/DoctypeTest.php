@@ -66,14 +66,14 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
 
     public function testIsXhtmlReturnsTrueForXhtmlDoctypes()
     {
-        $types = array(
+        $types = [
             Helper\Doctype::XHTML1_STRICT,
             Helper\Doctype::XHTML1_TRANSITIONAL,
             Helper\Doctype::XHTML1_FRAMESET,
             Helper\Doctype::XHTML1_RDFA,
             Helper\Doctype::XHTML1_RDFA11,
             Helper\Doctype::XHTML5
-        );
+        ];
 
         foreach ($types as $type) {
             $doctype = $this->helper->__invoke($type);
@@ -88,11 +88,11 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
 
     public function testIsXhtmlReturnsFalseForNonXhtmlDoctypes()
     {
-        $types = array(
+        $types = [
             Helper\Doctype::HTML4_STRICT,
             Helper\Doctype::HTML4_LOOSE,
             Helper\Doctype::HTML4_FRAMESET,
-        );
+        ];
 
         foreach ($types as $type) {
             $doctype = $this->helper->__invoke($type);
@@ -107,20 +107,20 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
 
     public function testIsHtml5()
     {
-        foreach (array(Helper\Doctype::HTML5, Helper\Doctype::XHTML5) as $type) {
+        foreach ([Helper\Doctype::HTML5, Helper\Doctype::XHTML5] as $type) {
             $doctype = $this->helper->__invoke($type);
             $this->assertEquals($type, $doctype->getDoctype());
             $this->assertTrue($doctype->isHtml5());
         }
 
-        $types = array(
+        $types = [
             Helper\Doctype::HTML4_STRICT,
             Helper\Doctype::HTML4_LOOSE,
             Helper\Doctype::HTML4_FRAMESET,
             Helper\Doctype::XHTML1_STRICT,
             Helper\Doctype::XHTML1_TRANSITIONAL,
             Helper\Doctype::XHTML1_FRAMESET
-        );
+        ];
 
 
         foreach ($types as $type) {
@@ -141,7 +141,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->helper->__invoke(Helper\Doctype::HTML5)->isRdfa());
 
         // build-in doctypes
-        $doctypes = array(
+        $doctypes = [
             Helper\Doctype::XHTML11,
             Helper\Doctype::XHTML1_STRICT,
             Helper\Doctype::XHTML1_TRANSITIONAL,
@@ -150,7 +150,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
             Helper\Doctype::HTML4_STRICT,
             Helper\Doctype::HTML4_LOOSE,
             Helper\Doctype::HTML4_FRAMESET,
-        );
+        ];
 
         foreach ($doctypes as $type) {
             $this->assertFalse($this->helper->__invoke($type)->isRdfa());

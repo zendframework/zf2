@@ -21,7 +21,7 @@ class Row
      *
      * @var array
      */
-    protected $columns = array();
+    protected $columns = [];
 
     /**
      * Temporary stored column widths
@@ -123,7 +123,7 @@ class Row
     public function render(array $columnWidths, Decorator $decorator, $padding = 0)
     {
         // Prepare an array to store all column widths
-        $this->columnWidths = array();
+        $this->columnWidths = [];
 
         // If there is no single column, create a column which spans over the
         // entire row
@@ -132,7 +132,7 @@ class Row
         }
 
         // First we have to render all columns, to get the maximum height
-        $renderedColumns = array();
+        $renderedColumns = [];
         $maxHeight       = 0;
         $colNum          = 0;
         foreach ($this->columns as $column) {
@@ -166,7 +166,7 @@ class Row
         if ($colNum < count($columnWidths)) {
             $remainingWidth = (count($columnWidths) - $colNum - 1) +
                                array_sum(array_slice($columnWidths, $colNum));
-            $renderedColumns[] = array(str_repeat(' ', $remainingWidth));
+            $renderedColumns[] = [str_repeat(' ', $remainingWidth)];
 
             $this->columnWidths[] = $remainingWidth;
         }

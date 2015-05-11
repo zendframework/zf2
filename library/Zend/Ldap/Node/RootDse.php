@@ -30,7 +30,7 @@ class RootDse extends AbstractNode
     public static function create(Ldap\Ldap $ldap)
     {
         $dn   = Ldap\Dn::fromString('');
-        $data = $ldap->getEntry($dn, array('*', '+'), true);
+        $data = $ldap->getEntry($dn, ['*', '+'], true);
         if (isset($data['domainfunctionality'])) {
             return new RootDse\ActiveDirectory($dn, $data);
         } elseif (isset($data['dsaname'])) {

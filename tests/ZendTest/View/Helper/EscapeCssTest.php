@@ -15,7 +15,7 @@ use Zend\View\Helper\EscapeCss as EscapeHelper;
 
 class EscapeCssTest extends TestCase
 {
-    protected $supportedEncodings = array(
+    protected $supportedEncodings = [
         'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
         'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
         'ibm866',       '866',          'cp1251',       'windows-1251',
@@ -25,7 +25,7 @@ class EscapeCssTest extends TestCase
         'big5-hkscs',   'shift_jis',    'sjis',         'sjis-win',
         'cp932',        '932',          'euc-jp',       'eucjp',
         'eucjp-win',    'macroman'
-    );
+    ];
 
     public function setUp()
     {
@@ -74,24 +74,24 @@ class EscapeCssTest extends TestCase
 
     public function testAllowsRecursiveEscapingOfArrays()
     {
-        $original = array(
+        $original = [
             'foo' => '<b>bar</b>',
-            'baz' => array(
+            'baz' => [
                 '<em>bat</em>',
-                'second' => array(
+                'second' => [
                     '<i>third</i>',
-                ),
-            ),
-        );
-        $expected = array(
+                ],
+            ],
+        ];
+        $expected = [
             'foo' => '\3C b\3E bar\3C \2F b\3E ',
-            'baz' => array(
+            'baz' => [
                 '\3C em\3E bat\3C \2F em\3E ',
-                'second' => array(
+                'second' => [
                     '\3C i\3E third\3C \2F i\3E ',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $test = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
         $this->assertEquals($expected, $test);
     }
@@ -108,56 +108,56 @@ class EscapeCssTest extends TestCase
 
     public function testCanRecurseObjectImplementingToArray()
     {
-        $original = array(
+        $original = [
             'foo' => '<b>bar</b>',
-            'baz' => array(
+            'baz' => [
                 '<em>bat</em>',
-                'second' => array(
+                'second' => [
                     '<i>third</i>',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $object = new TestAsset\ToArray();
         $object->array = $original;
 
-        $expected = array(
+        $expected = [
             'foo' => '\3C b\3E bar\3C \2F b\3E ',
-            'baz' => array(
+            'baz' => [
                 '\3C em\3E bat\3C \2F em\3E ',
-                'second' => array(
+                'second' => [
                     '\3C i\3E third\3C \2F i\3E ',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
     public function testCanRecurseObjectProperties()
     {
-        $original = array(
+        $original = [
             'foo' => '<b>bar</b>',
-            'baz' => array(
+            'baz' => [
                 '<em>bat</em>',
-                'second' => array(
+                'second' => [
                     '<i>third</i>',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $object = new stdClass();
         foreach ($original as $key => $value) {
             $object->$key = $value;
         }
 
-        $expected = array(
+        $expected = [
             'foo' => '\3C b\3E bar\3C \2F b\3E ',
-            'baz' => array(
+            'baz' => [
                 '\3C em\3E bat\3C \2F em\3E ',
-                'second' => array(
+                'second' => [
                     '\3C i\3E third\3C \2F i\3E ',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }

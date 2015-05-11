@@ -36,12 +36,12 @@ class Xml implements ReaderInterface
      *
      * @var array
      */
-    protected $textNodes = array(
+    protected $textNodes = [
         XMLReader::TEXT,
         XMLReader::CDATA,
         XMLReader::WHITESPACE,
         XMLReader::SIGNIFICANT_WHITESPACE
-    );
+    ];
 
     /**
      * fromFile(): defined by Reader interface.
@@ -91,7 +91,7 @@ class Xml implements ReaderInterface
     public function fromString($string)
     {
         if (empty($string)) {
-            return array();
+            return [];
         }
         $this->reader = new XMLReader();
 
@@ -132,7 +132,7 @@ class Xml implements ReaderInterface
      */
     protected function processNextElement()
     {
-        $children = array();
+        $children = [];
         $text     = '';
 
         while ($this->reader->read()) {
@@ -145,18 +145,18 @@ class Xml implements ReaderInterface
                 $name       = $this->reader->name;
 
                 if ($this->reader->isEmptyElement) {
-                    $child = array();
+                    $child = [];
                 } else {
                     $child = $this->processNextElement();
                 }
 
                 if ($attributes) {
                     if (is_string($child)) {
-                        $child = array('_' => $child);
+                        $child = ['_' => $child];
                     }
 
                     if (! is_array($child)) {
-                        $child = array();
+                        $child = [];
                     }
 
                     $child = array_merge($child, $attributes);
@@ -164,7 +164,7 @@ class Xml implements ReaderInterface
 
                 if (isset($children[$name])) {
                     if (!is_array($children[$name]) || !array_key_exists(0, $children[$name])) {
-                        $children[$name] = array($children[$name]);
+                        $children[$name] = [$children[$name]];
                     }
 
                     $children[$name][] = $child;
@@ -188,7 +188,7 @@ class Xml implements ReaderInterface
      */
     protected function getAttributes()
     {
-        $attributes = array();
+        $attributes = [];
 
         if ($this->reader->hasAttributes) {
             while ($this->reader->moveToNextAttribute()) {

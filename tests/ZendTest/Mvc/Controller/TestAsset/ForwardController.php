@@ -15,7 +15,7 @@ class ForwardController extends AbstractActionController
 {
     public function testAction()
     {
-        return array('content' => __METHOD__);
+        return ['content' => __METHOD__];
     }
 
     public function testMatchesAction()
@@ -26,9 +26,9 @@ class ForwardController extends AbstractActionController
 
     public function notFoundAction()
     {
-        return array(
+        return [
             'status' => 'not-found',
             'params' => $this->params()->fromRoute(),
-        );
+        ];
     }
 }

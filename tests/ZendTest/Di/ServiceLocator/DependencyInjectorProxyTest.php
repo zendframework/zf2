@@ -25,7 +25,7 @@ class DependencyInjectorProxyTest extends TestCase
         $a = new A();
         $di->instanceManager()->setParameters(
             'ZendTest\Di\TestAsset\SetterInjection\B',
-            array('a' => $a)
+            ['a' => $a]
         );
         $proxy = new DependencyInjectorProxy($di);
         $b = $proxy->get('ZendTest\Di\TestAsset\SetterInjection\B');

@@ -35,10 +35,10 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     {
         $this->baseDir = realpath(__DIR__ . '/..');
         $this->stack   = new TemplatePathStack();
-        $this->paths   = array(
+        $this->paths   = [
             TemplatePathStack::normalizePath($this->baseDir),
             TemplatePathStack::normalizePath($this->baseDir . '/_templates'),
-        );
+        ];
     }
 
     public function testAddPathAddsPathToStack()
@@ -51,10 +51,10 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
 
     public function testPathsAreProcessedAsStack()
     {
-        $paths = array(
+        $paths = [
             TemplatePathStack::normalizePath($this->baseDir),
             TemplatePathStack::normalizePath($this->baseDir . '/_files'),
-        );
+        ];
         foreach ($paths as $path) {
             $this->stack->addPath($path);
         }
@@ -65,10 +65,10 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     public function testAddPathsAddsPathsToStack()
     {
         $this->stack->addPath($this->baseDir . '/Helper');
-        $paths = array(
+        $paths = [
             TemplatePathStack::normalizePath($this->baseDir),
             TemplatePathStack::normalizePath($this->baseDir . '/_files'),
-        );
+        ];
         $this->stack->addPaths($paths);
         array_unshift($paths, TemplatePathStack::normalizePath($this->baseDir . '/Helper'));
         $this->assertEquals(array_reverse($paths), $this->stack->getPaths()->toArray());
@@ -77,20 +77,20 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     public function testSetPathsOverwritesStack()
     {
         $this->stack->addPath($this->baseDir . '/Helper');
-        $paths = array(
+        $paths = [
             TemplatePathStack::normalizePath($this->baseDir),
             TemplatePathStack::normalizePath($this->baseDir . '/_files'),
-        );
+        ];
         $this->stack->setPaths($paths);
         $this->assertEquals(array_reverse($paths), $this->stack->getPaths()->toArray());
     }
 
     public function testClearPathsClearsStack()
     {
-        $paths = array(
+        $paths = [
             $this->baseDir,
             $this->baseDir . '/_files',
-        );
+        ];
         $this->stack->setPaths($paths);
         $this->stack->clearPaths();
         $this->assertEquals(0, $this->stack->getPaths()->count());
@@ -175,13 +175,13 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
 
     public function invalidOptions()
     {
-        return array(
-            array(true),
-            array(1),
-            array(1.0),
-            array('foo'),
-            array(new \stdClass),
-        );
+        return [
+            [true],
+            [1],
+            [1.0],
+            ['foo'],
+            [new \stdClass],
+        ];
     }
 
     /**
@@ -200,15 +200,15 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
      */
     public function validOptions()
     {
-        $options = array(
+        $options = [
             'lfi_protection'     => false,
             'use_stream_wrapper' => true,
             'default_suffix'     => 'php',
-        );
-        return array(
-            array($options),
-            array(new \ArrayObject($options)),
-        );
+        ];
+        return [
+            [$options],
+            [new \ArrayObject($options)],
+        ];
     }
 
     /**

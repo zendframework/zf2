@@ -170,7 +170,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testParamsShouldAcceptArrayOfTypes()
     {
-        $type   = array('integer', 'string');
+        $type   = ['integer', 'string'];
         $this->service->addParam($type);
         $params = $this->service->getParams();
         $param  = array_shift($params);
@@ -187,9 +187,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldBeAbleToOrderParams()
     {
-        $this->service->addParam('integer', array(), 4)
+        $this->service->addParam('integer', [], 4)
                       ->addParam('string')
-                      ->addParam('boolean', array(), 3);
+                      ->addParam('boolean', [], 3);
         $params = $this->service->getParams();
 
         $this->assertEquals(3, count($params));
@@ -206,12 +206,12 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->service->addParam(
             'integer',
-            array(
+            [
                 'name'        => 'foo',
                 'optional'    => false,
                 'default'     => 1,
                 'description' => 'Foo parameter',
-            )
+            ]
         );
         $params = $this->service->getParams();
         $param  = array_shift($params);
@@ -223,11 +223,11 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldBeAbleToAddMultipleParamsAtOnce()
     {
-        $this->service->addParams(array(
-            array('type' => 'integer', 'order' => 4),
-            array('type' => 'string', 'name' => 'foo'),
-            array('type' => 'boolean', 'order' => 3),
-        ));
+        $this->service->addParams([
+            ['type' => 'integer', 'order' => 4],
+            ['type' => 'string', 'name' => 'foo'],
+            ['type' => 'boolean', 'order' => 3],
+        ]);
         $params = $this->service->getParams();
 
         $this->assertEquals(3, count($params));
@@ -248,10 +248,10 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $params = $this->service->getParams();
         $this->assertEquals(3, count($params));
 
-        $this->service->setParams(array(
-            array('type' => 'string'),
-            array('type' => 'integer'),
-        ));
+        $this->service->setParams([
+            ['type' => 'string'],
+            ['type' => 'integer'],
+        ]);
         $test = $this->service->getParams();
         $this->assertNotEquals($params, $test);
         $this->assertEquals(2, count($test));
@@ -272,7 +272,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     public function testReturnAccessorsShouldAllowArrayOfTypes()
     {
         $this->testReturnShouldBeNullByDefault();
-        $type = array('integer', 'string');
+        $type = ['integer', 'string'];
         $this->service->setReturn($type);
         $this->assertEquals($type, $this->service->getReturn());
     }

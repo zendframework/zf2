@@ -22,7 +22,7 @@ class HydratorStrategy extends DefaultStrategy
 
     public function __construct()
     {
-        $this->simulatedStorageDevice = array();
+        $this->simulatedStorageDevice = [];
         $this->simulatedStorageDevice[] = new HydratorStrategyEntityB(111, 'AAA');
         $this->simulatedStorageDevice[] = new HydratorStrategyEntityB(222, 'BBB');
         $this->simulatedStorageDevice[] = new HydratorStrategyEntityB(333, 'CCC');
@@ -30,7 +30,7 @@ class HydratorStrategy extends DefaultStrategy
 
     public function extract($value)
     {
-        $result = array();
+        $result = [];
         foreach ($value as $instance) {
             $result[] = $instance->getField1();
         }
@@ -41,7 +41,7 @@ class HydratorStrategy extends DefaultStrategy
     {
         $result = $value;
         if (is_array($value)) {
-            $result = array();
+            $result = [];
             foreach ($value as $field1) {
                 $result[] = $this->findEntity($field1);
             }

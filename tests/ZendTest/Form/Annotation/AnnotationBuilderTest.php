@@ -41,7 +41,7 @@ class AnnotationBuilderTest extends TestCase
         $this->assertInstanceOf('Zend\Form\Element', $password);
         $attributes = $password->getAttributes();
         $this->assertEquals(
-            array('type' => 'password', 'label' => 'Enter your password', 'name' => 'password'),
+            ['type' => 'password', 'label' => 'Enter your password', 'name' => 'password'],
             $attributes
         );
         $this->assertNull($password->getAttribute('required'));
@@ -85,7 +85,7 @@ class AnnotationBuilderTest extends TestCase
         $this->assertEquals('text', $attributes['type']);
 
         $this->assertObjectHasAttribute('validationGroup', $form);
-        $this->assertAttributeEquals(array('omit', 'keep'), 'validationGroup', $form);
+        $this->assertAttributeEquals(['omit', 'keep'], 'validationGroup', $form);
     }
 
     public function testComplexEntityCreationWithPriorities()
@@ -158,8 +158,8 @@ class AnnotationBuilderTest extends TestCase
         $this->assertTrue($form->has('email'));
 
         $this->assertEquals('extended', $form->getName());
-        $expected = array('username', 'password', 'email');
-        $test     = array();
+        $expected = ['username', 'password', 'email'];
+        $test     = [];
         foreach ($form as $element) {
             $test[] = $element->getName();
         }
@@ -239,7 +239,7 @@ class AnnotationBuilderTest extends TestCase
      */
     public function provideOptionsAnnotationAndComposedObjectAnnotation()
     {
-        return array(array('child'), array('childTheSecond'));
+        return [['child'], ['childTheSecond']];
     }
 
     /**
@@ -267,7 +267,7 @@ class AnnotationBuilderTest extends TestCase
      */
     public function provideOptionsAnnotationAndComposedObjectAnnotationNoneCollection()
     {
-        return array(array('childTheThird'), array('childTheFourth'));
+        return [['childTheThird'], ['childTheFourth']];
     }
 
     public function testCanHandleOptionsAnnotation()
@@ -284,7 +284,7 @@ class AnnotationBuilderTest extends TestCase
         $this->assertInstanceOf('Zend\Form\Element', $username);
 
         $this->assertEquals('Username:', $username->getLabel());
-        $this->assertEquals(array('class' => 'label'), $username->getLabelAttributes());
+        $this->assertEquals(['class' => 'label'], $username->getLabelAttributes());
     }
 
     public function testCanHandleHydratorArrayAnnotation()
@@ -389,10 +389,10 @@ class AnnotationBuilderTest extends TestCase
         $inputFilter = $form->getInputFilter();
 
         $this->assertTrue($inputFilter->has('input'));
-        $expected = array(
+        $expected = [
             'Zend\InputFilter\InputInterface',
             'ZendTest\Form\TestAsset\Annotation\InputFilterInput',
-        );
+        ];
         foreach ($expected as $expectedInstance) {
             $this->assertInstanceOf($expectedInstance, $inputFilter->get('input'));
         }

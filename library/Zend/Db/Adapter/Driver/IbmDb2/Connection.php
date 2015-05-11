@@ -116,11 +116,11 @@ class Connection extends AbstractConnection
             return;
         };
 
-        $database     = $findParameterValue(array('database', 'db'));
-        $username     = $findParameterValue(array('username', 'uid', 'UID'));
-        $password     = $findParameterValue(array('password', 'pwd', 'PWD'));
-        $isPersistent = $findParameterValue(array('persistent', 'PERSISTENT', 'Persistent'));
-        $options      = (isset($p['driver_options']) ? $p['driver_options'] : array());
+        $database     = $findParameterValue(['database', 'db']);
+        $username     = $findParameterValue(['username', 'uid', 'UID']);
+        $password     = $findParameterValue(['password', 'pwd', 'PWD']);
+        $isPersistent = $findParameterValue(['persistent', 'PERSISTENT', 'Persistent']);
+        $options      = (isset($p['driver_options']) ? $p['driver_options'] : []);
         $connect      = ((bool) $isPersistent) ? 'db2_pconnect' : 'db2_connect';
 
         $this->resource = $connect($database, $username, $password, $options);

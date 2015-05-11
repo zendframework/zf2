@@ -18,10 +18,10 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorOptions()
     {
-        $filter = new BooleanFilter(array(
+        $filter = new BooleanFilter([
             'type'    => BooleanFilter::TYPE_INTEGER,
             'casting' => false,
-        ));
+        ]);
 
         $this->assertEquals(BooleanFilter::TYPE_INTEGER, $filter->getType());
         $this->assertFalse($filter->getCasting());
@@ -86,7 +86,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
     public function testCombinedTypes($typeData, $testData)
     {
         foreach ($typeData as $type) {
-            $filter = new BooleanFilter(array('type' => $type));
+            $filter = new BooleanFilter(['type' => $type]);
             foreach ($testData as $data) {
                 list($value, $expected) = $data;
                 $message = sprintf(
@@ -103,17 +103,17 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
 
     public function testLocalized()
     {
-        $filter = new BooleanFilter(array(
+        $filter = new BooleanFilter([
             'type' => BooleanFilter::TYPE_LOCALIZED,
-            'translations' => array(
+            'translations' => [
                 'yes' => true,
                 'y'   => true,
                 'no'  => false,
                 'n'   => false,
                 'yay' => true,
                 'nay' => false,
-            )
-        ));
+            ]
+        ]);
 
         $this->assertTrue($filter->filter('yes'));
         $this->assertTrue($filter->filter('yay'));
@@ -136,339 +136,339 @@ class BooleanTest extends \PHPUnit_Framework_TestCase
 
     public static function defaultTestProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, false),
-            array(1, true),
-            array(0.0, false),
-            array(1.0, true),
-            array('', false),
-            array('abc', true),
-            array('0', false),
-            array('1', true),
-            array(array(), false),
-            array(array(0), true),
-            array(null, false),
-            array('false', true),
-            array('true', true),
-            array('no', true),
-            array('yes', true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, false],
+            [1, true],
+            [0.0, false],
+            [1.0, true],
+            ['', false],
+            ['abc', true],
+            ['0', false],
+            ['1', true],
+            [[], false],
+            [[0], true],
+            [null, false],
+            ['false', true],
+            ['true', true],
+            ['no', true],
+            ['yes', true],
+        ];
     }
 
     public static function noCastingTestProvider()
     {
-        return array(
-            array(false, false),
-            array(true, true),
-            array(0, false),
-            array(1, true),
-            array(2, 2),
-            array(0.0, false),
-            array(1.0, true),
-            array(0.5, 0.5),
-            array('', false),
-            array('abc', 'abc'),
-            array('0', false),
-            array('1', true),
-            array('2', '2'),
-            array(array(), false),
-            array(array(0), array(0)),
-            array(null, null),
-            array('false', false),
-            array('true', true),
-        );
+        return [
+            [false, false],
+            [true, true],
+            [0, false],
+            [1, true],
+            [2, 2],
+            [0.0, false],
+            [1.0, true],
+            [0.5, 0.5],
+            ['', false],
+            ['abc', 'abc'],
+            ['0', false],
+            ['1', true],
+            ['2', '2'],
+            [[], false],
+            [[0], [0]],
+            [null, null],
+            ['false', false],
+            ['true', true],
+        ];
     }
 
     public static function typeTestProvider()
     {
-        return array(
-            array(
+        return [
+            [
                 BooleanFilter::TYPE_BOOLEAN,
-                array(
-                    array(false, false),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, false],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_INTEGER,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, false),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, false],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_FLOAT,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, false),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, false],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_STRING,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', false),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', false],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_ZERO_STRING,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', false),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', false],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_EMPTY_ARRAY,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), false),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], false],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_NULL,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, false),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, false],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_PHP,
-                array(
-                    array(false, false),
-                    array(true, true),
-                    array(0, false),
-                    array(1, true),
-                    array(0.0, false),
-                    array(1.0, true),
-                    array('', false),
-                    array('abc', true),
-                    array('0', false),
-                    array('1', true),
-                    array(array(), false),
-                    array(array(0), true),
-                    array(null, false),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, false],
+                    [true, true],
+                    [0, false],
+                    [1, true],
+                    [0.0, false],
+                    [1.0, true],
+                    ['', false],
+                    ['abc', true],
+                    ['0', false],
+                    ['1', true],
+                    [[], false],
+                    [[0], true],
+                    [null, false],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_FALSE_STRING,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', false),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', false],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
             // default behaviour with no translations provided
             // all values filtered as true
-            array(
+            [
                 BooleanFilter::TYPE_LOCALIZED,
-                array(
-                    array(false, true),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', true),
-                    array('abc', true),
-                    array('0', true),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-            array(
+                [
+                    [false, true],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', true],
+                    ['abc', true],
+                    ['0', true],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+            [
                 BooleanFilter::TYPE_ALL,
-                array(
-                    array(false, false),
-                    array(true, true),
-                    array(0, false),
-                    array(1, true),
-                    array(0.0, false),
-                    array(1.0, true),
-                    array('', false),
-                    array('abc', true),
-                    array('0', false),
-                    array('1', true),
-                    array(array(), false),
-                    array(array(0), true),
-                    array(null, false),
-                    array('false', false),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            ),
-        );
+                [
+                    [false, false],
+                    [true, true],
+                    [0, false],
+                    [1, true],
+                    [0.0, false],
+                    [1.0, true],
+                    ['', false],
+                    ['abc', true],
+                    ['0', false],
+                    ['1', true],
+                    [[], false],
+                    [[0], true],
+                    [null, false],
+                    ['false', false],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ],
+        ];
     }
 
     public static function combinedTypeTestProvider()
     {
-        return array(
-            array(
-                array(
-                    array(
+        return [
+            [
+                [
+                    [
                         BooleanFilter::TYPE_ZERO_STRING,
                         BooleanFilter::TYPE_STRING,
                         BooleanFilter::TYPE_BOOLEAN,
-                    ),
-                    array(
+                    ],
+                    [
                         'zero',
                         'string',
                         'boolean',
-                    ),
+                    ],
                     BooleanFilter::TYPE_ZERO_STRING | BooleanFilter::TYPE_STRING | BooleanFilter::TYPE_BOOLEAN,
                     BooleanFilter::TYPE_ZERO_STRING + BooleanFilter::TYPE_STRING + BooleanFilter::TYPE_BOOLEAN,
-                ),
-                array(
-                    array(false, false),
-                    array(true, true),
-                    array(0, true),
-                    array(1, true),
-                    array(0.0, true),
-                    array(1.0, true),
-                    array('', false),
-                    array('abc', true),
-                    array('0', false),
-                    array('1', true),
-                    array(array(), true),
-                    array(array(0), true),
-                    array(null, true),
-                    array('false', true),
-                    array('true', true),
-                    array('no', true),
-                    array('yes', true),
-                )
-            )
-        );
+                ],
+                [
+                    [false, false],
+                    [true, true],
+                    [0, true],
+                    [1, true],
+                    [0.0, true],
+                    [1.0, true],
+                    ['', false],
+                    ['abc', true],
+                    ['0', false],
+                    ['1', true],
+                    [[], true],
+                    [[0], true],
+                    [null, true],
+                    ['false', true],
+                    ['true', true],
+                    ['no', true],
+                    ['yes', true],
+                ]
+            ]
+        ];
     }
 }

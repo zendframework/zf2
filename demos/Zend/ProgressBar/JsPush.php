@@ -17,11 +17,11 @@ use Zend\ProgressBar\ProgressBar;
 
 if (isset($_GET['progress'])) {
     require_once dirname(dirname(dirname(__DIR__))) . '/library/Zend/Loader/StandardAutoloader.php';
-    $loader = new StandardAutoloader(array('autoregister_zf' => true));
+    $loader = new StandardAutoloader(['autoregister_zf' => true]);
     $loader->register();
 
-    $adapter     = new JsPush(array('updateMethodName' => 'Zend_ProgressBar_Update',
-                                    'finishMethodName' => 'Zend_ProgressBar_Finish'));
+    $adapter     = new JsPush(['updateMethodName' => 'Zend_ProgressBar_Update',
+                                    'finishMethodName' => 'Zend_ProgressBar_Finish']);
     $progressBar = new ProgressBar($adapter, 0, 100);
 
     for ($i = 1; $i <= 100; $i++) {

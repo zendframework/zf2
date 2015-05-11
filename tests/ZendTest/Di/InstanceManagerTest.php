@@ -31,12 +31,12 @@ class InstanceManagerTest extends TestCase
         $obj3 = new TestAsset\BasicClass();
 
         $im->addSharedInstance($obj1, 'foo');
-        $im->addSharedInstanceWithParameters($obj2, 'foo', array('foo' => 'bar'));
-        $im->addSharedInstanceWithParameters($obj3, 'foo', array('foo' => 'baz'));
+        $im->addSharedInstanceWithParameters($obj2, 'foo', ['foo' => 'bar']);
+        $im->addSharedInstanceWithParameters($obj3, 'foo', ['foo' => 'baz']);
 
         $this->assertSame($obj1, $im->getSharedInstance('foo'));
-        $this->assertSame($obj2, $im->getSharedInstanceWithParameters('foo', array('foo' => 'bar')));
-        $this->assertSame($obj3, $im->getSharedInstanceWithParameters('foo', array('foo' => 'baz')));
+        $this->assertSame($obj2, $im->getSharedInstanceWithParameters('foo', ['foo' => 'bar']));
+        $this->assertSame($obj3, $im->getSharedInstanceWithParameters('foo', ['foo' => 'baz']));
     }
 
     /**
@@ -69,14 +69,14 @@ class InstanceManagerTest extends TestCase
      */
     public function testInstanceManagerResolvesRecursiveAliasesForConfig()
     {
-        $config = array('parameters' => array('username' => 'my-username'));
+        $config = ['parameters' => ['username' => 'my-username']];
 
         $im = new InstanceManager;
         $im->addAlias('bar-alias', 'Some\Class');
         $im->addAlias('foo-alias', 'bar-alias');
         $im->setConfig('bar-alias', $config);
 
-        $config['injections'] = array();
+        $config['injections'] = [];
         $config['shared'] = true;
 
         $this->assertEquals($config, $im->getConfig('foo-alias'));

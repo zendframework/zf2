@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
+return [
     'code' => '229',
-    'patterns' => array(
-        'national' => array(
+    'patterns' => [
+        'national' => [
             'general' => '/^[2689]\\d{7}|7\\d{3}$/',
             'fixed' => '/^2(?:02|1[037]|2[45]|3[68])\\d{5}$/',
             'mobile' => '/^(?:6[46]|9[03-8])\\d{6}$/',
@@ -18,8 +18,8 @@ return array(
             'voip' => '/^857[58]\\d{4}$/',
             'uan' => '/^81\\d{6}$/',
             'emergency' => '/^11[78]$/',
-        ),
-        'possible' => array(
+        ],
+        'possible' => [
             'general' => '/^\\d{4,8}$/',
             'fixed' => '/^\\d{8}$/',
             'mobile' => '/^\\d{8}$/',
@@ -27,6 +27,6 @@ return array(
             'voip' => '/^\\d{8}$/',
             'uan' => '/^\\d{8}$/',
             'emergency' => '/^\\d{3}$/',
-        ),
-    ),
-);
+        ],
+    ],
+];

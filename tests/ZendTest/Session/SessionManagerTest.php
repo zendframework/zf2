@@ -92,10 +92,10 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCanPassValidatorsToConstructor()
     {
-        $validators = array(
+        $validators = [
             'foo',
             'bar',
-        );
+        ];
         $manager = new SessionManager(null, null, null, $validators);
         $this->assertAttributeEquals($validators, 'validators', $manager);
     }
@@ -198,7 +198,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         if ('cli' == PHP_SAPI) {
             $this->markTestSkipped('session_start() will not raise headers_sent warnings in CLI');
         }
-        set_error_handler(array($this, 'handleErrors'), E_WARNING);
+        set_error_handler([$this, 'handleErrors'], E_WARNING);
         echo ' ';
         $this->assertTrue(headers_sent());
         $this->manager->start();
@@ -295,7 +295,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $config = $this->manager->getConfig();
         $config->setUseCookies(true);
         $this->manager->start();
-        $this->manager->destroy(array('send_expire_cookie' => false));
+        $this->manager->destroy(['send_expire_cookie' => false]);
         echo '';
         $headers = xdebug_get_headers();
         $found  = false;
@@ -333,7 +333,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $this->manager->start();
         $storage = $this->manager->getStorage();
         $storage['foo'] = 'bar';
-        $this->manager->destroy(array('clear_storage' => true));
+        $this->manager->destroy(['clear_storage' => true]);
         $this->assertFalse(isset($storage['foo']));
     }
 
@@ -522,7 +522,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
     public function testStartingSessionThatFailsAValidatorShouldRaiseException()
     {
         $chain = $this->manager->getValidatorChain();
-        $chain->attach('session.validate', array(new TestAsset\TestFailingValidator(), 'isValid'));
+        $chain->attach('session.validate', [new TestAsset\TestFailingValidator(), 'isValid']);
         $this->setExpectedException('Zend\Session\Exception\RuntimeException', 'failed');
         $this->manager->start();
     }
@@ -555,7 +555,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSessionValidationDoesNotHaltOnNoopListener()
     {
-        $validator = $this->getMock('stdClass', array('__invoke'));
+        $validator = $this->getMock('stdClass', ['__invoke']);
 
         $validator->expects($this->once())->method('__invoke');
 
@@ -585,16 +585,16 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->manager
             ->getValidatorChain()
-            ->attach('session.validate', array(new RemoteAddr(), 'isValid'));
+            ->attach('session.validate', [new RemoteAddr(), 'isValid']);
 
         $this->assertFalse($this->manager->sessionExists());
 
         $this->manager->start();
 
         $this->assertSame(
-            array(
+            [
                 'Zend\Session\Validator\RemoteAddr' => '',
-            ),
+            ],
             $_SESSION['__ZF']['_VALID']
         );
     }
@@ -607,7 +607,7 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $this
             ->manager
             ->getValidatorChain()
-            ->attach('session.validate', array(new RemoteAddr('123.123.123.123'), 'isValid'));
+            ->attach('session.validate', [new RemoteAddr('123.123.123.123'), 'isValid']);
 
         $this->setExpectedException('Zend\Session\Exception\RuntimeException', 'Session validation failed');
         $this->manager->start();
@@ -618,11 +618,11 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoteAddressValidationWillSucceedWithValidPreSetData()
     {
-        $_SESSION = array(
-            '__ZF' => array(
-                '_VALID' => array('Zend\Session\Validator\RemoteAddr' => ''),
-            ),
-        );
+        $_SESSION = [
+            '__ZF' => [
+                '_VALID' => ['Zend\Session\Validator\RemoteAddr' => ''],
+            ],
+        ];
 
         $this->manager->start();
 
@@ -634,11 +634,11 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoteAddressValidationWillFailWithInvalidPreSetData()
     {
-        $_SESSION = array(
-            '__ZF' => array(
-                '_VALID' => array('Zend\Session\Validator\RemoteAddr' => '123.123.123.123'),
-            ),
-        );
+        $_SESSION = [
+            '__ZF' => [
+                '_VALID' => ['Zend\Session\Validator\RemoteAddr' => '123.123.123.123'],
+            ],
+        ];
 
         $this->setExpectedException('Zend\Session\Exception\RuntimeException', 'Session validation failed');
         $this->manager->start();

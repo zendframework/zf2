@@ -24,7 +24,7 @@ class ParamTag extends AbstractTypeableTag implements TagInterface
      * @param array $types
      * @param string $description
      */
-    public function __construct($variableName = null, $types = array(), $description = null)
+    public function __construct($variableName = null, $types = [], $description = null)
     {
         if (!empty($variableName)) {
             $this->setVariableName($variableName);

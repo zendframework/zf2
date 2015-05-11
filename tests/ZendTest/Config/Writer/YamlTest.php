@@ -30,22 +30,22 @@ class YamlTest extends AbstractWriterTestCase
 
         $yamlReader = explode('::', constant('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
         if (isset($yamlReader[1])) {
-            $this->reader = new YamlReader(array($yamlReader[0], $yamlReader[1]));
+            $this->reader = new YamlReader([$yamlReader[0], $yamlReader[1]]);
         } else {
-            $this->reader = new YamlReader(array($yamlReader[0]));
+            $this->reader = new YamlReader([$yamlReader[0]]);
         }
 
         $yamlWriter = explode('::', constant('TESTS_ZEND_CONFIG_WRITER_YAML_CALLBACK'));
         if (isset($yamlWriter[1])) {
-            $this->writer = new YamlWriter(array($yamlWriter[0], $yamlWriter[1]));
+            $this->writer = new YamlWriter([$yamlWriter[0], $yamlWriter[1]]);
         } else {
-            $this->writer = new YamlWriter(array($yamlWriter[0]));
+            $this->writer = new YamlWriter([$yamlWriter[0]]);
         }
     }
 
     public function testNoSection()
     {
-        $config = new Config(array('test' => 'foo', 'test2' => array('test3' => 'bar')));
+        $config = new Config(['test' => 'foo', 'test2' => ['test3' => 'bar']]);
 
         $this->writer->toFile($this->getTestAssetFileName(), $config);
 

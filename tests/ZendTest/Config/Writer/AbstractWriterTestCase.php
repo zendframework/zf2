@@ -66,19 +66,19 @@ abstract class AbstractWriterTestCase extends TestCase
     public function testFileNotValid()
     {
         $this->setExpectedException('Zend\Config\Exception\RuntimeException');
-        $this->writer->toFile('.', new Config(array()));
+        $this->writer->toFile('.', new Config([]));
     }
 
     public function testFileNotWritable()
     {
         $this->setExpectedException('Zend\Config\Exception\RuntimeException');
         chmod($this->getTestAssetFileName(), 0444);
-        $this->writer->toFile($this->getTestAssetFileName(), new Config(array()));
+        $this->writer->toFile($this->getTestAssetFileName(), new Config([]));
     }
 
     public function testWriteAndRead()
     {
-        $config = new Config(array('default' => array('test' => 'foo')));
+        $config = new Config(['default' => ['test' => 'foo']]);
 
         $this->writer->toFile($this->getTestAssetFileName(), $config);
 

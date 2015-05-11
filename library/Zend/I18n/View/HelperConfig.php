@@ -22,14 +22,14 @@ class HelperConfig implements ConfigInterface
      *
      * @var array
      */
-    protected $invokables = array(
+    protected $invokables = [
         'currencyformat'  => 'Zend\I18n\View\Helper\CurrencyFormat',
         'dateformat'      => 'Zend\I18n\View\Helper\DateFormat',
         'numberformat'    => 'Zend\I18n\View\Helper\NumberFormat',
         'plural'          => 'Zend\I18n\View\Helper\Plural',
         'translate'       => 'Zend\I18n\View\Helper\Translate',
         'translateplural' => 'Zend\I18n\View\Helper\TranslatePlural',
-    );
+    ];
 
     /**
      * Configure the provided service manager instance with the configuration

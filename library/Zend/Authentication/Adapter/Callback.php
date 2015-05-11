@@ -53,14 +53,14 @@ class Callback extends AbstractAdapter
         try {
             $identity = call_user_func($callback, $this->getIdentity(), $this->getCredential());
         } catch (Exception $e) {
-            return new Result(Result::FAILURE_UNCATEGORIZED, null, array($e->getMessage()));
+            return new Result(Result::FAILURE_UNCATEGORIZED, null, [$e->getMessage()]);
         }
 
         if (! $identity) {
-            return new Result(Result::FAILURE, null, array('Authentication failure'));
+            return new Result(Result::FAILURE, null, ['Authentication failure']);
         }
 
-        return new Result(Result::SUCCESS, $identity, array('Authentication success'));
+        return new Result(Result::SUCCESS, $identity, ['Authentication success']);
     }
 
     /**

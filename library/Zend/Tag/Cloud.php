@@ -47,10 +47,10 @@ class Cloud
      *
      * @var array
      */
-    protected $skipOptions = array(
+    protected $skipOptions = [
         'options',
         'config',
-    );
+    ];
 
     /**
      * Create a new tag cloud with options

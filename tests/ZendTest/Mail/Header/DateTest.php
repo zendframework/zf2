@@ -16,12 +16,12 @@ class DateTest extends TestCase
 {
     public function headerLines()
     {
-        return array(
-            'newline'      => array("Date: xxx yyy\n"),
-            'cr-lf'        => array("Date: xxx yyy\r\n"),
-            'cr-lf-wsp'    => array("Date: xxx yyy\r\n\r\n"),
-            'multiline'    => array("Date: xxx\r\ny\r\nyy"),
-        );
+        return [
+            'newline'      => ["Date: xxx yyy\n"],
+            'cr-lf'        => ["Date: xxx yyy\r\n"],
+            'cr-lf-wsp'    => ["Date: xxx yyy\r\n\r\n"],
+            'multiline'    => ["Date: xxx\r\ny\r\nyy"],
+        ];
     }
 
     /**

@@ -21,12 +21,12 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         if (ini_get('register_argc_argv') == false) {
             $this->markTestSkipped("Cannot Test Zend\\Console\\Getopt without 'register_argc_argv' ini option true.");
         }
-        $_SERVER['argv'] = array('getopttest');
+        $_SERVER['argv'] = ['getopttest'];
     }
 
     public function testGetoptShortOptionsGnuMode()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals(true, $opts->a);
         $this->assertNull(@$opts->b);
         $this->assertEquals($opts->p, 'p_arg');
@@ -34,12 +34,12 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptLongOptionsZendMode()
     {
-        $opts = new Getopt(array(
+        $opts = new Getopt([
                 'apple|a' => 'Apple option',
                 'banana|b' => 'Banana option',
                 'pear|p=s' => 'Pear option'
-            ),
-            array('-a', '-p', 'p_arg'));
+            ],
+            ['-a', '-p', 'p_arg']);
         $this->assertTrue($opts->apple);
         $this->assertNull(@$opts->banana);
         $this->assertEquals($opts->pear, 'p_arg');
@@ -47,43 +47,43 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptZendModeEqualsParam()
     {
-        $opts = new Getopt(array(
+        $opts = new Getopt([
                 'apple|a' => 'Apple option',
                 'banana|b' => 'Banana option',
                 'pear|p=s' => 'Pear option'
-            ),
-            array('--pear=pear.phpunit.de'));
+            ],
+            ['--pear=pear.phpunit.de']);
         $this->assertEquals($opts->pear, 'pear.phpunit.de');
     }
 
     public function testGetoptToString()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals($opts->__toString(), 'a=true p=p_arg');
     }
 
     public function testGetoptDumpString()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals($opts->toString(), 'a=true p=p_arg');
     }
 
     public function testGetoptDumpArray()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals(implode(',', $opts->toArray()), 'a,p,p_arg');
     }
 
     public function testGetoptDumpJson()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals($opts->toJson(),
             '{"options":[{"option":{"flag":"a","parameter":true}},{"option":{"flag":"p","parameter":"p_arg"}}]}');
     }
 
     public function testGetoptDumpXml()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals($opts->toXml(),
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<options><option flag=\"a\"/><option flag=\"p\" parameter=\"p_arg\"/></options>\n");
     }
@@ -91,49 +91,49 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptExceptionForMissingFlag()
     {
         $this->setExpectedException('\Zend\Console\Exception\InvalidArgumentException', 'Blank flag not allowed in rule');
-        $opts = new Getopt(array('|a'=>'Apple option'));
+        $opts = new Getopt(['|a'=>'Apple option']);
     }
 
     public function testGetoptExceptionForKeyWithDuplicateFlagsViaOrOperator()
     {
         $this->setExpectedException('\Zend\Console\Exception\InvalidArgumentException', 'defined more than once');
         $opts = new Getopt(
-            array('apple|apple'=>'apple-option'));
+            ['apple|apple'=>'apple-option']);
     }
 
     public function testGetoptExceptionForKeysThatDuplicateFlags()
     {
         $this->setExpectedException('\Zend\Console\Exception\InvalidArgumentException', 'defined more than once');
         $opts = new Getopt(
-            array('a'=>'Apple option', 'apple|a'=>'Apple option'));
+            ['a'=>'Apple option', 'apple|a'=>'Apple option']);
     }
 
     public function testGetoptAddRules()
     {
         $opts = new Getopt(
-            array(
+            [
                 'apple|a' => 'Apple option',
                 'banana|b' => 'Banana option'
-            ),
-            array('--pear', 'pear_param'));
+            ],
+            ['--pear', 'pear_param']);
         try {
             $opts->parse();
             $this->fail('Expected to catch Zend\Console\Exception\RuntimeException');
         } catch (\Zend\Console\Exception\RuntimeException $e) {
             $this->assertEquals($e->getMessage(), 'Option "pear" is not recognized.');
         }
-        $opts->addRules(array('pear|p=s' => 'Pear option'));
+        $opts->addRules(['pear|p=s' => 'Pear option']);
         $this->assertEquals($opts->pear, 'pear_param');
     }
 
     public function testGetoptExceptionMissingParameter()
     {
         $opts = new Getopt(
-            array(
+            [
                 'apple|a=s' => 'Apple with required parameter',
                 'banana|b' => 'Banana'
-            ),
-            array('--apple'));
+            ],
+            ['--apple']);
         $this->setExpectedException('\Zend\Console\Exception\RuntimeException', 'requires a parameter');
         $opts->parse();
     }
@@ -141,19 +141,19 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptOptionalParameter()
     {
         $opts = new Getopt(
-            array(
+            [
                 'apple|a-s' => 'Apple with optional parameter',
                 'banana|b' => 'Banana'
-            ),
-            array('--apple', '--banana'));
+            ],
+            ['--apple', '--banana']);
         $this->assertTrue($opts->apple);
         $this->assertTrue($opts->banana);
     }
 
     public function testGetoptIgnoreCaseGnuMode()
     {
-        $opts = new Getopt('aB', array('-A', '-b'),
-            array(Getopt::CONFIG_IGNORECASE => true));
+        $opts = new Getopt('aB', ['-A', '-b'],
+            [Getopt::CONFIG_IGNORECASE => true]);
         $this->assertEquals(true, $opts->a);
         $this->assertEquals(true, $opts->B);
     }
@@ -161,41 +161,41 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptIgnoreCaseZendMode()
     {
         $opts = new Getopt(
-            array(
+            [
                 'apple|a' => 'Apple-option',
                 'Banana|B' => 'Banana-option'
-            ),
-            array('--Apple', '--bAnaNa'),
-            array(Getopt::CONFIG_IGNORECASE => true));
+            ],
+            ['--Apple', '--bAnaNa'],
+            [Getopt::CONFIG_IGNORECASE => true]);
         $this->assertEquals(true, $opts->apple);
         $this->assertEquals(true, $opts->BANANA);
     }
 
     public function testGetoptIsSet()
     {
-        $opts = new Getopt('ab', array('-a'));
+        $opts = new Getopt('ab', ['-a']);
         $this->assertTrue(isset($opts->a));
         $this->assertFalse(isset($opts->b));
     }
 
     public function testGetoptIsSetAlias()
     {
-        $opts = new Getopt('ab', array('-a'));
-        $opts->setAliases(array('a' => 'apple', 'b' => 'banana'));
+        $opts = new Getopt('ab', ['-a']);
+        $opts->setAliases(['a' => 'apple', 'b' => 'banana']);
         $this->assertTrue(isset($opts->apple));
         $this->assertFalse(isset($opts->banana));
     }
 
     public function testGetoptIsSetInvalid()
     {
-        $opts = new Getopt('ab', array('-a'));
-        $opts->setAliases(array('a' => 'apple', 'b' => 'banana'));
+        $opts = new Getopt('ab', ['-a']);
+        $opts->setAliases(['a' => 'apple', 'b' => 'banana']);
         $this->assertFalse(isset($opts->cumquat));
     }
 
     public function testGetoptSet()
     {
-        $opts = new Getopt('ab', array('-a'));
+        $opts = new Getopt('ab', ['-a']);
         $this->assertFalse(isset($opts->b));
         $opts->b = true;
         $this->assertTrue(isset($opts->b));
@@ -203,14 +203,14 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptSetBeforeParse()
     {
-        $opts = new Getopt('ab', array('-a'));
+        $opts = new Getopt('ab', ['-a']);
         $opts->b = true;
         $this->assertTrue(isset($opts->b));
     }
 
     public function testGetoptUnSet()
     {
-        $opts = new Getopt('ab', array('-a'));
+        $opts = new Getopt('ab', ['-a']);
         $this->assertTrue(isset($opts->a));
         unset($opts->a);
         $this->assertFalse(isset($opts->a));
@@ -218,7 +218,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptUnSetBeforeParse()
     {
-        $opts = new Getopt('ab', array('-a'));
+        $opts = new Getopt('ab', ['-a']);
         unset($opts->a);
         $this->assertFalse(isset($opts->a));
     }
@@ -228,44 +228,44 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetoptAddSetNonArrayArguments()
     {
-        $opts = new Getopt('abp:', array('-foo'));
+        $opts = new Getopt('abp:', ['-foo']);
         $this->setExpectedException('\Zend\Console\Exception\InvalidArgumentException', 'should be an array');
         $opts->setArguments('-a');
     }
 
     public function testGetoptAddArguments()
     {
-        $opts = new Getopt('abp:', array('-a'));
+        $opts = new Getopt('abp:', ['-a']);
         $this->assertNull(@$opts->p);
-        $opts->addArguments(array('-p', 'p_arg'));
+        $opts->addArguments(['-p', 'p_arg']);
         $this->assertEquals($opts->p, 'p_arg');
     }
 
     public function testGetoptRemainingArgs()
     {
-        $opts = new Getopt('abp:', array('-a', '--', 'file1', 'file2'));
+        $opts = new Getopt('abp:', ['-a', '--', 'file1', 'file2']);
         $this->assertEquals(implode(',', $opts->getRemainingArgs()), 'file1,file2');
-        $opts = new Getopt('abp:', array('-a', 'file1', 'file2'));
+        $opts = new Getopt('abp:', ['-a', 'file1', 'file2']);
         $this->assertEquals(implode(',', $opts->getRemainingArgs()), 'file1,file2');
     }
 
     public function testGetoptDashDashFalse()
     {
-        $opts = new Getopt('abp:', array('-a', '--', '--fakeflag'),
-            array(Getopt::CONFIG_DASHDASH => false));
+        $opts = new Getopt('abp:', ['-a', '--', '--fakeflag'],
+            [Getopt::CONFIG_DASHDASH => false]);
         $this->setExpectedException('\Zend\Console\Exception\RuntimeException', 'not recognized');
         $opts->parse();
     }
 
     public function testGetoptGetOptions()
     {
-        $opts = new Getopt('abp:', array('-a', '-p', 'p_arg'));
+        $opts = new Getopt('abp:', ['-a', '-p', 'p_arg']);
         $this->assertEquals(implode(',', $opts->getOptions()), 'a,p');
     }
 
     public function testGetoptGetUsageMessage()
     {
-        $opts = new Getopt('abp:', array('-x'));
+        $opts = new Getopt('abp:', ['-x']);
         $message = preg_replace('/Usage: .* \[ options \]/',
             'Usage: <progname> [ options ]',
             $opts->getUsageMessage());
@@ -277,11 +277,11 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptUsageMessageFromException()
     {
         try {
-            $opts = new Getopt(array(
+            $opts = new Getopt([
                 'apple|a-s' => 'apple',
                 'banana1|banana2|banana3|banana4' => 'banana',
-                'pear=s' => 'pear'),
-                array('-x'));
+                'pear=s' => 'pear'],
+                ['-x']);
             $opts->parse();
             $this->fail('Expected to catch \Zend\Console\Exception\RuntimeException');
         } catch (\Zend\Console\Exception\RuntimeException $e) {
@@ -296,33 +296,33 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptSetAliases()
     {
-        $opts = new Getopt('abp:', array('--apple'));
-        $opts->setAliases(array('a' => 'apple'));
+        $opts = new Getopt('abp:', ['--apple']);
+        $opts->setAliases(['a' => 'apple']);
         $this->assertTrue($opts->a);
     }
 
     public function testGetoptSetAliasesIgnoreCase()
     {
-        $opts = new Getopt('abp:', array('--apple'),
-            array(Getopt::CONFIG_IGNORECASE => true));
-        $opts->setAliases(array('a' => 'APPLE'));
+        $opts = new Getopt('abp:', ['--apple'],
+            [Getopt::CONFIG_IGNORECASE => true]);
+        $opts->setAliases(['a' => 'APPLE']);
         $this->assertTrue($opts->apple);
     }
 
     public function testGetoptSetAliasesWithNamingConflict()
     {
-        $opts = new Getopt('abp:', array('--apple'));
-        $opts->setAliases(array('a' => 'apple'));
+        $opts = new Getopt('abp:', ['--apple']);
+        $opts->setAliases(['a' => 'apple']);
 
         $this->setExpectedException('\Zend\Console\Exception\InvalidArgumentException', 'defined more than once');
-        $opts->setAliases(array('b' => 'apple'));
+        $opts->setAliases(['b' => 'apple']);
     }
 
     public function testGetoptSetAliasesInvalid()
     {
-        $opts = new Getopt('abp:', array('--apple'));
-        $opts->setAliases(array('c' => 'cumquat'));
-        $opts->setArguments(array('-c'));
+        $opts = new Getopt('abp:', ['--apple']);
+        $opts->setAliases(['c' => 'cumquat']);
+        $opts->setArguments(['-c']);
 
         $this->setExpectedException('\Zend\Console\Exception\RuntimeException', 'not recognized');
         $opts->parse();
@@ -330,11 +330,11 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptSetHelp()
     {
-        $opts = new Getopt('abp:', array('-a'));
-        $opts->setHelp(array(
+        $opts = new Getopt('abp:', ['-a']);
+        $opts->setHelp([
             'a' => 'apple',
             'b' => 'banana',
-            'p' => 'pear'));
+            'p' => 'pear']);
         $message = preg_replace('/Usage: .* \[ options \]/',
             'Usage: <progname> [ options ]',
             $opts->getUsageMessage());
@@ -345,12 +345,12 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptSetHelpInvalid()
     {
-        $opts = new Getopt('abp:', array('-a'));
-        $opts->setHelp(array(
+        $opts = new Getopt('abp:', ['-a']);
+        $opts->setHelp([
             'a' => 'apple',
             'b' => 'banana',
             'p' => 'pear',
-            'c' => 'cumquat'));
+            'c' => 'cumquat']);
         $message = preg_replace('/Usage: .* \[ options \]/',
             'Usage: <progname> [ options ]',
             $opts->getUsageMessage());
@@ -361,19 +361,19 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptCheckParameterType()
     {
-        $opts = new Getopt(array(
+        $opts = new Getopt([
             'apple|a=i' => 'apple with integer',
             'banana|b=w' => 'banana with word',
             'pear|p=s' => 'pear with string',
             'orange|o-i' => 'orange with optional integer',
             'lemon|l-w' => 'lemon with optional word',
-            'kumquat|k-s' => 'kumquat with optional string'));
+            'kumquat|k-s' => 'kumquat with optional string']);
 
-        $opts->setArguments(array('-a', 327));
+        $opts->setArguments(['-a', 327]);
         $opts->parse();
         $this->assertEquals(327, $opts->a);
 
-        $opts->setArguments(array('-a', 'noninteger'));
+        $opts->setArguments(['-a', 'noninteger']);
         try {
             $opts->parse();
             $this->fail('Expected to catch \Zend\Console\Exception\RuntimeException');
@@ -381,10 +381,10 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($e->getMessage(), 'Option "apple" requires an integer parameter, but was given "noninteger".');
         }
 
-        $opts->setArguments(array('-b', 'word'));
+        $opts->setArguments(['-b', 'word']);
         $this->assertEquals('word', $opts->b);
 
-        $opts->setArguments(array('-b', 'two words'));
+        $opts->setArguments(['-b', 'two words']);
         try {
             $opts->parse();
             $this->fail('Expected to catch \Zend\Console\Exception\RuntimeException');
@@ -392,19 +392,19 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($e->getMessage(), 'Option "banana" requires a single-word parameter, but was given "two words".');
         }
 
-        $opts->setArguments(array('-p', 'string'));
+        $opts->setArguments(['-p', 'string']);
         $this->assertEquals('string', $opts->p);
 
-        $opts->setArguments(array('-o', 327));
+        $opts->setArguments(['-o', 327]);
         $this->assertEquals(327, $opts->o);
 
-        $opts->setArguments(array('-o'));
+        $opts->setArguments(['-o']);
         $this->assertTrue($opts->o);
 
-        $opts->setArguments(array('-l', 'word'));
+        $opts->setArguments(['-l', 'word']);
         $this->assertEquals('word', $opts->l);
 
-        $opts->setArguments(array('-k', 'string'));
+        $opts->setArguments(['-k', 'string']);
         $this->assertEquals('string', $opts->k);
     }
 
@@ -434,15 +434,15 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testDashWithinLongOptionGetsParsed()
     {
         $opts = new Getopt(
-            array( // rules
+            [ // rules
                 'man-bear|m-s' => 'ManBear with dash',
                 'man-bear-pig|b=s' => 'ManBearPid with dash',
-                ),
-            array( // arguments
+                ],
+            [ // arguments
                 '--man-bear-pig=mbp',
                 '--man-bear',
                 'foobar'
-                )
+                ]
             );
 
         $opts->parse();
@@ -458,9 +458,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         // Fails if warning is thrown: Should not happen!
         $opts = new Getopt('abp:');
         $opts->addRules(
-          array(
+          [
             'verbose|v' => 'Print verbose output'
-          )
+          ]
         );
     }
 
@@ -469,11 +469,11 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
      */
     public function testUsingDashWithoutOptionNameAsLastArgumentIsRecognizedAsRemainingArgument()
     {
-        $opts = new Getopt("abp:", array("-"));
+        $opts = new Getopt("abp:", ["-"]);
         $opts->parse();
 
         $this->assertEquals(1, count($opts->getRemainingArgs()));
-        $this->assertEquals(array("-"), $opts->getRemainingArgs());
+        $this->assertEquals(["-"], $opts->getRemainingArgs());
     }
 
     /**
@@ -481,7 +481,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
      */
     public function testUsingDashWithoutOptionNotAsLastArgumentThrowsException()
     {
-        $opts = new Getopt("abp:", array("-", "file1"));
+        $opts = new Getopt("abp:", ["-", "file1"]);
 
         $this->setExpectedException('\Zend\Console\Exception\RuntimeException');
         $opts->parse();
@@ -495,8 +495,8 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
         $fooValue = 'some text containing an = sign which breaks';
 
         $opts = new Getopt(
-            array('foo=s' => 'Option One (string)'),
-            array('--foo=' . $fooValue)
+            ['foo=s' => 'Option One (string)'],
+            ['--foo=' . $fooValue]
         );
         $this->assertEquals($fooValue, $opts->foo);
     }
@@ -504,8 +504,8 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptIgnoreCumulativeParamsByDefault()
     {
         $opts = new Getopt(
-            array('colors=s' => 'Colors-option'),
-            array('--colors=red', '--colors=green', '--colors=blue')
+            ['colors=s' => 'Colors-option'],
+            ['--colors=red', '--colors=green', '--colors=blue']
         );
 
         $this->assertInternalType('string', $opts->colors);
@@ -515,9 +515,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptWithCumulativeParamsOptionHandleArrayValues()
     {
         $opts = new Getopt(
-            array('colors=s' => 'Colors-option'),
-            array('--colors=red', '--colors=green', '--colors=blue'),
-            array(Getopt::CONFIG_CUMULATIVE_PARAMETERS => true)
+            ['colors=s' => 'Colors-option'],
+            ['--colors=red', '--colors=green', '--colors=blue'],
+            [Getopt::CONFIG_CUMULATIVE_PARAMETERS => true]
         );
 
         $this->assertInternalType('array', $opts->colors, 'Colors value should be an array');
@@ -526,15 +526,15 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testGetoptIgnoreCumulativeFlagsByDefault()
     {
-        $opts = new Getopt('v', array('-v', '-v', '-v'));
+        $opts = new Getopt('v', ['-v', '-v', '-v']);
 
         $this->assertEquals(true, $opts->v);
     }
 
     public function testGetoptWithCumulativeFlagsOptionHandleCountOfEqualFlags()
     {
-        $opts = new Getopt('v', array('-v', '-v', '-v'),
-                           array(Getopt::CONFIG_CUMULATIVE_FLAGS => true));
+        $opts = new Getopt('v', ['-v', '-v', '-v'],
+                           [Getopt::CONFIG_CUMULATIVE_FLAGS => true]);
 
         $this->assertEquals(3, $opts->v);
     }
@@ -542,8 +542,8 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptIgnoreParamsWithMultipleValuesByDefault()
     {
         $opts = new Getopt(
-            array('colors=s' => 'Colors-option'),
-            array('--colors=red,green,blue')
+            ['colors=s' => 'Colors-option'],
+            ['--colors=red,green,blue']
         );
 
         $this->assertEquals('red,green,blue', $opts->colors);
@@ -552,9 +552,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptWithNotEmptyParameterSeparatorSplitMultipleValues()
     {
         $opts = new Getopt(
-            array('colors=s' => 'Colors-option'),
-            array('--colors=red,green,blue'),
-            array(Getopt::CONFIG_PARAMETER_SEPARATOR => ',')
+            ['colors=s' => 'Colors-option'],
+            ['--colors=red,green,blue'],
+            [Getopt::CONFIG_PARAMETER_SEPARATOR => ',']
         );
 
         $this->assertEquals('red:green:blue', implode(':', $opts->colors));
@@ -563,9 +563,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptWithFreeformFlagOptionRecognizeAllFlags()
     {
         $opts = new Getopt(
-            array('colors' => 'Colors-option'),
-            array('--freeform'),
-            array(Getopt::CONFIG_FREEFORM_FLAGS => true)
+            ['colors' => 'Colors-option'],
+            ['--freeform'],
+            [Getopt::CONFIG_FREEFORM_FLAGS => true]
         );
 
         $this->assertEquals(true, $opts->freeform);
@@ -574,9 +574,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptWithFreeformFlagOptionRecognizeFlagsWithValue()
     {
         $opts = new Getopt(
-            array('colors' => 'Colors-option'),
-            array('color', '--freeform', 'test', 'zend'),
-            array(Getopt::CONFIG_FREEFORM_FLAGS => true)
+            ['colors' => 'Colors-option'],
+            ['color', '--freeform', 'test', 'zend'],
+            [Getopt::CONFIG_FREEFORM_FLAGS => true]
         );
 
         $this->assertEquals('test', $opts->freeform);
@@ -586,9 +586,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     {
         // this formerly failed, because the index 'alias' is not set for freeform flags.
         $opts = new Getopt(
-            array('colors' => 'Colors-option'),
-            array('color', '--freeform', 'test', 'zend'),
-            array(Getopt::CONFIG_FREEFORM_FLAGS => true)
+            ['colors' => 'Colors-option'],
+            ['color', '--freeform', 'test', 'zend'],
+            [Getopt::CONFIG_FREEFORM_FLAGS => true]
         );
         $opts->parse();
 
@@ -598,9 +598,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptWithFreeformFlagOptionShowHelpAfterParseDoesNotShowFreeformFlags()
     {
         $opts = new Getopt(
-            array('colors' => 'Colors-option'),
-            array('color', '--freeform', 'test', 'zend'),
-            array(Getopt::CONFIG_FREEFORM_FLAGS => true)
+            ['colors' => 'Colors-option'],
+            ['color', '--freeform', 'test', 'zend'],
+            [Getopt::CONFIG_FREEFORM_FLAGS => true]
         );
         $opts->parse();
 
@@ -614,8 +614,8 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptRaiseExceptionForNumericOptionsByDefault()
     {
         $opts = new Getopt(
-            array('colors=s' => 'Colors-option'),
-            array('red', 'green', '-3')
+            ['colors=s' => 'Colors-option'],
+            ['red', 'green', '-3']
         );
 
         $this->setExpectedException('\Zend\Console\Exception\RuntimeException');
@@ -625,9 +625,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptCanRecognizeNumericOprions()
     {
         $opts = new Getopt(
-            array('lines=#' => 'Lines-option'),
-            array('other', 'arguments', '-5'),
-            array(Getopt::CONFIG_NUMERIC_FLAGS => true)
+            ['lines=#' => 'Lines-option'],
+            ['other', 'arguments', '-5'],
+            [Getopt::CONFIG_NUMERIC_FLAGS => true]
         );
 
         $this->assertEquals(5, $opts->lines);
@@ -636,9 +636,9 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
     public function testGetoptRaiseExceptionForNumericOptionsIfAneHandlerIsSpecified()
     {
         $opts = new Getopt(
-            array('lines=s' => 'Lines-option'),
-            array('other', 'arguments', '-5'),
-            array(Getopt::CONFIG_NUMERIC_FLAGS => true)
+            ['lines=s' => 'Lines-option'],
+            ['other', 'arguments', '-5'],
+            [Getopt::CONFIG_NUMERIC_FLAGS => true]
         );
 
         $this->setExpectedException('\Zend\Console\Exception\RuntimeException');
@@ -647,7 +647,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionCallback()
     {
-        $opts = new Getopt('a', array('-a'));
+        $opts = new Getopt('a', ['-a']);
         $testVal = null;
         $opts->setOptionCallback('a', function ($val, $opts) use (&$testVal) {
             $testVal = $val;
@@ -659,13 +659,13 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionCallbackAddedByAlias()
     {
-        $opts = new Getopt(array(
+        $opts = new Getopt([
             'a|apples|apple=s' => "APPLES",
             'b|bears|bear=s' => "BEARS"
-        ), array(
+        ], [
             '--apples=Gala',
             '--bears=Grizzly'
-        ));
+        ]);
 
         $appleCallbackCalled = null;
         $bearCallbackCalled = null;
@@ -686,12 +686,12 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
 
     public function testOptionCallbackNotCalled()
     {
-        $opts = new Getopt(array(
+        $opts = new Getopt([
             'a|apples|apple' => "APPLES",
             'b|bears|bear' => "BEARS"
-        ), array(
+        ], [
             '--apples=Gala'
-        ));
+        ]);
 
         $bearCallbackCalled = null;
 
@@ -710,7 +710,7 @@ class GetoptTest extends \PHPUnit_Framework_TestCase
      */
     public function testOptionCallbackReturnsFallsAndThrowException()
     {
-        $opts = new Getopt('x', array('-x'));
+        $opts = new Getopt('x', ['-x']);
         $opts->setOptionCallback('x', function () {return false;});
         $opts->parse();
     }

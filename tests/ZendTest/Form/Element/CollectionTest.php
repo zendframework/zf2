@@ -53,7 +53,7 @@ class CollectionTest extends TestCase
         $this->assertFalse($collection->allowAdd());
 
         // By default, $collection contains 2 elements
-        $data = array();
+        $data = [];
         $data[] = 'blue';
         $data[] = 'green';
 
@@ -72,7 +72,7 @@ class CollectionTest extends TestCase
         $this->assertTrue($collection->allowAdd());
 
         // By default, $collection contains 2 elements
-        $data = array();
+        $data = [];
         $data[] = 'blue';
         $data[] = 'green';
 
@@ -90,7 +90,7 @@ class CollectionTest extends TestCase
         $collection->setAllowRemove(true);
         $this->assertTrue($collection->allowRemove());
 
-        $data = array();
+        $data = [];
         $data[] = 'blue';
         $data[] = 'green';
 
@@ -109,7 +109,7 @@ class CollectionTest extends TestCase
         $collection->setAllowAdd(true);
         $collection->setAllowRemove(true);
 
-        $data = array();
+        $data = [];
         $data[] = 'blue';
         $data[] = 'green';
 
@@ -125,52 +125,52 @@ class CollectionTest extends TestCase
 
     public function testCanValidateFormWithCollectionWithoutTemplate()
     {
-        $this->form->setData(array(
-            'colors' => array(
+        $this->form->setData([
+            'colors' => [
                 '#ffffff',
                 '#ffffff'
-            ),
-            'fieldsets' => array(
-                array(
+            ],
+            'fieldsets' => [
+                [
                     'field' => 'oneValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'field' => 'twoValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $this->assertEquals(true, $this->form->isValid());
     }
 
     public function testCannotValidateFormWithCollectionWithBadColor()
     {
-        $this->form->setData(array(
-            'colors' => array(
+        $this->form->setData([
+            'colors' => [
                 '#ffffff',
                 '123465'
-            ),
-            'fieldsets' => array(
-                array(
+            ],
+            'fieldsets' => [
+                [
                     'field' => 'oneValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'field' => 'twoValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $this->assertEquals(false, $this->form->isValid());
         $messages = $this->form->getMessages();
@@ -179,26 +179,26 @@ class CollectionTest extends TestCase
 
     public function testCannotValidateFormWithCollectionWithBadFieldsetField()
     {
-        $this->form->setData(array(
-            'colors' => array(
+        $this->form->setData([
+            'colors' => [
                 '#ffffff',
                 '#ffffff'
-            ),
-            'fieldsets' => array(
-                array(
+            ],
+            'fieldsets' => [
+                [
                     'field' => 'oneValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'field' => 'twoValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => null,
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $this->assertEquals(false, $this->form->isValid());
         $messages = $this->form->getMessages();
@@ -216,26 +216,26 @@ class CollectionTest extends TestCase
 
         $collection->setTemplatePlaceholder('__template__');
 
-        $this->form->setData(array(
-            'colors' => array(
+        $this->form->setData([
+            'colors' => [
                 '#ffffff',
                 '#ffffff'
-            ),
-            'fieldsets' => array(
-                array(
+            ],
+            'fieldsets' => [
+                [
                     'field' => 'oneValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'field' => 'twoValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $this->assertEquals(true, $this->form->isValid());
     }
@@ -247,25 +247,25 @@ class CollectionTest extends TestCase
         $collection = $this->form->get('colors');
         $collection->setAllowRemove(false);
 
-        $this->form->setData(array(
-            'colors' => array(
+        $this->form->setData([
+            'colors' => [
                 '#ffffff'
-            ),
-            'fieldsets' => array(
-                array(
+            ],
+            'fieldsets' => [
+                [
                     'field' => 'oneValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'field' => 'twoValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $this->form->isValid();
     }
@@ -275,25 +275,25 @@ class CollectionTest extends TestCase
         $collection = $this->form->get('colors');
         $collection->setAllowRemove(true);
 
-        $this->form->setData(array(
-            'colors' => array(
+        $this->form->setData([
+            'colors' => [
                 '#ffffff'
-            ),
-            'fieldsets' => array(
-                array(
+            ],
+            'fieldsets' => [
+                [
                     'field' => 'oneValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                ),
-                array(
+                    ]
+                ],
+                [
                     'field' => 'twoValue',
-                    'nested_fieldset' => array(
+                    'nested_fieldset' => [
                         'anotherField' => 'anotherValue'
-                    )
-                )
-            )
-        ));
+                    ]
+                ]
+            ]
+        ]);
 
         $this->assertEquals(true, $this->form->isValid());
     }
@@ -302,14 +302,14 @@ class CollectionTest extends TestCase
     {
         $collection = $this->form->get('colors');
         $element = new Element('foo');
-        $collection->setOptions(array(
+        $collection->setOptions([
             'target_element' => $element,
             'count' => 2,
             'allow_add' => true,
             'allow_remove' => false,
             'should_create_template' => true,
             'template_placeholder' => 'foo',
-        ));
+        ]);
         $this->assertInstanceOf('Zend\Form\Element', $collection->getOption('target_element'));
         $this->assertEquals(2, $collection->getOption('count'));
         $this->assertEquals(true, $collection->getOption('allow_add'));
@@ -367,21 +367,21 @@ class CollectionTest extends TestCase
         $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
         $cat2->setName("bar2");
 
-        $product->setCategories(array($cat1, $cat2));
+        $product->setCategories([$cat1, $cat2]);
 
         $form->bind($product);
 
         $form->setData(
-            array("product" =>
-                array(
+            ["product" =>
+                [
                     "name" => "franz",
                     "price" => 13,
-                    "categories" => array(
-                        array("name" => "sepp"),
-                        array("name" => "herbert")
-                    )
-                )
-            )
+                    "categories" => [
+                        ["name" => "sepp"],
+                        ["name" => "herbert"]
+                    ]
+                ]
+            ]
         );
 
         $objectAfterExtractHash = spl_object_hash(
@@ -411,21 +411,21 @@ class CollectionTest extends TestCase
         $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
         $cat2->setName("bar2");
 
-        $product->setCategories(array($cat1, $cat2));
+        $product->setCategories([$cat1, $cat2]);
 
         $form->bind($product);
 
         $form->setData(
-            array("product" =>
-                array(
+            ["product" =>
+                [
                     "name" => "franz",
                     "price" => 13,
-                    "categories" => array(
-                        array("name" => "sepp"),
-                        array("name" => "herbert")
-                    )
-                )
-            )
+                    "categories" => [
+                        ["name" => "sepp"],
+                        ["name" => "herbert"]
+                    ]
+                ]
+            ]
         );
         $form->isValid();
 
@@ -443,9 +443,9 @@ class CollectionTest extends TestCase
 
         $this->productFieldset->setUseAsBaseFieldset(true);
         $categories = $this->productFieldset->get('categories');
-        $categories->setOptions(array(
+        $categories->setOptions([
             'create_new_objects' => true,
-        ));
+        ]);
 
         $form = new \Zend\Form\Form();
         $form->setHydrator(new \Zend\Stdlib\Hydrator\ClassMethods());
@@ -459,21 +459,21 @@ class CollectionTest extends TestCase
         $cat2 = new \ZendTest\Form\TestAsset\Entity\Category();
         $cat2->setName("bar2");
 
-        $product->setCategories(array($cat1, $cat2));
+        $product->setCategories([$cat1, $cat2]);
 
         $form->bind($product);
 
         $form->setData(
-            array("product" =>
-                array(
+            ["product" =>
+                [
                     "name" => "franz",
                     "price" => 13,
-                    "categories" => array(
-                        array("name" => "sepp"),
-                        array("name" => "herbert")
-                    )
-                )
-            )
+                    "categories" => [
+                        ["name" => "sepp"],
+                        ["name" => "herbert"]
+                    ]
+                ]
+            ]
         );
         $form->isValid();
 
@@ -493,28 +493,28 @@ class CollectionTest extends TestCase
 
         $phone = new \ZendTest\Form\TestAsset\PhoneFieldset();
 
-        $form->add(array(
+        $form->add([
             'name' => 'phones',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $phone,
                 'count' => 1,
                 'allow_add' => true
-            ),
-        ));
+            ],
+        ]);
 
-        $data = array(
-            'phones' => array(
-                array('number' => '1234567'),
-                array('number' => '1234568'),
-            )
-        );
+        $data = [
+            'phones' => [
+                ['number' => '1234567'],
+                ['number' => '1234568'],
+            ]
+        ];
 
         $phone = new Phone();
         $phone->setNumber($data['phones'][0]['number']);
 
         $customer = new stdClass();
-        $customer->phones = array($phone);
+        $customer->phones = [$phone];
 
         $form->bind($customer);
         $form->setData($data);
@@ -533,33 +533,33 @@ class CollectionTest extends TestCase
 
         $form = new Form();
         $form->setHydrator(new ObjectPropertyHydrator());
-        $form->add(array(
+        $form->add([
             'name' => 'addresses',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $addressesFieldeset,
                 'count' => 1
-            ),
-        ));
+            ],
+        ]);
 
-        $data = array(
+        $data = [
             'addresses' =>
-                array(array(
+                [[
                     'street' => 'street1',
                     'phones' =>
-                        array(array('number' => '1234567')),
-                ))
-        );
+                        [['number' => '1234567']],
+                ]]
+        ];
 
         $phone  = new Phone();
         $phone->setNumber($data['addresses'][0]['phones'][0]['number']);
 
         $address = new Address();
         $address->setStreet($data['addresses'][0]['street']);
-        $address->setPhones(array($phone));
+        $address->setPhones([$phone]);
 
         $customer = new stdClass();
-        $customer->addresses = array($address);
+        $customer->addresses = [$address];
 
         $form->bind($customer);
         $form->setData($data);
@@ -577,10 +577,10 @@ class CollectionTest extends TestCase
         $form->setHydrator(new \Zend\Stdlib\Hydrator\ObjectProperty());
 
         $product = new Product();
-        $categories = array(
+        $categories = [
             new \ZendTest\Form\TestAsset\Entity\Category(),
             new \ZendTest\Form\TestAsset\Entity\Category(),
-        );
+        ];
         $product->setCategories($categories);
 
         $market = new \StdClass();
@@ -598,7 +598,7 @@ class CollectionTest extends TestCase
     public function testExtractDefaultIsEmptyArray()
     {
         $collection = $this->form->get('fieldsets');
-        $this->assertEquals(array(), $collection->extract());
+        $this->assertEquals([], $collection->extract());
     }
 
     public function testExtractThroughTargetElementHydrator()
@@ -606,10 +606,10 @@ class CollectionTest extends TestCase
         $collection = $this->form->get('fieldsets');
         $this->prepareForExtract($collection);
 
-        $expected = array(
-            'obj2' => array('field' => 'fieldOne'),
-            'obj3' => array('field' => 'fieldTwo'),
-        );
+        $expected = [
+            'obj2' => ['field' => 'fieldOne'],
+            'obj3' => ['field' => 'fieldTwo'],
+        ];
 
         $this->assertEquals($expected, $collection->extract());
     }
@@ -642,10 +642,10 @@ class CollectionTest extends TestCase
 
         $collection->setHydrator($mockHydrator);
 
-        $expected = array(
+        $expected = [
             'obj2' => 'fieldOne_foo',
             'obj3' => 'fieldTwo_foo',
-        );
+        ];
 
         $this->assertEquals($expected, $collection->extract());
     }
@@ -658,10 +658,10 @@ class CollectionTest extends TestCase
         $traversable = new ArrayObject($collection->getObject());
         $collection->setObject($traversable);
 
-        $expected = array(
-            'obj2' => array('field' => 'fieldOne'),
-            'obj3' => array('field' => 'fieldTwo'),
-        );
+        $expected = [
+            'obj2' => ['field' => 'fieldOne'],
+            'obj3' => ['field' => 'fieldTwo'],
+        ];
 
         $this->assertEquals($expected, $collection->extract());
     }
@@ -669,27 +669,27 @@ class CollectionTest extends TestCase
     public function testValidateData()
     {
         $myFieldset = new Fieldset();
-        $myFieldset->add(array(
+        $myFieldset->add([
             'name' => 'email',
             'type' => 'Email',
-        ));
+        ]);
 
         $myForm = new Form();
-        $myForm->add(array(
+        $myForm->add([
             'name' => 'collection',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $myFieldset,
-            ),
-        ));
+            ],
+        ]);
 
-        $data = array(
-            'collection' => array(
-                array('email' => 'test1@test1.com'),
-                array('email' => 'test2@test2.com'),
-                array('email' => 'test3@test3.com'),
-            )
-        );
+        $data = [
+            'collection' => [
+                ['email' => 'test1@test1.com'],
+                ['email' => 'test2@test2.com'],
+                ['email' => 'test3@test3.com'],
+            ]
+        ];
 
         $myForm->setData($data);
 
@@ -712,10 +712,10 @@ class CollectionTest extends TestCase
         $obj3 = new stdClass();
         $obj3->field = 'fieldTwo';
 
-        $collection->setObject(array(
+        $collection->setObject([
             'obj2' => $obj2,
             'obj3' => $obj3,
-        ));
+        ]);
     }
 
     public function testCollectionCanBindObjectAndPopulateAndExtractNestedFieldsets()
@@ -730,20 +730,20 @@ class CollectionTest extends TestCase
 
         $form = new Form();
         $form->setHydrator(new ObjectPropertyHydrator());
-        $form->add(array(
+        $form->add([
             'name' => 'collection',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $mainFieldset,
                 'count' => 2
-            ),
-        ));
+            ],
+        ]);
 
         $market = new stdClass();
 
-        $prices = array(100, 200);
-        $categoryNames = array('electronics', 'furniture');
-        $productCountries = array('Russia', 'Jamaica');
+        $prices = [100, 200];
+        $categoryNames = ['electronics', 'furniture'];
+        $productCountries = ['Russia', 'Jamaica'];
 
         $shop1 = new stdClass();
         $shop1->product = new Product();
@@ -751,7 +751,7 @@ class CollectionTest extends TestCase
 
         $category = new \ZendTest\Form\TestAsset\Entity\Category();
         $category->setName($categoryNames[0]);
-        $shop1->product->setCategories(array($category));
+        $shop1->product->setCategories([$category]);
 
         $country = new  \ZendTest\Form\TestAsset\Entity\Country();
         $country->setName($productCountries[0]);
@@ -765,7 +765,7 @@ class CollectionTest extends TestCase
 
         $category = new \ZendTest\Form\TestAsset\Entity\Category();
         $category->setName($categoryNames[1]);
-        $shop2->product->setCategories(array($category));
+        $shop2->product->setCategories([$category]);
 
         $country = new  \ZendTest\Form\TestAsset\Entity\Country();
         $country->setName($productCountries[1]);
@@ -773,7 +773,7 @@ class CollectionTest extends TestCase
 
 
 
-        $market->collection = array($shop1, $shop2);
+        $market->collection = [$shop1, $shop2];
         $form->bind($market);
 
         //test for object binding
@@ -855,10 +855,10 @@ class CollectionTest extends TestCase
 
         $this->prepareForExtractWithCustomTraversable($collection);
 
-        $expected = array(
-            array('foo' => 'foo_value_1', 'bar' => 'bar_value_1', 'foobar' => 'foobar_value_1'),
-            array('foo' => 'foo_value_2', 'bar' => 'bar_value_2', 'foobar' => 'foobar_value_2'),
-        );
+        $expected = [
+            ['foo' => 'foo_value_1', 'bar' => 'bar_value_1', 'foobar' => 'foobar_value_1'],
+            ['foo' => 'foo_value_2', 'bar' => 'bar_value_2', 'foobar' => 'foobar_value_2'],
+        ];
 
         $this->assertEquals($expected, $collection->extract());
     }
@@ -875,10 +875,10 @@ class CollectionTest extends TestCase
 
         $this->prepareForExtractWithCustomTraversable($collection);
 
-        $expected = array(
-            array('foo' => 'foo_value_1', 'bar' => 'bar_value_1', 'foobar' => 'foobar_value_1'),
-            array('foo' => 'foo_value_2', 'bar' => 'bar_value_2', 'foobar' => 'foobar_value_2'),
-        );
+        $expected = [
+            ['foo' => 'foo_value_1', 'bar' => 'bar_value_1', 'foobar' => 'foobar_value_1'],
+            ['foo' => 'foo_value_2', 'bar' => 'bar_value_2', 'foobar' => 'foobar_value_2'],
+        ];
 
         $this->assertEquals($expected, $collection->extract());
     }
@@ -886,9 +886,9 @@ class CollectionTest extends TestCase
     protected function prepareForExtractWithCustomTraversable($collection)
     {
         $obj2 = new ArrayModel();
-        $obj2->exchangeArray(array('foo' => 'foo_value_1', 'bar' => 'bar_value_1', 'foobar' => 'foobar_value_1'));
+        $obj2->exchangeArray(['foo' => 'foo_value_1', 'bar' => 'bar_value_1', 'foobar' => 'foobar_value_1']);
         $obj3 = new ArrayModel();
-        $obj3->exchangeArray(array('foo' => 'foo_value_2', 'bar' => 'bar_value_2', 'foobar' => 'foobar_value_2'));
+        $obj3->exchangeArray(['foo' => 'foo_value_2', 'bar' => 'bar_value_2', 'foobar' => 'foobar_value_2']);
 
         $traversable = new CustomCollection();
         $traversable->append($obj2);
@@ -898,26 +898,26 @@ class CollectionTest extends TestCase
 
     public function testPopulateValuesWithFirstKeyGreaterThanZero()
     {
-        $inputData = array(
-            1 => array('name' => 'black'),
-            5 => array('name' => 'white'),
-        );
+        $inputData = [
+            1 => ['name' => 'black'],
+            5 => ['name' => 'white'],
+        ];
 
         // Standalone Collection element
-        $collection = new Collection('fieldsets', array(
+        $collection = new Collection('fieldsets', [
             'count' => 1,
             'target_element' => new \ZendTest\Form\TestAsset\CategoryFieldset(),
-        ));
+        ]);
 
         $form = new Form();
-        $form->add(array(
+        $form->add([
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'collection',
-            'options' => array(
+            'options' => [
                 'count' => 1,
                 'target_element' => new \ZendTest\Form\TestAsset\CategoryFieldset(),
-            )
-        ));
+            ]
+        ]);
 
         // Collection element attached to a form
         $formCollection = $form->get('collection');
@@ -940,7 +940,7 @@ class CollectionTest extends TestCase
 
 
         // By default, $collection contains 2 elements
-        $data = array();
+        $data = [];
 
         $collection->populateValues($data);
         $this->assertEquals(0, count($collection->getElements()));
@@ -955,27 +955,27 @@ class CollectionTest extends TestCase
         $nestedFieldset = new Fieldset('nested');
         $nestedFieldset->setHydrator(new ObjectPropertyHydrator());
         $nestedFieldset->setObject(new stdClass());
-        $nestedFieldset->add(array(
+        $nestedFieldset->add([
             'name' => 'products',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $productFieldset,
                 'count' => 2,
-            ),
-        ));
+            ],
+        ]);
 
         $mainFieldset = new Fieldset('main');
         $mainFieldset->setUseAsBaseFieldset(true);
         $mainFieldset->setHydrator(new ObjectPropertyHydrator());
         $mainFieldset->setObject(new stdClass());
-        $mainFieldset->add(array(
+        $mainFieldset->add([
             'name' => 'nested',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $nestedFieldset,
                 'count' => 2,
-            ),
-        ));
+            ],
+        ]);
 
         $form = new Form();
         $form->setHydrator(new ObjectPropertyHydrator());
@@ -983,7 +983,7 @@ class CollectionTest extends TestCase
 
         $market = new stdClass();
 
-        $prices = array(100, 200);
+        $prices = [100, 200];
 
         $products[0] = new Product();
         $products[0]->setPrice($prices[0]);
@@ -1028,19 +1028,19 @@ class CollectionTest extends TestCase
 
         $form = new Form();
         $form->setHydrator(new ObjectPropertyHydrator());
-        $form->add(array(
+        $form->add([
             'name' => 'addresses',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $addressesFieldeset,
                 'count' => 2
-            ),
-        ));
+            ],
+        ]);
 
-        $data = array(
-            array('number' => '0000000001', 'street' => 'street1'),
-            array('number' => '0000000002', 'street' => 'street2'),
-        );
+        $data = [
+            ['number' => '0000000001', 'street' => 'street1'],
+            ['number' => '0000000002', 'street' => 'street2'],
+        ];
 
         $phone1 = new Phone();
         $phone1->setNumber($data[0]['number']);
@@ -1050,14 +1050,14 @@ class CollectionTest extends TestCase
 
         $address1 = new Address();
         $address1->setStreet($data[0]['street']);
-        $address1->setPhones(array($phone1));
+        $address1->setPhones([$phone1]);
 
         $address2 = new Address();
         $address2->setStreet($data[1]['street']);
-        $address2->setPhones(array($phone2));
+        $address2->setPhones([$phone2]);
 
         $customer = new stdClass();
-        $customer->addresses = array($address1, $address2);
+        $customer->addresses = [$address1, $address2];
 
         $form->bind($customer);
 
@@ -1096,19 +1096,19 @@ class CollectionTest extends TestCase
     public function testSetDataOnFormPopulatesCollection()
     {
         $form = new Form();
-        $form->add(array(
+        $form->add([
             'name' => 'names',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => new Element\Text(),
-            ),
-        ));
+            ],
+        ]);
 
-        $names = array('foo', 'bar', 'baz', 'bat');
+        $names = ['foo', 'bar', 'baz', 'bat'];
 
-        $form->setData(array(
+        $form->setData([
             'names' => $names
-        ));
+        ]);
 
         $this->assertCount(count($names), $form->get('names'));
 
@@ -1123,18 +1123,18 @@ class CollectionTest extends TestCase
     {
         $form = new Form();
         $form->add(new Element\Text('input'));
-        $form->add(array(
+        $form->add([
             'name' => 'names',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => new Element\Text(),
                 'count' => 2
-            ),
-        ));
+            ],
+        ]);
 
-        $form->setData(array(
+        $form->setData([
             'input' => 'foo',
-        ));
+        ]);
 
         $this->assertCount(0, $form->get('names'));
 
@@ -1145,10 +1145,10 @@ class CollectionTest extends TestCase
 
     public function testMininumLenghtIsMaintanedWhenSettingASmallerCollection()
     {
-        $arrayCollection = array(
+        $arrayCollection = [
             new Element\Color(),
             new Element\Color(),
-        );
+        ];
 
         $collection = $this->form->get('colors');
         $collection->setCount(3);
@@ -1164,14 +1164,14 @@ class CollectionTest extends TestCase
     {
         $form = new Form('test');
         $text = new Element\Text('text');
-        $form->add(array(
+        $form->add([
             'name' => 'text',
             'type' => 'Zend\Form\Element\Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $text, 'count' => 2,
-            ),
-        ));
-        $object = new \ArrayObject(array('text' => array('Foo', 'Bar')));
+            ],
+        ]);
+        $object = new \ArrayObject(['text' => ['Foo', 'Bar']]);
         $form->bind($object);
         $this->assertTrue($form->isValid());
 
@@ -1201,17 +1201,17 @@ class CollectionTest extends TestCase
         $form = new Form();
         $form->setObject(new \stdClass());
         $form->setHydrator(new ObjectPropertyHydrator());
-        $form->add(array(
+        $form->add([
             'name' => 'collection',
             'type' => 'Collection',
-            'options' => array(
+            'options' => [
                 'target_element' => $mainFieldset,
                 'count' => 2
-            ),
-        ));
+            ],
+        ]);
 
         $model = new \stdClass();
-        $model->collection = array(new \ArrayObject(array('test' => 'bar')), new \stdClass());
+        $model->collection = [new \ArrayObject(['test' => 'bar']), new \stdClass()];
 
         $form->bind($model);
         $this->assertTrue($form->isValid());
@@ -1233,11 +1233,11 @@ class CollectionTest extends TestCase
     public function testCanHydrateObject()
     {
         $form = $this->form;
-        $data = array(
-            'colors' => array(
+        $data = [
+            'colors' => [
                 '#ffffff',
-            ),
-        );
+            ],
+        ];
         $form->setData($data);
         $object = new \ArrayObject();
         $form->bind($object);
@@ -1255,14 +1255,14 @@ class CollectionTest extends TestCase
         $collection->setAllowRemove(true);
         $collection->setCount(0);
 
-        $data = array();
+        $data = [];
         $data[] = 'blue';
         $data[] = 'green';
         $data[] = 'red';
 
         $collection->populateValues($data);
 
-        $collection->populateValues(array('colors' => array('0' => 'blue')));
+        $collection->populateValues(['colors' => ['0' => 'blue']]);
         $this->assertEquals(1, count($collection->getElements()));
     }
 }

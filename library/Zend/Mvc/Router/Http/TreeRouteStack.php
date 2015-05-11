@@ -54,7 +54,7 @@ class TreeRouteStack extends SimpleRouteStack
      * @return SimpleRouteStack
      * @throws Exception\InvalidArgumentException
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -81,7 +81,7 @@ class TreeRouteStack extends SimpleRouteStack
         $this->prototypes = new ArrayObject;
 
         $routes = $this->routePluginManager;
-        foreach (array(
+        foreach ([
                 'chain'    => __NAMESPACE__ . '\Chain',
                 'hostname' => __NAMESPACE__ . '\Hostname',
                 'literal'  => __NAMESPACE__ . '\Literal',
@@ -92,7 +92,7 @@ class TreeRouteStack extends SimpleRouteStack
                 'scheme'   => __NAMESPACE__ . '\Scheme',
                 'segment'  => __NAMESPACE__ . '\Segment',
                 'wildcard' => __NAMESPACE__ . '\Wildcard',
-            ) as $name => $class
+            ] as $name => $class
         ) {
             $routes->setInvokableClass($name, $class);
         };
@@ -145,18 +145,18 @@ class TreeRouteStack extends SimpleRouteStack
                 throw new Exception\InvalidArgumentException('Chain routes must be an array or Traversable object');
             }
 
-            $chainRoutes = array_merge(array($specs), $specs['chain_routes']);
+            $chainRoutes = array_merge([$specs], $specs['chain_routes']);
             unset($chainRoutes[0]['chain_routes']);
 
             if (isset($specs['child_routes'])) {
                 unset($chainRoutes[0]['child_routes']);
             }
 
-            $options = array(
+            $options = [
                 'routes'        => $chainRoutes,
                 'route_plugins' => $this->routePluginManager,
                 'prototypes'    => $this->prototypes,
-            );
+            ];
 
             $route = $this->routePluginManager->get('chain', $options);
         } else {
@@ -168,13 +168,13 @@ class TreeRouteStack extends SimpleRouteStack
         }
 
         if (isset($specs['child_routes'])) {
-            $options = array(
+            $options = [
                 'route'         => $route,
                 'may_terminate' => (isset($specs['may_terminate']) && $specs['may_terminate']),
                 'child_routes'  => $specs['child_routes'],
                 'route_plugins' => $this->routePluginManager,
                 'prototypes'    => $this->prototypes,
-            );
+            ];
 
             $priority = (isset($route->priority) ? $route->priority : null);
 
@@ -247,7 +247,7 @@ class TreeRouteStack extends SimpleRouteStack
      * @param  array        $options
      * @return RouteMatch|null
      */
-    public function match(Request $request, $pathOffset = null, array $options = array())
+    public function match(Request $request, $pathOffset = null, array $options = [])
     {
         if (!method_exists($request, 'getUri')) {
             return;
@@ -304,7 +304,7 @@ class TreeRouteStack extends SimpleRouteStack
      * @throws Exception\InvalidArgumentException
      * @throws Exception\RuntimeException
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         if (!isset($options['name'])) {
             throw new Exception\InvalidArgumentException('Missing "name" option');

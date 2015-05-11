@@ -42,7 +42,7 @@ class TableGateway extends AbstractTableGateway
         // process features
         if ($features !== null) {
             if ($features instanceof Feature\AbstractFeature) {
-                $features = array($features);
+                $features = [$features];
             }
             if (is_array($features)) {
                 $this->featureSet = new Feature\FeatureSet($features);

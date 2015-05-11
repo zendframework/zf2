@@ -87,7 +87,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
     public function testSetTypes()
     {
         $expression = new Expression();
-        $return = $expression->setTypes(array(Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL));
+        $return = $expression->setTypes([Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL]);
         $this->assertSame($expression, $return);
         return $expression;
     }
@@ -99,7 +99,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
     public function testGetTypes(Expression $expression)
     {
         $this->assertEquals(
-            array(Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL),
+            [Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL],
             $expression->getTypes()
         );
     }
@@ -111,32 +111,32 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
     {
         $expression = new Expression(
             'X SAME AS ? AND Y = ? BUT LITERALLY ?',
-            array('foo', 5, 'FUNC(FF%X)'),
-            array(Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL)
+            ['foo', 5, 'FUNC(FF%X)'],
+            [Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL]
         );
 
         $this->assertEquals(
-            array(array(
+            [[
                 'X SAME AS %s AND Y = %s BUT LITERALLY %s',
-                array('foo', 5, 'FUNC(FF%X)'),
-                array(Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL)
-            )),
+                ['foo', 5, 'FUNC(FF%X)'],
+                [Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL]
+            ]],
             $expression->getExpressionData()
         );
         $expression = new Expression(
             'X SAME AS ? AND Y = ? BUT LITERALLY ?',
-            array(
-                array('foo'        => Expression::TYPE_IDENTIFIER),
-                array(5            => Expression::TYPE_VALUE),
-                array('FUNC(FF%X)' => Expression::TYPE_LITERAL),
-            )
+            [
+                ['foo'        => Expression::TYPE_IDENTIFIER],
+                [5            => Expression::TYPE_VALUE],
+                ['FUNC(FF%X)' => Expression::TYPE_LITERAL],
+            ]
         );
 
-        $expected = array(array(
+        $expected = [[
             'X SAME AS %s AND Y = %s BUT LITERALLY %s',
-            array('foo', 5, 'FUNC(FF%X)'),
-            array(Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL)
-        ));
+            ['foo', 5, 'FUNC(FF%X)'],
+            [Expression::TYPE_IDENTIFIER, Expression::TYPE_VALUE, Expression::TYPE_LITERAL]
+        ]];
 
         $this->assertEquals($expected, $expression->getExpressionData());
     }
@@ -145,7 +145,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
     {
         $expression = new Expression('X LIKE "foo%"');
         $this->assertEquals(
-            array('X LIKE "foo%%"'),
+            ['X LIKE "foo%%"'],
             $expression->getExpressionData()
         );
     }

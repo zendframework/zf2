@@ -90,7 +90,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
                 || (isset($columnParameters[1]) && $columnParameters[1] == self::SQL_STAR)
                 || strpos($columnParameters[0], $starSuffix)
             ) {
-                $selectParameters[0] = array(array(self::SQL_STAR));
+                $selectParameters[0] = [[self::SQL_STAR]];
                 break;
             }
 
@@ -102,7 +102,7 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         // first, produce column list without compound names (using the AS portion only)
         array_unshift($sqls, $this->createSqlFromSpecificationAndParameters(
-            array('SELECT %1$s FROM (' => current($this->specifications[self::SELECT])),
+            ['SELECT %1$s FROM (' => current($this->specifications[self::SELECT])],
             $selectParameters
         ));
 
@@ -151,9 +151,9 @@ class SelectDecorator extends Select implements PlatformDecoratorInterface
 
         // add a column for row_number() using the order specification //dense_rank()
         if ($this->getIsSelectContainDistinct()) {
-            $parameters[self::SELECT][0][] = array('DENSE_RANK() OVER (' . $orderBy . ')', 'ZEND_DB_ROWNUM');
+            $parameters[self::SELECT][0][] = ['DENSE_RANK() OVER (' . $orderBy . ')', 'ZEND_DB_ROWNUM'];
         } else {
-            $parameters[self::SELECT][0][] = array('ROW_NUMBER() OVER (' . $orderBy . ')', 'ZEND_DB_ROWNUM');
+            $parameters[self::SELECT][0][] = ['ROW_NUMBER() OVER (' . $orderBy . ')', 'ZEND_DB_ROWNUM'];
         }
 
         $sqls[self::SELECT] = $this->createSqlFromSpecificationAndParameters(

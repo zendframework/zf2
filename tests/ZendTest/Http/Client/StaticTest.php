@@ -116,10 +116,10 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHeader()
     {
-        $this->_client->setHeaders(array(
+        $this->_client->setHeaders([
             'Accept-encoding' => 'gzip,deflate',
             'Accept-language' => 'en,de,*',
-        ));
+        ]);
 
         $this->assertEquals($this->_client->getHeader('Accept-encoding'), 'gzip, deflate', 'Returned value of header is not as expected');
         $this->assertEquals($this->_client->getHeader('X-Fake-Header'), null, 'Non-existing header should not return a value');
@@ -178,7 +178,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $this->_client->clearCookies();
         $cookies = $this->_client->getCookies();
 
-        $this->assertEquals(array(), $cookies, 'Cookies are expected to be an empty array but it is not');
+        $this->assertEquals([], $cookies, 'Cookies are expected to be an empty array but it is not');
     }
 
     /**
@@ -204,10 +204,10 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigSetAsArray()
     {
-        $config = array(
+        $config = [
             'timeout'    => 500,
             'someoption' => 'hasvalue'
-        );
+        ];
 
         $this->_client->setOptions($config);
 
@@ -225,12 +225,12 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public function testConfigSetAsZendConfig()
     {
-        $config = new \Zend\Config\Config(array(
+        $config = new \Zend\Config\Config([
             'timeout'  => 400,
-            'nested'   => array(
+            'nested'   => [
                 'item' => 'value',
-            )
-        ));
+            ]
+        ]);
 
         $this->_client->setOptions($config);
 
@@ -264,13 +264,13 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $adapter = new MockAdapter();
 
         // test that config passes when we set the adapter
-        $this->_client->setOptions(array('param' => 'value1'));
+        $this->_client->setOptions(['param' => 'value1']);
         $this->_client->setAdapter($adapter);
         $adapterCfg = $adapter->config;
         $this->assertEquals('value1', $adapterCfg['param']);
 
         // test that adapter config value changes when we set client config
-        $this->_client->setOptions(array('param' => 'value2'));
+        $this->_client->setOptions(['param' => 'value2']);
         $adapterCfg = $adapter->config;
         $this->assertEquals('value2', $adapterCfg['param']);
     }
@@ -307,7 +307,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         // Now, test we get a proper response after the request
         $this->_client->setUri('http://example.com/foo/bar');
         $this->_client->setAdapter('Zend\Http\Client\Adapter\Test');
-        $this->_client->setOptions(array('storeresponse' => false));
+        $this->_client->setOptions(['storeresponse' => false]);
 
         $response = $this->_client->send();
 
@@ -330,7 +330,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
             'Cannot handle content type \'x-foo/something-fake\' automatically');
 
         $this->_client->setEncType('x-foo/something-fake');
-        $this->_client->setParameterPost(array('parameter' => 'value'));
+        $this->_client->setParameterPost(['parameter' => 'value']);
         $this->_client->setMethod('POST');
         // This should throw an exception
         $this->_client->send();
@@ -353,7 +353,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $this->_client->setUri('http://255.255.255.255');
 
         // Reduce timeout to 3 seconds to avoid waiting
-        $this->_client->setOptions(array('timeout' => 3));
+        $this->_client->setOptions(['timeout' => 3]);
 
         // This call should cause an exception
         $this->_client->send();
@@ -388,16 +388,16 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         $this->_client->setUri('http://example.com');
         $this->_client->setEncType(HTTPClient::ENC_FORMDATA);
 
-        $this->_client->setParameterPost(array(
-            'test' => array(
+        $this->_client->setParameterPost([
+            'test' => [
                         'v0.1',
                         'v0.2',
                         'k1' => 'v1.0',
-                        'k2' => array(
+                        'k2' => [
                             'v2.1',
                             'k2.1' => 'v2.1.0'
-                         ))
-        ));
+                         ]]
+        ]);
 
         $this->_client->setMethod('POST');
         $this->_client->send();
@@ -459,9 +459,9 @@ class StaticTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Zend\Http\Client online tests are not enabled');
         }
         $url = 'http://www.example.com/';
-        $config = array(
+        $config = [
             'outputstream' => realpath(__DIR__ . '/_files/zend_http_client_stream.file'),
-        );
+        ];
         $client = new HTTPClient($url, $config);
 
         $result = $client->send();
@@ -486,9 +486,9 @@ class StaticTest extends \PHPUnit_Framework_TestCase
             'Could not open temp file /path/to/bogus/file.ext');
 
         $url = 'http://www.example.com';
-        $config = array(
+        $config = [
             'outputstream' => '/path/to/bogus/file.ext',
-        );
+        ];
         $client = new HTTPClient($url, $config);
         $client->setMethod('GET');
         $result = $client->send();
@@ -521,7 +521,7 @@ class StaticTest extends \PHPUnit_Framework_TestCase
         if (!defined('TESTS_ZEND_HTTP_CLIENT_ONLINE') || !constant('TESTS_ZEND_HTTP_CLIENT_ONLINE')) {
             $this->markTestSkipped('Zend\Http\Client online tests are not enabled');
         }
-        $this->_client->setOptions(array('encodecookies' => false));
+        $this->_client->setOptions(['encodecookies' => false]);
         $this->_client->addCookie('foo', 'bar=baz');
         $this->_client->send();
         $cookieValue = 'Cookie: foo=bar=baz';
@@ -540,14 +540,14 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public static function validMethodProvider()
     {
-        return array(
-            array('OPTIONS'),
-            array('POST'),
-            array('DOSOMETHING'),
-            array('PROPFIND'),
-            array('Some_Characters'),
-            array('X-MS-ENUMATTS')
-        );
+        return [
+            ['OPTIONS'],
+            ['POST'],
+            ['DOSOMETHING'],
+            ['PROPFIND'],
+            ['Some_Characters'],
+            ['X-MS-ENUMATTS']
+        ];
     }
 
     /**
@@ -557,12 +557,12 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public static function invalidMethodProvider()
     {
-        return array(
-            array('N@5TYM3T#0D'),
-            array('TWO WORDS'),
-            array('GET http://foo.com/?'),
-            array("Injected\nnewline")
-        );
+        return [
+            ['N@5TYM3T#0D'],
+            ['TWO WORDS'],
+            ['GET http://foo.com/?'],
+            ["Injected\nnewline"]
+        ];
     }
 
     /**
@@ -572,19 +572,19 @@ class StaticTest extends \PHPUnit_Framework_TestCase
      */
     public static function invalidConfigProvider()
     {
-        return array(
-            array(false),
-            array('foo => bar'),
-            array(null),
-            array(new \stdClass),
-            array(55)
-        );
+        return [
+            [false],
+            ['foo => bar'],
+            [null],
+            [new \stdClass],
+            [55]
+        ];
     }
 }
 
 class MockClient extends HTTPClient
 {
-    public $config = array(
+    public $config = [
         'maxredirects'    => 5,
         'strictredirects' => false,
         'useragent'       => 'Zend_Http_Client',
@@ -596,10 +596,10 @@ class MockClient extends HTTPClient
         'strict'          => true,
         'outputstream'   => false,
         'encodecookies'   => true,
-    );
+    ];
 }
 
 class MockAdapter extends \Zend\Http\Client\Adapter\Test
 {
-    public $config = array();
+    public $config = [];
 }

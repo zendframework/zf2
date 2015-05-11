@@ -29,11 +29,11 @@ class FormButtonTest extends CommonTestCase
 
     public function testPassingArrayToOpenTagRendersAttributes()
     {
-        $attributes = array(
+        $attributes = [
             'name'  => 'my-button',
             'class' => 'email-button',
             'type'  => 'button',
-        );
+        ];
         $markup = $this->helper->openTag($attributes);
 
         foreach ($attributes as $key => $value) {
@@ -87,16 +87,16 @@ class FormButtonTest extends CommonTestCase
 
     public function inputTypes()
     {
-        return array(
-            array('submit', 'assertContains'),
-            array('button', 'assertContains'),
-            array('reset', 'assertContains'),
-            array('lunar', 'assertNotContains'),
-            array('name', 'assertNotContains'),
-            array('username', 'assertNotContains'),
-            array('text', 'assertNotContains'),
-            array('checkbox', 'assertNotContains'),
-        );
+        return [
+            ['submit', 'assertContains'],
+            ['button', 'assertContains'],
+            ['reset', 'assertContains'],
+            ['lunar', 'assertNotContains'],
+            ['name', 'assertNotContains'],
+            ['username', 'assertNotContains'],
+            ['text', 'assertNotContains'],
+            ['checkbox', 'assertNotContains'],
+        ];
     }
 
     /**
@@ -113,43 +113,43 @@ class FormButtonTest extends CommonTestCase
 
     public function validAttributes()
     {
-        return array(
-            array('name', 'assertContains'),
-            array('accept', 'assertNotContains'),
-            array('alt', 'assertNotContains'),
-            array('autocomplete', 'assertNotContains'),
-            array('autofocus', 'assertContains'),
-            array('checked', 'assertNotContains'),
-            array('dirname', 'assertNotContains'),
-            array('disabled', 'assertContains'),
-            array('form', 'assertContains'),
-            array('formaction', 'assertContains'),
-            array('formenctype', 'assertContains'),
-            array('formmethod', 'assertContains'),
-            array('formnovalidate', 'assertContains'),
-            array('formtarget', 'assertContains'),
-            array('height', 'assertNotContains'),
-            array('list', 'assertNotContains'),
-            array('max', 'assertNotContains'),
-            array('maxlength', 'assertNotContains'),
-            array('min', 'assertNotContains'),
-            array('multiple', 'assertNotContains'),
-            array('pattern', 'assertNotContains'),
-            array('placeholder', 'assertNotContains'),
-            array('readonly', 'assertNotContains'),
-            array('required', 'assertNotContains'),
-            array('size', 'assertNotContains'),
-            array('src', 'assertNotContains'),
-            array('step', 'assertNotContains'),
-            array('value', 'assertContains'),
-            array('width', 'assertNotContains'),
-        );
+        return [
+            ['name', 'assertContains'],
+            ['accept', 'assertNotContains'],
+            ['alt', 'assertNotContains'],
+            ['autocomplete', 'assertNotContains'],
+            ['autofocus', 'assertContains'],
+            ['checked', 'assertNotContains'],
+            ['dirname', 'assertNotContains'],
+            ['disabled', 'assertContains'],
+            ['form', 'assertContains'],
+            ['formaction', 'assertContains'],
+            ['formenctype', 'assertContains'],
+            ['formmethod', 'assertContains'],
+            ['formnovalidate', 'assertContains'],
+            ['formtarget', 'assertContains'],
+            ['height', 'assertNotContains'],
+            ['list', 'assertNotContains'],
+            ['max', 'assertNotContains'],
+            ['maxlength', 'assertNotContains'],
+            ['min', 'assertNotContains'],
+            ['multiple', 'assertNotContains'],
+            ['pattern', 'assertNotContains'],
+            ['placeholder', 'assertNotContains'],
+            ['readonly', 'assertNotContains'],
+            ['required', 'assertNotContains'],
+            ['size', 'assertNotContains'],
+            ['src', 'assertNotContains'],
+            ['step', 'assertNotContains'],
+            ['value', 'assertContains'],
+            ['width', 'assertNotContains'],
+        ];
     }
 
     public function getCompleteElement()
     {
         $element = new Element('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'accept'             => 'value',
             'alt'                => 'value',
             'autocomplete'       => 'on',
@@ -179,7 +179,7 @@ class FormButtonTest extends CommonTestCase
             'src'                => 'value',
             'step'               => 'value',
             'width'              => 'value',
-        ));
+        ]);
         $element->setValue('value');
         return $element;
     }
@@ -321,7 +321,7 @@ class FormButtonTest extends CommonTestCase
     {
         $element = new Element('foo');
         $element->setLabel('<strong>Click me</strong>');
-        $element->setLabelOptions(array('disable_html_escape' => true));
+        $element->setLabelOptions(['disable_html_escape' => true]);
         $markup = $this->helper->__invoke($element);
         $this->assertRegexp('#<button([^>]*)><strong>Click me</strong></button>#', $markup);
     }

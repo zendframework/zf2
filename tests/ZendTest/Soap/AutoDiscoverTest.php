@@ -127,7 +127,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
 
         /** @var $node \DOMElement */
         foreach ($element->childNodes as $node) {
-            if (in_array($node->nodeType, array(XML_ELEMENT_NODE))) {
+            if (in_array($node->nodeType, [XML_ELEMENT_NODE])) {
                 $this->assertNotEmpty(
                     $node->namespaceURI, 'Document element: '
                     . $node->nodeName . ' has no valid namespace. Line: '
@@ -170,13 +170,13 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderForAutoDiscoverConstructorStrategy()
     {
-        return array(
-            array(new Wsdl\ComplexTypeStrategy\AnyType()),
-            array(new Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex()),
-            array(new Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence()),
-            array(new Wsdl\ComplexTypeStrategy\Composite()),
-            array(new Wsdl\ComplexTypeStrategy\DefaultComplexType()),
-        );
+        return [
+            [new Wsdl\ComplexTypeStrategy\AnyType()],
+            [new Wsdl\ComplexTypeStrategy\ArrayOfTypeComplex()],
+            [new Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence()],
+            [new Wsdl\ComplexTypeStrategy\Composite()],
+            [new Wsdl\ComplexTypeStrategy\DefaultComplexType()],
+        ];
     }
 
     public function testGetDiscoveryStrategy()
@@ -234,15 +234,15 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderForSetServiceName()
     {
-        return array(
-            array('MyServiceName123', true),
-            array('1MyServiceName123', false),
-            array('$MyServiceName123', false),
-            array('!MyServiceName123', false),
-            array('&MyServiceName123', false),
-            array('(MyServiceName123', false),
-            array('\MyServiceName123', false),
-        );
+        return [
+            ['MyServiceName123', true],
+            ['1MyServiceName123', false],
+            ['$MyServiceName123', false],
+            ['!MyServiceName123', false],
+            ['&MyServiceName123', false],
+            ['(MyServiceName123', false],
+            ['\MyServiceName123', false],
+        ];
     }
 
     public function testGetServiceName()
@@ -287,9 +287,9 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
 
     public function testClassMap()
     {
-        $classMap = array(
+        $classMap = [
             'TestClass' => 'test_class'
-        );
+        ];
 
         $this->server->setClassMap($classMap);
 
@@ -379,11 +379,11 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
         $this->assertSpecificNodeNumberInXPath(8, $xpath);
         $nodes = $this->xpath->query($xpath);
         $this->assertAttributesOfNodes(
-            array(
+            [
                  "use"           => "encoded",
                  "encodingStyle" => "http://schemas.xmlsoap.org/soap/encoding/",
                  "namespace"     => "http://localhost/MyService.php"
-            ), $nodes
+            ], $nodes
         );
 
         $this->assertSpecificNodeNumberInXPath(
@@ -470,11 +470,11 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
     public function testSetClassWithDifferentStyles()
     {
         $this->server->setBindingStyle(
-            array('style'     => 'document',
-                  'transport' => $this->defaultServiceUri)
+            ['style'     => 'document',
+                  'transport' => $this->defaultServiceUri]
         );
         $this->server->setOperationBodyStyle(
-            array('use' => 'literal', 'namespace' => $this->defaultServiceUri)
+            ['use' => 'literal', 'namespace' => $this->defaultServiceUri]
         );
         $this->server->setClass('\ZendTest\Soap\TestAsset\Test');
 
@@ -502,10 +502,10 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             'Test func1 return element is invalid'
         );
         $this->assertAttributesOfNodes(
-            array(
+            [
                  'name' => "testFunc1Result",
                  'type' => "xsd:string",
-            ), $nodes
+            ], $nodes
         );
 
 
@@ -525,10 +525,10 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             'Test func2 does not have children'
         );
         $this->assertAttributesOfNodes(
-            array(
+            [
                  'name' => "who",
                  'type' => "xsd:string",
-            ), $nodes
+            ], $nodes
         );
 
         $nodes = $this->assertSpecificNodeNumberInXPath(
@@ -538,10 +538,10 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             'Test func2 return element is invalid'
         );
         $this->assertAttributesOfNodes(
-            array(
+            [
                  'name' => "testFunc2Result",
                  'type' => "xsd:string",
-            ), $nodes
+            ], $nodes
         );
 
 
@@ -580,10 +580,10 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             'Test func3 return element is invalid'
         );
         $this->assertAttributesOfNodes(
-            array(
+            [
                  'name' => "testFunc3Result",
                  'type' => "xsd:string",
-            ), $nodes
+            ], $nodes
         );
 
 
@@ -609,10 +609,10 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             'Test func1 return element is invalid'
         );
         $this->assertAttributesOfNodes(
-            array(
+            [
                  'name' => "testFunc4Result",
                  'type' => "xsd:string",
-            ), $nodes
+            ], $nodes
         );
 
 
@@ -738,11 +738,11 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderForAddFunctionException()
     {
-        return array(
-            array('InvalidFunction'),
-            array(1),
-            array(array(1, 2)),
-        );
+        return [
+            ['InvalidFunction'],
+            [1],
+            [[1, 2]],
+        ];
     }
 
     public function testAddFunctionSimple()
@@ -838,11 +838,11 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
     public function testAddFunctionSimpleWithDifferentStyle()
     {
         $this->server->setBindingStyle(
-            array('style'     => 'document',
-                  'transport' => $this->defaultServiceUri)
+            ['style'     => 'document',
+                  'transport' => $this->defaultServiceUri]
         );
         $this->server->setOperationBodyStyle(
-            array('use' => 'literal', 'namespace' => $this->defaultServiceUri)
+            ['use' => 'literal', 'namespace' => $this->defaultServiceUri]
         );
         $this->server->addFunction('\ZendTest\Soap\TestAsset\TestFunc');
         $this->bindWsdl($this->server->generate());
@@ -1089,7 +1089,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             'Missing service port definition'
         );
 
-        foreach (array('', 2, 3, 4, 5, 6, 7, 9) as $i) {
+        foreach (['', 2, 3, 4, 5, 6, 7, 9] as $i) {
             $this->assertSpecificNodeNumberInXPath(
                 1,
                 '//wsdl:portType[@name="MyServicePort"]/wsdl:operation[@name="TestFunc'
@@ -1200,7 +1200,7 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
             '\Zend\Soap\Exception\InvalidArgumentException',
             'Argument to \Zend\Soap\AutoDiscover::setUri should be string or \Zend\Uri\Uri instance.'
         );
-        $server->setUri(array("bogus"));
+        $server->setUri(["bogus"]);
     }
 
     /**
@@ -1229,23 +1229,23 @@ class AutoDiscoverTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProviderValidUris()
     {
-        return array(
-            array('http://example.com/service.php',
-                  'http://example.com/service.php'),
-            array('http://example.com/?a=b&amp;b=c',
-                  'http://example.com/?a=b&amp;b=c'),
-            array('http://example.com/?a=b&b=c',
-                  'http://example.com/?a=b&amp;b=c'),
-            array('urn:uuid:550e8400-e29b-41d4-a716-446655440000',
-                  'urn:uuid:550e8400-e29b-41d4-a716-446655440000'),
-            array('urn:acme:servicenamespace', 'urn:acme:servicenamespace'),
-            array(new Uri('http://example.com/service.php'),
-                  'http://example.com/service.php'),
-            array(new Uri('http://example.com/?a=b&amp;b=c'),
-                  'http://example.com/?a=b&amp;b=c'),
-            array(new Uri('http://example.com/?a=b&b=c'),
-                  'http://example.com/?a=b&amp;b=c'),
-        );
+        return [
+            ['http://example.com/service.php',
+                  'http://example.com/service.php'],
+            ['http://example.com/?a=b&amp;b=c',
+                  'http://example.com/?a=b&amp;b=c'],
+            ['http://example.com/?a=b&b=c',
+                  'http://example.com/?a=b&amp;b=c'],
+            ['urn:uuid:550e8400-e29b-41d4-a716-446655440000',
+                  'urn:uuid:550e8400-e29b-41d4-a716-446655440000'],
+            ['urn:acme:servicenamespace', 'urn:acme:servicenamespace'],
+            [new Uri('http://example.com/service.php'),
+                  'http://example.com/service.php'],
+            [new Uri('http://example.com/?a=b&amp;b=c'),
+                  'http://example.com/?a=b&amp;b=c'],
+            [new Uri('http://example.com/?a=b&b=c'),
+                  'http://example.com/?a=b&amp;b=c'],
+        ];
     }
 
     /**

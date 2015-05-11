@@ -32,21 +32,21 @@ class Module implements
     public function getConfig()
     {
         $this->getConfigCalled = true;
-        return array(
+        return [
             'listener' => 'test'
-        );
+        ];
     }
 
     public function getAutoloaderConfig()
     {
         $this->getAutoloaderConfigCalled = true;
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+        return [
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     'Foo' => __DIR__ . '/src/Foo',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 
     public function onBootstrap(EventInterface $e)

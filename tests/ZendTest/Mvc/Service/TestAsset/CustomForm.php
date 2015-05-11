@@ -21,11 +21,11 @@ class CustomForm extends Form
         $this->setAttribute('method', 'post')
              ->setHydrator(new ClassMethodsHydrator());
 
-        $this->add(array(
+        $this->add([
             'name' => 'submit',
-            'attributes' => array(
+            'attributes' => [
                 'type' => 'submit'
-            )
-        ));
+            ]
+        ]);
     }
 }

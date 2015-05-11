@@ -13,7 +13,7 @@ class Router extends \Zend\Mvc\Router\Http\TreeRouteStack
 {
     const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';
 
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         return self::RETURN_URL;
     }

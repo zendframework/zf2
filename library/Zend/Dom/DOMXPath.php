@@ -20,7 +20,7 @@ class DOMXPath extends \DOMXPath
      *
      * @var array
      */
-    protected $errors = array(null);
+    protected $errors = [null];
 
     /**
      * Evaluates an XPath expression; throws an ErrorException instead of
@@ -32,9 +32,9 @@ class DOMXPath extends \DOMXPath
      */
     public function queryWithErrorException($expression)
     {
-        $this->errors = array(null);
+        $this->errors = [null];
 
-        set_error_handler(array($this, 'addError'), \E_WARNING);
+        set_error_handler([$this, 'addError'], \E_WARNING);
         $nodeList = $this->query($expression);
         restore_error_handler();
 

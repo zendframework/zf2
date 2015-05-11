@@ -24,12 +24,12 @@ class SmtpPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'crammd5' => 'Zend\Mail\Protocol\Smtp\Auth\Crammd5',
         'login'   => 'Zend\Mail\Protocol\Smtp\Auth\Login',
         'plain'   => 'Zend\Mail\Protocol\Smtp\Auth\Plain',
         'smtp'    => 'Zend\Mail\Protocol\Smtp',
-    );
+    ];
 
     /**
      * Validate the plugin

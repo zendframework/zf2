@@ -29,7 +29,7 @@ interface RouteInterface
      * @param  array|\Traversable $options
      * @return void
      */
-    public static function factory($options = array());
+    public static function factory($options = []);
 
     /**
      * Match a given request.
@@ -46,5 +46,5 @@ interface RouteInterface
      * @param  array $options
      * @return mixed
      */
-    public function assemble(array $params = array(), array $options = array());
+    public function assemble(array $params = [], array $options = []);
 }

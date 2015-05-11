@@ -38,10 +38,10 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructByOptions()
     {
-        $options = array(
+        $options = [
             'cost'       => '15',
             'salt'       => $this->salt
-        );
+        ];
         $bcrypt  = new Bcrypt($options);
         $this->assertEquals('15', $bcrypt->getCost());
         $this->assertEquals($this->salt, $bcrypt->getSalt());
@@ -49,10 +49,10 @@ class BcryptTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructByConfig()
     {
-        $options = array(
+        $options = [
             'cost'       => '15',
             'salt'       => $this->salt
-        );
+        ];
         $config  = new Config($options);
         $bcrypt  = new Bcrypt($config);
         $this->assertEquals('15', $bcrypt->getCost());

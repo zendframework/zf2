@@ -21,14 +21,14 @@ class InjectTemplateListenerTest extends TestCase
 {
     public function setUp()
     {
-        $controllerMap = array(
+        $controllerMap = [
             'MappedNs' => true,
             'ZendTest\MappedNs' => true,
-        );
+        ];
         $this->listener   = new InjectTemplateListener();
         $this->listener->setControllerMap($controllerMap);
         $this->event      = new MvcEvent();
-        $this->routeMatch = new RouteMatch(array());
+        $this->routeMatch = new RouteMatch([]);
         $this->event->setRouteMatch($this->routeMatch);
     }
 
@@ -187,7 +187,7 @@ class InjectTemplateListenerTest extends TestCase
 
         $this->assertEquals('mapped-ns/sub-ns/sample', $myViewModel->getTemplate());
 
-        $this->listener->setControllerMap(array('ZendTest' => true));
+        $this->listener->setControllerMap(['ZendTest' => true]);
         $myViewModel  = new ViewModel();
         $myController = new \ZendTest\Mvc\Controller\TestAsset\SampleController();
         $this->event->setTarget($myController);
@@ -213,28 +213,28 @@ class InjectTemplateListenerTest extends TestCase
 
     public function testFullControllerNameMatchIsMapped()
     {
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo\Bar\Controller\IndexController' => 'string-value',
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\Bar\Controller\IndexController');
         $this->assertEquals('string-value', $template);
     }
 
     public function testOnlyFullNamespaceMatchIsMapped()
     {
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo' => 'foo-matched',
             'Foo\Bar' => 'foo-bar-matched',
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\BarBaz\Controller\IndexController');
         $this->assertEquals('foo-matched/bar-baz/index', $template);
     }
 
     public function testControllerMapMatchedPrefixReplacedByStringValue()
     {
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo\Bar' => 'string-value',
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\Bar\Controller\IndexController');
         $this->assertEquals('string-value/index', $template);
     }
@@ -265,37 +265,37 @@ class InjectTemplateListenerTest extends TestCase
 
     public function testControllerMapOnlyFullNamespaceMatches()
     {
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo' => 'foo-matched',
             'Foo\Bar' => 'foo-bar-matched',
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\BarBaz\Controller\IndexController');
         $this->assertEquals('foo-matched/bar-baz/index', $template);
     }
 
     public function testControllerMapRuleSetToFalseIsIgnored()
     {
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo' => 'foo-matched',
             'Foo\Bar' => false,
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\Bar\Controller\IndexController');
         $this->assertEquals('foo-matched/bar/index', $template);
     }
 
     public function testControllerMapMoreSpecificRuleMatchesFirst()
     {
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo'     => true,
             'Foo\Bar' => 'bar/baz',
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\Bar\Controller\IndexController');
         $this->assertEquals('bar/baz/index', $template);
 
-        $this->listener->setControllerMap(array(
+        $this->listener->setControllerMap([
             'Foo\Bar' => 'bar/baz',
             'Foo'     => true,
-        ));
+        ]);
         $template = $this->listener->mapController('Foo\Bar\Controller\IndexController');
         $this->assertEquals('bar/baz/index', $template);
     }
@@ -306,7 +306,7 @@ class InjectTemplateListenerTest extends TestCase
         $events->attachAggregate($this->listener);
         $listeners = $events->getListeners(MvcEvent::EVENT_DISPATCH);
 
-        $expectedCallback = array($this->listener, 'injectTemplate');
+        $expectedCallback = [$this->listener, 'injectTemplate'];
         $expectedPriority = -90;
         $found            = false;
         foreach ($listeners as $listener) {

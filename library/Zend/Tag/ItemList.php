@@ -22,7 +22,7 @@ class ItemList implements Countable, SeekableIterator, ArrayAccess
      *
      * @var array
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * Count all items
@@ -74,7 +74,7 @@ class ItemList implements Countable, SeekableIterator, ArrayAccess
             // Calculate the thresholds
             $steps      = count($values);
             $delta      = ($maxWeight - $minWeight) / ($steps - 1);
-            $thresholds = array();
+            $thresholds = [];
 
             for ($i = 0; $i < $steps; $i++) {
                 $thresholds[$i] = floor(100 * log(($minWeight + $i * $delta) + 2));

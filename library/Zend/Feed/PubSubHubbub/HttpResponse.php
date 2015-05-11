@@ -23,7 +23,7 @@ class HttpResponse
      *
      * @var array
      */
-    protected $headers = array();
+    protected $headers = [];
 
     /**
      * HTTP response code to use in headers
@@ -94,11 +94,11 @@ class HttpResponse
                 }
             }
         }
-        $this->headers[] = array(
+        $this->headers[] = [
             'name'    => $name,
             'value'   => $value,
             'replace' => $replace,
-        );
+        ];
 
         return $this;
     }
@@ -203,7 +203,7 @@ class HttpResponse
      */
     protected function _normalizeHeader($name)
     {
-        $filtered = str_replace(array('-', '_'), ' ', (string) $name);
+        $filtered = str_replace(['-', '_'], ' ', (string) $name);
         $filtered = ucwords(strtolower($filtered));
         $filtered = str_replace(' ', '-', $filtered);
         return $filtered;

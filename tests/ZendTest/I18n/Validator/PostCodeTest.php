@@ -32,7 +32,7 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $this->validator = new PostCodeValidator(array('locale' => 'de_AT'));
+        $this->validator = new PostCodeValidator(['locale' => 'de_AT']);
     }
 
     /**
@@ -42,40 +42,40 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testUKBasic($postCode, $expected)
     {
-        $uk_validator = new PostCodeValidator(array('locale' => 'en_GB'));
+        $uk_validator = new PostCodeValidator(['locale' => 'en_GB']);
         $this->assertSame($expected, $uk_validator->isValid($postCode));
     }
 
     public function UKPostCodesDataProvider()
     {
-        return array(
-            array('CA3 5JQ', true),
-            array('GL15 2GB', true),
-            array('GL152GB', true),
-            array('ECA32 6JQ', false),
-            array('se5 0eg', false),
-            array('SE5 0EG', true),
-            array('ECA3 5JQ', false),
-            array('WC2H 7LTa', false),
-            array('WC2H 7LTA', false),
-        );
+        return [
+            ['CA3 5JQ', true],
+            ['GL15 2GB', true],
+            ['GL152GB', true],
+            ['ECA32 6JQ', false],
+            ['se5 0eg', false],
+            ['SE5 0EG', true],
+            ['ECA3 5JQ', false],
+            ['WC2H 7LTa', false],
+            ['WC2H 7LTA', false],
+        ];
     }
 
     public function postCodesDataProvider()
     {
-        return array(
-            array('2292',    true),
-            array('1000',    true),
-            array('0000',    true),
-            array('12345',   false),
-            array(1234,      true),
-            array(9821,      true),
-            array('21A4',    false),
-            array('ABCD',    false),
-            array(true,      false),
-            array('AT-2292', false),
-            array(1.56,      false),
-        );
+        return [
+            ['2292',    true],
+            ['1000',    true],
+            ['0000',    true],
+            ['12345',   false],
+            [1234,      true],
+            [9821,      true],
+            ['21A4',    false],
+            ['ABCD',    false],
+            [true,      false],
+            ['AT-2292', false],
+            [1.56,      false],
+        ];
     }
 
     /**
@@ -96,7 +96,7 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessages()
     {
-        $this->assertEquals(array(), $this->validator->getMessages());
+        $this->assertEquals([], $this->validator->getMessages());
     }
 
     /**
@@ -163,10 +163,10 @@ class PostCodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testServiceClass()
     {
-        $params = (object)array(
+        $params = (object)[
             'serviceTrue'   => null,
             'serviceFalse'  => null,
-        );
+        ];
 
         $serviceTrue  = function ($value) use ($params) {
             $params->serviceTrue = $value;

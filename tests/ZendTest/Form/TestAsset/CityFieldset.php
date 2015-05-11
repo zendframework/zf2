@@ -21,10 +21,10 @@ class CityFieldset extends Fieldset implements InputFilterProviderInterface
         $this->setHydrator(new ClassMethodsHydrator(false))
              ->setObject(new Entity\City());
 
-        $name = new \Zend\Form\Element('name', array('label' => 'Name of the city'));
+        $name = new \Zend\Form\Element('name', ['label' => 'Name of the city']);
         $name->setAttribute('type', 'text');
 
-        $zipCode = new \Zend\Form\Element('zipCode', array('label' => 'ZipCode of the city'));
+        $zipCode = new \Zend\Form\Element('zipCode', ['label' => 'ZipCode of the city']);
         $zipCode->setAttribute('type', 'text');
 
         $country = new CountryFieldset;
@@ -43,13 +43,13 @@ class CityFieldset extends Fieldset implements InputFilterProviderInterface
      */
     public function getInputFilterSpecification()
     {
-        return array(
-            'name' => array(
+        return [
+            'name' => [
                 'required' => true,
-            ),
-            'zipCode' => array(
+            ],
+            'zipCode' => [
                 'required' => true
-            )
-        );
+            ]
+        ];
     }
 }

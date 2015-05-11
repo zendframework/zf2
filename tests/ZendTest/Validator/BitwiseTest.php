@@ -41,24 +41,24 @@ class BitwiseTest extends \PHPUnit_Framework_TestCase
 
     public function constructDataProvider()
     {
-        return array(
-            array(
-                array(),
-                array('control' => null, 'operator' => null, 'strict' => false),
-            ),
-            array(
-                array('control' => 0x1),
-                array('control' => 0x1, 'operator' => null, 'strict' => false),
-            ),
-            array(
-                array('control' => 0x1, 'operator' => Bitwise::OP_AND),
-                array('control' => 0x1, 'operator' => Bitwise::OP_AND, 'strict' => false),
-            ),
-            array(
-                array('control' => 0x1, 'operator' => Bitwise::OP_AND, 'strict' => true),
-                array('control' => 0x1, 'operator' => Bitwise::OP_AND, 'strict' => true),
-            ),
-        );
+        return [
+            [
+                [],
+                ['control' => null, 'operator' => null, 'strict' => false],
+            ],
+            [
+                ['control' => 0x1],
+                ['control' => 0x1, 'operator' => null, 'strict' => false],
+            ],
+            [
+                ['control' => 0x1, 'operator' => Bitwise::OP_AND],
+                ['control' => 0x1, 'operator' => Bitwise::OP_AND, 'strict' => false],
+            ],
+            [
+                ['control' => 0x1, 'operator' => Bitwise::OP_AND, 'strict' => true],
+                ['control' => 0x1, 'operator' => Bitwise::OP_AND, 'strict' => true],
+            ],
+        ];
     }
 
     /**

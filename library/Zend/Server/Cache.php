@@ -19,7 +19,7 @@ class Cache
     /**
      * @var array Methods to skip when caching server
      */
-    protected static $skipMethods = array();
+    protected static $skipMethods = [];
 
     /**
      * Cache a file containing the dispatch list.

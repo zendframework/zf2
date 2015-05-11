@@ -45,14 +45,14 @@ class FormTest extends CommonTestCase
     public function testCallingOpenTagWithFormUsesFormAttributes()
     {
         $form = new Form();
-        $attributes = array(
+        $attributes = [
             'method'  => 'post',
             'action'  => 'http://localhost/endpoint',
             'class'   => 'login',
             'id'      => 'form-login',
             'enctype' => 'application/x-www-form-urlencoded',
             'target'  => '_self',
-        );
+        ];
         $form->setAttributes($attributes);
 
         $markup = $this->helper->openTag($form);
@@ -66,9 +66,9 @@ class FormTest extends CommonTestCase
     public function testOpenTagUsesNameAsIdIfNoIdAttributePresent()
     {
         $form = new Form();
-        $attributes = array(
+        $attributes = [
             'name'  => 'login-form',
-        );
+        ];
         $form->setAttributes($attributes);
 
         $markup = $this->helper->openTag($form);
@@ -79,7 +79,7 @@ class FormTest extends CommonTestCase
     public function testRender()
     {
         $form = new Form();
-        $attributes = array('name'  => 'login-form');
+        $attributes = ['name'  => 'login-form'];
         $form->setAttributes($attributes);
         $form->add(new CityFieldset());
         $form->add(new Submit('send'));
@@ -98,8 +98,8 @@ class FormTest extends CommonTestCase
     {
         $form = $this->getMock('Zend\\Form\\Form');
         $form->expects($this->once())->method('prepare');
-        $form->expects($this->any())->method('getAttributes')->will($this->returnValue(array()));
-        $form->expects($this->any())->method('getIterator')->will($this->returnValue(new \ArrayIterator(array())));
+        $form->expects($this->any())->method('getAttributes')->will($this->returnValue([]));
+        $form->expects($this->any())->method('getIterator')->will($this->returnValue(new \ArrayIterator([])));
 
         $markup = $this->helper->__invoke($form);
 

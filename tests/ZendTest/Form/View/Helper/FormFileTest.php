@@ -62,13 +62,13 @@ class FormFileTest extends CommonTestCase
     public function testRendersElementWithFileIgnoresValue()
     {
         $element = new Element\File('foo');
-        $element->setValue(array(
+        $element->setValue([
             'tmp_name' => '/tmp/foofile',
             'name'     => 'foofile',
             'type'     => 'text',
             'size'     => 200,
             'error'    => 2,
-        ));
+        ]);
         $markup  = $this->helper->render($element);
         $this->assertContains('<input ', $markup);
         $this->assertContains('type="file"', $markup);
@@ -80,36 +80,36 @@ class FormFileTest extends CommonTestCase
      */
     public function validAttributes()
     {
-        return array(
-            array('name', 'assertContains'),
-            array('accept', 'assertContains'),
-            array('alt', 'assertNotContains'),
-            array('autocomplete', 'assertNotContains'),
-            array('autofocus', 'assertContains'),
-            array('checked', 'assertNotContains'),
-            array('dirname', 'assertNotContains'),
-            array('disabled', 'assertContains'),
-            array('form', 'assertContains'),
-            array('formaction', 'assertNotContains'),
-            array('formenctype', 'assertNotContains'),
-            array('formmethod', 'assertNotContains'),
-            array('formnovalidate', 'assertNotContains'),
-            array('formtarget', 'assertNotContains'),
-            array('height', 'assertNotContains'),
-            array('list', 'assertNotContains'),
-            array('max', 'assertNotContains'),
-            array('maxlength', 'assertNotContains'),
-            array('min', 'assertNotContains'),
-            array('multiple', 'assertNotContains'),
-            array('pattern', 'assertNotContains'),
-            array('placeholder', 'assertNotContains'),
-            array('readonly', 'assertNotContains'),
-            array('required', 'assertContains'),
-            array('size', 'assertNotContains'),
-            array('src', 'assertNotContains'),
-            array('step', 'assertNotContains'),
-            array('width', 'assertNotContains'),
-        );
+        return [
+            ['name', 'assertContains'],
+            ['accept', 'assertContains'],
+            ['alt', 'assertNotContains'],
+            ['autocomplete', 'assertNotContains'],
+            ['autofocus', 'assertContains'],
+            ['checked', 'assertNotContains'],
+            ['dirname', 'assertNotContains'],
+            ['disabled', 'assertContains'],
+            ['form', 'assertContains'],
+            ['formaction', 'assertNotContains'],
+            ['formenctype', 'assertNotContains'],
+            ['formmethod', 'assertNotContains'],
+            ['formnovalidate', 'assertNotContains'],
+            ['formtarget', 'assertNotContains'],
+            ['height', 'assertNotContains'],
+            ['list', 'assertNotContains'],
+            ['max', 'assertNotContains'],
+            ['maxlength', 'assertNotContains'],
+            ['min', 'assertNotContains'],
+            ['multiple', 'assertNotContains'],
+            ['pattern', 'assertNotContains'],
+            ['placeholder', 'assertNotContains'],
+            ['readonly', 'assertNotContains'],
+            ['required', 'assertContains'],
+            ['size', 'assertNotContains'],
+            ['src', 'assertNotContains'],
+            ['step', 'assertNotContains'],
+            ['width', 'assertNotContains'],
+        ];
     }
 
     /**
@@ -118,7 +118,7 @@ class FormFileTest extends CommonTestCase
     public function getCompleteElement()
     {
         $element = new Element\File('foo');
-        $element->setAttributes(array(
+        $element->setAttributes([
             'accept'             => 'value',
             'alt'                => 'value',
             'autocomplete'       => 'on',
@@ -148,7 +148,7 @@ class FormFileTest extends CommonTestCase
             'src'                => 'value',
             'step'               => 'value',
             'width'              => 'value',
-        ));
+        ]);
         $element->setValue('value');
         return $element;
     }

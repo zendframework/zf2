@@ -37,7 +37,7 @@ class ControllerLoaderFactoryTest extends TestCase
     public function setUp()
     {
         $loaderFactory  = new ControllerLoaderFactory();
-        $config         = new ArrayObject(array('di' => array()));
+        $config         = new ArrayObject(['di' => []]);
         $this->services = new ServiceManager();
         $this->services->setService('Zend\ServiceManager\ServiceLocatorInterface', $this->services);
         $this->services->setFactory('ControllerLoader', $loaderFactory);
@@ -80,11 +80,11 @@ class ControllerLoaderFactoryTest extends TestCase
     public function testControllerLoadedCanBeInjectedWithValuesFromPeer()
     {
         $this->loader = $this->services->get('ControllerLoader');
-        $config = array(
-            'invokables' => array(
+        $config = [
+            'invokables' => [
                 'ZendTest\Dispatchable' => 'ZendTest\Mvc\Service\TestAsset\Dispatchable',
-            ),
-        );
+            ],
+        ];
         $config = new Config($config);
         $config->configureServiceManager($this->loader);
 
@@ -97,18 +97,18 @@ class ControllerLoaderFactoryTest extends TestCase
 
     public function testWillInstantiateControllersFromDiAbstractFactoryWhenWhitelisted()
     {
-        $config         = new ArrayObject(array(
-            'di' => array(
-                'instance' => array(
-                    'alias' => array(
+        $config         = new ArrayObject([
+            'di' => [
+                'instance' => [
+                    'alias' => [
                         'my-controller'   => 'stdClass',
-                    ),
-                ),
-                'allowed_controllers' => array(
+                    ],
+                ],
+                'allowed_controllers' => [
                     'my-controller',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $this->services->setAllowOverride(true);
         $this->services->setService('Config', $config);
         $this->loader = $this->services->get('ControllerLoader');
@@ -121,18 +121,18 @@ class ControllerLoaderFactoryTest extends TestCase
 
     public function testWillNotInstantiateControllersFromDiAbstractFactoryWhenNotWhitelisted()
     {
-        $config = new ArrayObject(array(
-            'di' => array(
-                'instance' => array(
-                    'alias' => array(
+        $config = new ArrayObject([
+            'di' => [
+                'instance' => [
+                    'alias' => [
                         'evil-controller' => 'stdClass',
-                    ),
-                ),
-                'allowed_controllers' => array(
+                    ],
+                ],
+                'allowed_controllers' => [
                     'my-controller',
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $this->services->setAllowOverride(true);
         $this->services->setService('Config', $config);
         $this->loader = $this->services->get('ControllerLoader');
@@ -144,20 +144,20 @@ class ControllerLoaderFactoryTest extends TestCase
     {
         $controllerName = __NAMESPACE__ . '\TestAsset\ControllerWithDependencies';
         // rewriting since controller loader does not have the correct config, but is already fetched
-        $config = new ArrayObject(array(
-            'di' => array(
-                'instance' => array(
-                    $controllerName => array(
-                        'parameters' => array(
+        $config = new ArrayObject([
+            'di' => [
+                'instance' => [
+                    $controllerName => [
+                        'parameters' => [
                             'injected' => 'stdClass',
-                        ),
-                    ),
-                ),
-                'allowed_controllers' => array(
+                        ],
+                    ],
+                ],
+                'allowed_controllers' => [
                     $controllerName,
-                ),
-            ),
-        ));
+                ],
+            ],
+        ]);
         $this->services->setAllowOverride(true);
         $this->services->setService('Config', $config);
         $this->loader = $this->services->get('ControllerLoader');

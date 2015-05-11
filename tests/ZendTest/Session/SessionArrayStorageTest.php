@@ -20,13 +20,13 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $_SESSION = array();
+        $_SESSION = [];
         $this->storage = new SessionArrayStorage;
     }
 
     public function tearDown()
     {
-        $_SESSION = array();
+        $_SESSION = [];
     }
 
     public function testStorageWritesToSessionSuperglobal()
@@ -40,14 +40,14 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
     public function testPassingArrayToConstructorOverwritesSessionSuperglobal()
     {
         $_SESSION['foo'] = 'bar';
-        $array   = array('foo' => 'FOO');
+        $array   = ['foo' => 'FOO'];
         $storage = new SessionArrayStorage($array);
-        $expected = array(
+        $expected = [
             'foo' => 'FOO',
-            '__ZF' => array(
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $storage->getRequestAccessTime(),
-            ),
-        );
+            ],
+        ];
         $this->assertSame($expected, $_SESSION);
     }
 
@@ -60,12 +60,12 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
     public function testDestructorSetsSessionToArray()
     {
         $this->storage->foo = 'bar';
-        $expected = array(
-            '__ZF' => array(
+        $expected = [
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
-            ),
+            ],
             'foo' => 'bar',
-        );
+        ];
         $this->storage->__destruct();
         $this->assertSame($expected, $_SESSION);
     }
@@ -108,7 +108,7 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testMultiDimensionalUnset()
     {
-        $this->storage['foo'] = array('bar' => array('baz' => 'boo'));
+        $this->storage['foo'] = ['bar' => ['baz' => 'boo']];
         unset($this->storage['foo']['bar']['baz']);
         $this->assertFalse(isset($this->storage['foo']['bar']['baz']));
         unset($this->storage['foo']['bar']);
@@ -128,14 +128,14 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->foo = 'bar';
         $this->storage->bar = 'baz';
         $this->storage->setMetadata('foo', 'bar');
-        $expected = array(
-            '__ZF' => array(
+        $expected = [
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
                 'foo' => 'bar',
-            ),
+            ],
             'foo' => 'bar',
             'bar' => 'baz',
-        );
+        ];
         $this->assertSame($expected, $this->storage->toArray(true));
     }
 
@@ -145,14 +145,14 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
         $this->storage['bar'][] = 'bar';
         $this->storage['baz']['foo'] = 'bar';
 
-        $expected = array(
-            '__ZF' => array(
+        $expected = [
+            '__ZF' => [
                 '_REQUEST_ACCESS_TIME' => $this->storage->getRequestAccessTime(),
-            ),
+            ],
             'foo' => 'bar',
-            'bar' => array('bar'),
-            'baz' => array('foo' => 'bar'),
-        );
+            'bar' => ['bar'],
+            'baz' => ['foo' => 'bar'],
+        ];
         $this->assertSame($expected, $this->storage->toArray(true));
     }
 
@@ -198,6 +198,6 @@ class SessionArrayStorageTest extends \PHPUnit_Framework_TestCase
         $container = new Container('test');
         $container->foo = 'bar';
         $container->baz = 'qux';
-        $this->assertSame(array('foo' => 'bar', 'baz' => 'qux'), $container->getArrayCopy());
+        $this->assertSame(['foo' => 'bar', 'baz' => 'qux'], $container->getArrayCopy());
     }
 }

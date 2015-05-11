@@ -25,7 +25,7 @@ class AdapterPluginManager extends AbstractPluginManager
      *
      * @var array
      */
-    protected $invokableClasses = array(
+    protected $invokableClasses = [
         'igbinary'     => 'Zend\Serializer\Adapter\IgBinary',
         'json'         => 'Zend\Serializer\Adapter\Json',
         'msgpack'      => 'Zend\Serializer\Adapter\MsgPack',
@@ -33,7 +33,7 @@ class AdapterPluginManager extends AbstractPluginManager
         'phpserialize' => 'Zend\Serializer\Adapter\PhpSerialize',
         'pythonpickle' => 'Zend\Serializer\Adapter\PythonPickle',
         'wddx'         => 'Zend\Serializer\Adapter\Wddx',
-    );
+    ];
 
     /**
      * Validate the plugin

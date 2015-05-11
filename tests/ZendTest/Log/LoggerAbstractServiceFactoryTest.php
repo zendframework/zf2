@@ -32,16 +32,16 @@ class LoggerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->serviceManager = new ServiceManager(new ServiceManagerConfig(array(
-            'abstract_factories' => array('Zend\Log\LoggerAbstractServiceFactory'),
-        )));
+        $this->serviceManager = new ServiceManager(new ServiceManagerConfig([
+            'abstract_factories' => ['Zend\Log\LoggerAbstractServiceFactory'],
+        ]));
 
-        $this->serviceManager->setService('Config', array(
-            'log' => array(
-                'Application\Frontend' => array(),
-                'Application\Backend'  => array(),
-            ),
-        ));
+        $this->serviceManager->setService('Config', [
+            'log' => [
+                'Application\Frontend' => [],
+                'Application\Backend'  => [],
+            ],
+        ]);
     }
 
     /**
@@ -49,10 +49,10 @@ class LoggerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function providerValidLoggerService()
     {
-        return array(
-            array('Application\Frontend'),
-            array('Application\Backend'),
-        );
+        return [
+            ['Application\Frontend'],
+            ['Application\Backend'],
+        ];
     }
 
     /**
@@ -60,11 +60,11 @@ class LoggerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function providerInvalidLoggerService()
     {
-        return array(
-            array('Logger\Application\Unknown'),
-            array('Logger\Application\Frontend'),
-            array('Application\Backend\Logger'),
-        );
+        return [
+            ['Logger\Application\Unknown'],
+            ['Logger\Application\Frontend'],
+            ['Application\Backend\Logger'],
+        ];
     }
 
     /**
@@ -95,28 +95,28 @@ class LoggerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $db = $this->getMockBuilder('Zend\Db\Adapter\Adapter')
             ->disableOriginalConstructor()
             ->getMock();
-        $serviceManager = new ServiceManager(new ServiceManagerConfig(array(
-            'abstract_factories' => array('Zend\Log\LoggerAbstractServiceFactory'),
-        )));
+        $serviceManager = new ServiceManager(new ServiceManagerConfig([
+            'abstract_factories' => ['Zend\Log\LoggerAbstractServiceFactory'],
+        ]));
         $serviceManager->setService('Db\Logger', $db);
-        $serviceManager->setService('Config', array(
-            'log' => array(
-                'Application\Log' => array(
-                    'writers' => array(
-                        array(
+        $serviceManager->setService('Config', [
+            'log' => [
+                'Application\Log' => [
+                    'writers' => [
+                        [
                             'name'     => 'db',
                             'priority' => 1,
-                            'options'  => array(
+                            'options'  => [
                                 'separator' => '_',
-                                'column'    => array(),
+                                'column'    => [],
                                 'table'     => 'applicationlog',
                                 'db'        => 'Db\Logger',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ));
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
         $logger = $serviceManager->get('Application\Log');
         $this->assertInstanceOf('Zend\Log\Logger', $logger);
         $writers = $logger->getWriters();
@@ -140,17 +140,17 @@ class LoggerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $mockWriter = $this->getMock('Zend\Log\Writer\WriterInterface');
         $writers->setService('CustomWriter', $mockWriter);
 
-        $services = new ServiceManager(new ServiceManagerConfig(array(
-            'abstract_factories' => array('Zend\Log\LoggerAbstractServiceFactory'),
-        )));
+        $services = new ServiceManager(new ServiceManagerConfig([
+            'abstract_factories' => ['Zend\Log\LoggerAbstractServiceFactory'],
+        ]));
         $services->setService('LogWriterManager', $writers);
-        $services->setService('Config', array(
-            'log' => array(
-                'Application\Frontend' => array(
-                    'writers' => array(array('name' => 'CustomWriter')),
-                ),
-            ),
-        ));
+        $services->setService('Config', [
+            'log' => [
+                'Application\Frontend' => [
+                    'writers' => [['name' => 'CustomWriter']],
+                ],
+            ],
+        ]);
 
         $log = $services->get('Application\Frontend');
         $logWriters = $log->getWriters();
@@ -168,18 +168,18 @@ class LoggerAbstractServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $mockProcessor = $this->getMock('Zend\Log\Processor\ProcessorInterface');
         $processors->setService('CustomProcessor', $mockProcessor);
 
-        $services = new ServiceManager(new ServiceManagerConfig(array(
-            'abstract_factories' => array('Zend\Log\LoggerAbstractServiceFactory'),
-        )));
+        $services = new ServiceManager(new ServiceManagerConfig([
+            'abstract_factories' => ['Zend\Log\LoggerAbstractServiceFactory'],
+        ]));
         $services->setService('LogProcessorManager', $processors);
-        $services->setService('Config', array(
-            'log' => array(
-                'Application\Frontend' => array(
-                    'writers' => array(array('name' => 'Null')),
-                    'processors' => array(array('name' => 'CustomProcessor')),
-                ),
-            ),
-        ));
+        $services->setService('Config', [
+            'log' => [
+                'Application\Frontend' => [
+                    'writers' => [['name' => 'Null']],
+                    'processors' => [['name' => 'CustomProcessor']],
+                ],
+            ],
+        ]);
 
         $log = $services->get('Application\Frontend');
         $logProcessors = $log->getProcessors();

@@ -21,7 +21,7 @@ class ModuleDependencyCheckerListener
     /**
      * @var array of already loaded modules, indexed by module name
      */
-    protected $loaded = array();
+    protected $loaded = [];
 
     /**
      * @param \Zend\ModuleManager\ModuleEvent $e

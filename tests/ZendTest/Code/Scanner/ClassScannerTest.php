@@ -253,13 +253,13 @@ class ClassScannerTest extends TestCase
 
         $this->assertFalse($class->isTrait());
 
-        $testMethods = array(
+        $testMethods = [
             'fooBarBaz' => 'isPublic',
             'foo' => 'isPublic',
             'bar' => 'isPublic',
             'test' => 'isPrivate',
             'bazFooBar' => 'isPublic',
-        );
+        ];
 
         $this->assertEquals($class->getMethodNames(), array_keys($testMethods));
 

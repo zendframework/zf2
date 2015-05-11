@@ -31,10 +31,10 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
         $adapter = $this->getMock(
             'Zend\Db\Adapter\Adapter',
             null,
-            array(
+            [
                 $driver,
                 new OraclePlatform()
-            )
+            ]
         );
 
         $parameterContainer = new ParameterContainer;
@@ -74,19 +74,19 @@ class SelectDecoratorTest extends \PHPUnit_Framework_TestCase
     public function dataProvider()
     {
         $select0 = new Select;
-        $select0->from(array('x' => 'foo'));
+        $select0->from(['x' => 'foo']);
         $expectedSql0 = 'SELECT "x".* FROM "foo" "x"';
         $expectedFormatParamCount0 = 0;
 
         $select1a = new Select('test');
-        $select1b = new Select(array('a' => $select1a));
-        $select1 = new Select(array('b' => $select1b));
+        $select1b = new Select(['a' => $select1a]);
+        $select1 = new Select(['b' => $select1b]);
         $expectedSql1 = 'SELECT "b".* FROM (SELECT "a".* FROM (SELECT "test".* FROM "test") "a") "b"';
         $expectedFormatParamCount1 = 0;
 
-        return array(
-            array($select0, $expectedSql0, array(), $expectedSql0, $expectedFormatParamCount0),
-            array($select1, $expectedSql1, array(), $expectedSql1, $expectedFormatParamCount1),
-        );
+        return [
+            [$select0, $expectedSql0, [], $expectedSql0, $expectedFormatParamCount0],
+            [$select1, $expectedSql1, [], $expectedSql1, $expectedFormatParamCount1],
+        ];
     }
 }

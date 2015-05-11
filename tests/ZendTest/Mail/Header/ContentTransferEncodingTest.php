@@ -18,20 +18,20 @@ class ContentTransferEncodingTest extends \PHPUnit_Framework_TestCase
 {
     public function dataValidEncodings()
     {
-        return array(
-            array('7bit'),
-            array('8bit'),
-            array('binary'),
-            array('quoted-printable'),
-        );
+        return [
+            ['7bit'],
+            ['8bit'],
+            ['binary'],
+            ['quoted-printable'],
+        ];
     }
 
     public function dataInvalidEncodings()
     {
-        return array(
-            array('9bit'),
-            array('x-something'),
-        );
+        return [
+            ['9bit'],
+            ['x-something'],
+        ];
     }
 
     /**
@@ -109,11 +109,11 @@ class ContentTransferEncodingTest extends \PHPUnit_Framework_TestCase
 
     public function headerLines()
     {
-        return array(
-            'newline' => array("Content-Transfer-Encoding: 8bit\n7bit"),
-            'cr-lf' => array("Content-Transfer-Encoding: 8bit\r\n7bit"),
-            'multiline' => array("Content-Transfer-Encoding: 8bit\r\n7bit\r\nUTF-8"),
-        );
+        return [
+            'newline' => ["Content-Transfer-Encoding: 8bit\n7bit"],
+            'cr-lf' => ["Content-Transfer-Encoding: 8bit\r\n7bit"],
+            'multiline' => ["Content-Transfer-Encoding: 8bit\r\n7bit\r\nUTF-8"],
+        ];
     }
 
     /**

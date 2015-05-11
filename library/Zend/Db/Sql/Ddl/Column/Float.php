@@ -32,7 +32,7 @@ class Float extends Floating
         $decimal = null,
         $nullable = false,
         $default = null,
-        array $options = array()
+        array $options = []
     ) {
         trigger_error(
             sprintf(

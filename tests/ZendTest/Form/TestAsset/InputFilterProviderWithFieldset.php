@@ -14,26 +14,26 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 class InputFilterProviderWithFieldset extends Form implements InputFilterProviderInterface
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = null, $options = [])
     {
         parent::__construct($name, $options);
 
-        $this->add(array(
+        $this->add([
             'name' => 'foo',
-            'options' => array(
+            'options' => [
                 'label' => 'Foo'
-            ),
-        ));
+            ],
+        ]);
 
         $this->add(new BasicFieldset());
     }
 
     public function getInputFilterSpecification()
     {
-        return array(
-            'foo' => array(
+        return [
+            'foo' => [
                 'required' => true,
-            )
-        );
+            ]
+        ];
     }
 }

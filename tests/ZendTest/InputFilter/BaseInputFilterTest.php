@@ -124,61 +124,61 @@ class BaseInputFilterTest extends TestCase
 
     public function dataSets()
     {
-        return array(
-            'valid-with-empty-and-null' => array(
-                array(
+        return [
+            'valid-with-empty-and-null' => [
+                [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => null,
                     'qux' => '',
-                    'nest' => array(
+                    'nest' => [
                         'foo' => ' bazbat ',
                         'bar' => '12345',
                         'baz' => null,
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            'valid-with-empty' => array(
-                array(
+            ],
+            'valid-with-empty' => [
+                [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'qux' => '',
-                    'nest' => array(
+                    'nest' => [
                         'foo' => ' bazbat ',
                         'bar' => '12345',
-                    ),
-                ),
+                    ],
+                ],
                 true,
-            ),
-            'invalid-with-empty-and-missing' => array(
-                array(
+            ],
+            'invalid-with-empty-and-missing' => [
+                [
                     'foo' => ' bazbat ',
                     'bar' => '12345',
                     'baz' => 'thisistoolong',
-                    'nest' => array(
+                    'nest' => [
                         'foo' => ' bazbat ',
                         'bar' => '12345',
                         'baz' => 'thisistoolong',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-            'invalid-with-empty' => array(
-                array(
+            ],
+            'invalid-with-empty' => [
+                [
                     'foo' => ' baz bat ',
                     'bar' => 'abc45',
                     'baz' => ' ',
                     'qux' => ' ',
-                    'nest' => array(
+                    'nest' => [
                         'foo' => ' baz bat ',
                         'bar' => '123ab',
                         'baz' => ' ',
-                    ),
-                ),
+                    ],
+                ],
                 false,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -203,21 +203,21 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $validData = array(
+        $validData = [
             'foo' => ' bazbat ',
             'bar' => '12345',
-        );
+        ];
         $filter->setValidationGroup('foo', 'bar');
         $filter->setData($validData);
         $this->assertTrue($filter->isValid());
 
-        $invalidData = array(
+        $invalidData = [
             'bar' => 'abc45',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' 123bat ',
                 'bar' => '123ab',
-            ),
-        );
+            ],
+        ];
         $filter->setValidationGroup('bar', 'nest');
         $filter->setData($invalidData);
         $this->assertFalse($filter->isValid());
@@ -225,13 +225,13 @@ class BaseInputFilterTest extends TestCase
 
     public function testResetEmptyValidationGroupRecursively()
     {
-        $data = array(
+        $data = [
             'flat' => 'foo',
-            'deep' => array(
+            'deep' => [
                 'deep-input1' => 'deep-foo1',
                 'deep-input2' => 'deep-foo2',
-            )
-        );
+            ]
+        ];
         $filter = new InputFilter;
         $filter->add(new Input, 'flat');
         $deepInputFilter = new InputFilter;
@@ -239,7 +239,7 @@ class BaseInputFilterTest extends TestCase
         $deepInputFilter->add(new Input, 'deep-input2');
         $filter->add($deepInputFilter, 'deep');
         $filter->setData($data);
-        $filter->setValidationGroup(array('deep' => 'deep-input1'));
+        $filter->setValidationGroup(['deep' => 'deep-input1']);
         // reset validation group
         $filter->setValidationGroup(InputFilter::VALIDATE_ALL);
         $this->assertEquals($data, $filter->getValues());
@@ -255,7 +255,7 @@ class BaseInputFilterTest extends TestCase
             'Zend\InputFilter\Exception\InvalidArgumentException',
             'Input "flat" must implement InputFilterInterface'
         );
-        $filter->setValidationGroup(array('flat' => 'foo'));
+        $filter->setValidationGroup(['flat' => 'foo']);
     }
 
     public function testCanRetrieveInvalidInputsOnFailedValidation()
@@ -265,14 +265,14 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $invalidData = array(
+        $invalidData = [
             'foo' => ' bazbat ',
             'bar' => 'abc45',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' baz bat boo ',
                 'bar' => '12345',
-            ),
-        );
+            ],
+        ];
         $filter->setData($invalidData);
         $this->assertFalse($filter->isValid());
         $invalidInputs = $filter->getInvalidInput();
@@ -294,14 +294,14 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $invalidData = array(
+        $invalidData = [
             'foo' => ' bazbat ',
             'bar' => 'abc45',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' baz bat ',
                 'bar' => '12345',
-            ),
-        );
+            ],
+        ];
         $filter->setData($invalidData);
         $this->assertFalse($filter->isValid());
         $validInputs = $filter->getValidInput();
@@ -324,28 +324,28 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $validData = array(
+        $validData = [
             'foo' => ' bazbat ',
             'bar' => '12345',
             'qux' => '',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
-            ),
-        );
+            ],
+        ];
         $filter->setData($validData);
         $this->assertTrue($filter->isValid());
-        $expected = array(
+        $expected = [
             'foo' => 'bazbat',
             'bar' => '12345',
             'baz' => null,
             'qux' => '',
-            'nest' => array(
+            'nest' => [
                 'foo' => 'bazbat',
                 'bar' => '12345',
                 'baz' => null,
-            ),
-        );
+            ],
+        ];
         $this->assertEquals($expected, $filter->getValues());
     }
 
@@ -356,17 +356,17 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $validData = array(
+        $validData = [
             'foo' => ' bazbat ',
             'bar' => '12345',
             'baz' => null,
             'qux' => '',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
                 'baz' => null,
-            ),
-        );
+            ],
+        ];
         $filter->setData($validData);
         $this->assertTrue($filter->isValid());
         $this->assertEquals($validData, $filter->getRawValues());
@@ -381,16 +381,16 @@ class BaseInputFilterTest extends TestCase
         $filter = $this->getInputFilter();
         $filter->get('baz')->setRequired(true);
         $filter->get('nest')->get('baz')->setRequired(true);
-        $invalidData = array(
+        $invalidData = [
             'foo' => ' bazbat boo ',
             'bar' => 'abc45',
             'baz' => '',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' baz bat boo ',
                 'bar' => '123yz',
                 'baz' => '',
-            ),
-        );
+            ],
+        ];
         $filter->setData($invalidData);
         $this->assertFalse($filter->isValid());
         $messages = $filter->getMessages();
@@ -464,7 +464,7 @@ class BaseInputFilterTest extends TestCase
         $filter->add($foo, 'foo')
                ->add($bar, 'bar');
 
-        $data = array('foo' => 'foo', 'bar' => 123);
+        $data = ['foo' => 'foo', 'bar' => 123];
         $filter->setData($data);
 
         $this->assertTrue($filter->isValid());
@@ -495,7 +495,7 @@ class BaseInputFilterTest extends TestCase
         $filter->add($bar, 'bar')  // adding bar first, as we want it to validate first and break the chain
                ->add($foo, 'foo');
 
-        $data = array('bar' => 'bar', 'foo' => 'foo');
+        $data = ['bar' => 'bar', 'foo' => 'foo'];
         $filter->setData($data);
 
         $this->assertFalse($filter->isValid());
@@ -518,7 +518,7 @@ class BaseInputFilterTest extends TestCase
         $filter->add($foo, 'foo')
                ->add($bar, 'bar');
 
-        $data = array('bar' => 124);
+        $data = ['bar' => 124];
         $filter->setData($data);
 
         $this->assertTrue($filter->isValid());
@@ -534,15 +534,15 @@ class BaseInputFilterTest extends TestCase
 
         $filter->add($foo, 'foo');
 
-        $data = array(
-            'foo' => array(
+        $data = [
+            'foo' => [
                 'tmp_name' => '/tmp/barfile',
                 'name'     => 'barfile',
                 'type'     => 'text',
                 'size'     => 0,
                 'error'    => 4,  // UPLOAD_ERR_NO_FILE
-            )
-        );
+            ]
+        ];
         $filter->setData($data);
         $this->assertTrue($filter->isValid());
 
@@ -559,15 +559,15 @@ class BaseInputFilterTest extends TestCase
         $foo->setRequired(false);
         $filter->add($foo, 'foo');
 
-        $data = array(
-            'foo' => array(array(
+        $data = [
+            'foo' => [[
                 'tmp_name' => '/tmp/barfile',
                 'name'     => 'barfile',
                 'type'     => 'text',
                 'size'     => 0,
                 'error'    => 4,  // UPLOAD_ERR_NO_FILE
-            )),
-        );
+            ]],
+        ];
         $filter->setData($data);
         $this->assertTrue($filter->isValid());
 
@@ -593,10 +593,10 @@ class BaseInputFilterTest extends TestCase
         $filter->add($foo, '')
                ->add($bar, 'bar');
 
-        $data = array(
+        $data = [
             'bar' => 124,
             'foo' => '',
-        );
+        ];
 
         $filter->setData($data);
 
@@ -620,7 +620,7 @@ class BaseInputFilterTest extends TestCase
         $filter->add($foo, '')
                ->add($bar, 'bar');
 
-        $data = array('bar' => 124);
+        $data = ['bar' => 124];
         $filter->setData($data);
 
         $this->assertFalse($filter->isValid());
@@ -628,10 +628,10 @@ class BaseInputFilterTest extends TestCase
 
     public static function contextDataProvider()
     {
-        return array(
-            array('', 'y', true),
-            array('', 'n', false),
-        );
+        return [
+            ['', 'y', true],
+            ['', 'n', false],
+        ];
     }
 
     /**
@@ -645,10 +645,10 @@ class BaseInputFilterTest extends TestCase
     {
         $filter = new InputFilter();
 
-        $data = array(
+        $data = [
             'allowEmpty' => $allowEmpty,
             'blankIsValid' => $blankIsValid,
-        );
+        ];
 
         $allowEmpty = new Input();
         $allowEmpty->setAllowEmpty(true)
@@ -673,14 +673,14 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $data = array(
+        $data = [
             'foo' => ' bazbat ',
             'bar' => '12345',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
-            ),
-        );
+            ],
+        ];
         $filter->setData($data);
         $test = $filter->getRawValue('foo');
         $this->assertSame($data['foo'], $test);
@@ -693,14 +693,14 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $data = array(
+        $data = [
             'foo' => ' baz 2 bat ',
             'bar' => '12345',
-            'nest' => array(
+            'nest' => [
                 'foo' => ' bazbat ',
                 'bar' => '12345',
-            ),
-        );
+            ],
+        ];
         $filter->setData($data);
         $test = $filter->getValue('foo');
         $this->assertSame('bazbat', $test);
@@ -716,7 +716,7 @@ class BaseInputFilterTest extends TestCase
 
         $filter->add($foo, 'foo');
 
-        $data = array('foo' => null);
+        $data = ['foo' => null];
         $filter->setData($data);
 
         $this->assertFalse($filter->isValid());
@@ -732,20 +732,20 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $validData = array(
+        $validData = [
             'foo' => ' bazbat ',
             'bar' => '12345',
             'baz' => ''
-        );
+        ];
         $filter->setData($validData);
         $this->assertFalse($filter->hasUnknown());
 
         $filter = $this->getInputFilter();
-        $invalidData = array(
+        $invalidData = [
             'bar' => '12345',
             'baz' => '',
             'gru' => '',
-        );
+        ];
         $filter->setData($invalidData);
         $this->assertTrue($filter->hasUnknown());
     }
@@ -756,12 +756,12 @@ class BaseInputFilterTest extends TestCase
         }
 
         $filter = $this->getInputFilter();
-        $unknown = array(
+        $unknown = [
             'bar' => '12345',
             'baz' => '',
             'gru' => 10,
             'test' => 'ok',
-        );
+        ];
         $filter->setData($unknown);
         $unknown = $filter->getUnknown();
         $this->assertEquals(2, count($unknown));
@@ -771,11 +771,11 @@ class BaseInputFilterTest extends TestCase
         $this->assertEquals('ok', $unknown['test']);
 
         $filter = $this->getInputFilter();
-        $validData = array(
+        $validData = [
             'foo' => ' bazbat ',
             'bar' => '12345',
             'baz' => ''
-        );
+        ];
         $filter->setData($validData);
         $unknown = $filter->getUnknown();
         $this->assertEquals(0, count($unknown));
@@ -790,23 +790,23 @@ class BaseInputFilterTest extends TestCase
 
         $input->getValidatorChain()->attach(
             new \Zend\Validator\Explode(
-                array(
+                [
                     'validator' => new \Zend\Validator\IsInstanceOf(
-                        array(
+                        [
                             'className' => 'Zend\InputFilter\Input'
-                        )
+                        ]
                     )
-                )
+                ]
             )
         );
 
         $filter->add($input, 'example');
 
-        $data = array(
-            'example' => array(
+        $data = [
+            'example' => [
                 $input
-            )
-        );
+            ]
+        ];
 
         $filter->setData($data);
         $this->assertTrue($filter->isValid());
@@ -863,11 +863,11 @@ class BaseInputFilterTest extends TestCase
         $filter->add($foo, 'foo');
 
         //test valid with setData
-        $filter->setData(array('foo' => 'invalid'));
+        $filter->setData(['foo' => 'invalid']);
         $this->assertFalse($filter->isValid());
 
         //test invalid with setData
-        $filter->setData(array('foo' => 'thisisavalidstring'));
+        $filter->setData(['foo' => 'thisisavalidstring']);
         $this->assertTrue($filter->isValid());
 
         //test invalid when setting data on actual filter
@@ -890,11 +890,11 @@ class BaseInputFilterTest extends TestCase
         $arrayInput
             ->expects($this->once())
             ->method('setValue')
-            ->with(array());
+            ->with([]);
 
         $filter = new InputFilter();
         $filter->add($arrayInput, 'arrayInput');
-        $filter->setData(array('foo' => 'bar'));
+        $filter->setData(['foo' => 'bar']);
     }
 
     /**
@@ -913,11 +913,11 @@ class BaseInputFilterTest extends TestCase
         $inputFilter->merge($originInputFilter);
 
         $this->assertEquals(
-            array(
+            [
                 'foo',
                 'bar',
                 'baz'
-            ),
+            ],
             array_keys($inputFilter->getInputs())
         );
     }
@@ -938,10 +938,10 @@ class BaseInputFilterTest extends TestCase
 
         $filter = new \Zend\InputFilter\InputFilter;
         $filter->add($input)
-               ->setData(array('foo' => 'nonempty'));
+               ->setData(['foo' => 'nonempty']);
 
         $this->assertTrue($filter->isValid());
-        $this->assertEquals(array('foo' => ''), $filter->getValues());
+        $this->assertEquals(['foo' => ''], $filter->getValues());
     }
 
     public function testAllowEmptyTestsFilteredValueAndContinuesIfEmpty()
@@ -960,7 +960,7 @@ class BaseInputFilterTest extends TestCase
 
         $filter = new \Zend\InputFilter\InputFilter;
         $filter->add($input)
-               ->setData(array('foo' => 'nonempty'));
+               ->setData(['foo' => 'nonempty']);
 
         $this->assertFalse($filter->isValid());
     }

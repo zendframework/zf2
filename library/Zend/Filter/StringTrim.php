@@ -16,9 +16,9 @@ class StringTrim extends AbstractFilter
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'charlist' => null,
-    );
+    ];
 
     /**
      * Sets filter options
@@ -96,8 +96,8 @@ class StringTrim extends AbstractFilter
     protected function unicodeTrim($value, $charlist = '\\\\s')
     {
         $chars = preg_replace(
-            array('/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'),
-            array('\\\\\\0', '\\', '\/'),
+            ['/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'],
+            ['\\\\\\0', '\\', '\/'],
             $charlist
         );
 

@@ -37,16 +37,16 @@ class RoutePluginManagerTest extends TestCase
 
     public function shippedRoutes()
     {
-        return array(
-            'hostname' => array('Zend\Mvc\Router\Http\Hostname', array('route' => 'example.com')),
-            'literal'  => array('Zend\Mvc\Router\Http\Literal', array('route' => '/example')),
-            'regex'    => array('Zend\Mvc\Router\Http\Regex', array('regex' => '[a-z]+', 'spec' => '%s')),
-            'scheme'   => array('Zend\Mvc\Router\Http\Scheme', array('scheme' => 'http')),
-            'segment'  => array('Zend\Mvc\Router\Http\Segment', array('route' => '/:segment')),
-            'wildcard' => array('Zend\Mvc\Router\Http\Wildcard', array()),
+        return [
+            'hostname' => ['Zend\Mvc\Router\Http\Hostname', ['route' => 'example.com']],
+            'literal'  => ['Zend\Mvc\Router\Http\Literal', ['route' => '/example']],
+            'regex'    => ['Zend\Mvc\Router\Http\Regex', ['regex' => '[a-z]+', 'spec' => '%s']],
+            'scheme'   => ['Zend\Mvc\Router\Http\Scheme', ['scheme' => 'http']],
+            'segment'  => ['Zend\Mvc\Router\Http\Segment', ['route' => '/:segment']],
+            'wildcard' => ['Zend\Mvc\Router\Http\Wildcard', []],
             //'query'    => array('Zend\Mvc\Router\Http\Query', array()),
-            'method'   => array('Zend\Mvc\Router\Http\Method', array('verb' => 'GET')),
-        );
+            'method'   => ['Zend\Mvc\Router\Http\Method', ['verb' => 'GET']],
+        ];
     }
 
     /**
@@ -71,7 +71,7 @@ class RoutePluginManagerTest extends TestCase
             $route = $routes->get($routeName, $options);
             $this->assertInstanceOf($routeName, $route);
         } catch (\Exception $e) {
-            $messages = array();
+            $messages = [];
             do {
                 $messages[] = $e->getMessage() . "\n" . $e->getTraceAsString();
             } while ($e = $e->getPrevious());
@@ -103,7 +103,7 @@ class RoutePluginManagerTest extends TestCase
             $route = $routes->get($shortName, $options);
             $this->assertInstanceOf($routeName, $route);
         } catch (\Exception $e) {
-            $messages = array();
+            $messages = [];
             do {
                 $messages[] = $e->getMessage() . "\n" . $e->getTraceAsString();
             } while ($e = $e->getPrevious());

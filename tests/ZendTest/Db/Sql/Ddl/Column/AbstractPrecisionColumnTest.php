@@ -16,9 +16,9 @@ class AbstractPrecisionColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDigits()
     {
-        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', array(
+        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', [
             'foo', 10
-        ));
+        ]);
         $this->assertEquals(10, $column->getDigits());
         $this->assertSame($column, $column->setDigits(12));
         $this->assertEquals(12, $column->getDigits());
@@ -29,9 +29,9 @@ class AbstractPrecisionColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDigits()
     {
-        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', array(
+        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', [
             'foo', 10
-        ));
+        ]);
         $this->assertEquals(10, $column->getDigits());
     }
 
@@ -40,9 +40,9 @@ class AbstractPrecisionColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetDecimal()
     {
-        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', array(
+        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', [
             'foo', 10, 5
-        ));
+        ]);
         $this->assertEquals(5, $column->getDecimal());
         $this->assertSame($column, $column->setDecimal(2));
         $this->assertEquals(2, $column->getDecimal());
@@ -53,9 +53,9 @@ class AbstractPrecisionColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDecimal()
     {
-        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', array(
+        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', [
             'foo', 10, 5
-        ));
+        ]);
         $this->assertEquals(5, $column->getDecimal());
     }
 
@@ -64,12 +64,12 @@ class AbstractPrecisionColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExpressionData()
     {
-        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', array(
+        $column = $this->getMockForAbstractClass('Zend\Db\Sql\Ddl\Column\AbstractPrecisionColumn', [
             'foo', 10, 5
-        ));
+        ]);
 
         $this->assertEquals(
-            array(array('%s %s NOT NULL', array('foo', 'INTEGER(10,5)'), array($column::TYPE_IDENTIFIER, $column::TYPE_LITERAL))),
+            [['%s %s NOT NULL', ['foo', 'INTEGER(10,5)'], [$column::TYPE_IDENTIFIER, $column::TYPE_LITERAL]]],
             $column->getExpressionData()
         );
     }

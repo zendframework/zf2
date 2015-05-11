@@ -79,7 +79,7 @@ class CallbackCheckAdapter extends AbstractAdapter
         // get select
         $dbSelect = clone $this->getDbSelect();
         $dbSelect->from($this->tableName)
-            ->columns(array(Sql\Select::SQL_STAR))
+            ->columns([Sql\Select::SQL_STAR])
             ->where(new SqlOp($this->identityColumn, '=', $this->identity));
 
         return $dbSelect;

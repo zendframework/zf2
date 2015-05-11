@@ -1,27 +1,27 @@
 <?php
-return array(
-    'router' => array(
-        'routes' => array(
-            'fooroute' => array(
+return [
+    'router' => [
+        'routes' => [
+            'fooroute' => [
                 'type' => 'literal',
-                'options' => array(
+                'options' => [
                     'route'    => '/foo-test',
-                    'defaults' => array(
+                    'defaults' => [
                         'controller' => 'foo_index',
                         'action'     => 'unittests',
-                    ),
-                ),
-            ),
-        ),
-    ),
-    'controllers' => array(
-        'invokables' => array(
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'controllers' => [
+        'invokables' => [
             'foo_index' => 'Foo\Controller\IndexController',
-        ),
-    ),
-    'view_manager' => array(
-        'template_path_stack' => array(
+        ],
+    ],
+    'view_manager' => [
+        'template_path_stack' => [
             __DIR__ . '/../view',
-        ),
-    ),
-);
+        ],
+    ],
+];

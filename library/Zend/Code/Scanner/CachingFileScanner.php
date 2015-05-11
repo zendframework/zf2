@@ -18,7 +18,7 @@ class CachingFileScanner extends FileScanner
     /**
      * @var array
      */
-    protected static $cache = array();
+    protected static $cache = [];
 
     /**
      * @var null|FileScanner
@@ -56,7 +56,7 @@ class CachingFileScanner extends FileScanner
      */
     public static function clearCache()
     {
-        static::$cache = array();
+        static::$cache = [];
     }
 
     /**

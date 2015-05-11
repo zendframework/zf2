@@ -30,11 +30,11 @@ class MailtoTest extends TestCase
      */
     public function validSchemeProvider()
     {
-        return array(
-            array('mailto'),
-            array('MAILTO'),
-            array('Mailto'),
-        );
+        return [
+            ['mailto'],
+            ['MAILTO'],
+            ['Mailto'],
+        ];
     }
 
     /**
@@ -44,23 +44,23 @@ class MailtoTest extends TestCase
      */
     public function invalidSchemeProvider()
     {
-        return array(
-            array('file'),
-            array('http'),
-            array('g'),
-            array('mailto:')
-        );
+        return [
+            ['file'],
+            ['http'],
+            ['g'],
+            ['mailto:']
+        ];
     }
 
     public function invalidUris()
     {
-        return array(
-            array('mailto:/foo@example.com'),
-            array('mailto://foo@example.com'),
-            array('mailto:foo@example.com/bar/baz'),
-            array('mailto:foo:bar@example.com/bar/baz'),
-            array('mailto:foo:bar'),
-        );
+        return [
+            ['mailto:/foo@example.com'],
+            ['mailto://foo@example.com'],
+            ['mailto:foo@example.com/bar/baz'],
+            ['mailto:foo:bar@example.com/bar/baz'],
+            ['mailto:foo:bar'],
+        ];
     }
 
     /**
@@ -109,7 +109,7 @@ class MailtoTest extends TestCase
     {
         $uri = new MailtoUri('mailto:foo@example.com?Subject=Testing%20Subjects');
         $this->assertEquals('Subject=Testing%20Subjects', $uri->getQuery());
-        $this->assertEquals(array('Subject' => 'Testing Subjects'), $uri->getQueryAsArray());
+        $this->assertEquals(['Subject' => 'Testing Subjects'], $uri->getQueryAsArray());
     }
 
     public function testUserInfoIsNull()
@@ -144,7 +144,7 @@ class MailtoTest extends TestCase
     public function testInvalidMailtoUris($uri)
     {
         $uri = new MailtoUri($uri);
-        $parts = array(
+        $parts = [
             'scheme'    => $uri->getScheme(),
             'user_info' => $uri->getUserInfo(),
             'host'      => $uri->getHost(),
@@ -152,7 +152,7 @@ class MailtoTest extends TestCase
             'path'      => $uri->getPath(),
             'query'     => $uri->getQueryAsArray(),
             'fragment'  => $uri->getFragment(),
-        );
+        ];
         $this->assertFalse($uri->isValid(), var_export($parts, 1));
     }
 }

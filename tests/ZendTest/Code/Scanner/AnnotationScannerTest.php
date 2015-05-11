@@ -23,10 +23,10 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
     {
         $annotationManager = new AnnotationManager();
         $parser = new GenericAnnotationParser();
-        $parser->registerAnnotations(array(
+        $parser->registerAnnotations([
             $foo = new TestAsset\Annotation\Foo(),
             $bar = new TestAsset\Annotation\Bar()
-        ));
+        ]);
         $annotationManager->attach($parser);
 
         $docComment = '/**' . $newLine
@@ -45,10 +45,10 @@ class AnnotationScannerTest extends \PHPUnit_Framework_TestCase
 
     public function scannerWorksDataProvider()
     {
-        return array(
-            array("\n"),
-            array("\r"),
-            array("\r\n"),
-        );
+        return [
+            ["\n"],
+            ["\r"],
+            ["\r\n"],
+        ];
     }
 }

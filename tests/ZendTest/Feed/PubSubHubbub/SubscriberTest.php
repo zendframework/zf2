@@ -46,49 +46,49 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
     public function testAddsHubServerUrl()
     {
         $this->subscriber->addHubUrl('http://www.example.com/hub');
-        $this->assertEquals(array('http://www.example.com/hub'), $this->subscriber->getHubUrls());
+        $this->assertEquals(['http://www.example.com/hub'], $this->subscriber->getHubUrls());
     }
 
     public function testAddsHubServerUrlsFromArray()
     {
-        $this->subscriber->addHubUrls(array(
+        $this->subscriber->addHubUrls([
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        ));
-        $this->assertEquals(array(
+        ]);
+        $this->assertEquals([
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        ), $this->subscriber->getHubUrls());
+        ], $this->subscriber->getHubUrls());
     }
 
     public function testAddsHubServerUrlsFromArrayUsingSetOptions()
     {
-        $this->subscriber->setOptions(array('hubUrls' => array(
+        $this->subscriber->setOptions(['hubUrls' => [
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        )));
-        $this->assertEquals(array(
+        ]]);
+        $this->assertEquals([
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        ), $this->subscriber->getHubUrls());
+        ], $this->subscriber->getHubUrls());
     }
 
     public function testRemovesHubServerUrl()
     {
-        $this->subscriber->addHubUrls(array(
+        $this->subscriber->addHubUrls([
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        ));
+        ]);
         $this->subscriber->removeHubUrl('http://www.example.com/hub');
-        $this->assertEquals(array(
+        $this->assertEquals([
             1 => 'http://www.example.com/hub2'
-        ), $this->subscriber->getHubUrls());
+        ], $this->subscriber->getHubUrls());
     }
 
     public function testRetrievesUniqueHubServerUrlsOnly()
     {
-        $this->subscriber->addHubUrls(array(
+        $this->subscriber->addHubUrls([
             'http://www.example.com/hub', 'http://www.example.com/hub2',
             'http://www.example.com/hub'
-        ));
-        $this->assertEquals(array(
+        ]);
+        $this->assertEquals([
             'http://www.example.com/hub', 'http://www.example.com/hub2'
-        ), $this->subscriber->getHubUrls());
+        ], $this->subscriber->getHubUrls());
     }
 
     public function testThrowsExceptionOnSettingEmptyHubServerUrl()
@@ -112,59 +112,59 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
     public function testAddsParameter()
     {
         $this->subscriber->setParameter('foo', 'bar');
-        $this->assertEquals(array('foo'=>'bar'), $this->subscriber->getParameters());
+        $this->assertEquals(['foo'=>'bar'], $this->subscriber->getParameters());
     }
 
     public function testAddsParametersFromArray()
     {
-        $this->subscriber->setParameters(array(
+        $this->subscriber->setParameters([
             'foo' => 'bar', 'boo' => 'baz'
-        ));
-        $this->assertEquals(array(
+        ]);
+        $this->assertEquals([
             'foo' => 'bar', 'boo' => 'baz'
-        ), $this->subscriber->getParameters());
+        ], $this->subscriber->getParameters());
     }
 
     public function testAddsParametersFromArrayInSingleMethod()
     {
-        $this->subscriber->setParameter(array(
+        $this->subscriber->setParameter([
             'foo' => 'bar', 'boo' => 'baz'
-        ));
-        $this->assertEquals(array(
+        ]);
+        $this->assertEquals([
             'foo' => 'bar', 'boo' => 'baz'
-        ), $this->subscriber->getParameters());
+        ], $this->subscriber->getParameters());
     }
 
     public function testAddsParametersFromArrayUsingSetOptions()
     {
-        $this->subscriber->setOptions(array('parameters' => array(
+        $this->subscriber->setOptions(['parameters' => [
             'foo' => 'bar', 'boo' => 'baz'
-        )));
-        $this->assertEquals(array(
+        ]]);
+        $this->assertEquals([
             'foo' => 'bar', 'boo' => 'baz'
-        ), $this->subscriber->getParameters());
+        ], $this->subscriber->getParameters());
     }
 
     public function testRemovesParameter()
     {
-        $this->subscriber->setParameters(array(
+        $this->subscriber->setParameters([
             'foo' => 'bar', 'boo' => 'baz'
-        ));
+        ]);
         $this->subscriber->removeParameter('boo');
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'bar'
-        ), $this->subscriber->getParameters());
+        ], $this->subscriber->getParameters());
     }
 
     public function testRemovesParameterIfSetToNull()
     {
-        $this->subscriber->setParameters(array(
+        $this->subscriber->setParameters([
             'foo' => 'bar', 'boo' => 'baz'
-        ));
+        ]);
         $this->subscriber->setParameter('boo', null);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'foo' => 'bar'
-        ), $this->subscriber->getParameters());
+        ], $this->subscriber->getParameters());
     }
 
     public function testCanSetTopicUrl()
@@ -290,7 +290,7 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
     {
         $class = new \ReflectionClass($className);
         $methods = $class->getMethods();
-        $stubMethods = array();
+        $stubMethods = [];
         foreach ($methods as $method) {
             if ($method->isPublic() || ($method->isProtected()
                 && $method->isAbstract())) {
@@ -300,7 +300,7 @@ class SubscriberTest extends \PHPUnit_Framework_TestCase
         $mocked = $this->getMock(
             $className,
             $stubMethods,
-            array(),
+            [],
             str_replace('\\', '_', ($className . '_PubsubSubscriberMock_' . uniqid())),
             false
         );

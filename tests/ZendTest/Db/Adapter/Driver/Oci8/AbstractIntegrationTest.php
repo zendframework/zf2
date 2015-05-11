@@ -11,11 +11,11 @@ namespace ZendTest\Db\Adapter\Driver\Oci8;
 
 abstract class AbstractIntegrationTest extends \PHPUnit_Framework_TestCase
 {
-    protected $variables = array(
+    protected $variables = [
         'hostname' => 'ZEND_DB_ADAPTER_DRIVER_OCI8_HOSTNAME',
         'username' => 'ZEND_DB_ADAPTER_DRIVER_OCI8_USERNAME',
         'password' => 'ZEND_DB_ADAPTER_DRIVER_OCI8_PASSWORD',
-    );
+    ];
 
     /**
      * Sets up the fixture, for example, opens a network connection.

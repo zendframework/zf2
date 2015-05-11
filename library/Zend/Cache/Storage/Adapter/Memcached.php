@@ -258,7 +258,7 @@ class Memcached extends AbstractAdapter implements
 
         // remove namespace prefix from result
         if ($result && $this->namespacePrefix !== '') {
-            $tmp            = array();
+            $tmp            = [];
             $nsPrefixLength = strlen($this->namespacePrefix);
             foreach ($result as $internalKey => & $value) {
                 $tmp[substr($internalKey, $nsPrefixLength)] = & $value;
@@ -350,15 +350,15 @@ class Memcached extends AbstractAdapter implements
 
         // remove namespace prefix and use an empty array as metadata
         if ($this->namespacePrefix !== '') {
-            $tmp            = array();
+            $tmp            = [];
             $nsPrefixLength = strlen($this->namespacePrefix);
             foreach (array_keys($result) as $internalKey) {
-                $tmp[substr($internalKey, $nsPrefixLength)] = array();
+                $tmp[substr($internalKey, $nsPrefixLength)] = [];
             }
             $result = $tmp;
         } else {
             foreach ($result as & $value) {
-                $value = array();
+                $value = [];
             }
         }
 
@@ -398,7 +398,7 @@ class Memcached extends AbstractAdapter implements
         $memc       = $this->getMemcachedResource();
         $expiration = $this->expirationTime();
 
-        $namespacedKeyValuePairs = array();
+        $namespacedKeyValuePairs = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => & $value) {
             $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = & $value;
         }
@@ -407,7 +407,7 @@ class Memcached extends AbstractAdapter implements
             throw $this->getExceptionByResultCode($memc->getResultCode());
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -528,7 +528,7 @@ class Memcached extends AbstractAdapter implements
 
         $rsCodes = $memc->deleteMulti($normalizedKeys);
 
-        $missingKeys = array();
+        $missingKeys = [];
         foreach ($rsCodes as $key => $rsCode) {
             if ($rsCode !== true && $rsCode != MemcachedResource::RES_SUCCESS) {
                 if ($rsCode != MemcachedResource::RES_NOTFOUND) {
@@ -629,8 +629,8 @@ class Memcached extends AbstractAdapter implements
             $this->capabilities     = new Capabilities(
                 $this,
                 $this->capabilityMarker,
-                array(
-                    'supportedDatatypes' => array(
+                [
+                    'supportedDatatypes' => [
                         'NULL'     => true,
                         'boolean'  => true,
                         'integer'  => true,
@@ -639,8 +639,8 @@ class Memcached extends AbstractAdapter implements
                         'array'    => true,
                         'object'   => 'object',
                         'resource' => false,
-                    ),
-                    'supportedMetadata'  => array(),
+                    ],
+                    'supportedMetadata'  => [],
                     'minTtl'             => 1,
                     'maxTtl'             => 0,
                     'staticTtl'          => true,
@@ -649,7 +649,7 @@ class Memcached extends AbstractAdapter implements
                     'expiredRead'        => false,
                     'maxKeyLength'       => 255,
                     'namespaceIsPrefix'  => true,
-                )
+                ]
             );
         }
 

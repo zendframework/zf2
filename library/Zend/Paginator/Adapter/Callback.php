@@ -58,7 +58,7 @@ class Callback implements AdapterInterface
      */
     public function getItems($offset, $itemCountPerPage)
     {
-        return $this->itemsCallback->call(array($offset, $itemCountPerPage));
+        return $this->itemsCallback->call([$offset, $itemCountPerPage]);
     }
 
     /**

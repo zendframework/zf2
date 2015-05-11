@@ -20,13 +20,13 @@ class RequestIdTest extends \PHPUnit_Framework_TestCase
     {
         $processor = new RequestId();
 
-        $event = array(
+        $event = [
             'timestamp'    => '',
             'priority'     => 1,
             'priorityName' => 'ALERT',
             'message'      => 'foo',
-            'extra'        => array(),
-        );
+            'extra'        => [],
+        ];
 
         $eventA = $processor->process($event);
         $this->assertArrayHasKey('requestId', $eventA['extra']);
@@ -43,15 +43,15 @@ class RequestIdTest extends \PHPUnit_Framework_TestCase
 
         $requestId = 'bar';
 
-        $event = array(
+        $event = [
             'timestamp'    => '',
             'priority'     => 1,
             'priorityName' => 'ALERT',
             'message'      => 'foo',
-            'extra'        => array(
+            'extra'        => [
                 'requestId' => $requestId,
-            ),
-        );
+            ],
+        ];
 
         $processedEvent = $processor->process($event);
 

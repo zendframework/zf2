@@ -33,15 +33,15 @@ class ServiceListenerFactory implements FactoryInterface
      *
      * @var array
      */
-    protected $defaultServiceConfig = array(
-        'invokables' => array(
+    protected $defaultServiceConfig = [
+        'invokables' => [
             'DispatchListener'     => 'Zend\Mvc\DispatchListener',
             'RouteListener'        => 'Zend\Mvc\RouteListener',
             'SendResponseListener' => 'Zend\Mvc\SendResponseListener',
             'ViewJsonRenderer'     => 'Zend\View\Renderer\JsonRenderer',
             'ViewFeedRenderer'     => 'Zend\View\Renderer\FeedRenderer',
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'Application'                    => 'Zend\Mvc\Service\ApplicationFactory',
             'Config'                         => 'Zend\Mvc\Service\ConfigFactory',
             'ControllerLoader'               => 'Zend\Mvc\Service\ControllerLoaderFactory',
@@ -81,8 +81,8 @@ class ServiceListenerFactory implements FactoryInterface
             'ViewTemplateMapResolver'        => 'Zend\Mvc\Service\ViewTemplateMapResolverFactory',
             'ViewTemplatePathStack'          => 'Zend\Mvc\Service\ViewTemplatePathStackFactory',
             'ViewPrefixPathStackResolver'    => 'Zend\Mvc\Service\ViewPrefixPathStackResolverFactory',
-        ),
-        'aliases' => array(
+        ],
+        'aliases' => [
             'Configuration'                              => 'Config',
             'Console'                                    => 'ConsoleAdapter',
             'Di'                                         => 'DependencyInjector',
@@ -95,11 +95,11 @@ class ServiceListenerFactory implements FactoryInterface
             'Zend\View\Resolver\AggregateResolver'       => 'ViewResolver',
             'Zend\View\Resolver\ResolverInterface'       => 'ViewResolver',
             'ControllerManager'                          => 'ControllerLoader',
-        ),
-        'abstract_factories' => array(
+        ],
+        'abstract_factories' => [
             'Zend\Form\FormAbstractServiceFactory',
-        ),
-    );
+        ],
+    ];
 
     /**
      * Create the service listener service

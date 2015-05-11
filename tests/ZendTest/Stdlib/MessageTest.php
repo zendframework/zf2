@@ -27,13 +27,13 @@ class MessageTest extends \PHPUnit_Framework_TestCase
         $ret = $message->setMetadata('foo', 'bar');
         $this->assertInstanceOf('Zend\Stdlib\Message', $ret);
         $this->assertEquals('bar', $message->getMetadata('foo'));
-        $this->assertEquals(array('foo' => 'bar'), $message->getMetadata());
+        $this->assertEquals(['foo' => 'bar'], $message->getMetadata());
     }
 
     public function testMessageCanSetAndGetMetadataKeyAsArray()
     {
         $message = new Message();
-        $ret = $message->setMetadata(array('foo' => 'bar'));
+        $ret = $message->setMetadata(['foo' => 'bar']);
         $this->assertInstanceOf('Zend\Stdlib\Message', $ret);
         $this->assertEquals('bar', $message->getMetadata('foo'));
     }
@@ -63,7 +63,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testMessageToStringWorks()
     {
         $message = new Message();
-        $message->setMetadata(array('Foo' => 'bar', 'One' => 'Two'));
+        $message->setMetadata(['Foo' => 'bar', 'One' => 'Two']);
         $message->setContent('This is my content');
         $expected = "Foo: bar\r\nOne: Two\r\n\r\nThis is my content";
         $this->assertEquals($expected, $message->toString());

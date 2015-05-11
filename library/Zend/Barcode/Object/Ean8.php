@@ -46,13 +46,13 @@ class Ean8 extends Ean13
      */
     protected function prepareBarcode()
     {
-        $barcodeTable = array();
+        $barcodeTable = [];
         $height = ($this->drawText) ? 1.1 : 1;
 
         // Start character (101)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
 
         $textTable = str_split($this->getText());
 
@@ -60,29 +60,29 @@ class Ean8 extends Ean13
         for ($i = 0; $i < 4; $i++) {
             $bars = str_split($this->codingMap['A'][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$b, $this->barThinWidth, 0, 1];
             }
         }
 
         // Middle character (01010)
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
 
         // Second part
         for ($i = 4; $i < 8; $i++) {
             $bars = str_split($this->codingMap['C'][$textTable[$i]]);
             foreach ($bars as $b) {
-                $barcodeTable[] = array($b, $this->barThinWidth, 0, 1);
+                $barcodeTable[] = [$b, $this->barThinWidth, 0, 1];
             }
         }
 
         // Stop character (101)
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(0, $this->barThinWidth, 0, $height);
-        $barcodeTable[] = array(1, $this->barThinWidth, 0, $height);
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [0, $this->barThinWidth, 0, $height];
+        $barcodeTable[] = [1, $this->barThinWidth, 0, $height];
         return $barcodeTable;
     }
 
@@ -129,12 +129,12 @@ class Ean8 extends Ean13
      * @param array  $options
      * @throws Exception\BarcodeValidationException
      */
-    protected function validateSpecificText($value, $options = array())
+    protected function validateSpecificText($value, $options = [])
     {
-        $validator = new BarcodeValidator(array(
+        $validator = new BarcodeValidator([
             'adapter'  => 'ean8',
             'checksum' => false,
-        ));
+        ]);
 
         $value = $this->addLeadingZeros($value, true);
 

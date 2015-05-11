@@ -19,6 +19,6 @@ class NoopTest extends \PHPUnit_Framework_TestCase
     public function testWrite()
     {
         $writer = new NoopWriter();
-        $writer->write(array('message' => 'foo', 'priority' => 42));
+        $writer->write(['message' => 'foo', 'priority' => 42]);
     }
 }

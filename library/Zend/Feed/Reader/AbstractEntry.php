@@ -20,7 +20,7 @@ abstract class AbstractEntry
      *
      * @var array
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * DOM document object
@@ -55,7 +55,7 @@ abstract class AbstractEntry
      *
      * @var array
      */
-    protected $extensions = array();
+    protected $extensions = [];
 
     /**
      * Constructor
@@ -195,7 +195,7 @@ abstract class AbstractEntry
     {
         foreach ($this->extensions as $extension) {
             if (method_exists($extension, $method)) {
-                return call_user_func_array(array($extension, $method), $args);
+                return call_user_func_array([$extension, $method], $args);
             }
         }
         throw new Exception\BadMethodCallException('Method: ' . $method

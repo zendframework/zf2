@@ -45,7 +45,7 @@ class DiStrictAbstractServiceFactory extends Di implements AbstractFactoryInterf
     /**
      * @var array an array of whitelisted service names (keys are the service names)
      */
-    protected $allowedServiceNames = array();
+    protected $allowedServiceNames = [];
 
     /**
      * @param Di $di
@@ -104,7 +104,7 @@ class DiStrictAbstractServiceFactory extends Di implements AbstractFactoryInterf
      *
      * @throws Exception\InvalidServiceNameException
      */
-    public function get($name, array $params = array())
+    public function get($name, array $params = [])
     {
         if (null === $this->serviceLocator) {
             throw new DomainException('No ServiceLocator defined, use `createServiceWithName` instead of `get`');

@@ -196,7 +196,7 @@ class Mbox extends Storage\Mbox implements FolderInterface
      */
     public function __sleep()
     {
-        return array_merge(parent::__sleep(), array('currentFolder', 'rootFolder', 'rootdir'));
+        return array_merge(parent::__sleep(), ['currentFolder', 'rootFolder', 'rootdir']);
     }
 
     /**

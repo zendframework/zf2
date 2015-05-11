@@ -16,9 +16,9 @@ class StringToLower extends AbstractUnicode
     /**
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'encoding' => null,
-    );
+    ];
 
     /**
      * Constructor

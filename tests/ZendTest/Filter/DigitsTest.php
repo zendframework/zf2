@@ -54,23 +54,23 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
              * The third  contains various multibyte characters.
              * The last contains only singlebyte digits.
              */
-            $valuesExpected = array(
+            $valuesExpected = [
                 '1９2八3四８'     => '123',
                 'Ｃ 4.5B　6'      => '456',
                 '9壱8＠7．6，5＃4' => '987654',
                 '789'              => '789'
-                );
+                ];
         } else {
             // POSIX named classes are not supported, use alternative 0-9 match
             // Or filter for the value without mbstring
-            $valuesExpected = array(
+            $valuesExpected = [
                 'abc123'  => '123',
                 'abc 123' => '123',
                 'abcxyz'  => '',
                 'AZ@#4.3' => '43',
                 '1.23'    => '123',
                 '0x9f'    => '09'
-                );
+                ];
         }
 
         foreach ($valuesExpected as $input => $output) {
@@ -84,16 +84,16 @@ class DigitsTest extends \PHPUnit_Framework_TestCase
 
     public function returnUnfilteredDataProvider()
     {
-        return array(
-            array(null),
-            array(new \stdClass()),
-            array(array(
+        return [
+            [null],
+            [new \stdClass()],
+            [[
                 'abc123',
                 'abc 123'
-            )),
-            array(true),
-            array(false),
-        );
+            ]],
+            [true],
+            [false],
+        ];
     }
 
     /**

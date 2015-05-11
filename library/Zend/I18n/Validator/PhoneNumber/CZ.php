@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-return array(
+return [
     'code' => '420',
-    'patterns' => array(
-        'national' => array(
+    'patterns' => [
+        'national' => [
             'general' => '/^[2-8]\\d{8}|9\\d{8,11}$/',
             'fixed' => '/^2\\d{8}|(?:3[1257-9]|4[16-9]|5[13-9])\\d{7}$/',
             'mobile' => '/^(?:60[1-8]|7(?:0[2-5]|[2379]\\d))\\d{6}$/',
@@ -23,12 +23,12 @@ return array(
             'voicemail' => '/^9(?:3\\d{9}|6\\d{7,10})$/',
             'shortcode' => '/^1(?:1(?:6\\d{3}|8\\d)|2\\d{2,3}|3\\d{3,4}|4\\d{3}|99)$/',
             'emergency' => '/^1(?:12|5[058])$/',
-        ),
-        'possible' => array(
+        ],
+        'possible' => [
             'general' => '/^\\d{9,12}$/',
             'voicemail' => '/^\\d{9,12}$/',
             'shortcode' => '/^\\d{4,6}$/',
             'emergency' => '/^\\d{3}$/',
-        ),
-    ),
-);
+        ],
+    ],
+];

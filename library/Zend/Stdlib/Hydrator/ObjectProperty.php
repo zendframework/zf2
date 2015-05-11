@@ -18,7 +18,7 @@ class ObjectProperty extends AbstractHydrator
     /**
      * @var array[] indexed by class name and then property name
      */
-    private static $skippedPropertiesCache = array();
+    private static $skippedPropertiesCache = [];
 
     /**
      * {@inheritDoc}

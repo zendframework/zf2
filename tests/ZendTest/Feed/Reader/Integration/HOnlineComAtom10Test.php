@@ -38,7 +38,7 @@ class HOnlineComAtom10Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath)
         );
-        $this->assertEquals(array(array('name'=>'The H')), (array) $feed->getAuthors());
+        $this->assertEquals([['name'=>'The H']], (array) $feed->getAuthors());
     }
 
     public function testGetsSingleAuthor()
@@ -46,7 +46,7 @@ class HOnlineComAtom10Test extends \PHPUnit_Framework_TestCase
         $feed = Reader\Reader::importString(
             file_get_contents($this->feedSamplePath)
         );
-        $this->assertEquals(array('name'=>'The H'), $feed->getAuthor());
+        $this->assertEquals(['name'=>'The H'], $feed->getAuthor());
     }
 
     public function testGetsCopyright()
@@ -125,7 +125,7 @@ class HOnlineComAtom10Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array(array('name'=>'The H')), (array) $entry->getAuthors());
+        $this->assertEquals([['name'=>'The H']], (array) $entry->getAuthors());
     }
 
     public function testGetsEntrySingleAuthor()
@@ -134,7 +134,7 @@ class HOnlineComAtom10Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array('name'=>'The H'), $entry->getAuthor());
+        $this->assertEquals(['name'=>'The H'], $entry->getAuthor());
     }
 
     public function testGetsEntryDescription()
@@ -164,7 +164,7 @@ class HOnlineComAtom10Test extends \PHPUnit_Framework_TestCase
             file_get_contents($this->feedSamplePath)
         );
         $entry = $feed->current();
-        $this->assertEquals(array('http://www.h-online.com/security/McAfee-update-brings-systems-down-again--/news/113689/from/rss'), $entry->getLinks());
+        $this->assertEquals(['http://www.h-online.com/security/McAfee-update-brings-systems-down-again--/news/113689/from/rss'], $entry->getLinks());
     }
 
     public function testGetsEntryLink()

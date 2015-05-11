@@ -18,16 +18,16 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
 {
     public function testObjectCallback()
     {
-        $filter = new CallbackFilter(array($this, 'objectCallback'));
+        $filter = new CallbackFilter([$this, 'objectCallback']);
         $this->assertEquals('objectCallback-test', $filter('test'));
     }
 
     public function testConstructorWithOptions()
     {
-        $filter = new CallbackFilter(array(
-            'callback'        => array($this, 'objectCallbackWithParams'),
+        $filter = new CallbackFilter([
+            'callback'        => [$this, 'objectCallbackWithParams'],
             'callback_params' => 0,
-        ));
+        ]);
 
         $this->assertEquals('objectCallbackWithParams-test-0', $filter('test'));
     }
@@ -35,23 +35,23 @@ class CallbackTest extends \PHPUnit_Framework_TestCase
     public function testStaticCallback()
     {
         $filter = new CallbackFilter(
-            array(__CLASS__, 'staticCallback')
+            [__CLASS__, 'staticCallback']
         );
         $this->assertEquals('staticCallback-test', $filter('test'));
     }
 
     public function testSettingDefaultOptions()
     {
-        $filter = new CallbackFilter(array($this, 'objectCallback'), 'param');
-        $this->assertEquals(array('param'), $filter->getCallbackParams());
+        $filter = new CallbackFilter([$this, 'objectCallback'], 'param');
+        $this->assertEquals(['param'], $filter->getCallbackParams());
         $this->assertEquals('objectCallback-test', $filter('test'));
     }
 
     public function testSettingDefaultOptionsAfterwards()
     {
-        $filter = new CallbackFilter(array($this, 'objectCallback'));
+        $filter = new CallbackFilter([$this, 'objectCallback']);
         $filter->setCallbackParams('param');
-        $this->assertEquals(array('param'), $filter->getCallbackParams());
+        $this->assertEquals(['param'], $filter->getCallbackParams());
         $this->assertEquals('objectCallback-test', $filter('test'));
     }
 

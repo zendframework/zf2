@@ -19,26 +19,26 @@ class SendResponseListenerTest extends TestCase
     {
         $listener = new SendResponseListener();
         $identifiers = $listener->getEventManager()->getIdentifiers();
-        $expected    = array('Zend\Mvc\SendResponseListener');
+        $expected    = ['Zend\Mvc\SendResponseListener'];
         $this->assertEquals($expected, array_values($identifiers));
     }
 
     public function testSendResponseTriggersSendResponseEvent()
     {
         $listener = new SendResponseListener();
-        $result = array();
+        $result = [];
         $listener->getEventManager()->attach(SendResponseEvent::EVENT_SEND_RESPONSE, function ($e) use (&$result) {
             $result['target'] = $e->getTarget();
             $result['response'] = $e->getResponse();
         }, 10000);
         $mockResponse = $this->getMockForAbstractClass('Zend\Stdlib\ResponseInterface');
-        $mockMvcEvent = $this->getMock('Zend\Mvc\MvcEvent', $methods = array('getResponse'));
+        $mockMvcEvent = $this->getMock('Zend\Mvc\MvcEvent', $methods = ['getResponse']);
         $mockMvcEvent->expects($this->any())->method('getResponse')->will($this->returnValue($mockResponse));
         $listener->sendResponse($mockMvcEvent);
-        $expected = array(
+        $expected = [
             'target' => $listener,
             'response' => $mockResponse
-        );
+        ];
         $this->assertEquals($expected, $result);
     }
 }

@@ -100,8 +100,8 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      */
     public function __sleep()
     {
-        return array('dn', 'currentData', 'newDn', 'originalData',
-                     'new', 'delete', 'children');
+        return ['dn', 'currentData', 'newDn', 'originalData',
+                     'new', 'delete', 'children'];
     }
 
     /**
@@ -195,7 +195,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      * @param  string             $event Event name
      * @param  array|\ArrayAccess $argv  Array of arguments; typically, should be associative
      */
-    protected function triggerEvent($event, $argv = array())
+    protected function triggerEvent($event, $argv = [])
     {
         if (null === $this->events) {
             if (class_exists('\Zend\EventManager\EventManager')) {
@@ -218,7 +218,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
         if ($fromDataSource === true) {
             $this->originalData = $data;
         } else {
-            $this->originalData = array();
+            $this->originalData = [];
         }
         $this->children = null;
         $this->markAsNew($fromDataSource !== true);
@@ -233,7 +233,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      * @return Node
      * @throws Exception\LdapException
      */
-    public static function create($dn, array $objectClass = array())
+    public static function create($dn, array $objectClass = [])
     {
         if (is_string($dn) || is_array($dn)) {
             $dn = Dn::factory($dn);
@@ -242,7 +242,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
         } else {
             throw new Exception\LdapException(null, '$dn is of a wrong data type.');
         }
-        $new = new static($dn, array(), false, null);
+        $new = new static($dn, [], false, null);
         $new->ensureRdnAttributeValues();
         $new->setAttribute('objectClass', $objectClass);
 
@@ -266,7 +266,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
         } else {
             throw new Exception\LdapException(null, '$dn is of a wrong data type.');
         }
-        $data = $ldap->getEntry($dn, array('*', '+'), true);
+        $data = $ldap->getEntry($dn, ['*', '+'], true);
         if ($data === null) {
             return;
         }
@@ -579,9 +579,9 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      * @param  array $options Additional options used during encoding
      * @return string
      */
-    public function toLdif(array $options = array())
+    public function toLdif(array $options = [])
     {
-        $attributes = array_merge(array('dn' => $this->getDnString()), $this->getData(false));
+        $attributes = array_merge(['dn' => $this->getDnString()], $this->getData(false));
 
         return Ldif\Encoder::encode($attributes, $options);
     }
@@ -598,7 +598,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      */
     public function getChangedData()
     {
-        $changed = array();
+        $changed = [];
         foreach ($this->currentData as $key => $value) {
             if (!array_key_exists($key, $this->originalData) && !empty($value)) {
                 $changed[$key] = $value;
@@ -619,10 +619,10 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
      */
     public function getChanges()
     {
-        $changes = array(
-            'add'     => array(),
-            'delete'  => array(),
-            'replace' => array());
+        $changes = [
+            'add'     => [],
+            'delete'  => [],
+            'replace' => []];
         foreach ($this->currentData as $key => $value) {
             if (!array_key_exists($key, $this->originalData) && !empty($value)) {
                 $changes['add'][$key] = $value;
@@ -930,7 +930,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
     public function searchSubtree($filter, $scope = Ldap::SEARCH_SCOPE_SUB, $sort = null)
     {
         return $this->getLdap()->search(
-            $filter, $this->_getDn(), $scope, array('*', '+'), $sort,
+            $filter, $this->_getDn(), $scope, ['*', '+'], $sort,
             'Zend\Ldap\Node\Collection'
         );
     }
@@ -1009,7 +1009,7 @@ class Node extends Node\AbstractNode implements Iterator, RecursiveIterator
     public function getChildren()
     {
         if (!is_array($this->children)) {
-            $this->children = array();
+            $this->children = [];
             if ($this->isAttached()) {
                 $children = $this->searchChildren('(objectClass=*)', null);
                 foreach ($children as $child) {

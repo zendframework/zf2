@@ -25,14 +25,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function testCanConstructRequestAndGetParams()
     {
-        $_SERVER['argv'] = array('foo.php', 'foo' => 'baz', 'bar');
+        $_SERVER['argv'] = ['foo.php', 'foo' => 'baz', 'bar'];
         $_ENV["FOO_VAR"] = "bar";
 
         $request = new Request();
         $params = $request->getParams();
 
         $this->assertEquals(2, count($params));
-        $this->assertEquals($params->toArray(), array('foo' => 'baz', 'bar'));
+        $this->assertEquals($params->toArray(), ['foo' => 'baz', 'bar']);
         $this->assertEquals($request->getParam('foo'), 'baz');
         $this->assertEquals($request->getScriptName(), 'foo.php');
         $this->assertGreaterThanOrEqual(1, count($request->env()));

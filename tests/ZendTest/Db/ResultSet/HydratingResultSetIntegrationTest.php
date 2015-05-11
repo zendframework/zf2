@@ -19,10 +19,10 @@ class HydratingResultSetIntegrationTest extends \PHPUnit_Framework_TestCase
     public function testCurrentWillReturnBufferedRow()
     {
         $hydratingRs = new HydratingResultSet;
-        $hydratingRs->initialize(new \ArrayIterator(array(
-            array('id' => 1, 'name' => 'one'),
-            array('id' => 2, 'name' => 'two'),
-        )));
+        $hydratingRs->initialize(new \ArrayIterator([
+            ['id' => 1, 'name' => 'one'],
+            ['id' => 2, 'name' => 'two'],
+        ]));
         $hydratingRs->buffer();
         $obj1 = $hydratingRs->current();
         $hydratingRs->rewind();

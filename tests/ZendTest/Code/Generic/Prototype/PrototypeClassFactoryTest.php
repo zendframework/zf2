@@ -52,7 +52,7 @@ class PrototypeClassFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testSetNameOnGenericIsCalledOnce()
     {
-        $mockProto = $this->getMock('ZendTest\Code\Generator\TestAsset\PrototypeGenericClass', array('setName'));
+        $mockProto = $this->getMock('ZendTest\Code\Generator\TestAsset\PrototypeGenericClass', ['setName']);
         $mockProto->expects($this->once())->method('setName')->will($this->returnValue('notexist'));
         $this->prototypeFactory->setGenericPrototype($mockProto);
         $this->prototypeFactory->getClonedPrototype('notexist');

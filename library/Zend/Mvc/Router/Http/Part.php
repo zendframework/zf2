@@ -80,7 +80,7 @@ class Part extends TreeRouteStack implements RouteInterface
      * @return Part
      * @throws Exception\InvalidArgumentException
      */
-    public static function factory($options = array())
+    public static function factory($options = [])
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -130,7 +130,7 @@ class Part extends TreeRouteStack implements RouteInterface
      * @param  array        $options
      * @return RouteMatch|null
      */
-    public function match(Request $request, $pathOffset = null, array $options = array())
+    public function match(Request $request, $pathOffset = null, array $options = [])
     {
         if ($pathOffset === null) {
             $pathOffset = 0;
@@ -181,7 +181,7 @@ class Part extends TreeRouteStack implements RouteInterface
      * @return mixed
      * @throws Exception\RuntimeException
      */
-    public function assemble(array $params = array(), array $options = array())
+    public function assemble(array $params = [], array $options = [])
     {
         if ($this->childRoutes !== null) {
             $this->addRoutes($this->childRoutes);
@@ -222,7 +222,7 @@ class Part extends TreeRouteStack implements RouteInterface
     {
         // Part routes may not occur as base route of other part routes, so we
         // don't have to return anything here.
-        return array();
+        return [];
     }
 
     /**

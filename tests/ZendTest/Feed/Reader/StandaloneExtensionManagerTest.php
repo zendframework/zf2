@@ -25,24 +25,24 @@ class StandaloneExtensionManagerTest extends TestCase
 
     public function defaultPlugins()
     {
-        return array(
-            'Atom\Entry'            => array('Atom\Entry', 'Zend\Feed\Reader\Extension\Atom\Entry'),
-            'Atom\Feed'             => array('Atom\Feed', 'Zend\Feed\Reader\Extension\Atom\Feed'),
-            'Content\Entry'         => array('Content\Entry', 'Zend\Feed\Reader\Extension\Content\Entry'),
-            'CreativeCommons\Entry' => array(
+        return [
+            'Atom\Entry'            => ['Atom\Entry', 'Zend\Feed\Reader\Extension\Atom\Entry'],
+            'Atom\Feed'             => ['Atom\Feed', 'Zend\Feed\Reader\Extension\Atom\Feed'],
+            'Content\Entry'         => ['Content\Entry', 'Zend\Feed\Reader\Extension\Content\Entry'],
+            'CreativeCommons\Entry' => [
                 'CreativeCommons\Entry',
                 'Zend\Feed\Reader\Extension\CreativeCommons\Entry'
-            ),
-            'CreativeCommons\Feed'  => array('CreativeCommons\Feed', 'Zend\Feed\Reader\Extension\CreativeCommons\Feed'),
-            'DublinCore\Entry'      => array('DublinCore\Entry', 'Zend\Feed\Reader\Extension\DublinCore\Entry'),
-            'DublinCore\Feed'       => array('DublinCore\Feed', 'Zend\Feed\Reader\Extension\DublinCore\Feed'),
-            'Podcast\Entry'         => array('Podcast\Entry', 'Zend\Feed\Reader\Extension\Podcast\Entry'),
-            'Podcast\Feed'          => array('Podcast\Feed', 'Zend\Feed\Reader\Extension\Podcast\Feed'),
-            'Slash\Entry'           => array('Slash\Entry', 'Zend\Feed\Reader\Extension\Slash\Entry'),
-            'Syndication\Feed'      => array('Syndication\Feed', 'Zend\Feed\Reader\Extension\Syndication\Feed'),
-            'Thread\Entry'          => array('Thread\Entry', 'Zend\Feed\Reader\Extension\Thread\Entry'),
-            'WellFormedWeb\Entry'   => array('WellFormedWeb\Entry', 'Zend\Feed\Reader\Extension\WellFormedWeb\Entry'),
-        );
+            ],
+            'CreativeCommons\Feed'  => ['CreativeCommons\Feed', 'Zend\Feed\Reader\Extension\CreativeCommons\Feed'],
+            'DublinCore\Entry'      => ['DublinCore\Entry', 'Zend\Feed\Reader\Extension\DublinCore\Entry'],
+            'DublinCore\Feed'       => ['DublinCore\Feed', 'Zend\Feed\Reader\Extension\DublinCore\Feed'],
+            'Podcast\Entry'         => ['Podcast\Entry', 'Zend\Feed\Reader\Extension\Podcast\Entry'],
+            'Podcast\Feed'          => ['Podcast\Feed', 'Zend\Feed\Reader\Extension\Podcast\Feed'],
+            'Slash\Entry'           => ['Slash\Entry', 'Zend\Feed\Reader\Extension\Slash\Entry'],
+            'Syndication\Feed'      => ['Syndication\Feed', 'Zend\Feed\Reader\Extension\Syndication\Feed'],
+            'Thread\Entry'          => ['Thread\Entry', 'Zend\Feed\Reader\Extension\Thread\Entry'],
+            'WellFormedWeb\Entry'   => ['WellFormedWeb\Entry', 'Zend\Feed\Reader\Extension\WellFormedWeb\Entry'],
+        ];
     }
 
     /**

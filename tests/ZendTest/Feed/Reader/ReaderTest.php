@@ -179,9 +179,9 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         }
         $links = Reader\Reader::findFeedLinks('http://www.planet-php.net');
         $this->assertInstanceOf('Zend\Feed\Reader\FeedSet', $links);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => 'http://www.planet-php.org/rss/'
-        ), (array) $links->getIterator()->current());
+        ], (array) $links->getIterator()->current());
     }
 
     public function testFeedSetLoadsFeedObjectWhenFeedArrayKeyAccessed()
@@ -241,7 +241,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $response->setStatusCode(200);
         $response->setContent('<!DOCTYPE html><html><head><link rel="alternate" type="application/rss+xml" href="../test.rss"><link rel="alternate" type="application/atom+xml" href="/test.atom"></head><body></body></html>');
         $testAdapter->setResponse($response);
-        Reader\Reader::setHttpClient(new HttpClient(null, array('adapter' => $testAdapter)));
+        Reader\Reader::setHttpClient(new HttpClient(null, ['adapter' => $testAdapter]));
 
         $links = Reader\Reader::findFeedLinks('http://foo/bar');
 
@@ -282,7 +282,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
     {
         $uri = 'http://example.com/feeds/reader.xml';
         $feedContents = file_get_contents($this->feedSamplePath . '/Reader/rss20.xml');
-        $response = $this->getMock('Zend\Feed\Reader\Http\ResponseInterface', array('getStatusCode', 'getBody'));
+        $response = $this->getMock('Zend\Feed\Reader\Http\ResponseInterface', ['getStatusCode', 'getBody']);
         $response->expects($this->once())
             ->method('getStatusCode')
             ->will($this->returnValue(200));
@@ -290,7 +290,7 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
             ->method('getBody')
             ->will($this->returnValue($feedContents));
 
-        $client = $this->getMock('Zend\Feed\Reader\Http\ClientInterface', array('get'));
+        $client = $this->getMock('Zend\Feed\Reader\Http\ClientInterface', ['get']);
         $client->expects($this->once())
             ->method('get')
             ->with($this->equalTo($uri))
@@ -311,9 +311,9 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
 
     protected function _getTempDirectory()
     {
-        $tmpdir = array();
-        foreach (array($_ENV, $_SERVER) as $tab) {
-            foreach (array('TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot') as $key) {
+        $tmpdir = [];
+        foreach ([$_ENV, $_SERVER] as $tab) {
+            foreach (['TMPDIR', 'TEMP', 'TMP', 'windir', 'SystemRoot'] as $key) {
                 if (isset($tab[$key])) {
                     if (($key == 'windir') or ($key == 'SystemRoot')) {
                         $dir = realpath($tab[$key] . '\\temp');

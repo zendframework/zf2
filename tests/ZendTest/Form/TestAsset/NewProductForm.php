@@ -26,11 +26,11 @@ class NewProductForm extends Form
         $fieldset->setUseAsBaseFieldset(true);
         $this->add($fieldset);
 
-        $this->add(array(
+        $this->add([
             'name' => 'submit',
-            'attributes' => array(
+            'attributes' => [
                 'type' => 'submit'
-            )
-        ));
+            ]
+        ]);
     }
 }
