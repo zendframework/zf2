@@ -14,6 +14,7 @@ use Zend\Stdlib\ParametersInterface;
 use Zend\Stdlib\RequestInterface;
 use Zend\Uri\Exception as UriException;
 use Zend\Uri\Http as HttpUri;
+use Zend\Uri\UnixHttp as UnixHttpUri;
 
 /**
  * HTTP Request
@@ -203,7 +204,11 @@ class Request extends AbstractMessage implements RequestInterface
     {
         if (is_string($uri)) {
             try {
-                $uri = new HttpUri($uri);
+                if (preg_match('/^unix:/', $uri)) {
+                    $uri = new UnixHttpUri($uri);
+                } else {
+                    $uri = new HttpUri($uri);
+                }
             } catch (UriException\InvalidUriPartException $e) {
                 throw new Exception\InvalidArgumentException(
                     sprintf('Invalid URI passed as string (%s)', (string) $uri),
