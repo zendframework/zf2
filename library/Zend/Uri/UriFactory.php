@@ -29,10 +29,12 @@ abstract class UriFactory
      protected static $schemeClasses = array(
         'http'   => 'Zend\Uri\Http',
         'https'  => 'Zend\Uri\Http',
+        'tcp'    => 'Zend\Uri\Http',
         'mailto' => 'Zend\Uri\Mailto',
         'file'   => 'Zend\Uri\File',
         'urn'    => 'Zend\Uri\Uri',
         'tag'    => 'Zend\Uri\Uri',
+        'unix'   => 'Zend\Uri\UnixHttp',
     );
 
     /**
