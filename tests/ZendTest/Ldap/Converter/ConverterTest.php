@@ -81,7 +81,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testToLdapBoolean($expect, $convert)
     {
-        $this->assertEquals($expect, Converter::toldapBoolean($convert));
+        $this->assertEquals($expect, Converter::toLdapBoolean($convert));
     }
 
     public function toLdapBooleanProvider()
@@ -147,7 +147,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
                 'value'=> DateTime::createFromFormat(DateTime::ISO8601, '1970-01-01T00:00:00+0000'),
                 'type' => 0,
             )),
-            array(Converter::toldapBoolean(true), array(
+            array(Converter::toLdapBoolean(true), array(
                 'value' => (bool) true,
                 'type' => 0
             )),

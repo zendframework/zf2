@@ -83,7 +83,7 @@ class Converter
         try {
             switch ($type) {
                 case self::BOOLEAN:
-                    return static::toldapBoolean($value);
+                    return static::toLdapBoolean($value);
                 case self::GENERALIZED_TIME:
                     return static::toLdapDatetime($value);
                 default:
@@ -92,7 +92,7 @@ class Converter
                     } elseif (is_int($value) || is_float($value)) {
                         return (string) $value;
                     } elseif (is_bool($value)) {
-                        return static::toldapBoolean($value);
+                        return static::toLdapBoolean($value);
                     } elseif (is_object($value)) {
                         if ($value instanceof DateTime) {
                             return static::toLdapDatetime($value);
