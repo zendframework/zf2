@@ -122,6 +122,17 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('f24dd075ba2ebfb3bf21270e3fdc5303', md5($res->getContent()));
     }
 
+    public function testGzipResponse2()
+    {
+        $response_text = file_get_contents(__DIR__ . '/_files/response_gzip2');
+
+        $res = Response::fromString($response_text);
+
+        $this->assertEquals('gzip', $res->getHeaders()->get('Content-encoding')->getFieldValue());
+        $this->assertEquals('e5f51614227d99a4a3666c5c67c090ad', md5($res->getBody()));
+        $this->assertEquals('a8a0fac68883b31b07589e7d6340363b', md5($res->getContent()));
+    }
+
     public function testDeflateResponse()
     {
         $response_text = file_get_contents(__DIR__ . '/_files/response_deflate');
