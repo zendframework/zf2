@@ -230,6 +230,19 @@ class PredicateTest extends TestCase
     }
 
     /**
+    * @group 7293
+    */
+   public function testExpressionParametersDefaultToArray()
+   {
+       $predicate = new Predicate;
+       $this->assertSame($predicate, $predicate->expression('foo = bar'));
+       $this->assertEquals(
+           array(array('foo = bar', array(), array())),
+           $predicate->getExpressionData()
+       );
+   }
+
+    /**
      * @testdox Unit test: Test literal() is chainable, returns proper values, and is backwards compatible with 2.0.*
      */
     public function testLiteral()
