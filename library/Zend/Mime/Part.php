@@ -439,8 +439,7 @@ class Part
         }
 
         if ($this->boundary) {
-            $contentType .= ';' . $EOL
-                          . " boundary=\"" . $this->boundary . '"';
+            $contentType .= '; boundary="' . $this->boundary . '"';
         }
 
         $headers[] = array('Content-Type', $contentType);

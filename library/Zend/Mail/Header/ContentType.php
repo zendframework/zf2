@@ -69,7 +69,7 @@ class ContentType implements HeaderInterface
             $values[] = sprintf('%s="%s"', $attribute, $value);
         }
 
-        return implode(';' . Headers::FOLDING, $values);
+        return implode(';', $values);
     }
 
     public function setEncoding($encoding)
@@ -165,7 +165,7 @@ class ContentType implements HeaderInterface
         if (isset($this->parameters[$name])) {
             return $this->parameters[$name];
         }
-        return;
+        return null;
     }
 
     /**
