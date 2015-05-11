@@ -17,7 +17,7 @@ use Zend\Http\Client;
  * In order to run, TESTS_ZEND_HTTP_CLIENT_HTTP_PROXY must point to a working
  * proxy server, which can access TESTS_ZEND_HTTP_CLIENT_BASEURI.
  *
- * See TestConfiguration.php.dist for more information.
+ * See phpunit.xml.dist for more information.
  *
  * @group      Zend_Http
  * @group      Zend_Http_Client
@@ -78,7 +78,7 @@ class ProxyAdapterTest extends SocketTest
 
             parent::setUp();
         } else {
-            $this->markTestSkipped('Zend\Http\Client proxy server tests are not enabled in TestConfiguration.php');
+            $this->markTestSkipped('Zend\Http\Client proxy server tests are not enabled in phpunit.xml');
         }
     }
 

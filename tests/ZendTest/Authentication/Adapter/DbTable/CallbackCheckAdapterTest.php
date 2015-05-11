@@ -41,7 +41,7 @@ class CallbackCheckAdapterTest extends \PHPUnit_Framework_TestCase
         if (!defined('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED') ||
             constant('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED') === false
         ) {
-            $this->markTestSkipped('Tests are not enabled in TestConfiguration.php');
+            $this->markTestSkipped('Tests are not enabled in phpunit.xml');
             return;
         } elseif (!extension_loaded('pdo')) {
             $this->markTestSkipped('PDO extension is not loaded');

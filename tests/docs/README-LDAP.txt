@@ -63,21 +63,21 @@ also:
         userPassword=<<will be provided>>
 
 
-TestConfiguration values:
+phpunit.xml values:
 
-    define('TESTS_ZEND_LDAP_HOST', 'localhost');
-    //define('TESTS_ZEND_LDAP_PORT', 389);
-    define('TESTS_ZEND_LDAP_USE_START_TLS', false);
-    //define('TESTS_ZEND_LDAP_USE_SSL', false);
-    define('TESTS_ZEND_LDAP_USERNAME', 'cn=Manager,dc=example,dc=com');
-    define('TESTS_ZEND_LDAP_PRINCIPAL_NAME', 'Manager@example.com');
-    define('TESTS_ZEND_LDAP_PASSWORD', 'insecure');
-    define('TESTS_ZEND_LDAP_BIND_REQUIRES_DN', true);
-    define('TESTS_ZEND_LDAP_BASE_DN', 'dc=example,dc=com');
-    define('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT', '(&(objectClass=account)(uid=%s))');
-    define('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME', 'example.com');
-    define('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT', 'EXAMPLE');
-    define('TESTS_ZEND_LDAP_ALT_USERNAME', 'user1');
-    define('TESTS_ZEND_LDAP_ALT_DN', 'uid=user1,dc=example,dc=com');
-    define('TESTS_ZEND_LDAP_ALT_PASSWORD', 'user1');
-    define('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE', 'ou=test,dc=example,dc=com');
+    <const name="TESTS_ZEND_LDAP_HOST" value="localhost"/>
+    //<const name="TESTS_ZEND_LDAP_PORT" value="389"/>
+    <const name="TESTS_ZEND_LDAP_USE_START_TLS" value="false"/>
+    //<const name="TESTS_ZEND_LDAP_USE_SSL" value="false"/>
+    <const name="TESTS_ZEND_LDAP_USERNAME" value="cn=Manager,dc=example,dc=com"/>
+    <const name="TESTS_ZEND_LDAP_PRINCIPAL_NAME" value="Manager@example.com"/>
+    <const name="TESTS_ZEND_LDAP_PASSWORD" value="insecure"/>
+    <const name="TESTS_ZEND_LDAP_BIND_REQUIRES_DN" value="true"/>
+    <const name="TESTS_ZEND_LDAP_BASE_DN" value="dc=example,dc=com"/>
+    <const name="TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT" value="(&(objectClass=account)(uid=%s))"/>
+    <const name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME" value="example.com"/>
+    <const name="TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT" value="EXAMPLE"/>
+    <const name="TESTS_ZEND_LDAP_ALT_USERNAME" value="user1"/>
+    <const name="TESTS_ZEND_LDAP_ALT_DN" value="uid=user1,dc=example,dc=com"/>
+    <const name="TESTS_ZEND_LDAP_ALT_PASSWORD" value="user1"/>
+    <const name="TESTS_ZEND_LDAP_WRITEABLE_SUBTREE" value="ou=test,dc=example,dc=com"/>

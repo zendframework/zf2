@@ -29,7 +29,7 @@ class RedisTest extends CommonAdapterTest
     public function setUp()
     {
         if (!defined('TESTS_ZEND_CACHE_REDIS_ENABLED') || !TESTS_ZEND_CACHE_REDIS_ENABLED) {
-            $this->markTestSkipped("Skipped by TestConfiguration (TESTS_ZEND_CACHE_REDIS_ENABLED)");
+            $this->markTestSkipped('Enable TESTS_ZEND_CACHE_REDIS_ENABLED to run this test');
         }
 
         if (!extension_loaded('redis')) {

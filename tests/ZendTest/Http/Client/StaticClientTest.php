@@ -40,7 +40,7 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
             }
         } else {
             // Skip tests
-            $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in TestConfiguration.php");
+            $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in phpunit.xml");
         }
     }
 
