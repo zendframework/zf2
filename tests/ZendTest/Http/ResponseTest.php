@@ -359,6 +359,15 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test that given status code is one of defined in response
+     */
+    public function testIsStatusCode()
+    {
+        $this->assertTrue(Response::isStatusCode(Response::STATUS_CODE_200));
+        $this->assertFalse(Response::isStatusCode(2001));
+    }
+
+    /**
      * Test automatic clean reason phrase
      */
     public function testOverrideReasonPraseByStatusCode()
