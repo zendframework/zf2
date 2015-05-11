@@ -104,19 +104,29 @@ class Decode
         if ($message instanceof Headers) {
             $message = $message->toString();
         }
+
+        //https://tools.ietf.org/html/rfc2822#section-2.2
+        $regExp = '%^[\x21-\x39\x3B-\x7E]+:%';
+
         // check for valid header at first line
         $firstline = strtok($message, "\n");
-        if (!preg_match('%^[^\s]+[^:]*:%', $firstline)) {
-            $headers = array();
-            // TODO: we're ignoring \r for now - is this function fast enough and is it safe to assume noone needs \r?
-            $body = str_replace(array("\r", "\n"), array('', $EOL), $message);
-            return;
-        }
+        if (preg_match($regExp, $firstline) === 0) {
 
-        // see @ZF2-372, pops the first line off a message if it doesn't contain a header
-        if (!$strict) {
-            $parts = explode(':', $firstline, 2);
-            if (count($parts) != 2) {
+            // The first line is a bad header, there is two choices :
+            //  - There is no header at all
+            //  - The first header is bad (cf. postfix)
+
+            // check for valid header at second line
+            $secondline = strtok("\n");
+            if (preg_match($regExp, $secondline) === 0) {
+                $headers = array();
+                // TODO: we're ignoring \r for now - is this function fast enough and is it safe to assume noone needs \r?
+                $body = str_replace(array("\r", "\n"), array('', $EOL), $message);
+                return;
+            }
+
+            if ($strict === false) {
+                // see @ZF2-372, pops the first line off a message if it doesn't contain a header
                 $message = substr($message, strpos($message, $EOL)+1);
             }
         }
