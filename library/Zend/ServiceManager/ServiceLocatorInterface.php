@@ -19,7 +19,7 @@ interface ServiceLocatorInterface
      *
      * @param  string  $name
      * @throws Exception\ServiceNotFoundException
-     * @return object|array
+     * @return mixed
      */
     public function get($name);
 
