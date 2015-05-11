@@ -11,6 +11,7 @@ namespace ZendTest\Session;
 
 use Zend\Session\SessionManager;
 use Zend\Session;
+use Zend\Session\Storage\ArrayStorage;
 use Zend\Session\Validator\RemoteAddr;
 
 /**
@@ -642,5 +643,47 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('Zend\Session\Exception\RuntimeException', 'Session validation failed');
         $this->manager->start();
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testCanPreserveStorageValues()
+    {
+        $storage = new ArrayStorage(array(
+            'foo' => 'bar',
+        ));
+        $this->manager->setStorage($storage);
+        $this->manager->start(true);
+
+        $this->assertSame('bar', $this->manager->getStorage()->getMetadata('foo'));
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testCanDisablePreserveStorageValues()
+    {
+        $storage = new ArrayStorage(array(
+            'foo' => 'bar',
+        ));
+        $this->manager->setStorage($storage);
+        $this->manager->start(false);
+
+        $this->assertNotSame('bar', $this->manager->getStorage()->getMetadata('foo'));
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testPreserveStorageValuesIsDisabledByDefault()
+    {
+        $storage = new ArrayStorage(array(
+            'foo' => 'bar',
+        ));
+        $this->manager->setStorage($storage);
+        $this->manager->start();
+
+        $this->assertNotSame('bar', $this->manager->getStorage()->getMetadata('foo'));
     }
 }
