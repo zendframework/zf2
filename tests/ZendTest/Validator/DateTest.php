@@ -64,6 +64,7 @@ class DateTest extends \PHPUnit_Framework_TestCase
             array('2008/10/22',              'd/m/Y',           false),
             array('22/10/08',                'd/m/y',           true),
             array('22/10',                   'd/m/Y',           false),
+            array(123,                       'Y-m-d',           false),
             // time
             array('2007-01-01T12:02:55Z',    DateTime::ISO8601, true),
             array('12:02:55',                'H:i:s',           true),
