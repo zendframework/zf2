@@ -238,12 +238,7 @@ abstract class ArrayUtils
                 continue;
             }
 
-            if ($value instanceof Traversable) {
-                $array[$key] = static::iteratorToArray($value, $recursive);
-                continue;
-            }
-
-            if (is_array($value)) {
+            if (is_array($value) || $value instanceof Traversable) {
                 $array[$key] = static::iteratorToArray($value, $recursive);
                 continue;
             }
