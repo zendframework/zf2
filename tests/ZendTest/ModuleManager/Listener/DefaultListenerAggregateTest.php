@@ -82,6 +82,7 @@ class DefaultListenerAggregateTest extends TestCase
                 'Zend\ModuleManager\Listener\OnBootstrapListener',
                 'Zend\ModuleManager\Listener\ConfigListener',
                 'Zend\ModuleManager\Listener\LocatorRegistrationListener',
+                'Zend\ModuleManager\ModuleManager',
             ),
         );
         foreach ($expectedEvents as $event => $expectedListeners) {
@@ -104,12 +105,12 @@ class DefaultListenerAggregateTest extends TestCase
         $listenerAggregate = new DefaultListenerAggregate;
         $moduleManager     = new ModuleManager(array('ListenerTestModule'));
 
-        $this->assertEquals(1, count($moduleManager->getEventManager()->getEvents()));
+        $this->assertEquals(2, count($moduleManager->getEventManager()->getEvents()));
 
         $listenerAggregate->attach($moduleManager->getEventManager());
         $this->assertEquals(4, count($moduleManager->getEventManager()->getEvents()));
 
         $listenerAggregate->detach($moduleManager->getEventManager());
-        $this->assertEquals(1, count($moduleManager->getEventManager()->getEvents()));
+        $this->assertEquals(2, count($moduleManager->getEventManager()->getEvents()));
     }
 }

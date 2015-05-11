@@ -1,0 +1,27 @@
+<?php
+/**
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ */
+
+namespace LoadChildsModule;
+
+
+class Module
+{
+    public function init($moduleManager)
+    {
+        $moduleManager->loadModule('LoadChildsModule2', 'after');
+        $moduleManager->loadModule(array('SomeModule' => new \SomeModule\Module()), 'after');
+    }
+
+    public function getConfig()
+    {
+        return array(
+            'bar' => 'SubModule',
+        );
+    }
+}

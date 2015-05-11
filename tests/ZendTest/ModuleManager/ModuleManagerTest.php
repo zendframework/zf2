@@ -262,4 +262,23 @@ class ModuleManagerTest extends TestCase
         $this->setExpectedException('Zend\ModuleManager\Exception\RuntimeException');
         $moduleManager->loadModules();
     }
+
+    public function testLoadChildsModules()
+    {
+        $configListener = $this->defaultListeners->getConfigListener();
+        $moduleManager  = new ModuleManager(array('LoadChildsModule'));
+        $moduleManager->getEventManager()->attachAggregate($this->defaultListeners);
+        $moduleManager->loadModules();
+
+        $this->assertSame(
+            array('LoadChildsModule', 'LoadChildsModule2', 'BarModule', 'SomeModule'),
+            array_keys($moduleManager->getLoadedModules())
+        );
+
+        $config = $configListener->getMergedConfig(false);
+        $this->assertArrayHasKey('bar', $config);
+        $this->assertSame('foo', $config['bar']);
+        $this->assertArrayHasKey('some', $config);
+        $this->assertSame('thing', $config['some']);
+    }
 }
