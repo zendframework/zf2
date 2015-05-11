@@ -1073,6 +1073,40 @@ class ServiceManagerTest extends TestCase
         $this->assertSame($realService, $service->real);
     }
 
+    public function testServiceNotFoundExceptionProposedServices()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->setInvokableClass('Bar\Bar', 'ZendTest\ServiceManager\TestAsset\FooFactory');
+        $serviceManager->setInvokableClass('Bar\Foo\FooB', 'ZendTest\ServiceManager\TestAsset\FooFactory');
+        $serviceManager->setFactory('Bar\Foo\Bar', 'ZendTest\ServiceManager\TestAsset\FooFactory');
+        $serviceManager->setService('Bar\Foo\Foo', 'ZendTest\ServiceManager\TestAsset\FooFactory');
+
+        $expected = array(
+            array('Bar\Foo\Baz' => 'Did you mean this: "Bar\Foo\Bar"?'),
+            array('Bar\Foo\baz' => 'Did you mean this: "Bar\Foo\Bar"?'),
+            array('Bar\Foo' => null),
+            array('Bar\Foo\Pip' => null),
+            array('Bar\Foo\foz' => 'Did you mean this: "Bar\Foo\Foo"?'),
+            array('Bar\Foo\Foz' => 'Did you mean one of these: "Bar\Foo\FooB", "Bar\Foo\Foo"?'),
+        );
+
+        foreach ($expected as $line) {
+            foreach ($line as $name => $message) {
+                try {
+                    $serviceManager->get($name);
+                } catch (Exception\ServiceNotFoundException $e) {
+                    if (null === $message) {
+                        $this->assertNotContains('Did you mean', $e->getMessage());
+                    } else {
+                        $this->assertContains($message, $e->getMessage());
+                    }
+                    continue;
+                }
+                $this->fail(sprintf('The service %s should throw a ServiceNotFoundException', $name));
+            }
+        }
+    }
+
     /**
      * @dataProvider getServiceOfVariousTypes
      * @param $service
