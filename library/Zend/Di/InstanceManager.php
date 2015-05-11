@@ -503,7 +503,12 @@ class InstanceManager /* implements InstanceManagerInterface */
                     $hashValue .= $param . '|';
                     break;
                 case 'array':
-                    $hashValue .= 'Array|';
+                    try {
+                        $hashValue .= serialize($param) . '|';
+                    } catch (\Exception $ex) {
+                        //not serializable
+                        $hashValue .= 'Array|';
+                    }
                     break;
                 case 'resource':
                     $hashValue .= 'resource|';
