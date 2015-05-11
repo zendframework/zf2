@@ -26,32 +26,39 @@ class NumberParseTest extends TestCase
     {
         $filter = new NumberParseFilter(array(
             'locale' => 'en_US',
-            'style'  => NumberFormatter::DECIMAL
+            'style'  => NumberFormatter::DECIMAL,
+            'type' => NumberFormatter::TYPE_DOUBLE,
+            'decimals' => 2
         ));
 
         $this->assertEquals('en_US', $filter->getLocale());
         $this->assertEquals(NumberFormatter::DECIMAL, $filter->getStyle());
+        $this->assertEquals(NumberFormatter::TYPE_DOUBLE, $filter->getType());
+        $this->assertEquals(2, $filter->getDecimals());
     }
 
     public function testConstructWithParameters()
     {
-        $filter = new NumberParseFilter('en_US', NumberFormatter::DECIMAL);
+        $filter = new NumberParseFilter('en_US', NumberFormatter::DECIMAL, NumberFormatter::TYPE_DOUBLE, 2);
 
         $this->assertEquals('en_US', $filter->getLocale());
         $this->assertEquals(NumberFormatter::DECIMAL, $filter->getStyle());
+        $this->assertEquals(NumberFormatter::TYPE_DOUBLE, $filter->getType());
+        $this->assertEquals(2, $filter->getDecimals());
     }
 
     /**
      * @param $locale
      * @param $style
      * @param $type
+     * @param $decimals
      * @param $value
      * @param $expected
      * @dataProvider formattedToNumberProvider
      */
-    public function testFormattedToNumber($locale, $style, $type, $value, $expected)
+    public function testFormattedToNumber($locale, $style, $type, $decimals, $value, $expected)
     {
-        $filter = new NumberParseFilter($locale, $style, $type);
+        $filter = new NumberParseFilter($locale, $style, $type, $decimals);
         $this->assertSame($expected, $filter->filter($value));
     }
 
@@ -62,6 +69,7 @@ class NumberParseTest extends TestCase
                 'en_US',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
+                3,
                 '1,234,567.891',
                 1234567.891,
             ),
@@ -69,6 +77,7 @@ class NumberParseTest extends TestCase
                 'de_DE',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
+                3,
                 '1.234.567,891',
                 1234567.891,
             ),
@@ -76,6 +85,7 @@ class NumberParseTest extends TestCase
                 'ru_RU',
                 NumberFormatter::DEFAULT_STYLE,
                 NumberFormatter::TYPE_DOUBLE,
+                3,
                 '1 234 567,891',
                 1234567.891,
             ),
