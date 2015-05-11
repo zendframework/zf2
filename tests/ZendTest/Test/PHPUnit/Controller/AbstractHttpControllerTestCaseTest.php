@@ -84,6 +84,18 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertResponseHeaderContains('Content-Type', 'text/json');
     }
 
+    public function testAssertResponseHeaderContainsPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertResponseHeaderContains('Content-Type', 'html', self::CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException(
+            'PHPUnit_Framework_ExpectationFailedException',
+            'actual content is "text/html"' // check actual content is display
+        );
+        $this->assertResponseHeaderContains('Content-Type', 'json', self::CONTAINS_PARTIAL_MATCH);
+    }
+
     public function testAssertResponseHeaderContainsMultipleHeaderInterface()
     {
         $this->dispatch('/tests');
@@ -97,6 +109,15 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
         $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
         $this->assertNotResponseHeaderContains('Content-Type', 'text/html');
+    }
+
+    public function testAssertNotResponseHeaderContainsPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertNotResponseHeaderContains('Content-Type', 'json', self::CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
+        $this->assertNotResponseHeaderContains('Content-Type', 'html', self::CONTAINS_PARTIAL_MATCH);
     }
 
     public function testAssertNotResponseHeaderContainsMultipleHeaderInterface()
@@ -362,6 +383,17 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
         $this->assertQueryContentContains('div#content', 'bar');
     }
 
+    public function testAssertQueryContentContainsPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertQueryContentContains('div#content', 'fo', self::CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException(
+            'PHPUnit_Framework_ExpectationFailedException'
+        );
+        $this->assertQueryContentContains('div#content', 'ba', self::CONTAINS_PARTIAL_MATCH);
+    }
+
     public function testAssertQueryContentContainsWithSecondElement()
     {
         $this->dispatch('/tests');
@@ -391,6 +423,17 @@ class AbstractHttpControllerTestCaseTest extends AbstractHttpControllerTestCase
 
         $this->setExpectedException('PHPUnit_Framework_ExpectationFailedException');
         $this->assertNotQueryContentContains('div#content', 'foo');
+    }
+
+    public function testAssertNotQueryContentContainsPartialMatch()
+    {
+        $this->dispatch('/tests');
+        $this->assertNotQueryContentContains('div#content', 'ba', self::CONTAINS_PARTIAL_MATCH);
+
+        $this->setExpectedException(
+            'PHPUnit_Framework_ExpectationFailedException'
+        );
+        $this->assertNotQueryContentContains('div#content', 'fo', self::CONTAINS_PARTIAL_MATCH);
     }
 
     public function testAssertNotXpathQueryContentContains()
