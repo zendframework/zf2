@@ -17,6 +17,7 @@ use Zend\Session\Container;
 use Zend\Session\SaveHandler\SaveHandlerInterface;
 use Zend\Session\SessionManager;
 use Zend\Session\Storage\StorageInterface;
+use Zend\Session\Validator\ValidatorServiceInterface;
 
 class SessionManagerFactory implements FactoryInterface
 {
@@ -118,7 +119,26 @@ class SessionManagerFactory implements FactoryInterface
             }
         }
 
-        $manager = new SessionManager($config, $storage, $saveHandler, $validators);
+        $validatorServices = array();
+        if (isset($validators['services'])) {
+            foreach ($validators['services'] as $service) {
+                $validator = $services->get($service);
+                if (!$validator instanceof ValidatorServiceInterface) {
+                    throw new ServiceNotCreatedException(sprintf(
+                        'SessionManager requires that the %s service implement %s; received "%s"',
+                        $service,
+                        'Zend\Session\Validator\ValidatorServiceInterface',
+                        (is_object($validator) ? get_class($validator) : gettype($validator))
+                    ));
+                }
+
+                $validatorServices[] = $validator;
+            }
+
+            unset($validators['services']);
+        }
+
+        $manager = new SessionManager($config, $storage, $saveHandler, $validators, $validatorServices);
 
         // If configuration enables the session manager as the default manager for container
         // instances, do so.

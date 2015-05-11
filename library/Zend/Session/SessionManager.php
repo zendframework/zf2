@@ -45,15 +45,17 @@ class SessionManager extends AbstractManager
      * @param  Storage\StorageInterface|null         $storage
      * @param  SaveHandler\SaveHandlerInterface|null $saveHandler
      * @param  array                                 $validators
+     * @param  array                                 $validatorServices
      * @throws Exception\RuntimeException
      */
     public function __construct(
         Config\ConfigInterface $config = null,
         Storage\StorageInterface $storage = null,
         SaveHandler\SaveHandlerInterface $saveHandler = null,
-        array $validators = array()
+        array $validators = array(),
+        array $validatorServices = array()
     ) {
-        parent::__construct($config, $storage, $saveHandler, $validators);
+        parent::__construct($config, $storage, $saveHandler, $validators, $validatorServices);
         register_shutdown_function(array($this, 'writeClose'));
     }
 
@@ -146,6 +148,15 @@ class SessionManager extends AbstractManager
             }
 
             $validator = new $validator(null);
+            $validatorChain->attach('session.validate', array($validator, 'isValid'));
+        }
+
+        foreach ($this->validatorServices as $validator) {
+            // Ignore validators which are already present in Storage
+            if (is_array($validatorValues) && array_key_exists($validator->getName(), $validatorValues)) {
+                continue;
+            }
+
             $validatorChain->attach('session.validate', array($validator, 'isValid'));
         }
     }
@@ -353,7 +364,7 @@ class SessionManager extends AbstractManager
     public function getValidatorChain()
     {
         if (null === $this->validatorChain) {
-            $this->setValidatorChain(new ValidatorChain($this->getStorage()));
+            $this->setValidatorChain(new ValidatorChain($this->getStorage(), $this->validatorServices));
         }
         return $this->validatorChain;
     }

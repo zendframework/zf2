@@ -100,6 +100,16 @@ class SessionManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals($validators, 'validators', $manager);
     }
 
+    public function testCanPassValidatorServicesToConstructor()
+    {
+        $validators = array(
+            $this->getMock('Zend\Session\Validator\ValidatorServiceInterface'),
+            $this->getMock('Zend\Session\Validator\ValidatorServiceInterface'),
+        );
+        $manager = new SessionManager(null, null, null, array(), $validators);
+        $this->assertAttributeEquals($validators, 'validatorServices', $manager);
+    }
+
     // Session-related functionality
 
     /**
