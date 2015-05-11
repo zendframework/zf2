@@ -32,15 +32,15 @@ class StaticClientTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        if (defined('TESTS_ZEND_HTTP_CLIENT_BASEURI')
-            && (TESTS_ZEND_HTTP_CLIENT_BASEURI != false)) {
-            $this->baseuri = TESTS_ZEND_HTTP_CLIENT_BASEURI;
+        if (getenv('TESTS_ZEND_HTTP_CLIENT_BASEURI')
+            && (getenv('TESTS_ZEND_HTTP_CLIENT_BASEURI') != false)) {
+            $this->baseuri = getenv('TESTS_ZEND_HTTP_CLIENT_BASEURI');
             if (substr($this->baseuri, -1) != '/') {
                 $this->baseuri .= '/';
             }
         } else {
             // Skip tests
-            $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in TestConfiguration.php");
+            $this->markTestSkipped("Zend_Http_Client dynamic tests are not enabled in phpunit.xml");
         }
     }
 

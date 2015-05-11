@@ -183,9 +183,9 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
     public function testGetBaseNode()
     {
         $node = $this->getLDAP()->getBaseNode();
-        $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $node->getDnString());
+        $this->assertEquals(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'), $node->getDnString());
 
-        $dn = Ldap\Dn::fromString(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE,
+        $dn = Ldap\Dn::fromString(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'),
             Ldap\Dn::ATTR_CASEFOLD_LOWER
         );
         $this->assertEquals($dn[0]['ou'], $node->getAttribute('ou', 0));
@@ -221,7 +221,7 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
 
     public function testCountSubtree()
     {
-        $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $this->assertEquals(9, $node->countSubtree('(objectClass=organizationalUnit)',
                 Ldap\Ldap::SEARCH_SCOPE_SUB
             )
@@ -230,7 +230,7 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
 
     public function testCountChildren()
     {
-        $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $this->assertEquals(6, $node->countChildren());
         $node = $this->getLDAP()->getNode($this->createDn('ou=Node,'));
         $this->assertEquals(2, $node->countChildren());
@@ -240,7 +240,7 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
     {
         $node = $this->getLDAP()->getNode($this->createDn('ou=Node,'));
         $this->assertEquals(2, $node->searchChildren('(objectClass=*)', array(), 'ou')->count());
-        $node = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $this->assertEquals(6, $node->searchChildren('(objectClass=*)', array(), 'ou')->count());
     }
 
@@ -248,7 +248,7 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
     {
         $node  = $this->getLDAP()->getNode($this->createDn('ou=Node,'));
         $pnode = $node->getParent();
-        $this->assertEquals(Ldap\Dn::fromString(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE)
+        $this->assertEquals(Ldap\Dn::fromString(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'))
                 ->toString(Ldap\Dn::ATTR_CASEFOLD_LOWER),
             $pnode->getDnString(Ldap\Dn::ATTR_CASEFOLD_LOWER)
         );
@@ -259,7 +259,7 @@ class OnlineTest extends TestLdap\AbstractOnlineTestCase
      */
     public function testGetNonexistentParent()
     {
-        $node  = $this->getLDAP()->getNode(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE);
+        $node  = $this->getLDAP()->getNode(getenv('TESTS_ZEND_LDAP_WRITEABLE_SUBTREE'));
         $pnode = $node->getParent();
     }
 

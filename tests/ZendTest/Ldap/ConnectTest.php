@@ -27,16 +27,16 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
             $this->markTestSkipped("Zend_Ldap online tests are not enabled");
         }
 
-        $this->options = array('host' => TESTS_ZEND_LDAP_HOST);
-        if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
-            $this->options['port'] = TESTS_ZEND_LDAP_PORT;
+        $this->options = array('host' => getenv('TESTS_ZEND_LDAP_HOST'));
+        if (getenv('TESTS_ZEND_LDAP_PORT') && getenv('TESTS_ZEND_LDAP_PORT') != 389) {
+            $this->options['port'] = getenv('TESTS_ZEND_LDAP_PORT');
         }
-        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
-            $this->options['useSsl'] = TESTS_ZEND_LDAP_USE_SSL;
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL')) {
+            $this->options['useSsl'] = getenv('TESTS_ZEND_LDAP_USE_SSL');
         }
     }
 
@@ -89,14 +89,14 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
 
     public function testExplicitParamsConnect()
     {
-        $host = TESTS_ZEND_LDAP_HOST;
+        $host = getenv('TESTS_ZEND_LDAP_HOST');
         $port = 0;
-        if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
-            $port = TESTS_ZEND_LDAP_PORT;
+        if (getenv('TESTS_ZEND_LDAP_PORT') && getenv('TESTS_ZEND_LDAP_PORT') != 389) {
+            $port = getenv('TESTS_ZEND_LDAP_PORT');
         }
         $useSsl = false;
-        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
-            $useSsl = TESTS_ZEND_LDAP_USE_SSL;
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL')) {
+            $useSsl = getenv('TESTS_ZEND_LDAP_USE_SSL');
         }
 
         $ldap = new Ldap\Ldap();
@@ -112,10 +112,10 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
     public function testExplicitPortConnect()
     {
         $port = 389;
-        if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT) {
-            $port = TESTS_ZEND_LDAP_PORT;
+        if (getenv('TESTS_ZEND_LDAP_PORT') && getenv('TESTS_ZEND_LDAP_PORT')) {
+            $port = getenv('TESTS_ZEND_LDAP_PORT');
         }
-        if (defined('TESTS_ZEND_LDAP_USE_SSL') && TESTS_ZEND_LDAP_USE_SSL) {
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL') && getenv('TESTS_ZEND_LDAP_USE_SSL')) {
             $port = 636;
         }
 
@@ -132,14 +132,14 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
     public function testExplicitNetworkTimeoutConnect()
     {
         $networkTimeout = 1;
-        $host           = TESTS_ZEND_LDAP_HOST;
+        $host           = getenv('TESTS_ZEND_LDAP_HOST');
         $port           = 0;
-        if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
-            $port = TESTS_ZEND_LDAP_PORT;
+        if (getenv('TESTS_ZEND_LDAP_PORT') && getenv('TESTS_ZEND_LDAP_PORT') != 389) {
+            $port = getenv('TESTS_ZEND_LDAP_PORT');
         }
         $useSsl = false;
-        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
-            $useSsl = TESTS_ZEND_LDAP_USE_SSL;
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL')) {
+            $useSsl = getenv('TESTS_ZEND_LDAP_USE_SSL');
         }
 
         $ldap = new Ldap\Ldap();
@@ -223,14 +223,14 @@ class ConnectTest extends \PHPUnit_Framework_TestCase
      */
     public function testConnectWithUri()
     {
-        $host = TESTS_ZEND_LDAP_HOST;
+        $host = getenv('TESTS_ZEND_LDAP_HOST');
         $port = 0;
-        if (defined('TESTS_ZEND_LDAP_PORT') && TESTS_ZEND_LDAP_PORT != 389) {
-            $port = TESTS_ZEND_LDAP_PORT;
+        if (getenv('TESTS_ZEND_LDAP_PORT') && getenv('TESTS_ZEND_LDAP_PORT') != 389) {
+            $port = getenv('TESTS_ZEND_LDAP_PORT');
         }
         $useSsl = false;
-        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
-            $useSsl = TESTS_ZEND_LDAP_USE_SSL;
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL')) {
+            $useSsl = getenv('TESTS_ZEND_LDAP_USE_SSL');
         }
         if ($useSsl) {
             $host = 'ldaps://' . $host;

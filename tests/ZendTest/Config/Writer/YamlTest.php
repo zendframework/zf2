@@ -20,22 +20,22 @@ class YamlTest extends AbstractWriterTestCase
 {
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
+        if (!getenv('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
             $this->markTestSkipped('Yaml test for Zend\Config skipped');
         }
 
-        if (constant('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
-            require_once constant('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE');
+        if (getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
+            require_once getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE');
         }
 
-        $yamlReader = explode('::', constant('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
+        $yamlReader = explode('::', getenv('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
         if (isset($yamlReader[1])) {
             $this->reader = new YamlReader(array($yamlReader[0], $yamlReader[1]));
         } else {
             $this->reader = new YamlReader(array($yamlReader[0]));
         }
 
-        $yamlWriter = explode('::', constant('TESTS_ZEND_CONFIG_WRITER_YAML_CALLBACK'));
+        $yamlWriter = explode('::', getenv('TESTS_ZEND_CONFIG_WRITER_YAML_CALLBACK'));
         if (isset($yamlWriter[1])) {
             $this->writer = new YamlWriter(array($yamlWriter[0], $yamlWriter[1]));
         } else {

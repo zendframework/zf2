@@ -38,10 +38,8 @@ class CredentialTreatmentAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED') ||
-            constant('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED') === false
-        ) {
-            $this->markTestSkipped('Tests are not enabled in TestConfiguration.php');
+        if (!getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED')) {
+            $this->markTestSkipped('Tests are not enabled in phpunit.xml');
             return;
         } elseif (!extension_loaded('pdo')) {
             $this->markTestSkipped('PDO extension is not loaded');
@@ -336,7 +334,7 @@ class CredentialTreatmentAdapterTest extends \PHPUnit_Framework_TestCase
     protected function _setupDbAdapter($optionalParams = array())
     {
         $params = array('driver' => 'pdo_sqlite',
-                        'dbname' => TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE);
+                        'dbname' => getenv('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_DATABASE'));
 
         if (!empty($optionalParams)) {
             $params['options'] = $optionalParams;

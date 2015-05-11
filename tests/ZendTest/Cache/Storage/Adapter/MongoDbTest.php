@@ -19,8 +19,8 @@ class MongoDbTest extends CommonAdapterTest
 {
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_MONGODB_ENABLED') || !TESTS_ZEND_CACHE_MONGODB_ENABLED) {
-            $this->markTestSkipped("Skipped by TestConfiguration (TESTS_ZEND_CACHE_MONGODB_ENABLED)");
+        if (!getenv('TESTS_ZEND_CACHE_MONGODB_ENABLED')) {
+            $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MONGODB_ENABLED to run this test');
         }
 
         if (!extension_loaded('mongo') || !class_exists('\Mongo') || !class_exists('\MongoClient')) {
@@ -29,9 +29,9 @@ class MongoDbTest extends CommonAdapterTest
         }
 
         $this->_options = new MongoDbOptions(array(
-            'server'     => TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING,
-            'database'   => TESTS_ZEND_CACHE_MONGODB_DATABASE,
-            'collection' => TESTS_ZEND_CACHE_MONGODB_COLLECTION,
+            'server'     => getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'),
+            'database'   => getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'),
+            'collection' => getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION'),
         ));
 
         $this->_storage = new MongoDb();
@@ -53,9 +53,9 @@ class MongoDbTest extends CommonAdapterTest
     public function testSetOptionsNotMongoDbOptions()
     {
         $this->_storage->setOptions(array(
-            'server'     => TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING,
-            'database'   => TESTS_ZEND_CACHE_MONGODB_DATABASE,
-            'collection' => TESTS_ZEND_CACHE_MONGODB_COLLECTION,
+            'server'     => getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'),
+            'database'   => getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'),
+            'collection' => getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION'),
         ));
 
         $this->assertInstanceOf('\Zend\Cache\Storage\Adapter\MongoDbOptions', $this->_storage->getOptions());

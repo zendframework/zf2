@@ -24,46 +24,47 @@ use Zend\Ldap\Exception;
 class BindTest extends \PHPUnit_Framework_TestCase
 {
     protected $options = null;
-    protected $principalName = TESTS_ZEND_LDAP_PRINCIPAL_NAME;
-    protected $altUsername = TESTS_ZEND_LDAP_ALT_USERNAME;
+    protected $principalName;
+    protected $altUsername;
     protected $bindRequiresDn = false;
 
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
+        if (!getenv('TESTS_ZEND_LDAP_ONLINE_ENABLED')) {
             $this->markTestSkipped("Zend_Ldap online tests are not enabled");
         }
 
         $this->options = array(
-            'host'     => TESTS_ZEND_LDAP_HOST,
-            'username' => TESTS_ZEND_LDAP_USERNAME,
-            'password' => TESTS_ZEND_LDAP_PASSWORD,
-            'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
+            'host'     => getenv('TESTS_ZEND_LDAP_HOST'),
+            'username' => getenv('TESTS_ZEND_LDAP_USERNAME'),
+            'password' => getenv('TESTS_ZEND_LDAP_PASSWORD'),
+            'baseDn'   => getenv('TESTS_ZEND_LDAP_BASE_DN'),
         );
-        if (defined('TESTS_ZEND_LDAP_PORT')) {
-            $this->options['port'] = TESTS_ZEND_LDAP_PORT;
+        if (getenv('TESTS_ZEND_LDAP_PORT')) {
+            $this->options['port'] = getenv('TESTS_ZEND_LDAP_PORT');
         }
-        if (defined('TESTS_ZEND_LDAP_USE_START_TLS')) {
-            $this->options['useStartTls'] = TESTS_ZEND_LDAP_USE_START_TLS;
+        if (getenv('TESTS_ZEND_LDAP_USE_START_TLS')) {
+            $this->options['useStartTls'] = getenv('TESTS_ZEND_LDAP_USE_START_TLS');
         }
-        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
-            $this->options['useSsl'] = TESTS_ZEND_LDAP_USE_SSL;
+        if (getenv('TESTS_ZEND_LDAP_USE_SSL')) {
+            $this->options['useSsl'] = getenv('TESTS_ZEND_LDAP_USE_SSL');
         }
-        if (defined('TESTS_ZEND_LDAP_BIND_REQUIRES_DN')) {
-            $this->options['bindRequiresDn'] = TESTS_ZEND_LDAP_BIND_REQUIRES_DN;
+        if (getenv('TESTS_ZEND_LDAP_BIND_REQUIRES_DN')) {
+            $this->options['bindRequiresDn'] = getenv('TESTS_ZEND_LDAP_BIND_REQUIRES_DN');
         }
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT')) {
-            $this->options['accountFilterFormat'] = TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT;
+        if (getenv('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT')) {
+            $this->options['accountFilterFormat'] = getenv('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT');
         }
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME')) {
-            $this->options['accountDomainName'] = TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME;
+        if (getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME')) {
+            $this->options['accountDomainName'] = getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME');
         }
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT')) {
-            $this->options['accountDomainNameShort'] = TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT;
+        if (getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT')) {
+            $this->options['accountDomainNameShort'] = getenv('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT');
         }
-        if (defined('TESTS_ZEND_LDAP_ALT_USERNAME')) {
-            $this->altUsername = TESTS_ZEND_LDAP_ALT_USERNAME;
+        if (getenv('TESTS_ZEND_LDAP_ALT_USERNAME')) {
+            $this->altUsername = getenv('TESTS_ZEND_LDAP_ALT_USERNAME');
         }
+        $this->principalName = getenv('TESTS_ZEND_LDAP_PRINCIPAL_NAME');
 
         if (isset($this->options['bindRequiresDn'])) {
             $this->bindRequiresDn = $this->options['bindRequiresDn'];
@@ -225,7 +226,7 @@ class BindTest extends \PHPUnit_Framework_TestCase
     public function testBindWithoutDnUsernameAndDnRequired()
     {
         $options                   = $this->options;
-        $options['username']       = TESTS_ZEND_LDAP_ALT_USERNAME;
+        $options['username']       = getenv('TESTS_ZEND_LDAP_ALT_USERNAME');
         $options['bindRequiresDn'] = true;
         $ldap                      = new Ldap\Ldap($options);
         try {
@@ -254,7 +255,7 @@ class BindTest extends \PHPUnit_Framework_TestCase
     {
         $ldap = new Ldap\Ldap($this->options);
         $ldap->bind();
-        $this->assertEquals(TESTS_ZEND_LDAP_USERNAME, $ldap->getBoundUser());
+        $this->assertEquals(getenv('TESTS_ZEND_LDAP_USERNAME'), $ldap->getBoundUser());
     }
 
     /**
@@ -265,7 +266,7 @@ class BindTest extends \PHPUnit_Framework_TestCase
         $ldap = new Ldap\Ldap($this->options);
         $this->assertNotNull($ldap->getResource());
         $this->assertInternalType('resource', $ldap->getResource());
-        $this->assertEquals(TESTS_ZEND_LDAP_USERNAME, $ldap->getBoundUser());
+        $this->assertEquals(getenv('TESTS_ZEND_LDAP_USERNAME'), $ldap->getBoundUser());
     }
 
     /**

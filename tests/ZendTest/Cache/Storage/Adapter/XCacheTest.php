@@ -20,8 +20,8 @@ class XCacheTest extends CommonAdapterTest
 
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_XCACHE_ENABLED') || !TESTS_ZEND_CACHE_XCACHE_ENABLED) {
-            $this->markTestSkipped("Skipped by TestConfiguration (TESTS_ZEND_CACHE_XCACHE_ENABLED)");
+        if (!getenv('TESTS_ZEND_CACHE_XCACHE_ENABLED')) {
+            $this->markTestSkipped('EnableTESTS_ZEND_CACHE_XCACHE_ENABLED  to run this test');
         }
 
         if (!extension_loaded('xcache')) {
@@ -52,9 +52,9 @@ class XCacheTest extends CommonAdapterTest
         }
 
         $this->_options = new Cache\Storage\Adapter\XCacheOptions(array(
-            'admin_auth' => defined('TESTS_ZEND_CACHE_XCACHE_ADMIN_AUTH') ? TESTS_ZEND_CACHE_XCACHE_ADMIN_AUTH : false,
-            'admin_user' => defined('TESTS_ZEND_CACHE_XCACHE_ADMIN_USER') ? TESTS_ZEND_CACHE_XCACHE_ADMIN_USER : '',
-            'admin_pass' => defined('TESTS_ZEND_CACHE_XCACHE_ADMIN_PASS') ? TESTS_ZEND_CACHE_XCACHE_ADMIN_PASS : '',
+            'admin_auth' => getenv('TESTS_ZEND_CACHE_XCACHE_ADMIN_AUTH') ? : false,
+            'admin_user' => getenv('TESTS_ZEND_CACHE_XCACHE_ADMIN_USER') ? : '',
+            'admin_pass' => getenv('TESTS_ZEND_CACHE_XCACHE_ADMIN_PASS') ? : '',
         ));
         $this->_storage = new Cache\Storage\Adapter\XCache();
         $this->_storage->setOptions($this->_options);

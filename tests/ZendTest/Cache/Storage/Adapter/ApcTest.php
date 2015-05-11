@@ -25,8 +25,8 @@ class ApcTest extends CommonAdapterTest
 
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_APC_ENABLED') || !TESTS_ZEND_CACHE_APC_ENABLED) {
-            $this->markTestSkipped("Skipped by TestConfiguration (TESTS_ZEND_CACHE_APC_ENABLED)");
+        if (!getenv('TESTS_ZEND_CACHE_APC_ENABLED')) {
+            $this->markTestSkipped('Enable TESTS_ZEND_CACHE_APC_ENABLED to run this test');
         }
 
         if (version_compare('3.1.6', phpversion('apc')) > 0) {

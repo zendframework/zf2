@@ -16,12 +16,9 @@ use ZendTest\Form\View\Helper\CommonTestCase;
 
 class ReCaptchaTest extends CommonTestCase
 {
-    protected $publicKey  = TESTS_ZEND_FORM_RECAPTCHA_PUBLIC_KEY;
-    protected $privateKey = TESTS_ZEND_FORM_RECAPTCHA_PRIVATE_KEY;
-
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_FORM_RECAPTCHA_SUPPORT')) {
+        if (!getenv('TESTS_ZEND_FORM_RECAPTCHA_SUPPORT')) {
             $this->markTestSkipped('Enable TESTS_ZEND_FORM_RECAPTCHA_SUPPORT to test PDF render');
         }
 
@@ -30,8 +27,8 @@ class ReCaptchaTest extends CommonTestCase
             'sessionClass' => 'ZendTest\Captcha\TestAsset\SessionContainer',
         ));
         $service = $this->captcha->getService();
-        $service->setPublicKey($this->publicKey);
-        $service->setPrivateKey($this->privateKey);
+        $service->setPublicKey(getenv('TESTS_ZEND_FORM_RECAPTCHA_PUBLIC_KEY'));
+        $service->setPrivateKey(getenv('TESTS_ZEND_FORM_RECAPTCHA_PRIVATE_KEY'));
         parent::setUp();
     }
 

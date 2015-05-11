@@ -19,8 +19,8 @@ class ZendServerDiskTest extends CommonAdapterTest
 {
     public function setUp()
     {
-        if (!defined('TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED') || !TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED) {
-            $this->markTestSkipped("Skipped by TestConfiguration (TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED)");
+        if (!getenv('TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED')) {
+            $this->markTestSkipped('Enable TESTS_ZEND_CACHE_ZEND_SERVER_ENABLED to run this test');
         }
 
         if (!function_exists('zend_disk_cache_store') || PHP_SAPI == 'cli') {

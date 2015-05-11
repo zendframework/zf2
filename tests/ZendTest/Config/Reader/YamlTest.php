@@ -18,15 +18,15 @@ class YamlTest extends AbstractReaderTestCase
 {
     public function setUp()
     {
-        if (!constant('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
+        if (!getenv('TESTS_ZEND_CONFIG_YAML_ENABLED')) {
             $this->markTestSkipped('Yaml test for Zend\Config skipped');
         }
 
-        if (constant('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
-            require_once constant('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE');
+        if (getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE')) {
+            require_once getenv('TESTS_ZEND_CONFIG_YAML_LIB_INCLUDE');
         }
 
-        $yamlReader = explode('::', constant('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
+        $yamlReader = explode('::', getenv('TESTS_ZEND_CONFIG_READER_YAML_CALLBACK'));
         if (isset($yamlReader[1])) {
             $this->reader = new YamlReader(array($yamlReader[0], $yamlReader[1]));
         } else {
