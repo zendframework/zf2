@@ -938,13 +938,18 @@ class CollectionTest extends TestCase
         $collection->setAllowRemove(true);
         $collection->setCount(0);
 
-
         // By default, $collection contains 2 elements
         $data = array();
+        $data[] = 'blue';
+        $data[] = 'green';
 
         $collection->populateValues($data);
+        $this->assertEquals(2, count($collection->getElements()));
+
+        $collection->populateValues(array());
         $this->assertEquals(0, count($collection->getElements()));
     }
+
 
     public function testCanBindObjectMultipleNestedFieldsets()
     {
@@ -1233,14 +1238,14 @@ class CollectionTest extends TestCase
     public function testCanHydrateObject()
     {
         $form = $this->form;
+        $object = new \ArrayObject();
+        $form->bind($object);
         $data = array(
             'colors' => array(
                 '#ffffff',
             ),
         );
         $form->setData($data);
-        $object = new \ArrayObject();
-        $form->bind($object);
         $this->assertTrue($form->isValid());
         $this->assertInternalType('array', $object['colors']);
         $this->assertCount(1, $object['colors']);

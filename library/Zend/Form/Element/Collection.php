@@ -195,11 +195,6 @@ class Collection extends Fieldset
             ));
         }
 
-        // Can't do anything with empty data
-        if (empty($data)) {
-            return;
-        }
-
         if (!$this->allowRemove && count($data) < $this->count) {
             throw new Exception\DomainException(sprintf(
                 'There are fewer elements than specified in the collection (%s). Either set the allow_remove option '
