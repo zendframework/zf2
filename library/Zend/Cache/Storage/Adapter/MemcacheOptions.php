@@ -10,6 +10,7 @@
 namespace Zend\Cache\Storage\Adapter;
 
 use Zend\Cache\Exception;
+use Zend\Stdlib\AbstractOptions;
 
 /**
  * These are options specific to the Memcache adapter
@@ -42,6 +43,58 @@ class MemcacheOptions extends AdapterOptions
      * @var bool
      */
     protected $compression = false;
+
+    /**
+     * {inheritdoc}
+     */
+    public function setFromArray($options)
+    {
+        if ($options instanceof AbstractOptions) {
+            $options = $options->toArray();
+        }
+
+        if (!is_array($options) && !$options instanceof Traversable) {
+            throw new Exception\InvalidArgumentException(
+                sprintf(
+                    'Parameter provided to %s must be an %s, %s or %s',
+                    __METHOD__,
+                    'array',
+                    'Traversable',
+                    'Zend\Stdlib\AbstractOptions'
+                )
+            );
+        }
+
+        if ($options instanceof Traversable) {
+            $options = iterator_to_array($options);
+        }
+
+        $options  = array_change_key_case($options, CASE_LOWER);
+        $prioOpts = array();
+
+        if (isset($options['resource_manager'])) {
+            $prioOpts['resource_manager'] = $options['resource_manager'];
+            unset($options['resource_manager']);
+        }
+        if (isset($options['resourcemanager'])) {
+            $prioOpts['resourcemanager'] = $options['resourcemanager'];
+            unset($options['resourcemanager']);
+        }
+
+        if (isset($options['resource_id'])) {
+            $prioOpts['resource_id'] = $options['resource_id'];
+            unset($options['resource_id']);
+        }
+        if (isset($options['resourceid'])) {
+            $prioOpts['resourceid'] = $options['resourceid'];
+            unset($options['resourceid']);
+        }
+
+        parent::setFromArray($prioOpts);
+        parent::setFromArray($options);
+
+        return $this;
+    }
 
     /**
      * Set namespace.
