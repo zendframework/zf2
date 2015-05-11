@@ -402,4 +402,14 @@ class FormCollectionTest extends TestCase
         $markup = $this->helper->render($collection);
         $this->assertRegexp('#<fieldset(.*?)><legend><strong>Some label</strong><\/legend>(.*?)<\/fieldset>#', $markup);
     }
+
+    public function testForElementHelperNotInstanceOfHelperInterface()
+    {
+        $this->setExpectedException('RuntimeException', 'Invalid element helper set in FormCollection. The helper must be an instance of Zend\View\Helper\HelperInterface.');
+
+        $method = new \ReflectionMethod('Zend\Form\View\Helper\FormCollection', 'getElementHelper');
+        $method->setAccessible(true);
+
+        $method->invokeArgs(new FormCollectionHelper(), array());
+    }
 }
