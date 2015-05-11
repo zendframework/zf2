@@ -408,6 +408,7 @@ class EmailAddress extends AbstractValidator
             }
 
             if (!$res
+                && !empty($hostname)
                 && (checkdnsrr($hostname, "A")
                 || checkdnsrr($hostname, "AAAA")
                 || checkdnsrr($hostname, "A6"))
