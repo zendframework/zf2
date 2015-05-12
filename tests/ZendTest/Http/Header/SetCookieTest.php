@@ -395,6 +395,25 @@ class SetCookieTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($cookie->toString(), sprintf($formatUnquoted, $cookie->getFieldName(), $name, $value));
     }
 
+    /**
+     * Tests RFC6265 Compliance for Max-Age
+     * @group 7502
+     * @dataProvider invalidMaxAgeValues
+     */
+    public function testNegativeAndNonNumericMaxAgeDoesNotThrowException($val)
+    {
+        $cookie = new SetCookie();
+        $cookie->setMaxAge($val);
+        $this->assertNull($cookie->getMaxAge());
+    }
+
+    public function invalidMaxAgeValues() {
+        return array(
+            array(-1),
+            array('a')
+        );
+    }
+
     public function testSetJsonValue()
     {
         $cookieName ="fooCookie";
