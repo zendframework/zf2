@@ -165,6 +165,11 @@ class Client implements Stdlib\DispatchableInterface
             $this->adapter->setOptions($options);
         }
 
+        // Pass configuration options to the request if it exists
+        if ($this->request instanceof Request) {
+            $this->request->setOptions($options);
+        }
+
         return $this;
     }
 
@@ -833,35 +838,7 @@ class Client implements Stdlib\DispatchableInterface
         // Send the first request. If redirected, continue.
         do {
             // uri
-            $uri = $this->getUri();
-
-            // query
-            $query = $this->getRequest()->getQuery();
-
-            if (!empty($query)) {
-                $queryArray = $query->toArray();
-
-                if (!empty($queryArray)) {
-                    $newUri = $uri->toString();
-                    $queryString = http_build_query($queryArray, null, $this->getArgSeparator());
-
-                    if ($this->config['rfc3986strict']) {
-                        $queryString = str_replace('+', '%20', $queryString);
-                    }
-
-                    if (strpos($newUri, '?') !== false) {
-                        $newUri .= $this->getArgSeparator() . $queryString;
-                    } else {
-                        $newUri .= '?' . $queryString;
-                    }
-
-                    $uri = new Http($newUri);
-                }
-            }
-            // If we have no ports, set the defaults
-            if (!$uri->getPort()) {
-                $uri->setPort($uri->getScheme() == 'https' ? 443 : 80);
-            }
+            $uri = $this->getRequest()->renderUri();
 
             // method
             $method = $this->getRequest()->getMethod();
