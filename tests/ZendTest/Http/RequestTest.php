@@ -333,6 +333,17 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCanOverrideOptions()
+    {
+        $request = new Request();
+        $options = array(
+            'argseparator'    => ';',
+            'rfc3986strict'   => true
+        );
+        $request->setOptions($options);
+        $this->assertEquals(';', $request->getArgSeparator());
+    }
+
     public function testArgSeparatorDefaultsToIniSetting()
     {
         $argSeparator = ini_get('arg_separator.output');

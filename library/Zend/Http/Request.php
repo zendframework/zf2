@@ -180,7 +180,7 @@ class Request extends AbstractMessage implements RequestInterface
      *
      * @param  array|Traversable $options
      * @return Request
-     * @throws Request\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options = array())
     {
@@ -188,7 +188,7 @@ class Request extends AbstractMessage implements RequestInterface
             $options = ArrayUtils::iteratorToArray($options);
         }
         if (!is_array($options)) {
-            throw new Request\Exception\InvalidArgumentException('Config parameter is not valid');
+            throw new Exception\InvalidArgumentException('Config parameter is not valid');
         }
         /** Config Key Normalization */
         foreach ($options as $k => $v) {
