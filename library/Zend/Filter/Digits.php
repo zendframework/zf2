@@ -35,13 +35,13 @@ class Digits extends AbstractFilter
 
         if (!StringUtils::hasPcreUnicodeSupport()) {
             // POSIX named classes are not supported, use alternative 0-9 match
-            $pattern = '/[^0-9]/';
+            $pattern = '/[^0-9]|[^0-9].[0-9]+/';
         } elseif (extension_loaded('mbstring')) {
             // Filter for the value with mbstring
-            $pattern = '/[^[:digit:]]/';
+            $pattern = '/[^[:digit:]|[:digit:].[:digit:]+]/';
         } else {
             // Filter for the value without mbstring
-            $pattern = '/[\p{^N}]/';
+            $pattern = '/[\p{^N}|\p{^N}.\p{^N}+]/';
         }
 
         return preg_replace($pattern, '', $value);
