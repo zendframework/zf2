@@ -233,4 +233,12 @@ class SmtpTest extends \PHPUnit_Framework_TestCase
         $this->transport->send($this->getMessage());
         $this->assertTrue($this->connection->hasSession());
     }
+
+    public function testReconnectsOnServerTimeout()
+    {
+        $this->transport->send($this->getMessage());
+        $this->connection->setServerTimeout(true);
+        $this->transport->send($this->getMessage());
+        $this->assertFalse($this->connection->getServerTimeout());
+    }
 }

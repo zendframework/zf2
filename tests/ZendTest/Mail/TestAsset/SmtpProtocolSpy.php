@@ -20,11 +20,12 @@ class SmtpProtocolSpy extends Smtp
     protected $connect = false;
     protected $mail;
     protected $rcptTest = array();
+    protected $serverTimeout = false;
 
     public function connect()
     {
         $this->connect = true;
-
+        $this->serverTimeout = false;
         return true;
     }
 
@@ -71,6 +72,14 @@ class SmtpProtocolSpy extends Smtp
 
     protected function _expect($code, $timeout = null)
     {
+        if ($this->serverTimeout) {
+            if ($this->connect) {
+                $this->connect = false;
+                throw new \Zend\Mail\Protocol\Exception\RuntimeException('4.4.2 host Error: timeout exceeded');
+            } else {
+                throw new \Zend\Mail\Protocol\Exception\RuntimeException('Could not read from host');
+            }
+        }
         return '';
     }
 
@@ -148,5 +157,27 @@ class SmtpProtocolSpy extends Smtp
         $this->sess = (bool) $status;
 
         return $this;
+    }
+
+    /**
+     * Set Server Timeout
+     *
+     * @param  bool $timeout
+     * @return self
+     */
+    public function getServerTimeout()
+    {
+        return $this->serverTimeout;
+    }
+
+    /**
+     * Set Server Timeout
+     *
+     * @param  bool $timeout
+     * @return self
+     */
+    public function setServerTimeout($timeout)
+    {
+        $this->serverTimeout = $timeout;
     }
 }
