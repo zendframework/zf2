@@ -372,8 +372,8 @@ class CollectionTest extends TestCase
         $form->bind($product);
 
         $form->setData(
-            array("product" =>
-                array(
+            array(
+                "product" => array(
                     "name" => "franz",
                     "price" => 13,
                     "categories" => array(
@@ -416,8 +416,8 @@ class CollectionTest extends TestCase
         $form->bind($product);
 
         $form->setData(
-            array("product" =>
-                array(
+            array(
+                "product" => array(
                     "name" => "franz",
                     "price" => 13,
                     "categories" => array(
@@ -464,8 +464,8 @@ class CollectionTest extends TestCase
         $form->bind($product);
 
         $form->setData(
-            array("product" =>
-                array(
+            array(
+                "product" => array(
                     "name" => "franz",
                     "price" => 13,
                     "categories" => array(
@@ -543,11 +543,9 @@ class CollectionTest extends TestCase
         ));
 
         $data = array(
-            'addresses' =>
-                array(array(
+            'addresses' => array(array(
                     'street' => 'street1',
-                    'phones' =>
-                        array(array('number' => '1234567')),
+                    'phones' => array(array('number' => '1234567')),
                 ))
         );
 

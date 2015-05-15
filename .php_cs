@@ -30,6 +30,7 @@ $config->level(null);
 $config->fixers(
     array(
         'braces',
+        'double_arrow_multiline_whitespaces',
         'duplicate_semicolon',
         'elseif',
         'empty_return',
