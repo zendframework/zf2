@@ -710,6 +710,25 @@ class Translator implements TranslatorInterface
     }
 
     /**
+     * Return all the messages.
+     *
+     * @param string $textDomain
+     * @param null   $locale
+     *
+     * @return mixed
+     */
+    public function getAllMessages($textDomain = 'default', $locale = null)
+    {
+        $locale = $locale ?: $this->getLocale();
+
+        if (!isset($this->messages[$textDomain][$locale])) {
+            $this->loadMessages($textDomain, $locale);
+        }
+
+        return $this->messages[$textDomain][$locale];
+    }
+
+    /**
      * Get the event manager.
      *
      * @return EventManagerInterface|null
