@@ -541,14 +541,21 @@ class Server extends AbstractServer
             }
 
             $orderedParams = array();
+            $invalidParams = array();
             foreach ($reflection->getParameters() as $refParam) {
                 if (array_key_exists($refParam->getName(), $params)) {
                     $orderedParams[$refParam->getName()] = $params[$refParam->getName()];
                 } elseif ($refParam->isOptional()) {
                     $orderedParams[$refParam->getName()] = null;
                 } else {
-                    return $this->fault('Invalid params', Error::ERROR_INVALID_PARAMS);
+                    $invalidParams[] = $refParam->name;
                 }
+            }
+            if (count($invalidParams) > 0) {
+                return $this->fault(sprintf(
+                    'Invalid param(s): [%s]',
+                    implode(", ", $invalidParams)
+                ), Error::ERROR_INVALID_PARAMS);
             }
             $params = $orderedParams;
         }
