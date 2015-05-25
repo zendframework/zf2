@@ -124,14 +124,14 @@ class OracleMetadata extends AbstractSource
                 AND cc2.position = cc1.position
 
             WHERE
-                ac.owner = :schema AND ac.table_name = :table
+                ac.owner = :ownername AND ac.table_name = :tablename
 
-            ORDER BY ac.constraint_name;
+            ORDER BY ac.constraint_name
         ';
 
         $parameters = array(
-            ':schema' => $schema,
-            ':table' => $table
+            ':ownername' => $schema,
+            ':tablename' => $table
         );
 
         $results = $this->adapter->query($sql)->execute($parameters);
