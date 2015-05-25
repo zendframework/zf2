@@ -647,4 +647,39 @@ class FactoryTest extends TestCase
 
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $inputFilter);
     }
+
+    public function testSuggestedTypeMayBePluginNameInInputFilterPluginManager()
+    {
+        $factory = new Factory();
+        $pluginManager = new InputFilterPluginManager();
+        $pluginManager->setService('bar', new Input('bar'));
+        $factory->setInputFilterManager($pluginManager);
+
+        $input = $factory->createInput(array(
+            'type' => 'bar'
+        ));
+        $this->assertSame('bar', $input->getName());
+
+        $this->setExpectedException('Zend\Filter\Exception\RuntimeException');
+        $factory->createInput(array(
+            'type' => 'foo'
+        ));
+    }
+
+    public function testInputFromPluginManagerMayBeFurtherConfiguredWithSpec()
+    {
+        $factory = new Factory();
+        $pluginManager = new InputFilterPluginManager();
+        $pluginManager->setService('bar', $barInput = new Input('bar'));
+        $this->assertTrue($barInput->isRequired());
+        $factory->setInputFilterManager($pluginManager);
+
+        $input = $factory->createInput(array(
+            'type' => 'bar',
+            'required' => false
+        ));
+
+        $this->assertFalse($input->isRequired());
+        $this->assertSame('bar', $input->getName());
+    }
 }

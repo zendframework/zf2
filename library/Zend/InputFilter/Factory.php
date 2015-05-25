@@ -171,19 +171,20 @@ class Factory
 
         if (isset($inputSpecification['type'])) {
             $class = $inputSpecification['type'];
-
-            if ($this->getInputFilterManager()->has($class)) {
-                return $this->createInputFilter($inputSpecification);
-            }
-
-            if (!class_exists($class)) {
-                throw new Exception\RuntimeException(sprintf(
-                    'Input factory expects the "type" to be a valid class; received "%s"',
-                    $class
-                ));
-            }
         }
-        $input = new $class();
+
+        $managerInstance = null;
+        if ($this->getInputFilterManager()->has($class)) {
+            $managerInstance = $this->getInputFilterManager()->get($class);
+        }
+        if (!$managerInstance && !class_exists($class)) {
+            throw new Exception\RuntimeException(sprintf(
+                'Input factory expects the "type" to be a valid class or a plugin name; received "%s"',
+                $class
+            ));
+        }
+
+        $input = $managerInstance ?: new $class();
 
         if ($input instanceof InputFilterInterface) {
             return $this->createInputFilter($inputSpecification);
