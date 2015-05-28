@@ -54,6 +54,10 @@ class CollectionInputFilter extends InputFilter
     {
         if (is_array($inputFilter) || $inputFilter instanceof Traversable) {
             $inputFilter = $this->getFactory()->createInputFilter($inputFilter);
+        } elseif ($this->getFactory()->getInputFilterManager() instanceof InputFilterPluginManager &&
+                  $this->getFactory()->getInputFilterManager()->has($inputFilter)
+        ) {
+            $inputFilter = $this->getFactory()->getInputFilterManager()->get($inputFilter);
         }
 
         if (!$inputFilter instanceof BaseInputFilter) {
