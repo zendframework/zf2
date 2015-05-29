@@ -10,7 +10,10 @@
 namespace ZendTest\InputFilter;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use ReflectionClass;
 use Zend\Filter\FilterPluginManager;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\ValidatorPluginManager;
@@ -152,5 +155,36 @@ class InputFilterAbstractServiceFactoryTest extends TestCase
 
         $inputFilter = $this->services->get('InputFilterManager')->get('foobar');
         $this->assertInstanceOf('Zend\InputFilter\InputFilterInterface', $inputFilter);
+    }
+
+    /**
+     * @depends testCreatesInputFilterInstance
+     */
+    public function testInjectsInputFilterManagerFromServiceManager()
+    {
+        $this->services->setService('Config', array(
+            'input_filter_specs' => array(
+                'filter' => array(),
+            ),
+        ));
+        $this->filters->addAbstractFactory('ZendTest\InputFilter\TestAsset\FooAbstractFactory');
+
+        /**
+         * @type InputFilter $filter
+         */
+        $filter = $this->factory->createServiceWithName($this->filters, 'filter', 'filter');
+
+        $inputFilterManager = $filter->getFactory()->getInputFilterManager();
+        $this->assertInstanceOf(
+            'Zend\InputFilter\InputFilterPluginManager',
+            $inputFilterManager
+        );
+
+        $this->assertInstanceOf(
+            'ZendTest\InputFilter\TestAsset\Foo',
+            $inputFilterManager->get('foo')
+        );
+
+
     }
 }

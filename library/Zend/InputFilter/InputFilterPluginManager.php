@@ -17,7 +17,7 @@ use Zend\Stdlib\InitializableInterface;
 /**
  * Plugin manager implementation for input filters.
  *
- * @method InputFilterInterface|InputInterface get($name)
+ * @method InputFilterInterface|InputInterface get( $name )
  */
 class InputFilterPluginManager extends AbstractPluginManager
 {
@@ -45,7 +45,7 @@ class InputFilterPluginManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
 
-        $this->addInitializer(array($this, 'populateFactory'));
+        $this->addInitializer(array( $this, 'populateFactory' ));
     }
 
     /**
@@ -61,8 +61,16 @@ class InputFilterPluginManager extends AbstractPluginManager
             $factory->setInputFilterManager($this);
 
             if ($this->serviceLocator instanceof ServiceLocatorInterface) {
-                $factory->getDefaultFilterChain()->setPluginManager($this->serviceLocator->get('FilterManager'));
-                $factory->getDefaultValidatorChain()->setPluginManager($this->serviceLocator->get('ValidatorManager'));
+                if ($this->serviceLocator->has('FilterManager')) {
+                    $factory->getDefaultFilterChain()->setPluginManager(
+                        $this->serviceLocator->get('FilterManager')
+                    );
+                }
+                if ($this->serviceLocator->has('ValidatorManager')) {
+                    $factory->getDefaultValidatorChain()->setPluginManager(
+                        $this->serviceLocator->get('ValidatorManager')
+                    );
+                }
             }
         }
     }
@@ -84,7 +92,7 @@ class InputFilterPluginManager extends AbstractPluginManager
 
         throw new Exception\RuntimeException(sprintf(
             'Plugin of type %s is invalid; must implement Zend\InputFilter\InputFilterInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin))
+            ( is_object($plugin) ? get_class($plugin) : gettype($plugin) )
         ));
     }
 }

@@ -59,7 +59,6 @@ class InputFilterAbstractServiceFactory implements AbstractFactoryInterface
         $config    = $allConfig['input_filter_specs'][$rName];
 
         $factory   = $this->getInputFilterFactory($services);
-        $factory->setInputFilterManager($inputFilters);
 
         return $factory->createInputFilter($config);
     }
@@ -81,6 +80,8 @@ class InputFilterAbstractServiceFactory implements AbstractFactoryInterface
         $this->factory
             ->getDefaultValidatorChain()
             ->setPluginManager($this->getValidatorPluginManager($services));
+
+        $this->factory->setInputFilterManager($services->get('InputFilterManager'));
 
         return $this->factory;
     }
