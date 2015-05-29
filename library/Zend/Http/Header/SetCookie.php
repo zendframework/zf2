@@ -349,7 +349,7 @@ class SetCookie implements MultipleHeaderInterface
      */
     public function setExpires($expires)
     {
-        if ($expires === null) {
+        if ($expires === null || $expires === '') {
             $this->expires = null;
             return $this;
         }
