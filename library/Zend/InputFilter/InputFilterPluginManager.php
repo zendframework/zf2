@@ -61,8 +61,16 @@ class InputFilterPluginManager extends AbstractPluginManager
             $factory->setInputFilterManager($this);
 
             if ($this->serviceLocator instanceof ServiceLocatorInterface) {
-                $factory->getDefaultFilterChain()->setPluginManager($this->serviceLocator->get('FilterManager'));
-                $factory->getDefaultValidatorChain()->setPluginManager($this->serviceLocator->get('ValidatorManager'));
+                if ($this->serviceLocator->has('FilterManager')) {
+                    $factory->getDefaultFilterChain()->setPluginManager(
+                        $this->serviceLocator->get('FilterManager')
+                    );
+                }
+                if ($this->serviceLocator->has('ValidatorManager')) {
+                    $factory->getDefaultValidatorChain()->setPluginManager(
+                        $this->serviceLocator->get('ValidatorManager')
+                    );
+                }
             }
         }
     }
