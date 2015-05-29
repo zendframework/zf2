@@ -17,7 +17,7 @@ use Zend\Stdlib\InitializableInterface;
 /**
  * Plugin manager implementation for input filters.
  *
- * @method InputFilterInterface|InputInterface get( $name )
+ * @method InputFilterInterface|InputInterface get($name)
  */
 class InputFilterPluginManager extends AbstractPluginManager
 {
@@ -45,7 +45,7 @@ class InputFilterPluginManager extends AbstractPluginManager
     {
         parent::__construct($configuration);
 
-        $this->addInitializer(array( $this, 'populateFactory' ));
+        $this->addInitializer(array($this, 'populateFactory'));
     }
 
     /**
