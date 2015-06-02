@@ -280,6 +280,7 @@ class MethodGenerator extends AbstractMemberGenerator
             . ' function ' . $this->getName() . '(';
 
         $parameters = $this->getParameters();
+        $parameterOutput = array();
         if (!empty($parameters)) {
             foreach ($parameters as $parameter) {
                 $parameterOutput[] = $parameter->generate();
