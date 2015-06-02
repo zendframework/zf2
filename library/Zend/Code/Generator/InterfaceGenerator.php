@@ -87,7 +87,7 @@ class InterfaceGenerator extends AbstractGenerator
         $parentInterfaces = $reflection->getParentInterfaces();
         $interfaceNames = array();
         if ($parentInterfaces) {
-            foreach($parentInterfaces as $parentInterface) {
+            foreach ($parentInterfaces as $parentInterface) {
                 $interfaceNames[] = $parentInterface->getName();
             }
         }
@@ -192,7 +192,6 @@ class InterfaceGenerator extends AbstractGenerator
         $methods = array(),
         $docBlock = null
     ) {
-
         if ($name !== null) {
             $this->setName($name);
         }
@@ -276,7 +275,7 @@ class InterfaceGenerator extends AbstractGenerator
      */
     public function getContainingFileGenerator()
     {
-        if(!is_object($this->containingFileGenerator)) {
+        if (!is_object($this->containingFileGenerator)) {
             $this->containingFileGenerator = new FileGenerator();
         }
         return $this->containingFileGenerator;
@@ -670,10 +669,10 @@ class InterfaceGenerator extends AbstractGenerator
             foreach ($uses as $use) {
                 $use = (!array($use)) ? array($use) : $use;
                 $useClass = "use {$use[0]}";
-                if(isset($use[1])) {
+                if (isset($use[1])) {
                     $useClass .= " as {$use[1]}";
                 }
-                if(!empty($useClass)) {
+                if (!empty($useClass)) {
                     $output .= $useClass.';'.self::LINE_FEED;
                 }
             }
@@ -731,5 +730,4 @@ class InterfaceGenerator extends AbstractGenerator
     {
         return $this->getContainingFileGenerator()->getUses();
     }
-
 }

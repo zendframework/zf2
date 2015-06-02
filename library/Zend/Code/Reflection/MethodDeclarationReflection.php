@@ -114,7 +114,7 @@ class MethodDeclarationReflection extends PhpReflectionMethod implements Reflect
      * @return ReflectionClass A <b>ReflectionClass</b> object of the class that the
      * reflected method is part of.
      */
-    final public function getDeclaringClass ()
+    final public function getDeclaringClass()
     {
         throw new \LogicException("Method not supported for method declarations. Use getDeclaringInterface() instead.");
     }
