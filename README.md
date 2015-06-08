@@ -97,6 +97,7 @@ The following components are moved to `suggest` since 2.5.1 .
 - [zend-ldap](https://github.com/zendframework/zend-ldap)
 
 If you require `zend-ldap`, please run following command. 
+
 `$ composer require zendframework/zend-ldap`
 
 ### CONTRIBUTING
