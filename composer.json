@@ -19,7 +19,6 @@
         "zendframework/zend-console": "~2.5.0",
         "zendframework/zend-crypt": "~2.5.0",
         "zendframework/zend-db": "~2.5.0",
-        "zendframework/zend-debug": "~2.5.0",
         "zendframework/zend-di": "~2.5.0",
         "zendframework/zend-dom": "~2.5.0",
         "zendframework/zend-escaper": "~2.5.0",
@@ -53,7 +52,6 @@
         "zendframework/zend-soap": "~2.5.0",
         "zendframework/zend-stdlib": "~2.5.0",
         "zendframework/zend-tag": "~2.5.0",
-        "zendframework/zend-test": "~2.5.0",
         "zendframework/zend-text": "~2.5.0",
         "zendframework/zend-uri": "~2.5.0",
         "zendframework/zend-validator": "~2.5.0",
@@ -62,8 +60,14 @@
         "zendframework/zend-xmlrpc": "~2.5.0",
         "zendframework/zendxml": "~1.0"
     },
+    "require-dev": {
+        "zendframework/zend-debug": "~2.5.0",
+        "zendframework/zend-test": "~2.5.0"
+    },
     "suggest": {
-        "zendframework/zend-ldap": "zend-ldap component ~2.5.0, if you need LDAP features"
+        "zendframework/zend-debug": "Component for debugging that prints or returns information about an expression"
+        "zendframework/zend-ldap": "zend-ldap component ~2.5.0, if you need LDAP features",
+        "zendframework/zend-test": "Provides tools to facilitate unit testing of your Zend Framework applications"
     },
     "bin": [
         "bin/classmap_generator.php",
