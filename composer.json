@@ -65,7 +65,7 @@
         "zendframework/zend-test": "~2.5.0"
     },
     "suggest": {
-        "zendframework/zend-debug": "Component for debugging that prints or returns information about an expression"
+        "zendframework/zend-debug": "Component for debugging that prints or returns information about an expression",
         "zendframework/zend-ldap": "zend-ldap component ~2.5.0, if you need LDAP features",
         "zendframework/zend-test": "Provides tools to facilitate unit testing of your Zend Framework applications"
     },
