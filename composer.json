@@ -53,7 +53,6 @@
         "zendframework/zend-soap": "~2.5.0",
         "zendframework/zend-stdlib": "~2.5.0",
         "zendframework/zend-tag": "~2.5.0",
-        "zendframework/zend-test": "~2.5.0",
         "zendframework/zend-text": "~2.5.0",
         "zendframework/zend-uri": "~2.5.0",
         "zendframework/zend-validator": "~2.5.0",
@@ -61,6 +60,9 @@
         "zendframework/zend-view": "~2.5.0",
         "zendframework/zend-xmlrpc": "~2.5.0",
         "zendframework/zendxml": "^1.0.1"
+    },
+    "require-dev": {
+        "zendframework/zend-test": "~2.5.0"
     },
     "suggest": {
         "zendframework/zend-ldap": "zend-ldap component ~2.5.0, if you need LDAP features"
