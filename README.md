@@ -4,13 +4,13 @@
 
 ## RELEASE INFORMATION
 
-*Zend Framework 2.5.2dev*
+*Zend Framework 2.5.4dev*
 
 This is the second maintenance release for the version 2.5 series.
 
 DD MMM YYYY
 
-### UPDATES IN 2.5.2
+### UPDATES IN 2.5.4
 
 Please see [CHANGELOG.md](CHANGELOG.md).
 
