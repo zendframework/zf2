@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 2.5.3 (2016-01-27)
+
+- [#7665](https://github.com/zendframework/zf2/pull/7665) updates component version constraints from `~2.5.0` to `^2.5` to ensure the latest security updates are always installed.
+
+## 2.5.2 (2015-08-03)
+
+### SECURITY UPDATES
+
+- ZF2015-06: `ZendXml` runs a heuristic detection for XML Entity Expansion and XML
+  eXternal Entity vectors when under php-fpm, due to issues with threading in
+  libxml preventing using that library's built-in mechanisms for disabling them.
+  However, the heuristic was determined to be faulty when multibyte encodings
+  are used for the XML. This release contains a patch to ensure that the
+  heuristic will work with multibyte encodings.
+
+  If you use Zend Framework components that utilize `DOMDocument` or `SimpleXML`
+  (which includes `Zend\XmlRpc`, `Zend\Soap`, `Zend\Feed`, and several others), and
+  deploy using php-fpm in production (or plan to), we recommend upgrading
+  immediately.
+
 ## 2.5.1 (2015-06-04)
 
 - [#7571](https://github.com/zendframework/zf2/pull/7571) makes `zend-ldap` an optional dependency instead of a hard dependency, as `zend-ldap` has a hard requirement on `ext-ldap`, blocking installation for many users. If you use `zend-ldap`, you will need to call `composer require zendframework/zend-ldap` after upgrading to 2.5.1.
@@ -29,7 +49,7 @@
 - [7380: Remove unused code](https://github.com/zendframework/zf2/pull/7380)
 - [7383: Fixes typos](https://github.com/zendframework/zf2/pull/7383)
 - [7391: update composer's branch-alias](https://github.com/zendframework/zf2/pull/7391)
-- [7392: improvments for Zend\InputFilter](https://github.com/zendframework/zf2/pull/7392)
+- [7392: improvements for Zend\InputFilter](https://github.com/zendframework/zf2/pull/7392)
 - [7393: implements @todo write more tests for Zend\Ldap\Converter::toLdap()](https://github.com/zendframework/zf2/pull/7393)
 - [7394: fixed return type on disconnect method in pgsql connection](https://github.com/zendframework/zf2/pull/7394)
 - [7396: added connection type to allow force new connection](https://github.com/zendframework/zf2/pull/7396)
