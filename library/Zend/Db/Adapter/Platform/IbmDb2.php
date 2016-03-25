@@ -44,6 +44,35 @@ class IbmDb2 extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
+    public function quoteIdentifierInFragment($identifier, array $safeWords = array())
+    {
+        if (! $this->quoteIdentifiers) {
+            return $identifier;
+        }
+        $safeWordsInt = array('*' => true, ' ' => true, '.' => true, 'as' => true);
+        foreach ($safeWords as $sWord) {
+            $safeWordsInt[strtolower($sWord)] = true;
+        }
+        $parts = preg_split(
+            '/([^0-9,a-z,A-Z$#_:])/i',
+            $identifier,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
+        );
+        $identifier = '';
+        foreach ($parts as $part) {
+            $identifier .= isset($safeWordsInt[strtolower($part)])
+                ? $part
+                : $this->quoteIdentifier[0]
+                . str_replace($this->quoteIdentifier[0], $this->quoteIdentifierTo, $part)
+                . $this->quoteIdentifier[1];
+        }
+        return $identifier;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function quoteIdentifierChain($identifierChain)
     {
         if ($this->quoteIdentifiers === false) {
