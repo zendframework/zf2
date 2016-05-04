@@ -63,7 +63,6 @@ This package is a metapackage aggregating the following components:
 - [zend-i18n](https://github.com/zendframework/zend-i18n)
 - [zend-inputfilter](https://github.com/zendframework/zend-inputfilter)
 - [zend-json](https://github.com/zendframework/zend-json)
-- [zend-ldap](https://github.com/zendframework/zend-ldap)
 - [zend-loader](https://github.com/zendframework/zend-loader)
 - [zend-log](https://github.com/zendframework/zend-log)
 - [zend-mail](https://github.com/zendframework/zend-mail)
@@ -92,6 +91,16 @@ This package is a metapackage aggregating the following components:
 - [zend-view](https://github.com/zendframework/zend-view)
 - [zend-xmlrpc](https://github.com/zendframework/zend-xmlrpc)
 - [ZendXml](https://github.com/zendframework/ZendXml)
+ 
+### OPTIONAL COMPONENTS
+The following components are moved to `suggest` since 2.5.1 .
+- [zend-ldap](https://github.com/zendframework/zend-ldap)
+
+If you require `zend-ldap`, please run following command. 
+
+```console
+$ composer require zendframework/zend-ldap
+```
 
 ### CONTRIBUTING
 
