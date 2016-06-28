@@ -108,7 +108,7 @@ Your first step is to establish a public repository from which we can
 pull your work into the master repository. We recommend using
 [GitHub](https://github.com), as that is where the component is already hosted.
 
-1. Setup a [GitHub account](http://github.com/), if you haven't yet
+1. Setup a [GitHub account](https://github.com/join), if you haven't yet
 2. Fork the relevant repository
 3. Clone the canonical repository locally and enter it.
 
