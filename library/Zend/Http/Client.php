@@ -578,9 +578,7 @@ class Client implements Stdlib\DispatchableInterface
     {
         if (is_array($cookies)) {
             $this->clearCookies();
-            foreach ($cookies as $name => $value) {
-                $this->addCookie($name, $value);
-            }
+            $this->addCookie($cookies);
         } else {
             throw new Exception\InvalidArgumentException('Invalid cookies passed as parameter, it must be an array');
         }
