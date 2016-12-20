@@ -157,7 +157,7 @@ return array(
     "File is not readable or does not exist" => "Die Datei ist nicht lesbar oder existiert nicht",
     
     // Zend\Validator\File\MimeType
-    "File has a false mimetype of '%type%'" => "Die Datei hat einen falschen Mimetyp von '%type%'",
+    "File has an incorrect mimetype of '%type%'" => "Die Datei hat einen falschen Mimetyp von '%type%'",
     "The mimetype could not be detected from the file" => "Der Mimetyp der Datei konnte nicht erkannt werden",
     "File is not readable or does not exist" => "Die Datei ist nicht lesbar oder existiert nicht",
     
