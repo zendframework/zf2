@@ -8,10 +8,10 @@
  */
 
 /**
- * SK-Revision: 30.Sep.2013
+ * SK-Revision: 1.Dec.2015
  */
 return array(
-    // Zend\I18n\Validate\Alnum
+    // Zend\I18n\Validator\Alnum
     "Invalid type given. String, integer or float expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo",
     "The input contains characters which are non alphabetic and no digits" => "Hodnota obsahuje aj iné znaky ako písmená a číslice",
     "The input is an empty string" => "Hodnota je prázdny reťazec",
@@ -25,11 +25,11 @@ return array(
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
     "The input does not appear to be a valid datetime" => "Hodnota nie je platný časový údaj",
     
-    // Zend\I18n\Validator\Float
+    // Zend\I18n\Validator\IsFloat
     "Invalid type given. String, integer or float expected" => "Chybný typ. Bol očakávaný reťazec, celé alebo desatinné číslo",
     "The input does not appear to be a float" => "Hodnota nie je desatinné číslo",
     
-    // Zend\I18n\Validator\Int
+    // Zend\I18n\Validator\IsInt
     "Invalid type given. String or integer expected" => "Chybný typ. Bol očakávaný reťazec, alebo celé číslo",
     "The input does not appear to be an integer" => "Hodnota nie je celé číslo",
     
@@ -53,6 +53,11 @@ return array(
     "The input is not between '%min%' and '%max%', inclusively" => "Hodnota nie je medzi '%min%' a '%max%', vrátane",
     "The input is not strictly between '%min%' and '%max%'" => "Hodnota nie je presne medzi '%min%' a '%max%'",
 
+    // Zend\Validator\Bitwise
+    "The input has no common bit set with '%control%'" => "Hodnota nemá žiaden spoločný bit s '%control%'",
+    "The input doesn't have the same bits set as '%control%'" => "Hodnota nemá rovnaké bity ako '%control%'",
+    "The input has common bit set with '%control%'" => "Hodnota má spoločný bit s '%control%'",
+
     // Zend\Validator\Callback
     "The input is not valid" => "Hodnota nie je platná",
     "An exception has been raised within the callback" => "Počas volania bola vyvolaná výnimka",
@@ -70,7 +75,7 @@ return array(
     "The form submitted did not originate from the expected site" => "Odoslaný formulár nepochádza z predpokladanej stránky",
     
     // Zend\Validator\Date
-    "Invalid type given. String, integer, array or DateTime expected" => "Chybný typ. Bol očakávaný reťazec, číslo, pole, alebo DateTime",
+    "Invalid type given. String, integer, array or DateTime expected" => "Chybný typ. Bol očakávaný reťazec, číslo, pole, alebo časový údaj",
     "The input does not appear to be a valid date" => "Hodnota nie je platný dátum",
     "The input does not fit the date format '%format%'" => "Hodnota nezodpovedá formátu dátumu '%format%'",
 
@@ -275,7 +280,7 @@ return array(
     "Invalid type given. Numeric string, integer or float expected" => "Chybný typ. Bol očakávaný číselný reťazec, celé alebo desatinné číslo",
 
     // Zend\Validator\Step
-    "Invalid value given. Scalar expected" => "Chybný hodnota. Bola očakávana skalarna hodnota",
+    "Invalid value given. Scalar expected" => "Chybná hodnota. Bola očakávana skalárna hodnota",
     "The input is not a valid step" => "Hodnota nie je platný krok",
     
     // Zend\Validator\StringLength
@@ -283,6 +288,11 @@ return array(
     "The input is less than %min% characters long" => "Hodnota je kratšia ako %min% znakov",
     "The input is more than %max% characters long" => "Hodnota je dlhšia ako %max% znakov",
     
+    // Zend\Validator\Timezone
+    "Invalid timezone given." => "Chybná časová zóna.",
+    "Invalid timezone location given." => "Chybná lokalita časovej zóny.",
+    "Invalid timezone abbreviation given." => "Chybná skratka časovej zóny.",
+
     // Zend\Validator\Uri
     "Invalid type given. String expected" => "Chybný typ. Bol očakávaný reťazec",
     "The input does not appear to be a valid Uri" => "Hodnota nevyzerá ako platná Uri",
