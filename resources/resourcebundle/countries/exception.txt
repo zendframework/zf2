@@ -1,0 +1,12 @@
+exception {
+    AC { "Ascension Island" }
+    CP { "Clipperton Island" }
+    DG { "Diego Garcia" }
+    EA { "Ceuta, Melilla" }
+    EU { "European Union" }
+    FX { "France, Metropolitan" }
+    IC { "Canary Islands" }
+    SU { "USSR" }
+    TA { "Tristan da Cunha" }
+    UK { "United Kingdom" }
+}

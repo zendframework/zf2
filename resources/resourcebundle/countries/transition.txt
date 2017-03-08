@@ -1,0 +1,9 @@
+transition {
+    AN { "Netherlands Antilles" }
+    BU { "Burma" }
+    CS { "Serbia and Montenegro" }
+    NT { "Neutral Zone" }
+    SF { "Finland" }
+    TP { "East Timor" }
+    YU { "Yugoslavia" }
+}

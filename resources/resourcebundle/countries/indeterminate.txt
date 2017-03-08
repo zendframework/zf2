@@ -1,0 +1,21 @@
+indeterminate {
+    DY { "Benin" }
+    EW { "Estonia" }
+    FL { "Liechtenstein" }
+    JA { "Jamaica" }
+    LF { "Libya Fezzan" }
+    PI { "Philippines" }
+    RA { "Argentina" }
+    RB { "Bolivia; Botswana" }
+    RC { "China" }
+    RH { "Haiti" }
+    RI { "Indonesia" }
+    RL { "Lebanon" }
+    RM { "Madagascar" }
+    RN { "Niger" }
+    RP { "Philippines" }
+    WG { "Grenada" }
+    WL { "Saint Lucia" }
+    WV { "Saint Vincent" }
+    YV { "Venezuela" }
+}
