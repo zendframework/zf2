@@ -1987,7 +1987,8 @@ class Hostname extends AbstractValidator
 
         $this->setValue($value);
         // Check input against IP address schema
-        if (preg_match('/^[0-9a-f:.]*$/i', $value)
+        if (((preg_match('/^[0-9.]*$/', $value) && strpos($value, '.') !== false)
+                || (preg_match('/^[0-9a-f:.]*$/i', $value) && strpos($value, ':') !== false))
             && $this->getIpValidator()->setTranslator($this->getTranslator())->isValid($value)
         ) {
             if (!($this->getAllow() & self::ALLOW_IP)) {
@@ -2031,7 +2032,7 @@ class Hostname extends AbstractValidator
             do {
                 // First check TLD
                 $matches = array();
-                if (preg_match('/([^.]{2,63})$/iu', end($domainParts), $matches)
+                if (preg_match('/([^.]{2,63})$/u', end($domainParts), $matches)
                     || (array_key_exists(end($domainParts), $this->validIdns))
                 ) {
                     reset($domainParts);
@@ -2041,8 +2042,18 @@ class Hostname extends AbstractValidator
                     // id-prefix: alpha / digit
                     // ldh: alpha / digit / dash
 
+                    $this->tld = $matches[1];
+                    // Decode Punycode TLD to IDN
+                    if (strpos($this->tld, 'xn--') === 0) {
+                        $this->tld = $this->decodePunycode(substr($this->tld, 4));
+                        if ($this->tld === false) {
+                            return false;
+                        }
+                    } else {
+                        $this->tld = strtoupper($this->tld);
+                    }
+
                     // Match TLD against known list
-                    $this->tld = strtoupper($matches[1]);
                     if ($this->getTldCheck()) {
                         if (!in_array(strtolower($this->tld), $this->validTlds)
                             && !in_array($this->tld, $this->validTlds)) {
@@ -2061,7 +2072,7 @@ class Hostname extends AbstractValidator
                      *
                      * @see Hostname\Interface
                      */
-                    $regexChars = array(0 => '/^[a-z0-9\x2d]{1,63}$/i');
+                    $regexChars = [0 => '/^[a-z0-9\x2d]{1,63}$/i'];
                     if ($this->getIdnCheck() && isset($this->validIdns[$this->tld])) {
                         if (is_string($this->validIdns[$this->tld])) {
                             $regexChars += include __DIR__ . '/' . $this->validIdns[$this->tld];
@@ -2087,7 +2098,11 @@ class Hostname extends AbstractValidator
                                 && $utf8StrWrapper->strpos($domainPart, '-', 2) == 2
                                 && $utf8StrWrapper->strpos($domainPart, '-', 3) == 3
                             )
-                            || ($utf8StrWrapper->strpos($domainPart, '-') === ($utf8StrWrapper->strlen($domainPart) - 1))
+                            || (
+                                $utf8StrWrapper->strpos($domainPart, '-') === (
+                                $utf8StrWrapper->strlen($domainPart) - 1
+                                )
+                            )
                         ) {
                             $this->error(self::INVALID_DASH);
                             $status = false;
